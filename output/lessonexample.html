@@ -111,7 +111,7 @@ West      |     East
 <ul>
 <li>Change Felix’s script to send this message when he catches Herbert:</li>
 </ul>
-<pre class="scratch"><code>                when FLAG clicked
+<pre class="blocks"><code>                when FLAG clicked
                 forever
                     point towards [mouse-pointer v]
                     move (10) steps
@@ -122,19 +122,25 @@ West      |     East
                         play drum [58 v] for (0.2) beats
                         wait (1) secs
                     end
-                end
-</code></pre>
+                end</code></pre>
 <ul>
 <li>Import a new costume into Herbert from fantasy/ghost2-a.<br /></li>
 <li>Edit the costume to make it smaller. Six clicks on the shrink button should do.<br /></li>
 <li>Change the names of Herbert’s costumes so the mouse costume is called ‘alive’ and the ghost costume is called ‘dead’.<br /></li>
 <li>Create a new script for Herbert to turn him into a ghost:</li>
 </ul>
-<pre class="scratch"><code>    when I receive [caught v]
+<pre class="blocks"><code>    when I receive [caught v]
         switch to costume [dead v]
         wait (1) secs
         switch to costume [alive v]
 </code></pre>
+<pre class="blocks"><code>when gf clicked
+forever
+   turn cw (15) degrees
+   say [Hello!] for (2) secs
+   if &lt;mouse down?&gt; then
+      change [mouse clicks v] by (1)
+   end</code></pre>
 </section>
 <section id="challenge-add-more-witches" class="level2 challenge">
 <h2>Challenge: add more witches</h2>
@@ -178,6 +184,6 @@ This coursework is developed in the open on GitHub, https://github.com/CodeClub/
 </body>
 </div>
     <script>
-        scratchblocks2.parse("code.scratch");         
-     </script>
+      scratchblocks2.parse("pre.blocks");
+    </script>
 </html>

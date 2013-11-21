@@ -98,7 +98,7 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 
 + Change Felix’s script to send this message when he catches Herbert:
 
-```scratch
+```blocks
 				when FLAG clicked
 				forever
 					point towards [mouse-pointer v]
@@ -111,7 +111,6 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 						wait (1) secs
 					end
 				end
-
 ```
 
 + Import a new costume into Herbert from fantasy/ghost2-a.
@@ -119,12 +118,21 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 + Change the names of Herbert’s costumes so the mouse costume is called ‘alive’ and the ghost costume is called ‘dead’.
 + Create a new script for Herbert to turn him into a ghost:
 
-```scratch
+```blocks
 	when I receive [caught v]
 		switch to costume [dead v]
 		wait (1) secs
 		switch to costume [alive v]
 
+```
+```blocks
+when gf clicked
+forever
+   turn cw (15) degrees
+   say [Hello!] for (2) secs
+   if <mouse down?> then
+      change [mouse clicks v] by (1)
+   end
 ```
 
 

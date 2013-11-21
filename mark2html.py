@@ -39,8 +39,10 @@ $activities
 
 <!-- Parse blocks -->
     <script>
-        scratchblocks2.parse("code.scratch");         
+    <script>
+        scratchblocks2.parse("code.blocks");
      </script>
+    </script>
 </body>
 </html>
 """
