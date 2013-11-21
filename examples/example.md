@@ -127,6 +127,20 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 
 ```
 
+
+##Challenge: add more witches { .challenge}
+
+If one witch is good, more must be better! __Let’s have three witches flying around.__
+1. Duplicate the witch by __right-clicking__ it in the sprite list.
+2. For each witch __adjust the size of the sprite__ so the witches are different sizes.
+3. For each witch change the __speed variable__ so that they fly at different speeds.
+4. Move the witches around the canvas so that they are not all together.
+
+##Things to try { .try}
+1. __How many witches is a good number for the game?__
+2. __Can you make the witches look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.__
+3. __Can you make the witches be worth different points? How about making the fastest (and smallest) witch worth 10 points?__
+
 ##Test your project { .flag}
 
 + Does Herbert turn into a ghost when he’s caught? 
