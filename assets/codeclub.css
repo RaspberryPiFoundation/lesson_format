@@ -82,7 +82,7 @@ section {
 	margin: 5px auto 20px auto;
 	background: #FFFFFF;
 	overflow: auto;
-	page-break-before: always;	
+	/*page-break-before: always;*/	
 }
 
 .intro header div{
@@ -284,6 +284,7 @@ section {
 	border-radius:12px;
 	width:90%;
 	padding-bottom:20px;
+	page-break-inside: avoid;
 }
 .challenge h2 {
 	color:#fff;
@@ -423,4 +424,11 @@ pre{
  }
  .legal {
  	clear:both;
+ }
+ /* print styles */
+ .level1, .level2 {
+ 	page-break-inside: avoid;
+ }
+ h1, h2 {
+ 	page-break-after:avoid;
  }
