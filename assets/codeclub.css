@@ -2,8 +2,6 @@
 	margin: 0px padding: 0px;
 	font: Arial, Helvetica, sans-serif;
 }
-
-
 @font-face {
   font-family: 'PTSans';
   src: url('fonts/PTSansRegular.eot');
@@ -54,6 +52,22 @@ body {
 	text-align: center;
 	background: #FFF;
 }
+
+h2 {
+    font-size: 2em;
+    line-height: 2.2em;
+    border-radius: 4px 4px 4px 4px;
+    margin: 0 0 1.22222em;
+}
+#activity-checklist h2 {
+	color:orange;
+}
+p {
+	font-size: 2em;
+}
+ul p {
+	font-size: 1em;
+}
 		
 #cclesson {
 	width: 800px;
@@ -64,12 +78,11 @@ body {
 }
 
 section {
-	margin-top: 5px;
-	margin-bottom: 20px;
-	padding: 50px;
+	width:700px;
+	margin: 5px auto 20px auto;
 	background: #FFFFFF;
 	overflow: auto;
-	page-break-before: always;	
+	/*page-break-before: always;*/	
 }
 
 .intro header div{
@@ -203,21 +216,20 @@ section {
 	color: #ABDBEA;
 }
 
-.activity h2.check {
+.check h2{
 	color: rgb(230,134,45);
 	background-image: url(img/check.svg);
 	background-size: 40px 40px;
 	background-repeat: no-repeat;
 	margin-bottom: 0px;
 	padding-bottom: 5px;
-	padding-top: 10px;
 	padding-left: 50px;
 	font-size: 2em;
 	float: left;
 	width: 100%;
 }
 
-.activity h2.flag {
+#test-your-project h2 {
 	color: rgb(54,161,55);
 	background-image: url(img/flag.svg);
 	background-position: 0px 10px;
@@ -230,11 +242,11 @@ section {
 	padding-left: 50px;
 	font-size: 2em;
 	float: left;
-	width: 80%;
+	width: 100%;
 	border-top: 3px dotted rgb(230,134,45);
 }
 
-.activity h2.save {
+#save-your-project h2 {
 	color: rgb(36,90,154);
 	background-image: url(img/save.svg);
 	background-position: 0px 10px;
@@ -247,26 +259,45 @@ section {
 	padding-left: 50px;
 	font-size: 2em;
 	float: left;
-	width: 80%;
+	width: 100%;
 	border-top: 3px solid rgb(36,90,154);	
 }
 
-.activity div.try {
+.try {
 	background: #ABDBEA;
 	border-radius: 10px;
-	padding: 20px;
-	margin-left: 0px;
-	font-size: 1em;
-	margin-bottom: 0px;
-	padding-bottom: 5px;
-	padding-top: 10px;
-	padding-left: 50px;
-	float: left;
-	width: 80%;
+	width: 85%;
 	list-style: none;
 	page-break-inside: avoid;
+	padding:20px;
+	margin: 0 auto;
 }
-
+.try h2 {
+	text-indent:20px;
+}
+.activity .try li:before {
+	border-color:#00b1da;
+	background:#fff;
+}
+.challenge {
+	border: 3px solid #00b1da;
+	border-radius:12px;
+	width:90%;
+	padding-bottom:20px;
+	page-break-inside: avoid;
+}
+.challenge h2 {
+	color:#fff;
+	background: #00b1da;
+	text-indent:20px;
+	border-radius: 0;
+}
+.challenge p {
+	padding:0 20px;
+}
+.challenge ol, .challenge ul {
+	padding: 0 20px 0 40px;
+}
 .activity oal {
 	background: #ABDBEA;
 	border-radius: 10px;
@@ -277,19 +308,17 @@ section {
 	margin-top: 0px;
 	padding-left: 50px;
 	float: left;
-	width: 80%;
+	width: 100%;
 	page-break-inside: avoid;
 
 }
-
-.activity div.try strong{ 
-	 font-size: 2em;
-}
-
-
 .activity p {	
-	font-size: 2em;
-	float: left;
+	clear:both;
+}
+.activity ul p {
+	clear:none;
+	margin-top:0;
+	padding-top:0;
 }
 
 .activity img {
@@ -302,20 +331,21 @@ section {
 
 .activity li {
 	float:left;
-	width: 90%;
 	font-size: 2em;	
+	line-height:1.6em;
+	width:100%;
 }
 
 .activity li:before {
 	content: " ";
 	float: right;
-	border-radius: 10px;
+	border-radius: 8px;
 	border: 3px solid #ABDBEA;
 	padding: 10px;
-	margin: 5px;
+	margin-left:20px;
 }
 
-.scratch {
+.scratch, .blocks {
 	border: 5px solid rgb(230,134,45);
 	padding: 5px;
 	border-radius: 15px;
@@ -374,3 +404,31 @@ section {
 .blockorange { /*Variables*/
 	background-color: rgb(243,118,29);
 }
+pre{
+    font-family: "Source Code Pro",Courier,monospace;
+    font-weight: 400;
+    line-height: 1.5;
+    text-indent: 0;
+    clear:both;
+ 	background:#eee;
+    padding: 20px;
+ }
+ code {
+ 	border-radius: 4px 4px 4px 4px;
+    background: #CCCCCC;
+    background:#B9E5FA;
+    padding:2px 5px;
+ }
+ pre code {
+ 	background:transparent;
+ }
+ .legal {
+ 	clear:both;
+ }
+ /* print styles */
+ .level1, .level2 {
+ 	page-break-inside: avoid;
+ }
+ h1, h2 {
+ 	page-break-after:avoid;
+ }

@@ -98,7 +98,7 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 
 + Change Felix’s script to send this message when he catches Herbert:
 
-```scratch
+```blocks
 				when FLAG clicked
 				forever
 					point towards [mouse-pointer v]
@@ -111,7 +111,6 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 						wait (1) secs
 					end
 				end
-
 ```
 
 + Import a new costume into Herbert from fantasy/ghost2-a.
@@ -119,13 +118,36 @@ Instead of Felix saying something, we want Herbert to turn into a ghost when he�
 + Change the names of Herbert’s costumes so the mouse costume is called ‘alive’ and the ghost costume is called ‘dead’.
 + Create a new script for Herbert to turn him into a ghost:
 
-```scratch
+```blocks
 	when I receive [caught v]
 		switch to costume [dead v]
 		wait (1) secs
 		switch to costume [alive v]
 
 ```
+```blocks
+when gf clicked
+forever
+   turn cw (15) degrees
+   say [Hello!] for (2) secs
+   if <mouse down?> then
+      change [mouse clicks v] by (1)
+   end
+```
+
+
+##Challenge: add more witches { .challenge}
+
+If one witch is good, more must be better! __Let’s have three witches flying around.__
+1. Duplicate the witch by __right-clicking__ it in the sprite list.
+2. For each witch __adjust the size of the sprite__ so the witches are different sizes.
+3. For each witch change the __speed variable__ so that they fly at different speeds.
+4. Move the witches around the canvas so that they are not all together.
+
+##Things to try { .try}
+1. __How many witches is a good number for the game?__
+2. __Can you make the witches look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.__
+3. __Can you make the witches be worth different points? How about making the fastest (and smallest) witch worth 10 points?__
 
 ##Test your project { .flag}
 
