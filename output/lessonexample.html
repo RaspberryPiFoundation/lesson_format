@@ -39,16 +39,11 @@
 </ul>
 <pre class="blocks"><code>
     When FLAG clicked
-
     forever
-
-        point towards mouse-pointer
-
-        move 10 steps
-
+        point towards [mouse-pointer]
+        move (10) steps
         next costume
-
-        play drum 62 for 0.3 beats
+        play drum (62) for (0.3) beats
 </code></pre>
 </section>
 <section id="test-your-project" class="level2 flag">
@@ -73,8 +68,8 @@
 <pre class="blocks"><code>    
     When FLAG clicked
     forever
-        go to mouse-pointer
-        point towards Felix</code></pre>
+        go to [mouse-pointer]
+        point towards [Felix]</code></pre>
 </section>
 <section id="test-your-project-1" class="level2 flag">
 <h2>Test Your Project</h2>
@@ -96,12 +91,12 @@
 <pre class="blocks"><code>    
     when FLAG clicked
     forever
-        point towards mouse-pointer
-        move 10 steps
+        point towards [mouse-pointer]
+        move (10) steps
         next costume
-        play drum 62 for 0.3 beats
-        if touching Herbert
-            say Caught you! for 1 secs</code></pre>
+        play (drum 62) for (0.3) beats
+        if &lt;touching [Herbert]?&gt; then
+            say [Caught you!] for (1) secs</code></pre>
 </section>
 <section id="test-your-project-2" class="level2 flag">
 <h2>Test Your Project</h2>
@@ -123,14 +118,14 @@
 <pre class="blocks"><code>    
     when FLAG clicked
     forever
-        point towards mouse-pointer
-        move 10 steps
+        point towards [mouse-pointer]
+        move (10) steps
         next costume
-        play drum 62 for 0.3 beats
-        if touching Herbert
-            broadcast caught
-            play drum 58 for 0.2 beats
-            wait 1 sec</code></pre>
+        play drum (62) for (0.3) beats
+        if &lt;touching [Herbert]?&gt; then
+            broadcast [caught]
+            play drum (58) for (0.2) beats
+            wait (1) sec</code></pre>
 <ul>
 <li>Import a new costume into Herbert from fantasy/ghost2-a.<br /></li>
 <li>Edit the costume to make it smaller.<br />Six clicks on the shrink button should do.<br /></li>
@@ -138,10 +133,10 @@
 <li>Create a new script for Herbert to turn him into a ghost:</li>
 </ul>
 <pre class="blocks"><code>    
-    when I receive caught
-    switch to costume dead
-    wait 0.5 secs
-    switch to costume alive</code></pre>
+    when I receive [caught]
+    switch to costume [dead]
+    wait (0.5) secs
+    switch to costume [alive]</code></pre>
 </section>
 <section id="test-your-project-3" class="level2 flag">
 <h2>Test Your Project</h2>
@@ -163,14 +158,12 @@
 </ul>
 <pre class="blocks"><code>    
     when FLAG clicked
-    set score to 0
+    set score to (0)
     forever
-        change score by 1
-        wait 1 secs
-    (end forever)
-    
-    when I receive caught
-    change score by -100</code></pre>
+        change score by (1)
+        wait (1) secs
+    when I receive [caught]
+    change score by (-100)</code></pre>
 </section>
 <section id="test-your-project-4" class="level2 flag">
 <h2>Test Your Project</h2>
