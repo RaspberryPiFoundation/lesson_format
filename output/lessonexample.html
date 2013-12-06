@@ -19,160 +19,188 @@
 <body>
 <div id="cclesson">
 <header>
-<h1 class="title">Felix and Herbert</h1>
+<h1 class="title">Ghostbusters</h1>
 <h2 class="level">Level 1</h2>
 </header>
 <section id="introduction" class="level1 intro">
 <h1>Introduction</h1>
-<p>We are going to make a game of catch with <strong>Felix the cat</strong> and <strong>Herbert</strong> the mouse. You control Herbert with the mouse and try to avoid getting caught by Felix. The longer you avoid him the more points you score, but don’t get caught because your score will go down!</p>
+<p>This project is like the game <strong>Whack-a-Mole</strong>. You get points for hitting the ghosts that appear on the screen. The aim is to get as many points as possible in 30 seconds!</p>
 </section>
-<section id="step-1-felix-follows-the-mouse-pointer" class="level1 activity">
-<h1>STEP 1: Felix follows the mouse pointer</h1>
+<section id="step-1-create-a-flying-ghost" class="level1 activity">
+<h1>STEP 1: Create a flying ghost</h1>
 <section id="activity-checklist" class="level2 check">
 <h2>Activity Checklist</h2>
+<p>+. <strong>Start a new scratch project.</strong></p>
 <ul>
-<li>Start a new project.<br /></li>
-<li>Click on the stage next to the sprite and switch to the Backgrounds tab, and then import the background indoors/hall. Delete the original blank background.<br /></li>
-<li>Change the name of the sprite to Felix.<br /></li>
-<li>Make sure Felix only points left-right by clicking this button:<br /></li>
-<li>Create this script:</li>
+<li><strong>Remove the cat sprite</strong> and replace the background with the <strong>nature/woods</strong><br />background.<br /></li>
+<li>Use the <code>new sprite from file</code> button to add a new ghoul<br />sprite to the project (use the <strong>fantasy/ghost1</strong> costume).</li>
+</ul>
+<p><strong>Now we want to make our ghost move</strong></p>
+<ul>
+<li>Add a <code>Variable</code> for this sprite only called <code>speed</code>.<br />On the <strong>Stage</strong>, the stage monitor for this variable should say “<strong>Sprite1 speed</strong>”.<br />If it just says “speed”, delete the variable and create it again, for this sprite only. Uncheck the box next to the speed block in the<br /><strong>Variables palette</strong> so it does not show on the Stage.<br />The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.<br /></li>
+<li>We want the ghost to start moving when the game starts, <strong>so make a script like this</strong>:</li>
 </ul>
 <pre class="blocks"><code>
-    When FLAG clicked
+    when FLAG clicked
+    set [speed] to (5)
     forever
-        point towards [mouse-pointer]
-        move (10) steps
-        next costume
-        play drum (62) for (0.3) beats
-</code></pre>
+        move [speed] steps</code></pre>
 </section>
 <section id="test-your-project" class="level2 flag">
 <h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong><br />Does Felix follow the mouse pointer? Does it look like he’s walking when he moves? Does he move at the right speed?</p>
+<p><strong>Click the green flag</strong> and see what your ghost does. Why does it get stuck on the edge of the screen?</p>
+</section>
+<section id="activity-checklist-1" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li>To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a an <code>if on edge, bounce</code> block below your<br /><code>move speed steps</code> block.</li>
+</ul>
+<pre class="blocks"><code>
+    when FLAG clicked
+    set [speed] to (5)
+    forever
+        move [speed] steps
+        if on edge, bounce</code></pre>
+<ul>
+<li>To stop the ghost flipping upside down, click on the <code>only face left-right</code> button in the Sprite Summary area.</li>
+</ul>
+</section>
+<section id="test-your-project-1" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen?</p>
 </section>
 <section id="save-your-project" class="level2 save">
 <h2>Save your project</h2>
 </section>
-</section>
-<section id="step-2-felix-chases-herbert" class="level1 activity">
-<h1>STEP 2: Felix chases Herbert</h1>
-<p><strong>Next, we want Felix to chase Herbert the mouse, rather than the mouse pointer.</strong></p>
-<section id="activity-checklist-1" class="level2 check">
-<h2>Activity Checklist</h2>
+<section id="things-to-try" class="level2 try">
+<h2>Things to try</h2>
 <ul>
-<li>Create another sprite using the choose new sprite from file button and selecting animals/mouse1.<br /></li>
-<li>Change the name of the sprite to Herbert.<br /></li>
-<li>Edit the costume and make it smaller than Felix.<br />Try six clicks on the shrink button:<br /></li>
-<li>Make sure Herbert only points left-right. 5. Give Herbert this script:</li>
+<li><strong>Try changing the value of the speed variable to make the ghost fly faster or slower.</strong><br /></li>
+<li><strong>How would you make the ghost get faster the longer it flies?</strong><br />(This is a tricky one, so don’t worry if you can’t see how to do it. You’ll get more clues as you work through the project.)</li>
 </ul>
-<pre class="blocks"><code>    
-    When FLAG clicked
-    forever
-        go to [mouse-pointer]
-        point towards [Felix]</code></pre>
 </section>
-<section id="test-your-project-1" class="level2 flag">
+</section>
+<section id="step-2-make-the-ghost-appear-vanish-randomly" class="level1 activity">
+<h1>STEP 2: Make the ghost appear &amp; vanish randomly</h1>
+<p>To make the game more fun, we want the ghost to appear and vanish randomly. We’ll do that with another script that runs at the same time as the one that moves the ghost. This new script needs to hide the ghost for a random time, then show it for a random time, and repeat that forever (or until the game finishes).</p>
+<section id="activity-checklist-2" class="level2 check">
+<h2>Activity Checklist</h2>
+<p><strong>Create this script for the ghost:</strong></p>
+<pre class="blocks"><code>
+    when FLAG clicked
+    forever
+        hide
+        wait [pick random (2) to (5) secs]
+        show
+        wait [pick random (3) to (5) secs]
+</code></pre>
+</section>
+<section id="test-your-project-2" class="level2 flag">
 <h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong></p>
-<p>Does Herbert move with the mouse pointer? Does Felix chase Herbert?</p>
+<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen and vanish and appear again randomly?</p>
 </section>
 <section id="save-your-project-1" class="level2 save">
 <h2>Save your project</h2>
 </section>
+<section id="things-to-try-1" class="level2 try">
+<h2>Things to try</h2>
+<ul>
+<li><strong>Try changing the range of the random numbers. What happens if you pick very big numbers or very small numbers?</strong><br />(Does this give you any more clues for how to make the ghost speed up the longer the game is played?)</li>
+</ul>
 </section>
-<section id="step-3-felix-says-when-hes-caught-herbert" class="level1 activity">
-<h1>STEP 3: Felix says when he's caught Herbert</h1>
-<p><strong>We want Felix to know when he’s caught Herbert, and tell us.</strong></p>
-<section id="activity-checklist-2" class="level2 check">
+</section>
+<section id="step-3-make-the-ghost-disappear-when-its-clicked" class="level1 activity">
+<h1>STEP 3: Make the ghost disappear when it's clicked</h1>
+<p>To turn this into a game, we need to give the player something to do. They need to click on the ghost to make it disappear. When the ghost is clicked, we want it to disappear and play a sound.</p>
+<section id="activity-checklist-3" class="level2 check">
 <h2>Activity Checklist</h2>
-<ol>
-<li>Change Felix’s script to be this:</li>
-</ol>
-<pre class="blocks"><code>    
-    when FLAG clicked
-    forever
-        point towards [mouse-pointer]
-        move (10) steps
-        next costume
-        play (drum 62) for (0.3) beats
-        if &lt;touching [Herbert]?&gt; then
-            say [Caught you!] for (1) secs</code></pre>
+<ul>
+<li><p>In the <strong>Sounds</strong> tab, import the sound <strong>electronic/fairydust</strong>.</p></li>
+<li><p><strong>Add this script to the ghost</strong>:</p></li>
+</ul>
+<pre class="blocks"><code>
+    when [sprite1] clicked
+    hide
+    play sound [Fairydust]</code></pre>
 </section>
-<section id="test-your-project-2" class="level2 flag">
+<section id="test-your-project-3" class="level2 test">
 <h2>Test Your Project</h2>
 <p><strong>Click the green flag.</strong></p>
-<p>Does Felix say when he’s caught Herbert?</p>
+<p>Does the ghost disappear and play the sound when you click it?</p>
 </section>
 <section id="save-your-project-2" class="level2 save">
 <h2>Save your project</h2>
 </section>
+<section id="things-to-try-2" class="level2 try">
+<h2>Things to try</h2>
+<p><strong>Ask your volunteer if you can record your own sound to play.</strong></p>
 </section>
-<section id="step-4-herbert-turns-into-a-ghost-when-hes-caught" class="level1 activity">
-<h1>STEP 4: Herbert turns into a ghost when he’s caught</h1>
-<p><strong>Instead of Felix saying something, we want Herbert to turn into a ghost when he’s caught.</strong></p>
-<section id="activity-checklist-3" class="level2 check">
+</section>
+<section id="step-4-add-a-score-and-timer" class="level1 activity">
+<h1>Step 4: Add a score and timer</h1>
+<p>We’ve got a ghost, but now we want to make a game! We want to score points every time we click on the ghost but we also want to have a time limit on the game. We can use a variable for the score and the timer.</p>
+<section id="activity-checklist-4" class="level2 check">
 <h2>Activity Checklist</h2>
 <ul>
-<li>Change Felix’s script to send this message when he catches Herbert.</li>
+<li>Create a new <code>Variable</code> for all sprites called <strong>score</strong>, and alter the script for the ghost to increase this variable by one when it is clicked.</li>
 </ul>
-<pre class="blocks"><code>    
-    when FLAG clicked
-    forever
-        point towards [mouse-pointer]
-        move (10) steps
-        next costume
-        play drum (62) for (0.3) beats
-        if &lt;touching [Herbert]?&gt; then
-            broadcast [caught]
-            play drum (58) for (0.2) beats
-            wait (1) sec</code></pre>
+<pre class="blocks"><code>
+    when [sprite1] clicked
+    hide
+    play sound [Fairydust]
+    change score by (1)</code></pre>
 <ul>
-<li>Import a new costume into Herbert from fantasy/ghost2-a.<br /></li>
-<li>Edit the costume to make it smaller.<br />Six clicks on the shrink button should do.<br /></li>
-<li>Change the names of Herbert’s<br />costumes so the mouse costume is<br />called ‘alive’ and the ghost costume is called ‘dead’.<br /></li>
-<li>Create a new script for Herbert to turn him into a ghost:</li>
+<li>Switch to the <strong>Stage</strong> and create a <strong>new variable</strong> (this time just for the stage) called <strong>timer</strong>. Add a new script that occurs when the green flag is clicked to set <code>timer</code> to <strong>30</strong> and reset the score to <strong>0</strong>. Then use a <code>repeat until</code> block to wait a second and then reduce <code>timer</code> by<br />one. This should repeat until timer is 0, at which point use <code>stop all</code> to stop the game.</li>
 </ul>
-<pre class="blocks"><code>    
-    when I receive [caught]
-    switch to costume [dead]
-    wait (0.5) secs
-    switch to costume [alive]</code></pre>
+<pre class="blocks"><code>
+    when FLAG clicked
+    set [timer] to (30)
+    set [score]to (0)
+    repeat until &lt;[timer] = 0&gt;
+        wait (1) secs
+        change [timer] by (-1)
+    stop all</code></pre>
 </section>
-<section id="test-your-project-3" class="level2 flag">
+<section id="test-your-project-4" class="level2 test">
 <h2>Test Your Project</h2>
 <p><strong>Click the green flag.</strong></p>
-<p>Does Herbert turn into a ghost when he’s caught?<br />Does Felix play the right sounds at the right time?<br />Does Felix still stay still for long enough for Herbert to get away</p>
 </section>
 <section id="save-your-project-3" class="level2 save">
 <h2>Save your project</h2>
 </section>
+<section id="things-to-try-3" class="level2 try">
+<h2>Things to try</h2>
+<ol>
+<li><strong>How might you make the ghost speed up as the game goes on?</strong><br /></li>
+<li><strong>Well done you’ve finished the basic game. There are more things you can do to your game though. Have a go at this challenge!</strong></li>
+</ol>
 </section>
-<section id="step-5-keep-score" class="level1 activity">
-<h1>STEP 5: Keep score</h1>
-<p><strong>Let’s add a score so we know how well we do at keeping Herbert alive.<br />We’ll start the score at zero and increase it by one every second. If Felix catches Herbert, we’ll reduce the score by one hundred.</strong></p>
-<section id="activity-checklist-4" class="level2 check">
-<h2>Activity Checklist</h2>
-<ul>
-<li>Make a variable, for all sprites, called score. Click on Variables in the top menu, make a variable and name it score<br /></li>
-<li>On the stage, create these two scripts</li>
-</ul>
-<pre class="blocks"><code>    
-    when FLAG clicked
-    set score to (0)
-    forever
-        change score by (1)
-        wait (1) secs
-    when I receive [caught]
-    change score by (-100)</code></pre>
+<section id="challenge-add-more-ghosts" class="level2 challenge">
+<h2>Challenge: add more ghosts</h2>
+<p>If one ghost is good, more must be better! <strong>Let’s have three ghosts flying around.</strong></p>
+<ol>
+<li>Duplicate the ghost by <strong>right-clicking</strong> it in the sprite list.<br /></li>
+<li>For each ghost <strong>adjust the size of the sprite</strong> so the ghosts are different sizes.<br /></li>
+<li>For each ghost change the <strong>speed variable</strong> so that they fly at different speeds.<br /></li>
+<li>Move the ghosts around the canvas so that they are not all together.</li>
+</ol>
 </section>
-<section id="test-your-project-4" class="level2 flag">
+<section id="test-your-project-5" class="level2 test">
 <h2>Test Your Project</h2>
 <p><strong>Click the green flag.</strong></p>
-<p>Does the score go up by one every second?<br />Does the score go down by one hundred when Herbert is caught?<br />What happens when Herbert is caught before score reaches one hundred? Does the score go back to zero when you start a new game?</p>
+<p>Do you have three ghosts that move from side to side across the screen, randomly appear and disappear, and disappear when you click on them?</p>
 </section>
 <section id="save-your-project-4" class="level2 save">
 <h2>Save your project</h2>
-<p><strong>Well done you’ve finished, now you can enjoy the game!</strong><br />Don’t forget you can share your game with all your friends and family by clicking on <strong>Share</strong> on the menu bar</p>
+</section>
+<section id="things-to-try-4" class="level2 try">
+<h2>Things to try</h2>
+<ol>
+<li><strong>How many ghosts is a good number for the game?</strong><br /></li>
+<li><strong>Can you make the ghosts look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.</strong><br /></li>
+<li><strong>Can you make the ghosts be worth different points? How about making the fastest (and smallest) ghost worth 10 points?</strong></li>
+</ol>
+<p><strong>Well done you’ve finished, now you can enjoy the game!</strong><br />Don’t forget you can share your game with all your friends and family by clicking on <strong>Share</strong> on the menu bar!</p>
 <div class="legal">
 <hr/>
 These projects are for use within the UK. You are required to register your club in the UK and required by law to have child protection checks and insurance. Registering your club with us means Code Club UK can support you with the running of your club. More information is available on our website at http://www.codeclub.org.uk/.

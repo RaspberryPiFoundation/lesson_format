@@ -306,6 +306,7 @@ header h2 {
 	page-break-inside: avoid;
 	padding:20px;
 	margin: 0 auto;
+	overflow:auto;
 }
 .try h2 {
 	text-indent:20px;
@@ -320,6 +321,7 @@ header h2 {
 	width:90%;
 	padding-bottom:20px;
 	page-break-inside: avoid;
+	overflow:auto;
 }
 .challenge h2 {
 	color:#fff;
