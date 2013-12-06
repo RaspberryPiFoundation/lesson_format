@@ -43,12 +43,15 @@ $endfor$
 $for(include-before)$
 $include-before$
 $endfor$
-$if(title)$
+$if(lesson_title)$
 <header>
-<h1 class="title">$title$</h1>
+<h1 class="title">$lesson_title$</h1>
 $if(subtitle)$
 <h1 class="subtitle">$subtitle$</h1>
 $endif$
+$for(level)$
+<h2 class="level">$level$</h2>
+$endfor$
 $for(author)$
 <h2 class="author">$author$</h2>
 $endfor$

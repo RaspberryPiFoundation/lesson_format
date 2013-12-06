@@ -59,7 +59,7 @@ h2 {
     border-radius: 4px 4px 4px 4px;
     margin: 0 0 1.22222em;
 }
-#activity-checklist h2 {
+.check h2 {
 	color:orange;
 }
 p {
@@ -84,6 +84,40 @@ section {
 	overflow: auto;
 	/*page-break-before: always;*/	
 }
+header {
+	background-color: #ADCAEA;
+    border-radius: 5px;
+    color: #FFFFFF;
+    width:100%;
+    height:100px;
+    background-image: url("img/logo.png");
+  	background-image: url("img/logo.svg");
+  	background-repeat:no-repeat;
+  	background-position:right center;
+  	background-size:contain;
+  	padding:10px;
+}
+header h1 {
+	float:right;
+	width:660px;
+	margin-top:20px;
+	text-indent:20px;
+	line-height:60px;
+	font-size:3em;
+}
+header h2 {
+	float:right;
+	width:100px;
+	height:100%;
+	padding:20px;
+	line-height:1.2em;
+	text-align:center;
+	margin-top:-20px;
+	font-size:4em;
+}
+.level {
+	background:#245A9A;
+}
 
 .intro header div{
 	color: #FFF;
@@ -96,6 +130,7 @@ section {
 	float: left;
 	margin-left: 30px;
 	margin-top: -20px;
+	clear:both;
 }
 
 .intro header h1  {
@@ -229,7 +264,7 @@ section {
 	width: 100%;
 }
 
-#test-your-project h2 {
+.flag h2 {
 	color: rgb(54,161,55);
 	background-image: url(img/flag.svg);
 	background-position: 0px 10px;
@@ -246,7 +281,7 @@ section {
 	border-top: 3px dotted rgb(230,134,45);
 }
 
-#save-your-project h2 {
+.save h2 {
 	color: rgb(36,90,154);
 	background-image: url(img/save.svg);
 	background-position: 0px 10px;

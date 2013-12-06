@@ -14,162 +14,172 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
   <link rel="stylesheet" href="codeclub.css">
 </head>
 <body>
 <div id="cclesson">
+<header>
+<h1 class="title">Felix and Herbert</h1>
+<h2 class="level">Level 1</h2>
+</header>
 <section id="introduction" class="level1 intro">
 <h1>Introduction</h1>
-<p>This term we're going to be learning a computer programming language called Python. The person who created Python named it after his favourite TV show: Monty Python’s Flying Circus. Python is used by loads of programmers for many different things. Python is a powerful and clever language, used at YouTube, NASA, CERN and others. If your club has a Raspberry Pi, you can use Python to program it. Many people love Python because it is easy to read (at least compared to some other programming languages). Being able to read code is a very important skill, just as important as writing it.</p>
+<p>We are going to make a game of catch with <strong>Felix the cat</strong> and <strong>Herbert</strong> the mouse. You control Herbert with the mouse and try to avoid getting caught by Felix. The longer you avoid him the more points you score, but don’t get caught because your score will go down!</p>
 </section>
-<section id="hello-turtle" class="level1 activity">
-<h1>Hello, Turtle!</h1>
+<section id="step-1-felix-follows-the-mouse-pointer" class="level1 activity">
+<h1>STEP 1: Felix follows the mouse pointer</h1>
 <section id="activity-checklist" class="level2 check">
 <h2>Activity Checklist</h2>
-<p>Next, we're going to have some fun with turtles. A turtle is a tiny robot that draws on your screen, we can tell it to move around using Python commands.</p>
 <ul>
-<li><p>Open a new code window (From the File menu) and write the following:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> turtle <span class="ch">import</span> *
+<li>Start a new project.<br /></li>
+<li>Click on the stage next to the sprite and switch to the Backgrounds tab, and then import the background indoors/hall. Delete the original blank background.<br /></li>
+<li>Change the name of the sprite to Felix.<br /></li>
+<li>Make sure Felix only points left-right by clicking this button:<br /></li>
+<li>Create this script:</li>
+</ul>
+<pre class="blocks"><code>
+    When FLAG clicked
 
-forward(<span class="dv">100</span>)</code></pre></li>
-<li><p>Save your program as myturtle.py and choose Run -&gt; Run Module. See how the turtle moved forward 100 pixels? The turtle has a pen attached, and draws lines as it moves around the screen.</p>
-<p><strong>ProTip:</strong> Python program files should always be given a name ending in '.py'.</p></li>
-<li><p>Let's make the turtle move around the canvas! Try using <code>backward(distance)</code> as well as turning the turtle by using <code>right(angle)</code> and <code>left(angle)</code>. Eg <code>backward(20)</code> tells the turtle to move backwards 20 pixels, and <code>right(90)</code> tells the turtle to turn right 90 degrees. You can give more than one instruction at a time, they will be executed in order.</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="ch">from</span> turtle <span class="ch">import</span> *
+    forever
 
-speed(<span class="dv">11</span>)
-shape(<span class="st">&quot;turtle&quot;</span>)
+        point towards mouse-pointer
 
-forward(<span class="dv">100</span>)
-right(<span class="dv">120</span>)
-forward(<span class="dv">100</span>)
-left(<span class="dv">90</span>)
-backward(<span class="dv">100</span>)
-left(<span class="dv">90</span>)
-forward(<span class="dv">50</span>)</code></pre></li>
-</ul>
-</section>
-<section id="angles-and-degrees" class="level2">
-<h2>Angles and Degrees</h2>
-<p>Play around a bit writing your own shapes, using <code>forward</code>, <code>backward</code>, <code>left</code>, <code>right</code>. Remember, <code>forward</code> and <code>backward</code> move in pixels, but <code>left</code> and <code>right</code> turn in angles. Let's look at a turtle turning right.</p>
-<pre><code>        North
-          0
-          |
-West      |     East
- 270 -----+----- 90
-          |
-          |
-         180
-        South</code></pre>
-<p>When the turtle is facing North, turning right 90 degrees, makes it face East, turning 180 degrees makes it face south, and turning 270 degrees makes it face West. If you turn 360 degrees, you end up where you started.</p>
-<p>What about turning left?</p>
-<pre><code>        North
-          0
-          |
-West      |     East
-  90 -----+----- 270
-          |
-          |
-         180
-        South</code></pre>
-<p>When the turtle is facing North, turning left 90 degrees, makes it face West, turning 180 degrees makes it face south, and turning 270 degrees makes it face East. If you turn 360 degrees, you end up where you started. One full turn is always 360 degrees.</p>
-</section>
-<section id="what-does-the-code-at-the-beginning-of-our-program-do" class="level2">
-<h2>What does the code at the beginning of our program do</h2>
-<ul>
-<li><p><code>from turtle import *</code> tells Python we want to use the turtle library, a collection of code we can use to draw on the screen. Using a library means we can save time.</p></li>
-<li><code>speed()</code> sets the speed of the turtle, it takes a value between 1 and 11. 11 is the fastest, 1 is the slowest.<br /></li>
-<li><p><code>shape()</code> We are using the &quot;turtle&quot; shape, but it can also take the values &quot;arrow&quot;, &quot;circle&quot;, &quot;square&quot;, &quot;triangle&quot; or &quot;classic&quot;.</p></li>
-</ul>
-<p>We will be putting these three instructions at the top of all our programs in this lesson. If you like you can make your turtle a different shape, or go as fast or slow as you want.</p>
-</section>
-</section>
-<section id="step4-herbert-turns-into-a-ghost-when-hes-caught" class="level1 activity">
-<h1><strong>Step4:</strong> Herbert turns into a ghost when he’s caught</h1>
-<section id="activity-checklist-1" class="level2 check">
-<h2>Activity Checklist</h2>
-<p>Instead of Felix saying something, we want Herbert to turn into a ghost when he’s caught.</p>
-<ul>
-<li>Change Felix’s script to send this message when he catches Herbert:</li>
-</ul>
-<pre class="blocks"><code>                when FLAG clicked
-                forever
-                    point towards [mouse-pointer v]
-                    move (10) steps
-                    next costume
-                    play drum [62 v] for (0.3) beats
-                    if &lt;touching [herbert v]?&gt;
-                        broadcast [caught v]
-                        play drum [58 v] for (0.2) beats
-                        wait (1) secs
-                    end
-                end</code></pre>
-<ul>
-<li>Import a new costume into Herbert from fantasy/ghost2-a.<br /></li>
-<li>Edit the costume to make it smaller. Six clicks on the shrink button should do.<br /></li>
-<li>Change the names of Herbert’s costumes so the mouse costume is called ‘alive’ and the ghost costume is called ‘dead’.<br /></li>
-<li>Create a new script for Herbert to turn him into a ghost:</li>
-</ul>
-<pre class="blocks"><code>    when I receive [caught v]
-        switch to costume [dead v]
-        wait (1) secs
-        switch to costume [alive v]
+        move 10 steps
+
+        next costume
+
+        play drum 62 for 0.3 beats
 </code></pre>
-<pre class="blocks"><code>when gf clicked
-forever
-   turn cw (15) degrees
-   say [Hello!] for (2) secs
-   if &lt;mouse down?&gt; then
-      change [mouse clicks v] by (1)
-   end</code></pre>
-</section>
-<section id="challenge-add-more-witches" class="level2 challenge">
-<h2>Challenge: add more witches</h2>
-<p>If one witch is good, more must be better! <strong>Let’s have three witches flying around.</strong></p>
-<ol>
-<li>Duplicate the witch by <strong>right-clicking</strong> it in the sprite list.<br /></li>
-<li>For each witch <strong>adjust the size of the sprite</strong> so the witches are different sizes.<br /></li>
-<li>For each witch change the <strong>speed variable</strong> so that they fly at different speeds.<br /></li>
-<li>Move the witches around the canvas so that they are not all together.</li>
-</ol>
-</section>
-<section id="things-to-try" class="level2 try">
-<h2>Things to try</h2>
-<ol>
-<li><strong>How many witches is a good number for the game?</strong><br /></li>
-<li><strong>Can you make the witches look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.</strong><br /></li>
-<li><strong>Can you make the witches be worth different points? How about making the fastest (and smallest) witch worth 10 points?</strong></li>
-</ol>
 </section>
 <section id="test-your-project" class="level2 flag">
-<h2>Test your project</h2>
-<ul>
-<li>Does Herbert turn into a ghost when he’s caught?<br /></li>
-<li>Does Felix play the right sounds at the right time?<br /></li>
-<li>Does Felix still stay still for long enough for Herbert to get away?</li>
-</ul>
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong><br />Does Felix follow the mouse pointer? Does it look like he’s walking when he moves? Does he move at the right speed?</p>
 </section>
 <section id="save-your-project" class="level2 save">
 <h2>Save your project</h2>
+</section>
+</section>
+<section id="step-2-felix-chases-herbert" class="level1 activity">
+<h1>STEP 2: Felix chases Herbert</h1>
+<p><strong>Next, we want Felix to chase Herbert the mouse, rather than the mouse pointer.</strong></p>
+<section id="activity-checklist-1" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li>Create another sprite using the choose new sprite from file button and selecting animals/mouse1.<br /></li>
+<li>Change the name of the sprite to Herbert.<br /></li>
+<li>Edit the costume and make it smaller than Felix.<br />Try six clicks on the shrink button:<br /></li>
+<li>Make sure Herbert only points left-right. 5. Give Herbert this script:</li>
+</ul>
+<pre class="blocks"><code>    
+    When FLAG clicked
+    forever
+        go to mouse-pointer
+        point towards Felix</code></pre>
+</section>
+<section id="test-your-project-1" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Does Herbert move with the mouse pointer? Does Felix chase Herbert?</p>
+</section>
+<section id="save-your-project-1" class="level2 save">
+<h2>Save your project</h2>
+</section>
+</section>
+<section id="step-3-felix-says-when-hes-caught-herbert" class="level1 activity">
+<h1>STEP 3: Felix says when he's caught Herbert</h1>
+<p><strong>We want Felix to know when he’s caught Herbert, and tell us.</strong></p>
+<section id="activity-checklist-2" class="level2 check">
+<h2>Activity Checklist</h2>
+<ol>
+<li>Change Felix’s script to be this:</li>
+</ol>
+<pre class="blocks"><code>    
+    when FLAG clicked
+    forever
+        point towards mouse-pointer
+        move 10 steps
+        next costume
+        play drum 62 for 0.3 beats
+        if touching Herbert
+            say Caught you! for 1 secs</code></pre>
+</section>
+<section id="test-your-project-2" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Does Felix say when he’s caught Herbert?</p>
+</section>
+<section id="save-your-project-2" class="level2 save">
+<h2>Save your project</h2>
+</section>
+</section>
+<section id="step-4-herbert-turns-into-a-ghost-when-hes-caught" class="level1 activity">
+<h1>STEP 4: Herbert turns into a ghost when he’s caught</h1>
+<p><strong>Instead of Felix saying something, we want Herbert to turn into a ghost when he’s caught.</strong></p>
+<section id="activity-checklist-3" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li>Change Felix’s script to send this message when he catches Herbert.</li>
+</ul>
+<pre class="blocks"><code>    
+    when FLAG clicked
+    forever
+        point towards mouse-pointer
+        move 10 steps
+        next costume
+        play drum 62 for 0.3 beats
+        if touching Herbert
+            broadcast caught
+            play drum 58 for 0.2 beats
+            wait 1 sec</code></pre>
+<ul>
+<li>Import a new costume into Herbert from fantasy/ghost2-a.<br /></li>
+<li>Edit the costume to make it smaller.<br />Six clicks on the shrink button should do.<br /></li>
+<li>Change the names of Herbert’s<br />costumes so the mouse costume is<br />called ‘alive’ and the ghost costume is called ‘dead’.<br /></li>
+<li>Create a new script for Herbert to turn him into a ghost:</li>
+</ul>
+<pre class="blocks"><code>    
+    when I receive caught
+    switch to costume dead
+    wait 0.5 secs
+    switch to costume alive</code></pre>
+</section>
+<section id="test-your-project-3" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Does Herbert turn into a ghost when he’s caught?<br />Does Felix play the right sounds at the right time?<br />Does Felix still stay still for long enough for Herbert to get away</p>
+</section>
+<section id="save-your-project-3" class="level2 save">
+<h2>Save your project</h2>
+</section>
+</section>
+<section id="step-5-keep-score" class="level1 activity">
+<h1>STEP 5: Keep score</h1>
+<p><strong>Let’s add a score so we know how well we do at keeping Herbert alive.<br />We’ll start the score at zero and increase it by one every second. If Felix catches Herbert, we’ll reduce the score by one hundred.</strong></p>
+<section id="activity-checklist-4" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li>Make a variable, for all sprites, called score. Click on Variables in the top menu, make a variable and name it score<br /></li>
+<li>On the stage, create these two scripts</li>
+</ul>
+<pre class="blocks"><code>    
+    when FLAG clicked
+    set score to 0
+    forever
+        change score by 1
+        wait 1 secs
+    (end forever)
+    
+    when I receive caught
+    change score by -100</code></pre>
+</section>
+<section id="test-your-project-4" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Does the score go up by one every second?<br />Does the score go down by one hundred when Herbert is caught?<br />What happens when Herbert is caught before score reaches one hundred? Does the score go back to zero when you start a new game?</p>
+</section>
+<section id="save-your-project-4" class="level2 save">
+<h2>Save your project</h2>
+<p><strong>Well done you’ve finished, now you can enjoy the game!</strong><br />Don’t forget you can share your game with all your friends and family by clicking on <strong>Share</strong> on the menu bar</p>
 <div class="legal">
 <hr/>
 These projects are for use within the UK. You are required to register your club in the UK and required by law to have child protection checks and insurance. Registering your club with us means Code Club UK can support you with the running of your club. More information is available on our website at http://www.codeclub.org.uk/.
