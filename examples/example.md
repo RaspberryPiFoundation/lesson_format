@@ -1,159 +1,175 @@
 ---
-lesson: Lesson X
-lesson_title: Example Lesson
+lesson_title: Felix and Herbert
+level: Level 1
 language: en
 ...
 
 # Introduction { .intro}
+We are going to make a game of catch with __Felix the cat__ and __Herbert__ the mouse. You control Herbert with the mouse and try to avoid getting caught by Felix. The longer you avoid him the more points you score, but don’t get caught because your score will go down!
 
-This term we're going to be learning a computer programming language called Python. The person who created Python named it after his favourite TV show: Monty Python’s Flying Circus. Python is used by loads of programmers for many different things.  Python is a powerful and clever language, used at YouTube, NASA, CERN and others. If your club has a Raspberry Pi, you can use Python to program it. Many people love Python because it is easy to read (at least compared to some other programming languages). Being able to read code is a very important skill, just as important as writing it.
+# STEP 1: Felix follows the mouse pointer { .activity}
 
+## Activity Checklist { .check}
 
-# Hello, Turtle! {.activity}
-
-## Activity Checklist {.check}
-
-Next, we're going to have some fun with turtles. A turtle is a tiny robot that draws on your screen, we can tell it to move around using Python commands.
-
-+ Open a new code window (From the File menu) and write the following:  
-
-    ```python
-    from turtle import *
-    
-    forward(100)
-     
-    ```
-+ Save your program as myturtle.py and choose Run -> Run Module. See how the turtle moved forward 100 pixels? The turtle has a pen attached, and draws lines as it moves around the screen.  
-
-    __ProTip:__ Python program files should always be given a name ending in '.py'.
-
-+ Let's make the turtle move around the canvas! Try using `backward(distance)` as well as turning the turtle by using `right(angle)` and `left(angle)`. Eg `backward(20)` tells the turtle to move backwards 20 pixels, and `right(90)` tells the turtle to turn right 90 degrees. You can give more than one instruction at a time, they will be executed in order.
-
-    ```python
-    from turtle import *
-    
-    speed(11)
-    shape("turtle")
-    
-    forward(100)
-    right(120)
-    forward(100)
-    left(90)
-    backward(100)
-    left(90)
-    forward(50)
-     
-    ```
-
-## Angles and Degrees
-
-Play around a bit writing your own shapes, using `forward`, `backward`, `left`, `right`. Remember, `forward` and `backward` move in pixels, but `left` and `right` turn in angles. Let's look at a turtle turning right.
-
-```
-        North
-          0
-          |
-West      |     East
- 270 -----+----- 90
-          |
-          |
-         180
-        South
-```
-
-When the turtle is facing North, turning right 90 degrees, makes it face East, turning 180 degrees makes it face south, and turning 270 degrees makes it face West. If you turn 360 degrees, you end up where you started.
-
-What about turning left?
-
-```
-        North
-          0
-          |
-West      |     East
-  90 -----+----- 270
-          |
-          |
-         180
-        South
-```
-
-When the turtle is facing North, turning left 90 degrees, makes it face West, turning 180 degrees makes it face south, and turning 270 degrees makes it face East. If you turn 360 degrees, you end up where you started. One full turn is always 360 degrees.
-
-
-##What does the code at the beginning of our program do
-
-* `from turtle import *` tells Python we want to use the turtle library, a collection of code we can use to draw on the screen. Using a library means we can save time.
-
-* `speed()` sets the speed of the turtle, it takes a value between 1 and 11. 11 is the fastest, 1 is the slowest. 
-* `shape()` We are using the "turtle" shape, but it can also take the values "arrow", "circle", "square", "triangle" or "classic".
-
-We will be putting these three instructions at the top of all our programs in this lesson. If you like you can make your turtle a different shape, or go as fast or slow as you want.
-
-
-#**Step4:**  Herbert turns into a ghost when he’s caught {.activity}
-
-##Activity Checklist { .check}
-
-Instead of Felix saying something, we want Herbert to turn into a ghost when he’s caught.
-
-+ Change Felix’s script to send this message when he catches Herbert:
++ Start a new project.
++ Click on the stage next to the sprite and switch to the Backgrounds tab, and then import the background indoors/hall. Delete the original blank background.
++ Change the name of the sprite to Felix.
++ Make sure Felix only points left-right by clicking this button:
++ Create this script:
 
 ```blocks
-				when FLAG clicked
-				forever
-					point towards [mouse-pointer v]
-					move (10) steps
-					next costume
-					play drum [62 v] for (0.3) beats
-					if <touching [herbert v]?>
-						broadcast [caught v]
-						play drum [58 v] for (0.2) beats
-						wait (1) secs
-					end
-				end
+
+	When FLAG clicked
+
+	forever
+
+		point towards mouse-pointer
+
+		move 10 steps
+
+		next costume
+
+		play drum 62 for 0.3 beats
+
+```
+		
+## Test Your Project { .flag}
+__Click the green flag.__
+Does Felix follow the mouse pointer? Does it look like he’s walking when he moves? Does he move at the right speed?
+
+## Save your project { .save}
+
+# STEP 2: Felix chases Herbert {.activity}
+
+__Next, we want Felix to chase Herbert the mouse, rather than the mouse pointer.__
+
+## Activity Checklist { .check}
+
++ Create another sprite using the choose new sprite from file button and selecting animals/mouse1.
++ Change the name of the sprite to Herbert.
++ Edit the costume and make it smaller than Felix.
+Try six clicks on the shrink button:
++ Make sure Herbert only points left-right. 5. Give Herbert this script:
+
+
+```blocks
+	
+	When FLAG clicked
+	forever
+		go to mouse-pointer
+		point towards Felix
 ```
 
+## Test Your Project { .flag}
+__Click the green flag.__
+
+Does Herbert move with the mouse pointer? Does Felix chase Herbert?
+
+## Save your project { .save}
+
+# STEP 3: Felix says when he's caught Herbert {.activity}
+
+__We want Felix to know when he’s caught Herbert, and tell us.__
+## Activity Checklist { .check}
+
+1. Change Felix’s script to be this:
+
+```blocks
+	
+	when FLAG clicked
+	forever
+		point towards mouse-pointer
+		move 10 steps
+		next costume
+		play drum 62 for 0.3 beats
+		if touching Herbert
+			say Caught you! for 1 secs
+```
+
+## Test Your Project { .flag}
+__Click the green flag.__
+
+Does Felix say when he’s caught Herbert?
+
+## Save your project { .save}
+
+# STEP 4: Herbert turns into a ghost when he’s caught { .activity}
+
+__Instead of Felix saying something, we want Herbert to turn into a ghost when he’s caught.__
+
+## Activity Checklist { .check}
+
++ Change Felix’s script to send this message when he catches Herbert.
+
+```blocks
+	
+	when FLAG clicked
+	forever
+		point towards mouse-pointer
+		move 10 steps
+		next costume
+		play drum 62 for 0.3 beats
+		if touching Herbert
+			broadcast caught
+			play drum 58 for 0.2 beats
+			wait 1 sec
+```
 + Import a new costume into Herbert from fantasy/ghost2-a.
-+ Edit the costume to make it smaller. Six clicks on the shrink button should do.
-+ Change the names of Herbert’s costumes so the mouse costume is called ‘alive’ and the ghost costume is called ‘dead’.
++ Edit the costume to make it smaller.
+Six clicks on the shrink button should do.
++ Change the names of Herbert’s
+costumes so the mouse costume is
+called ‘alive’ and the ghost costume is called ‘dead’.
 + Create a new script for Herbert to turn him into a ghost:
 
 ```blocks
-	when I receive [caught v]
-		switch to costume [dead v]
-		wait (1) secs
-		switch to costume [alive v]
-
+	
+	when I receive caught
+	switch to costume dead
+	wait 0.5 secs
+	switch to costume alive
 ```
+	
+## Test Your Project { .flag}
+__Click the green flag.__
+
+Does Herbert turn into a ghost when he’s caught?
+Does Felix play the right sounds at the right time?
+Does Felix still stay still for long enough for Herbert to get away
+
+## Save your project { .save}
+
+# STEP 5: Keep score { .activity}
+
+__Let’s add a score so we know how well we do at keeping Herbert alive.
+We’ll start the score at zero and increase it by one every second. If Felix catches Herbert, we’ll reduce the score by one hundred.__
+
+## Activity Checklist { .check}
+
++ Make a variable, for all sprites, called score. Click on Variables in the top menu, make a variable and name it score
++ On the stage, create these two scripts
+
 ```blocks
-when gf clicked
-forever
-   turn cw (15) degrees
-   say [Hello!] for (2) secs
-   if <mouse down?> then
-      change [mouse clicks v] by (1)
-   end
+	
+	when FLAG clicked
+	set score to 0
+	forever
+		change score by 1
+		wait 1 secs
+	(end forever)
+	
+	when I receive caught
+	change score by -100
 ```
+	
+## Test Your Project { .flag}
+__Click the green flag.__
 
+Does the score go up by one every second?
+Does the score go down by one hundred when Herbert is caught?
+What happens when Herbert is caught before score reaches one hundred? Does the score go back to zero when you start a new game?
 
-##Challenge: add more witches { .challenge}
+## Save your project { .save}
 
-If one witch is good, more must be better! __Let’s have three witches flying around.__
-1. Duplicate the witch by __right-clicking__ it in the sprite list.
-2. For each witch __adjust the size of the sprite__ so the witches are different sizes.
-3. For each witch change the __speed variable__ so that they fly at different speeds.
-4. Move the witches around the canvas so that they are not all together.
-
-##Things to try { .try}
-1. __How many witches is a good number for the game?__
-2. __Can you make the witches look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.__
-3. __Can you make the witches be worth different points? How about making the fastest (and smallest) witch worth 10 points?__
-
-##Test your project { .flag}
-
-+ Does Herbert turn into a ghost when he’s caught? 
-+ Does Felix play the right sounds at the right time? 			
-+ Does Felix still stay still for long enough for Herbert to get away? 
-
-
-##Save your project { .save}
+__Well done you’ve finished, now you can enjoy the game!__
+Don’t forget you can share your game with all your friends and family by clicking on __Share__ on the menu bar
