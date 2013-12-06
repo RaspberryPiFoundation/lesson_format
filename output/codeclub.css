@@ -79,10 +79,10 @@ ul p {
 
 section {
 	width:700px;
-	margin: 5px auto 20px auto;
+	margin: 20px auto;
 	background: #FFFFFF;
-	overflow: auto;
-	/*page-break-before: always;*/	
+	clear:both;
+	page-break-inside: avoid;
 }
 header {
 	background-color: #ADCAEA;
@@ -186,7 +186,7 @@ header h2 {
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	padding-left: 50px;
+	text-indent: 50px;
 }
 
 .intro li.save {
@@ -196,7 +196,7 @@ header h2 {
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	padding-left: 50px;
+	text-indent: 50px;
 }
 
 .intro li.activity strong {
@@ -274,7 +274,7 @@ header h2 {
 	margin-top: 10px;
 	padding-bottom: 10px;
 	padding-top: 15px;
-	padding-left: 50px;
+	text-indent: 50px;
 	font-size: 2em;
 	float: left;
 	width: 100%;
@@ -291,7 +291,7 @@ header h2 {
 	margin-top: 10px;
 	padding-bottom: 10px;
 	padding-top: 15px;
-	padding-left: 50px;
+	text-indent: 50px;
 	font-size: 2em;
 	float: left;
 	width: 100%;
@@ -463,6 +463,9 @@ pre{
  /* print styles */
  .level1, .level2 {
  	page-break-inside: avoid;
+ }
+ .activity {
+ 	page-break-before:always;
  }
  h1, h2 {
  	page-break-after:avoid;
