@@ -311,6 +311,9 @@ header h2 {
         margin: 0 auto;
         overflow:auto;
 }
+.try code {
+	background:#fff;
+}
 .try h2 {
         text-indent:20px;
 }
@@ -450,12 +453,12 @@ pre{
     line-height: 1.5;
     text-indent: 0;
     clear:both;
-         background:#eee;
+    background:#eee;
     padding: 20px;
 
 }
  code {
-         border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
     background: #CCCCCC;
     background:#B9E5FA;
     padding:2px 5px;
@@ -466,19 +469,19 @@ pre{
 	word-wrap: break-word; /* Internet Explorer 5.5+ */
  }
  pre code {
-         background:transparent;
-         font-size:16px;
+    background:transparent;
+    font-size:16px;
  }
  .legal {
-         clear:both;
+    clear:both;
  }
  /* print styles */
  .level1, .level2 {
-         page-break-inside: avoid;
+    page-break-inside: avoid;
  }
  .activity {
-         page-break-before:always;
+    page-break-before:always;
  }
  h1, h2 {
-         page-break-after:avoid;
+    page-break-after:avoid;
  }
