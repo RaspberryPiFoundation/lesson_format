@@ -14,193 +14,122 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
   <link rel="stylesheet" href="codeclub.css">
 </head>
 <body>
 <div id="cclesson">
 <header>
-<h1 class="title">Ghostbusters</h1>
-<h2 class="level">Level 1</h2>
+<h1 class="title">Missing cat website</h1>
+<h2 class="level">Lesson 3</h2>
 </header>
-<section id="introduction" class="level1 intro">
-<h1>Introduction</h1>
-<p>This project is like the game <strong>Whack-a-Mole</strong>. You get points for hitting the ghosts that appear on the screen. The aim is to get as many points as possible in 30 seconds!</p>
+<section id="the-mission" class="level2 intro">
+<h2><strong>The Mission:</strong></h2>
+<p>Felix the cat has gone missing. His owner made a poster [insert picture] to hang up in the neighborhood, but you realise making a website means many more people can see it.</p>
 </section>
-<section id="step-1-create-a-flying-ghost" class="level1 activity">
-<h1>STEP 1: Create a flying ghost</h1>
-<section id="activity-checklist" class="level2 check">
-<h2>Activity Checklist</h2>
-<p>+. <strong>Start a new scratch project.</strong></p>
+<section id="step-1" class="level1 activity">
+<h1>Step 1:</h1>
+<p>Make a new folder called Felix<br />Make a new document called index.html and save it inside the folder called Felix<br />Now set up your document like you learnt in the previous session</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="er">&lt;</span>!doctype html&gt;
+<span class="kw">&lt;html&gt;</span>
+    <span class="kw">&lt;head&gt;</span>
+    <span class="kw">&lt;/head&gt;</span>
+    <span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre>
+<p>Make a title and header. Remember the title goes in the head and the header goes in the body. Try using “Felix the cat is missing” as a title, and Missing as the h1. Right beneath the <code>&lt;h1&gt;</code> we can make a <code>&lt;h2&gt;</code> saying “Felix the cat”.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="er">&lt;</span>!doctype html&gt;
+<span class="kw">&lt;html&gt;</span>
+    <span class="kw">&lt;head&gt;</span>
+        <span class="kw">&lt;title&gt;</span> Felix the cat is missing <span class="kw">&lt;/title&gt;</span>
+    <span class="kw">&lt;/head&gt;</span>
+    <span class="kw">&lt;body&gt;</span>
+        <span class="kw">&lt;h1&gt;</span>Missing<span class="kw">&lt;/h1&gt;</span>
+        <span class="kw">&lt;h2&gt;</span>Felix the cat<span class="kw">&lt;/h2&gt;</span>
+    <span class="kw">&lt;/body&gt;</span>
+<span class="kw">&lt;/html&gt;</span></code></pre>
+</section>
+<section id="step-2" class="level1 activity">
+<h1>Step 2:</h1>
+<p>We also need a picture of Felix, so people know what to look for. We’ve previously learned how to put in an image that’s already hosted somewhere on the internet, but this time we are going to use an image on our computer. We need to put the image <em>felix.jpg</em> in the same folder as our <code>index.html</code>, the folder you named Felix.</p>
+<p>Now, write the <code>&lt;img&gt;</code> tag like you would normally, but in the src attribute, instead of writing a URL we just write <code>felix.jpg</code>. And don’t forget to put in an alt attribute!</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;felix.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;picture of Felix&quot;</span><span class="kw">&gt;</span></code></pre>
+<section id="save-your-file-and-view-it-in-a-browser." class="level2 save">
+<h2>Save your file and view it in a browser.</h2>
+<p>The image is quite large, so we want to make it a bit smaller. We can do this by using height or width attributes (or both). We don’t specify the width in centimeters or meters or inches or feet, but in something called <em>pixels</em>. I’m going to go with 400 pixels for this image.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;felix.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;picture of Felix&quot;</span><span class="ot"> width=</span><span class="st">&quot;400&quot;</span><span class="kw">&gt;</span></code></pre>
+</section>
+</section>
+<section id="step-3" class="level1 activity">
+<h1>Step 3:</h1>
+<p>Underneath the picture we should write a description of Felix, and give some details of when and where he went missing. For this we can just write some paragraphs.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Felix is a very nice cat. He likes cuddles, sitting in front of the radiator and his toy mouse. His fur is orange. <span class="kw">&lt;/p&gt;</span>
+<span class="kw">&lt;p&gt;</span>He went missing from the garden yesterday.<span class="kw">&lt;/p&gt;</span></code></pre>
+<p>We also need some information about how to contact the owners if anyone has seen or found Felix.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Have you seen Felix? Please contact his owners at felixowners@email.com<span class="kw">&lt;/p&gt;</span></code></pre>
+<p>That’s just a pretend email address, but let’s make it so that if someone clicks on it, it opens up their email client. We do this almost the same way we make a link, but instead of a <strong>url</strong> we put in a <code>mailto</code> like this:</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Have you seen Felix? Please contact his owners at <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;mailto:felixowners@email.com&quot;</span><span class="kw">&gt;</span>felixowners@email.com<span class="kw">&lt;/a&gt;&lt;/p&gt;</span></code></pre>
+<section id="save-your-document-and-check-if-it-works-in-a-browser" class="level2 save">
+<h2>Save your document and check if it works in a browser!</h2>
+</section>
+</section>
+<section id="step-4-adding-strong-text-and-emphasis" class="level1 activity">
+<h1>Step 4: Adding strong text and emphasis</h1>
+<p>We really want people to find Felix, so we want to add some <em>emphasis</em> to ‘please’. We do this with the em tag.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;p&gt;</span>Have you seen Felix? <span class="kw">&lt;em&gt;</span>Please<span class="kw">&lt;/em&gt;</span> contact his owners at felixowners@email.com<span class="kw">&lt;/p&gt;</span></code></pre>
+<p>We also want ‘thank you’ to stand out, which we can do by adding the strong tag.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;p&gt;&lt;strong&gt;</span>Thank you!<span class="kw">&lt;/strong&gt;&lt;p&gt;</span></code></pre>
+<section id="save-your-document-and-view-it-in-the-browser." class="level2 save">
+<h2>Save your document and view it in the browser.</h2>
+<p>Notice how please is now in <em>italics</em> and Thank you is <strong>bold</strong>?</p>
+</section>
+</section>
+<section id="step-5-comments" class="level1 activity">
+<h1>Step 5: Comments</h1>
+<p>Sometimes it is useful to write comments in the html file itself. By comments we mean stuff that is meant for humans to read if they’re viewing the file, and not for the browser to read and display. We do that by using the special code:</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="co">&lt;!-- write anything here --&gt;</span></code></pre>
+<p>Anything between the the arrows is the comment.<br />Let’s put a comment in our file saying this is a code club project and Felix is not real.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="co">&lt;!-- This is a Code Club project. Felix is not real and not really missing --&gt;</span></code></pre>
+</section>
+<section id="step-6-more-metadata-thats-just-stuff-that-goes-in-the-head" class="level1 activity">
+<h1>Step 6: More metadata (that’s just stuff that goes in the head)</h1>
+<p>Let’s add who wrote the webpage to the webpage, so anyone viewing the file knows it’s you.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;meta</span><span class="ot"> name=</span><span class="st">&quot;author&quot;</span><span class="ot"> content=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span></code></pre>
+<p>Replace the # with your name.</p>
+<p>it’s also common to add what language the website is in. We do this by adding an attribute to the <code>&lt;html&gt;</code> tag.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;html</span><span class="ot"> lang=</span><span class="st">&quot;en&quot;</span><span class="kw">&gt;</span></code></pre>
+<p><em>en</em> stands for English.</p>
+<p>It’s also good practice to add the character set (or alphabet) the document is written in. We usually use <strong>UTF-8</strong>.</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span></code></pre>
+<p>We can also add a description of the webpage</p>
+<pre class="sourceCode HTML"><code class="sourceCode html">    <span class="kw">&lt;meta</span><span class="ot"> name=</span><span class="st">&quot;description&quot;</span><span class="ot"> content=</span><span class="st">&quot;a page dedicated to finding the missing cat Felix&quot;</span><span class="kw">&gt;</span></code></pre>
+<p>And some keywords, separated by commas</p>
+<pre class="sourceCode HTML"><code class="sourceCode html"><span class="kw">&lt;meta</span><span class="ot"> name=</span><span class="st">&quot;keywords&quot;</span><span class="ot"> content=</span><span class="st">&quot;Felix, cat, missing&quot;</span><span class="kw">&gt;</span></code></pre>
+<section id="further-study" class="level2 try">
+<h2>Further study:</h2>
 <ul>
-<li><strong>Remove the cat sprite</strong> and replace the background with the <strong>nature/woods</strong><br />background.<br /></li>
-<li>Use the <code>new sprite from file</code> button to add a new ghoul<br />sprite to the project (use the <strong>fantasy/ghost1</strong> costume).</li>
+<li><p>Is there anything else you could add to the webpage that would help people find Felix? More information? How would you add a map of where he went missing?</p></li>
+<li><p>More fun with images. Add an image that moves. Try adding the image <code>catswithhats.gif</code> to the website. Open it in the browser to see what happens.</p></li>
+<li><p>If Felix get found. Use the tag <code>&lt;del&gt;</code> to strike through any information that is no longer true, like missing. Use tag <code>&lt;ins&gt;</code> to insert any new information instead, like <strong>Found</strong>!</p></li>
 </ul>
-<p><strong>Now we want to make our ghost move</strong></p>
-<ul>
-<li>Add a <code>Variable</code> for this sprite only called <code>speed</code>.<br />On the <strong>Stage</strong>, the stage monitor for this variable should say “<strong>Sprite1 speed</strong>”.<br />If it just says “speed”, delete the variable and create it again, for this sprite only. Uncheck the box next to the speed block in the<br /><strong>Variables palette</strong> so it does not show on the Stage.<br />The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.<br /></li>
-<li>We want the ghost to start moving when the game starts, <strong>so make a script like this</strong>:</li>
-</ul>
-<pre class="blocks"><code>
-    when FLAG clicked
-    set [speed] to (5)
-    forever
-        move [speed] steps</code></pre>
-</section>
-<section id="test-your-project" class="level2 flag">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag</strong> and see what your ghost does. Why does it get stuck on the edge of the screen?</p>
-</section>
-<section id="activity-checklist-1" class="level2 check">
-<h2>Activity Checklist</h2>
-<ul>
-<li>To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a an <code>if on edge, bounce</code> block below your<br /><code>move speed steps</code> block.</li>
-</ul>
-<pre class="blocks"><code>
-    when FLAG clicked
-    set [speed] to (5)
-    forever
-        move [speed] steps
-        if on edge, bounce</code></pre>
-<ul>
-<li>To stop the ghost flipping upside down, click on the <code>only face left-right</code> button in the Sprite Summary area.</li>
-</ul>
-</section>
-<section id="test-your-project-1" class="level2 flag">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen?</p>
-</section>
-<section id="save-your-project" class="level2 save">
-<h2>Save your project</h2>
-</section>
-<section id="things-to-try" class="level2 try">
-<h2>Things to try</h2>
-<ul>
-<li><strong>Try changing the value of the speed variable to make the ghost fly faster or slower.</strong><br /></li>
-<li><strong>How would you make the ghost get faster the longer it flies?</strong><br />(This is a tricky one, so don’t worry if you can’t see how to do it. You’ll get more clues as you work through the project.)</li>
-</ul>
-</section>
-</section>
-<section id="step-2-make-the-ghost-appear-vanish-randomly" class="level1 activity">
-<h1>STEP 2: Make the ghost appear &amp; vanish randomly</h1>
-<p>To make the game more fun, we want the ghost to appear and vanish randomly. We’ll do that with another script that runs at the same time as the one that moves the ghost. This new script needs to hide the ghost for a random time, then show it for a random time, and repeat that forever (or until the game finishes).</p>
-<section id="activity-checklist-2" class="level2 check">
-<h2>Activity Checklist</h2>
-<p><strong>Create this script for the ghost:</strong></p>
-<pre class="blocks"><code>
-    when FLAG clicked
-    forever
-        hide
-        wait [pick random (2) to (5) secs]
-        show
-        wait [pick random (3) to (5) secs]
-</code></pre>
-</section>
-<section id="test-your-project-2" class="level2 flag">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen and vanish and appear again randomly?</p>
-</section>
-<section id="save-your-project-1" class="level2 save">
-<h2>Save your project</h2>
-</section>
-<section id="things-to-try-1" class="level2 try">
-<h2>Things to try</h2>
-<ul>
-<li><strong>Try changing the range of the random numbers. What happens if you pick very big numbers or very small numbers?</strong><br />(Does this give you any more clues for how to make the ghost speed up the longer the game is played?)</li>
-</ul>
-</section>
-</section>
-<section id="step-3-make-the-ghost-disappear-when-its-clicked" class="level1 activity">
-<h1>STEP 3: Make the ghost disappear when it's clicked</h1>
-<p>To turn this into a game, we need to give the player something to do. They need to click on the ghost to make it disappear. When the ghost is clicked, we want it to disappear and play a sound.</p>
-<section id="activity-checklist-3" class="level2 check">
-<h2>Activity Checklist</h2>
-<ul>
-<li><p>In the <strong>Sounds</strong> tab, import the sound <strong>electronic/fairydust</strong>.</p></li>
-<li><p><strong>Add this script to the ghost</strong>:</p></li>
-</ul>
-<pre class="blocks"><code>
-    when [sprite1] clicked
-    hide
-    play sound [Fairydust]</code></pre>
-</section>
-<section id="test-your-project-3" class="level2 test">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong></p>
-<p>Does the ghost disappear and play the sound when you click it?</p>
-</section>
-<section id="save-your-project-2" class="level2 save">
-<h2>Save your project</h2>
-</section>
-<section id="things-to-try-2" class="level2 try">
-<h2>Things to try</h2>
-<p><strong>Ask your volunteer if you can record your own sound to play.</strong></p>
-</section>
-</section>
-<section id="step-4-add-a-score-and-timer" class="level1 activity">
-<h1>Step 4: Add a score and timer</h1>
-<p>We’ve got a ghost, but now we want to make a game! We want to score points every time we click on the ghost but we also want to have a time limit on the game. We can use a variable for the score and the timer.</p>
-<section id="activity-checklist-4" class="level2 check">
-<h2>Activity Checklist</h2>
-<ul>
-<li>Create a new <code>Variable</code> for all sprites called <strong>score</strong>, and alter the script for the ghost to increase this variable by one when it is clicked.</li>
-</ul>
-<pre class="blocks"><code>
-    when [sprite1] clicked
-    hide
-    play sound [Fairydust]
-    change score by (1)</code></pre>
-<ul>
-<li>Switch to the <strong>Stage</strong> and create a <strong>new variable</strong> (this time just for the stage) called <strong>timer</strong>. Add a new script that occurs when the green flag is clicked to set <code>timer</code> to <strong>30</strong> and reset the score to <strong>0</strong>. Then use a <code>repeat until</code> block to wait a second and then reduce <code>timer</code> by<br />one. This should repeat until timer is 0, at which point use <code>stop all</code> to stop the game.</li>
-</ul>
-<pre class="blocks"><code>
-    when FLAG clicked
-    set [timer] to (30)
-    set [score]to (0)
-    repeat until &lt;[timer] = 0&gt;
-        wait (1) secs
-        change [timer] by (-1)
-    stop all</code></pre>
-</section>
-<section id="test-your-project-4" class="level2 test">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong></p>
-</section>
-<section id="save-your-project-3" class="level2 save">
-<h2>Save your project</h2>
-</section>
-<section id="things-to-try-3" class="level2 try">
-<h2>Things to try</h2>
-<ol>
-<li><strong>How might you make the ghost speed up as the game goes on?</strong><br /></li>
-<li><strong>Well done you’ve finished the basic game. There are more things you can do to your game though. Have a go at this challenge!</strong></li>
-</ol>
-</section>
-<section id="challenge-add-more-ghosts" class="level2 challenge">
-<h2>Challenge: add more ghosts</h2>
-<p>If one ghost is good, more must be better! <strong>Let’s have three ghosts flying around.</strong></p>
-<ol>
-<li>Duplicate the ghost by <strong>right-clicking</strong> it in the sprite list.<br /></li>
-<li>For each ghost <strong>adjust the size of the sprite</strong> so the ghosts are different sizes.<br /></li>
-<li>For each ghost change the <strong>speed variable</strong> so that they fly at different speeds.<br /></li>
-<li>Move the ghosts around the canvas so that they are not all together.</li>
-</ol>
-</section>
-<section id="test-your-project-5" class="level2 test">
-<h2>Test Your Project</h2>
-<p><strong>Click the green flag.</strong></p>
-<p>Do you have three ghosts that move from side to side across the screen, randomly appear and disappear, and disappear when you click on them?</p>
-</section>
-<section id="save-your-project-4" class="level2 save">
-<h2>Save your project</h2>
-</section>
-<section id="things-to-try-4" class="level2 try">
-<h2>Things to try</h2>
-<ol>
-<li><strong>How many ghosts is a good number for the game?</strong><br /></li>
-<li><strong>Can you make the ghosts look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.</strong><br /></li>
-<li><strong>Can you make the ghosts be worth different points? How about making the fastest (and smallest) ghost worth 10 points?</strong></li>
-</ol>
-<p><strong>Well done you’ve finished, now you can enjoy the game!</strong><br />Don’t forget you can share your game with all your friends and family by clicking on <strong>Share</strong> on the menu bar!</p>
 <div class="legal">
 <hr/>
 These projects are for use within the UK. You are required to register your club in the UK and required by law to have child protection checks and insurance. Registering your club with us means Code Club UK can support you with the running of your club. More information is available on our website at http://www.codeclub.org.uk/.
