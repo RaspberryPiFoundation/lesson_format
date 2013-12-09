@@ -477,12 +477,19 @@ pre{
     font-size:8px;
  }
  /* print styles */
- .level1, .level2 {
-    page-break-inside: avoid;
- }
- .activity {
-    page-break-before:always;
+.try, .challenge {
+    page-break-inside:avoid;
  }
  h1, h2 {
     page-break-after:avoid;
  }
+ .intro {
+    page-break-after:always;
+ }
+ h1, h2, .check, .try, .challenge {
+    page-break-before: auto;
+}
+.check{
+    page-break-inside:avoid;
+ }
+

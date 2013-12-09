@@ -19,55 +19,189 @@
 <body>
 <div id="cclesson">
 <header>
-<h1 class="title">Hide the ninjas</h1>
-<h2 class="level">Lesson 6</h2>
+<h1 class="title">Ghostbusters</h1>
+<h2 class="level">Level 1</h2>
 </header>
-<section id="introduction" class="level2 imtro">
-<h2>Introduction</h2>
-<p>This project will build on your knowledge of CSS-fu.</p>
-<p>Five ninjas arrived in town and need to hide before anyone notices them. Using your own ninja-like CSS skills to get them into a safe spot. You can move the ninjas themselves, and some of the objects in the street too. Quick! There is no time!</p>
+<section id="introduction" class="level1 intro">
+<h1>Introduction</h1>
+<p>This project is like the game <strong>Whack-a-Mole</strong>. You get points for hitting the ghosts that appear on the screen. The aim is to get as many points as possible in 30 seconds!</p>
 </section>
-<section id="step-1-meet-the-ninjas" class="level1 activity">
-<h1>Step 1: Meet the ninjas</h1>
+<section id="step-1-create-a-flying-ghost" class="level1 activity">
+<h1>STEP 1: Create a flying ghost</h1>
+<section id="activity-checklist" class="level2 check">
+<h2>Activity Checklist</h2>
+<p>+. <strong>Start a new scratch project.</strong></p>
 <ul>
-<li>Open up the file called <code>ninjas.html</code> in the code editor. Open it up in the browser as well.<br /></li>
-<li>Read through the code. Can you guess which parts correspond to what objects in the street? Notice that we are using two languages: HTML to add all elements to the page, and CSS placed between the <code>style</code> tags.<br /></li>
-<li>The elements we will be playing with are the images (<code>&lt;img&gt;</code> tags). We can control their position using CSS.</li>
+<li><strong>Remove the cat sprite</strong> and replace the background with the <strong>nature/woods</strong><br />background.<br /></li>
+<li>Use the <code>new sprite from file</code> button to add a new ghoul<br />sprite to the project (use the <strong>fantasy/ghost1</strong> costume).</li>
 </ul>
-<p><strong>Let's move a ninja</strong></p>
+<p><strong>Now we want to make our ghost move</strong></p>
 <ul>
-<li>Each one of the ninjas is named using the <code>id</code> attribute. Let's move Alex The Ninja first. Find Alex's corresponding CSS rule.<br /></li>
-<li>Change the value of <code>left</code> to <code>100px</code> and <code>top</code> to <code>320px</code>.<br />When <code>position</code> property is set to <code>absolute</code> it means we will be describing the position in relation to ninja's parent element - in this case the <code>&lt;div&gt;</code> with <code>id</code> <code>street_corner</code>.<br /><code>px</code> means <code>pixel</code>. <code>left</code> describes how far to move the ninja from the left edge (by how many pixels), and <code>top</code> tells the browser how far to move it down from the top edge.<br /></li>
-<li>Change <code>left</code> to <code>right</code> and <code>top</code> to <code>bottom</code>. Now your code tells the browser to put the ninja a <code>100px</code> to the left of the right edge, and <code>320px</code> up from the bottom edge.</li>
+<li>Add a <code>Variable</code> for this sprite only called <code>speed</code>.<br />On the <strong>Stage</strong>, the stage monitor for this variable should say “<strong>Sprite1 speed</strong>”.<br />If it just says “speed”, delete the variable and create it again, for this sprite only. Uncheck the box next to the speed block in the<br /><strong>Variables palette</strong> so it does not show on the Stage.<br />The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.<br /></li>
+<li>We want the ghost to start moving when the game starts, <strong>so make a script like this</strong>:</li>
 </ul>
-<p>Pixels describe the smallest physical point your monitor can display. They are often used to describe the screen dimensions.</p>
+<pre class="blocks"><code>
+    when FLAG clicked
+    set [speed] to (5)
+    forever
+        move [speed] steps</code></pre>
 </section>
-<section id="step-2-lets-try-to-describe-it-differently" class="level1 activity">
-<h1>Step 2: Let's try to describe it differently</h1>
-<p>Now you know how to use pixel positioning. This isn't the only way we can describe the positions on the screen, so let's look at some other options we have.</p>
-<ul>
-<li>Find the <code>wheelie_bin</code> element in the CSS.</li>
-</ul>
-<p>100% describes the full width of the available screen space. As we are positioning ninjas and other object in relation to the <code>street_corner</code>, which is 600 pixels wide, in our case 100% will equal <code>600px</code>. If we were to draw a bigger street corner, for example <code>800px</code> wide, then 100% would mean <code>800px</code>. Depending on context, sizes described in percentages will have different meanings.</p>
+<section id="test-your-project" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag</strong> and see what your ghost does. Why does it get stuck on the edge of the screen?</p>
 </section>
-<section id="step-3-one-more-unit-type" class="level1 activity">
-<h1>Step 3: One more unit type</h1>
-<p>As if we didn't already have enough unit types, we will try another one! You know how to use pixels and percentages, so now let's try <code>ems</code>.</p>
-<p><code>Em</code> is a measurement type borrowed from the field of typography , which concerns itself with the appearance of letters and text. One em is equal to the current font size. Notice that at the top of the CSS we set <code>font-size</code> on the <code>body</code> element to 20px, so one <code>em</code> will appear as 20 pixels.</p>
+<section id="activity-checklist-1" class="level2 check">
+<h2>Activity Checklist</h2>
 <ul>
-<li>Find the <code>bicycle</code> in the CSS. Apart from the <code>em</code> bit it should be familiar to you. See if you can move the bicycle to hide Sam The Ninja.<br /></li>
-<li>We've mentioned that the size of the <code>em</code> is based on the font size. To see it in practice, find <code>body</code> in the CSS. Change the <code>font-size</code> value to 30px. What happened?<br />Because now each <code>em</code> is 30 pixels wide and 30 pixels tall all elements using this measurement have shifted their position!</li>
+<li>To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a an <code>if on edge, bounce</code> block below your<br /><code>move speed steps</code> block.</li>
+</ul>
+<pre class="blocks"><code>
+    when FLAG clicked
+    set [speed] to (5)
+    forever
+        move [speed] steps
+        if on edge, bounce</code></pre>
+<ul>
+<li>To stop the ghost flipping upside down, click on the <code>only face left-right</code> button in the Sprite Summary area.</li>
 </ul>
 </section>
-<section id="step-4-quick-hide-the-ninjas" class="level1 activity">
-<h1>Step 4: Quick, hide the ninjas!</h1>
-<p>Now that you know how to move the elements on the screen it's time to help the ninjas. Use different ways of describing their position. Remember, you can also move some of the objects. Which unit do you feel most comfortable using? Find the best way to provide the best hiding. Good luck!</p>
+<section id="test-your-project-1" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen?</p>
+</section>
+<section id="save-your-project" class="level2 save">
+<h2>Save your project</h2>
+</section>
 <section id="things-to-try" class="level2 try">
 <h2>Things to try</h2>
 <ul>
-<li>Can you figure out how to make ninjas appear in front of some of the street objects? What would happen if you copied the <code>&lt;img&gt;</code> tag for the ninja after the <code>&lt;img&gt;</code> tag that displays the object?<br /></li>
-<li>Can you add some more objects to the scene? You could add images from your computer or ones you find on the internet.<br /></section><br /><section><br /><div class="legal"><br /><hr/></li>
+<li><strong>Try changing the value of the speed variable to make the ghost fly faster or slower.</strong><br /></li>
+<li><strong>How would you make the ghost get faster the longer it flies?</strong><br />(This is a tricky one, so don’t worry if you can’t see how to do it. You’ll get more clues as you work through the project.)</li>
 </ul>
+</section>
+</section>
+<section id="step-2-make-the-ghost-appear-vanish-randomly" class="level1 activity">
+<h1>STEP 2: Make the ghost appear &amp; vanish randomly</h1>
+<p>To make the game more fun, we want the ghost to appear and vanish randomly. We’ll do that with another script that runs at the same time as the one that moves the ghost. This new script needs to hide the ghost for a random time, then show it for a random time, and repeat that forever (or until the game finishes).</p>
+<section id="activity-checklist-2" class="level2 check">
+<h2>Activity Checklist</h2>
+<p><strong>Create this script for the ghost:</strong></p>
+<pre class="blocks"><code>
+    when FLAG clicked
+    forever
+        hide
+        wait (pick random (2) to (5) secs)
+        show
+        wait (pick random (3) to (5) secs)
+</code></pre>
+</section>
+<section id="test-your-project-2" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong><br />Does the ghost move from side to side across the screen and vanish and appear again randomly?</p>
+</section>
+<section id="save-your-project-1" class="level2 save">
+<h2>Save your project</h2>
+</section>
+<section id="things-to-try-1" class="level2 try">
+<h2>Things to try</h2>
+<ul>
+<li><strong>Try changing the range of the random numbers. What happens if you pick very big numbers or very small numbers?</strong><br />(Does this give you any more clues for how to make the ghost speed up the longer the game is played?)</li>
+</ul>
+</section>
+</section>
+<section id="step-3-make-the-ghost-disappear-when-its-clicked" class="level1 activity">
+<h1>STEP 3: Make the ghost disappear when it's clicked</h1>
+<p>To turn this into a game, we need to give the player something to do. They need to click on the ghost to make it disappear. When the ghost is clicked, we want it to disappear and play a sound.</p>
+<section id="activity-checklist-3" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li><p>In the <strong>Sounds</strong> tab, import the sound <strong>electronic/fairydust</strong>.</p></li>
+<li><p><strong>Add this script to the ghost</strong>:</p></li>
+</ul>
+<pre class="blocks"><code>
+    when [sprite1] clicked
+    hide
+    play sound [Fairydust]</code></pre>
+</section>
+<section id="test-your-project-3" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Does the ghost disappear and play the sound when you click it?</p>
+</section>
+<section id="save-your-project-2" class="level2 save">
+<h2>Save your project</h2>
+</section>
+<section id="things-to-try-2" class="level2 try">
+<h2>Things to try</h2>
+<p><strong>Ask your volunteer if you can record your own sound to play.</strong></p>
+</section>
+</section>
+<section id="step-4-add-a-score-and-timer" class="level1 activity">
+<h1>Step 4: Add a score and timer</h1>
+<p>We’ve got a ghost, but now we want to make a game! We want to score points every time we click on the ghost but we also want to have a time limit on the game. We can use a variable for the score and the timer.</p>
+<section id="activity-checklist-4" class="level2 check">
+<h2>Activity Checklist</h2>
+<ul>
+<li>Create a new <code>Variable</code> for all sprites called <strong>score</strong>, and alter the script for the ghost to increase this variable by one when it is clicked.</li>
+</ul>
+<pre class="blocks"><code>
+    when [sprite1] clicked
+    hide
+    play sound [Fairydust]
+    change score by (1)</code></pre>
+<ul>
+<li>Switch to the <strong>Stage</strong> and create a <strong>new variable</strong> (this time just for the stage) called <strong>timer</strong>. Add a new script that occurs when the green flag is clicked to set <code>timer</code> to <strong>30</strong> and reset the score to <strong>0</strong>. Then use a <code>repeat until</code> block to wait a second and then reduce <code>timer</code> by<br />one. This should repeat until timer is 0, at which point use <code>stop all</code> to stop the game.</li>
+</ul>
+<pre class="blocks"><code>
+    when FLAG clicked
+    set [timer] to (30)
+    set [score]to (0)
+    repeat until &lt;[timer] = 0&gt;
+        wait (1) secs
+        change [timer] by (-1)
+    
+    stop all</code></pre>
+</section>
+<section id="test-your-project-4" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+</section>
+<section id="save-your-project-3" class="level2 save">
+<h2>Save your project</h2>
+</section>
+<section id="things-to-try-3" class="level2 try">
+<h2>Things to try</h2>
+<ol>
+<li><strong>How might you make the ghost speed up as the game goes on?</strong><br /></li>
+<li><strong>Well done you’ve finished the basic game. There are more things you can do to your game though. Have a go at this challenge!</strong></li>
+</ol>
+</section>
+<section id="challenge-add-more-ghosts" class="level2 challenge">
+<h2>Challenge: add more ghosts</h2>
+<p>If one ghost is good, more must be better! <strong>Let’s have three ghosts flying around.</strong></p>
+<ol>
+<li>Duplicate the ghost by <strong>right-clicking</strong> it in the sprite list.<br /></li>
+<li>For each ghost <strong>adjust the size of the sprite</strong> so the ghosts are different sizes.<br /></li>
+<li>For each ghost change the <strong>speed variable</strong> so that they fly at different speeds.<br /></li>
+<li>Move the ghosts around the canvas so that they are not all together.</li>
+</ol>
+</section>
+<section id="test-your-project-5" class="level2 flag">
+<h2>Test Your Project</h2>
+<p><strong>Click the green flag.</strong></p>
+<p>Do you have three ghosts that move from side to side across the screen, randomly appear and disappear, and disappear when you click on them?</p>
+</section>
+<section id="save-your-project-4" class="level2 save">
+<h2>Save your project</h2>
+</section>
+<section id="things-to-try-4" class="level2 try">
+<h2>Things to try</h2>
+<ol>
+<li><strong>How many ghosts is a good number for the game?</strong><br /></li>
+<li><strong>Can you make the ghosts look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.</strong><br /></li>
+<li><strong>Can you make the ghosts be worth different points? How about making the fastest (and smallest) ghost worth 10 points?</strong></li>
+</ol>
+<p><strong>Well done you’ve finished, now you can enjoy the game!</strong><br />Don’t forget you can share your game with all your friends and family by clicking on <strong>Share</strong> on the menu bar!<br /></section><br /><section><br /><div class="legal"><br /><hr/></p>
 <p>These projects are for use within the UK. You are required to register your club in the UK and required by law to have child protection checks and insurance. Registering your club with us means Code Club UK can support you with the running of your club. More information is available on our website at <a href="http://www.codeclub.org.uk/">http://www.codeclub.org.uk/</a>.<br />This coursework is developed in the open on GitHub, <a href="https://github.com/CodeClub/">https://github.com/CodeClub/</a> come and join us!<br /></div></p>
 </section>
 </section>
