@@ -455,6 +455,9 @@ pre{
     clear:both;
     background:#eee;
     padding: 20px;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    hyphens: none;
 
 }
  code {
@@ -462,15 +465,21 @@ pre{
     background: #CCCCCC;
     background:#B9E5FA;
     padding:2px 5px;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    hyphens: none;
     white-space: pre-wrap; /* css-3 */
 	white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
 	white-space: -pre-wrap; /* Opera 4-6 */
 	white-space: -o-pre-wrap; /* Opera 7 */
 	word-wrap: break-word; /* Internet Explorer 5.5+ */
- }
+}
  pre code {
     background:transparent;
     font-size:16px;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    hyphens: none;
  }
  .legal {
     clear:both;
