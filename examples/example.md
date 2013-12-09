@@ -1,158 +1,53 @@
 ---
-lesson_title: Missing cat website
-level: Lesson 3
+lesson_title: Hide the ninjas
+level: Lesson 6
 language: en
 ...
+## Introduction { .imtro}
+This project will build on your knowledge of CSS-fu. 
 
-## __The Mission:__ { .intro}
+Five ninjas arrived in town and need to hide before anyone notices them. Using your own ninja-like CSS skills to get them into a safe spot. You can move the ninjas themselves, and some of the objects in the street too. Quick! There is no time!
 
-Felix the cat has gone missing. His owner made a poster [insert picture] to hang up in the neighborhood, but you realise making a website means many more people can see it.
+# Step 1: Meet the ninjas { .activity}
 
-#Step 1: { .activity}
++ Open up the file called `ninjas.html` in the code editor. Open it up in the browser as well.
++ Read through the code. Can you guess which parts correspond to what objects in the street? Notice that we are using two languages: HTML to add all elements to the page, and CSS placed between the `style` tags. 
++ The elements we will be playing with are the images (`<img>` tags). We can control their position using CSS.
 
-Make a new folder called Felix
-Make a new document called index.html and save it inside the folder called Felix
-Now set up your document like you learnt in the previous session
+**Let's move a ninja**
 
-```HTML
-<!doctype html>
-<html>
-	<head>
-	</head>
-	<body>
-	</body>
-</html>
-```
++ Each one of the ninjas is named using the `id` attribute. Let's move Alex The Ninja first. Find Alex's corresponding CSS rule.
++ Change the value of `left` to `100px` and `top` to `320px`.
+When `position` property is set to `absolute` it means we will be describing the position in relation to ninja's parent element - in this case the `<div>` with `id` `street_corner`.
+`px` means `pixel`. `left` describes how far to move the ninja from the left edge (by how many pixels), and `top` tells the browser how far to move it down from the top edge.
++ Change `left` to `right` and `top` to `bottom`. Now your code tells the browser to put the ninja a `100px` to the left of the right edge, and `320px` up from the bottom edge.
 
-Make a title and header. Remember the title goes in the head and the header goes in the body. Try using “Felix the cat is missing” as a title, and Missing as the h1. Right beneath the `<h1>` we can make a `<h2>` saying “Felix the cat”.
+Pixels describe the smallest physical point your monitor can display. They are often used to describe the screen dimensions.
 
-```HTML
-<!doctype html>
-<html>
-	<head>
-		<title> Felix the cat is missing </title>
-	</head>
-	<body>
-		<h1>Missing</h1>
-		<h2>Felix the cat</h2>
-	</body>
-</html>
-```
+# Step 2: Let's try to describe it differently { .activity}
 
-#Step 2: { .activity}
+Now you know how to use pixel positioning. This isn't the only way we can describe the positions on the screen, so let's look at some other options we have.
 
-We also need a picture of Felix, so people know what to look for. We’ve previously learned how to put in an image that’s already hosted somewhere on the internet, but this time we are going to use an image on our computer. We need to put the image *felix.jpg* in the same folder as our `index.html`, the folder you named Felix.
++ Find the `wheelie_bin` element in the CSS. 
 
-Now, write the `<img>` tag like you would normally, but in the src attribute, instead of writing a URL we just write `felix.jpg`. And don’t forget to put in an alt attribute!
+100% describes the full width of the available screen space. As we are positioning ninjas and other object in relation to the `street_corner`, which is 600 pixels wide, in our case 100% will equal `600px`. If we were to draw a bigger street corner, for example `800px` wide, then 100% would mean `800px`. Depending on context, sizes described in percentages will have different meanings.
 
-```HTML
-<img src="felix.jpg" alt="picture of Felix">
-```
+# Step 3:  One more unit type { .activity}
 
-## Save your file and view it in a browser. { .save}
+As if we didn't already have enough unit types, we will try another one! You know how to use pixels and percentages, so now let's try `ems`.
 
-The image is quite large, so we want to make it a bit smaller. We can do this by using height or width attributes (or both). We don’t specify the width in centimeters or meters or inches or feet, but in something called *pixels*. I’m going to go with 400 pixels for this image.
+`Em` is a measurement type borrowed from the field of typography , which concerns itself with the appearance of letters and text. One em is equal to the current font size. Notice that at the top of the CSS we set `font-size` on the `body` element to 20px, so one `em` will appear as 20 pixels.
 
-```HTML
-<img src="felix.jpg" alt="picture of Felix" width="400">
-```
++ Find the `bicycle` in the CSS. Apart from the `em` bit it should be familiar to you. See if you can move the bicycle to hide Sam The Ninja.
++ We've mentioned that the size of the `em` is based on the font size. To see it in practice, find `body` in the CSS. Change the `font-size` value to 30px. What happened?
+Because now each `em` is 30 pixels wide and 30 pixels tall all elements using this measurement have shifted their position! 
 
-#Step 3: { .activity}
+# Step 4: Quick, hide the ninjas! { .activity}
 
-Underneath the picture we should write a description of Felix, and give some details of when and where he went missing. For this we can just write some paragraphs.
-
-```HTML
-<p>Felix is a very nice cat. He likes cuddles, sitting in front of the radiator and his toy mouse. His fur is orange. </p>
-<p>He went missing from the garden yesterday.</p>
-```
-
-We also need some information about how to contact the owners if anyone has seen or found Felix.
-
-```HTML
-<p>Have you seen Felix? Please contact his owners at felixowners@email.com</p>
-```
-
-That’s just a pretend email address, but let’s make it so that if someone clicks on it, it opens up their email client. We do this almost the same way we make a link, but instead of a __url__ we put in a `mailto` like this:
-
-```HTML
-<p>Have you seen Felix? Please contact his owners at <a href="mailto:felixowners@email.com">felixowners@email.com</a></p>
-```
-
-## Save your document and check if it works in a browser! { .save}
-
-# Step 4: Adding strong text and emphasis { .activity}
-
-We really want people to find Felix, so we want to add some *emphasis* to ‘please’. We do this with the em tag.
-
-```HTML
-<p>Have you seen Felix? <em>Please</em> contact his owners at felixowners@email.com</p>
-```
-
-We also want ‘thank you’ to stand out, which we can do by adding the strong tag.	
-
-```HTML
-<p><strong>Thank you!</strong><p>
-```
-
-## Save your document and view it in the browser. { .save}
-Notice how please is now in *italics* and Thank you is **bold**?
-
-#Step 5: Comments { .activity}
-
-Sometimes it is useful to write comments in the html file itself. By comments we mean stuff that is meant for humans to read if they’re viewing the file, and not for the browser to read and display. We do that by using the special code:
-
-```HTML
-<!-- write anything here -->
-```
-
-Anything between the the arrows is the comment.
-Let’s put a comment in our file saying this is a code club project and Felix is not real.
-
-```HTML
-<!-- This is a Code Club project. Felix is not real and not really missing -->
-```
+Now that you know how to move the elements on the screen it's time to help the ninjas. Use different ways of describing their position. Remember, you can also move some of the objects. Which unit do you feel most comfortable using? Find the best way to provide the best hiding. Good luck!
 
 
-#Step 6: More metadata (that’s just stuff that goes in the head) { .activity}
+## Things to try { .try}
 
-Let’s add who wrote the webpage to the webpage, so anyone viewing the file knows it’s you.
-
-```HTML
-<meta name="author" content="#">
-```
-
-Replace the # with your name.
-
-it’s also common to add what language the website is in. We do this by adding an attribute to the `<html>` tag.
-
-```HTML
-<html lang="en">
-```
-
-*en* stands for English.
-
-It’s also good practice to add the character set (or alphabet) the document is written in. We usually use __UTF-8__.
-
-```HTML
-<meta charset="UTF-8">
-```
-
-We can also add a description of the webpage
-
-```HTML
-	<meta name="description" content="a page dedicated to finding the missing cat Felix">
-```
-
-And some keywords, separated by commas
-
-```HTML
-<meta name="keywords" content="Felix, cat, missing">
-```
-
-##Further study: { .try}
-
-+ Is there anything else you could add to the webpage that would help people find Felix? More information? How would you add a map of where he went missing?
-
-+ More fun with images. Add an image that moves. Try adding the image `catswithhats.gif` to the website. Open it in the browser to see what happens.
-
-+ If Felix get found. Use the tag 	 `<del>` to strike through any information that is no longer true, like missing. Use tag  `<ins> ` to insert any new information instead, like __Found__! 
++ Can you figure out how to make ninjas appear in front of some of the street objects? What would happen if you copied the `<img>` tag for the ninja after the `<img>` tag that displays the object?
++ Can you add some more objects to the scene? You could add images from your computer or ones you find on the internet.

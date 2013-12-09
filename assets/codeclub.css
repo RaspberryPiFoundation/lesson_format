@@ -474,6 +474,7 @@ pre{
  }
  .legal {
     clear:both;
+    font-size:8px;
  }
  /* print styles */
  .level1, .level2 {
