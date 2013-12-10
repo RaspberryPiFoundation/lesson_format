@@ -26,13 +26,13 @@ __Variables palette__ so it does not show on the Stage.
 The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.
 + We want the ghost to start moving when the game starts, __so make a script like this__:
 
-```blocks
+    ```blocks
 
-	when FLAG clicked
-	set [speed] to (5)
-	forever
-		move [speed] steps
-```
+        when FLAG clicked
+        set [speed] to (5)
+        forever
+            move [speed] steps
+    ```
 		
 ##Test Your Project { .flag}
 __Click the green flag__ and see what your ghost does. Why does it get stuck on the edge of the screen?

@@ -13,7 +13,7 @@
  *   - arrows.png
  *   - flag.png
  *
- * in the scratchblocks2/img/ directory, in the same folder as this file.
+ * in the img/ directory, in the same folder as this file.
  *
  */
 .box-sizing_border-box {
@@ -862,7 +862,7 @@
   vertical-align: middle;
   width: 16px;
   height: 13px;
-  background: url(scratchblocks2/img/arrows.png) 0 0 no-repeat;
+  background: url(img/arrows.png) 0 0 no-repeat;
 }
 .scratchblocks2-container .arrow-ccw {
   background-position: 0 -13px;
@@ -875,7 +875,7 @@
   width: 20px;
   height: 20px;
   margin-top: -10px;
-  background: url(scratchblocks2/img/flag.png) 0 0 no-repeat;
+  background: url(img/flag.png) 0 0 no-repeat;
   background-size: contain;
 }
 .scratchblocks2-container .comment {
