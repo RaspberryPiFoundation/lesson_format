@@ -6,12 +6,12 @@ We use pandoc, with a number of fairly common markdown extentions atop GitHub fl
 
 - We use YAML blocks for header information
 - Mark up introduction headers `# Intro {.intro}`
-- To make a green "activity step headers" { .activty} is added to the step header
-- For each checklist { .check}
-- For things to try { .try}
-- For challenges { .challenge}
-- For save { .save}
-- For test { .flag} (because to run you code is to click a flag in Scratch I guess)
+- To make a green "activity step headers" { .activty} is added to the step header (which needs to be a H1)
+- For each checklist { .check} (needs to be h2 (+ remember to indent code blocks))
+- For things to try { .try} (needs to be h2)
+- For challenges { .challenge} (needs to be h2)
+- For save { .save} (needs to be h2)
+- For test { .flag} (because to run you code is to click a flag in Scratch I guess) needs to be h2
 - use ```...``` delimited blocks for sources.
 
 
