@@ -42,14 +42,14 @@ __Click the green flag__ and see what your ghost does. Why does it get stuck on 
 + To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a  an `if on edge, bounce` block below your
 `move speed steps` block.
 
-```blocks
+	```blocks
 
-	when FLAG clicked
-	set [speed] to (5)
-	forever
-		move [speed] steps
-		if on edge, bounce
-```
+		when FLAG clicked
+		set [speed] to (5)
+		forever
+			move [speed] steps
+			if on edge, bounce
+	```
 + To stop the ghost flipping upside down, click on the `only face left-right` button in the Sprite Summary area.
 
 ##Test Your Project { .flag}
@@ -71,16 +71,16 @@ To make the game more fun, we want the ghost to appear and vanish randomly. Weâ€
 
 __Create this script for the ghost:__
 
-```blocks
+	```blocks
+	
+		when FLAG clicked
+		forever
+			hide
+			wait (pick random (2) to (5) secs)
+			show
+			wait (pick random (3) to (5) secs)
 
-	when FLAG clicked
-	forever
-		hide
-		wait (pick random (2) to (5) secs)
-		show
-		wait (pick random (3) to (5) secs)
-
-```
+	```
 ##Test Your Project { .flag}
 __Click the green flag.__ 
 Does the ghost move from side to side across the screen and vanish and appear again randomly?
@@ -101,12 +101,12 @@ To turn this into a game, we need to give the player something to do. They need 
 
 + __Add this script to the ghost__:
 
-```blocks
+	```blocks
 
-	when [sprite1] clicked
-	hide
-	play sound [Fairydust]
-```
+		when [sprite1] clicked
+		hide
+		play sound [Fairydust]
+	```
 ##Test Your Project { .flag}
 __Click the green flag.__ 
 
@@ -124,28 +124,28 @@ Weâ€™ve got a ghost, but now we want to make a game! We want to score points eve
 ## Activity Checklist { .check}
 
 + Create a new `Variable` for all sprites called __score__, and alter the script for the ghost to increase this variable by one when it is clicked.
+	
+	```blocks
 
-```blocks
-
-	when [sprite1] clicked
-	hide
-	play sound [Fairydust]
-	change score by (1)
-```
+		when [sprite1] clicked
+		hide
+		play sound [Fairydust]
+		change score by (1)
+	```
 + Switch to the __Stage__ and create a __new variable__ (this time just for the stage) called __timer__. Add a new script that occurs when the green flag is clicked to set `timer` to __30__ and reset the score to __0__. Then use a `repeat until` block to wait a second and then reduce `timer` by
 one. This should repeat until timer is 0, at which point use `stop all` to stop the game.
 
-```blocks
-
-	when FLAG clicked
-	set [timer] to (30)
-	set [score]to (0)
-	repeat until <[timer] = 0>
-		wait (1) secs
-		change [timer] by (-1)
+	```blocks
 	
-	stop all
-```
+		when FLAG clicked
+		set [timer] to (30)
+		set [score]to (0)
+		repeat until <[timer] = 0>
+			wait (1) secs
+			change [timer] by (-1)
+		
+		stop all
+	```
 
 
 ##Test Your Project { .flag}

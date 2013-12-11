@@ -85,7 +85,6 @@ section {
         margin: 20px auto;
         background: #FFFFFF;
         clear:both;
-        page-break-inside: avoid;
 }
 header {
         background-color: #ADCAEA;
@@ -306,7 +305,6 @@ header h2 {
         border-radius: 10px;
         width: 85%;
         list-style: none;
-        page-break-inside: avoid;
         padding:20px;
         margin: 0 auto;
         overflow:auto;
@@ -326,7 +324,6 @@ header h2 {
         border-radius:12px;
         width:90%;
         padding-bottom:20px;
-        page-break-inside: avoid;
         overflow:auto;
 }
 .challenge h2 {
