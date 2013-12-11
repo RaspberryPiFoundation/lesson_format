@@ -11,7 +11,7 @@ This project is like the game __Whack-a-Mole__. You get points for hitting the g
 
 ## Activity Checklist { .check}
 
-+. __Start a new scratch project.__
++ __Start a new scratch project.__
 + __Remove the cat sprite__ and replace the background with the __nature/woods__
 background.
 + Use the `new sprite from file` button to add a new ghoul
@@ -24,25 +24,23 @@ On the __Stage__, the stage monitor for this variable should say “__Sprite1 sp
 If it just says “speed”, delete the variable and create it again, for this sprite only. Uncheck the box next to the speed block in the
 __Variables palette__ so it does not show on the Stage.
 The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.
-+ We want the ghost to start moving when the game starts, __so make a script like this__:
-
-    ```blocks
++ ```blocks
 
         when FLAG clicked
         set [speed] to (5)
         forever
             move [speed] steps
     ```
+    
+    
+	We want the ghost to start moving when the game starts, __so make a script like this__:
 		
 ##Test Your Project { .flag}
 __Click the green flag__ and see what your ghost does. Why does it get stuck on the edge of the screen?
 
 ## Activity Checklist { .check}
 
-+ To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a  an `if on edge, bounce` block below your
-`move speed steps` block.
-
-	```blocks
++	```blocks
 
 		when FLAG clicked
 		set [speed] to (5)
@@ -50,6 +48,9 @@ __Click the green flag__ and see what your ghost does. Why does it get stuck on 
 			move [speed] steps
 			if on edge, bounce
 	```
+	To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a  an `if on edge, bounce` block below your
+`move speed steps` block.
+
 + To stop the ghost flipping upside down, click on the `only face left-right` button in the Sprite Summary area.
 
 ##Test Your Project { .flag}
@@ -99,14 +100,15 @@ To turn this into a game, we need to give the player something to do. They need 
 
 + In the __Sounds__ tab, import the sound __electronic/fairydust__. 
 
-+ __Add this script to the ghost__:
-
-	```blocks
++  ```blocks
 
 		when [sprite1] clicked
 		hide
 		play sound [Fairydust]
 	```
+	
+	__Add this script to the ghost__:
+
 ##Test Your Project { .flag}
 __Click the green flag.__ 
 
@@ -123,19 +125,18 @@ We’ve got a ghost, but now we want to make a game! We want to score points eve
 
 ## Activity Checklist { .check}
 
-+ Create a new `Variable` for all sprites called __score__, and alter the script for the ghost to increase this variable by one when it is clicked.
-	
-	```blocks
++ ```blocks
 
 		when [sprite1] clicked
 		hide
 		play sound [Fairydust]
 		change score by (1)
 	```
-+ Switch to the __Stage__ and create a __new variable__ (this time just for the stage) called __timer__. Add a new script that occurs when the green flag is clicked to set `timer` to __30__ and reset the score to __0__. Then use a `repeat until` block to wait a second and then reduce `timer` by
-one. This should repeat until timer is 0, at which point use `stop all` to stop the game.
-
-	```blocks
+	
+	Create a new `Variable` for all sprites called __score__, and alter the script for the ghost to increase this variable by one when it is clicked.
+	
+	
++	```blocks
 	
 		when FLAG clicked
 		set [timer] to (30)
@@ -146,6 +147,9 @@ one. This should repeat until timer is 0, at which point use `stop all` to stop 
 		
 		stop all
 	```
+	
+	Switch to the __Stage__ and create a __new variable__ (this time just for the stage) called __timer__. Add a new script that occurs when the green flag is clicked to set `timer` to __30__ and reset the score to __0__. Then use a `repeat until` block to wait a second and then reduce `timer` by
+one. This should repeat until timer is 0, at which point use `stop all` to stop the game.
 
 
 ##Test Your Project { .flag}

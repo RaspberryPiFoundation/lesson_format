@@ -336,7 +336,7 @@ header h2 {
         padding:0 20px;
 }
 .challenge ol, .challenge ul {
-        padding: 0 20px 0 40px;
+        padding: 0 20px 0 60px;
 }
 .activity oal {
         background: #ABDBEA;
@@ -374,28 +374,33 @@ header h2 {
         font-size: 2em;        
         line-height:1.6em;
         width:100%;
+        list-style-type: none;
 }
 
 .activity li:before {
         content: " ";
-        float: right;
         border-radius: 8px;
         border: 3px solid #ABDBEA;
-        padding: 10px;
-        margin-left:20px;
+        padding: 1px 12px;
+        margin-right:20px;
+        margin-left:-50px;
 }
-
+.activity .check li:before {
+    margin-left:-50px;
+}
 .scratch, .blocks {
         border: 5px solid rgb(230,134,45);
         padding: 5px;
         border-radius: 15px;
-        margin-right: 100px;
+        margin-right: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
         float: right;
         page-break-inside: avoid;        
 }
-
+.check .blocks {
+    float:right;
+}
 
 .blockgrey, .blocklightgrey, .blockorange, .blockpurple, .blockpink, .blockblue, .blocklightblue, .blockyellow, .blockgreen, .blocklightgreen {
         border-radius: 3px;
@@ -500,7 +505,7 @@ pre{
  h1, h2, .check, .try, .challenge {
     page-break-before: auto;
 }
-.check{
+.check {
     page-break-inside:avoid;
- }
+}
 
