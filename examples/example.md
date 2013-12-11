@@ -71,16 +71,16 @@ To make the game more fun, we want the ghost to appear and vanish randomly. Weâ€
 
 __Create this script for the ghost:__
 
-	```blocks
-	
-		when FLAG clicked
-		forever
-			hide
-			wait (pick random (2) to (5) secs)
-			show
-			wait (pick random (3) to (5) secs)
+```blocks
 
-	```
+when FLAG clicked
+forever
+    hide
+    wait (pick random (2) to (5) secs)
+    show
+    wait (pick random (3) to (5) secs)
+
+```
 ##Test Your Project { .flag}
 __Click the green flag.__ 
 Does the ghost move from side to side across the screen and vanish and appear again randomly?
