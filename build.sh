@@ -12,7 +12,7 @@ UK_LEGAL="./templates/uk_legal.html"
 WORLD_LEGAL="./templates/world_legal.html"
 LEGAL="$WORLD_LEGAL"
 
-for f in examples/example.md;
+for f in examples/*.md;
 do
 	base=`basename "$f"`
 	output="lesson${base%%.*}.html"

@@ -2,6 +2,7 @@
 lesson_title: Ghostbusters
 level: Level 1
 language: en
+stylesheet: scratch
 ...
 
 # Introduction { .intro}

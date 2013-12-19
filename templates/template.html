@@ -5,8 +5,6 @@
     <meta name="generator" content="pandoc">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="description" content="Code Club - $lesson-meta$">
-    <link rel="stylesheet" href="css/codeclub.css">
-    $if(region)$<link rel="stylesheet" href="css/codeclub-$region$.css">$endif$
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script> 
     <link rel="stylesheet" href="scratchblocks2/scratchblocks2.css">
     <script src="scratchblocks2/scratchblocks2.js"></script>
@@ -17,6 +15,9 @@ $if(date-meta)$
   <meta name="dcterms.date" content="$date-meta$">
 $endif$
   <title>Code Club - $lesson_title-meta$ </title>
+  <link rel="stylesheet" href="css/codeclub.css">
+  $if(region)$<link rel="stylesheet" href="css/codeclub-$region$.css">$endif$
+  $if(stylesheet)$<link rel="stylesheet" href="css/$stylesheet$.css">$endif$
   <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
