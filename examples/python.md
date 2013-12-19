@@ -1,13 +1,16 @@
 ---
 lesson_title: Turtle Power
-level: 01
+level: Level 1
 language: en
+stylesheet: python
 ...
 
-##__Introduction:__  { .intro}
+# 01—Turtle Power {.intro}
+
+__Introduction:__  
 This term we're going to be learning a computer programming language called Python. The person who created Python named it after his favourite TV show: Monty Python’s Flying Circus. Python is used by loads of programmers for many different things.  Python is a powerful and clever language, used at YouTube, NASA, CERN and others. If your club has a Raspberry Pi, you can use Python to program it. Many people love Python because it is easy to read (at least compared to some other programming languages). Being able to read code is a very important skill, just as important as writing it.
 
-#Step 0: Open up the Python Editor { .activity}
+#Step 0: Open up the Python Editor {.activity}
 
 If python is on your computer already, it's time to get started.
 
@@ -19,7 +22,7 @@ If you don't have Python yet, don't panic! You can download the latest version o
 
 When IDLE starts you will see an Output window called `Python Shell`. We need to open a new window to write code in. Go to `File -> New Window` so you're ready for Step 1. Make sure you have both windows visible. 
 
-#Step 1: Hello, World! { .activity}
+#Step 1: Hello, World! {.activity}
 
 1. Open IDLE, the editor that comes with Python. All our code will be written in this editor. When you open it, you will see an Output window, where errors and results will appear.
 
@@ -37,11 +40,11 @@ You can do this by choosing File -> Save. When prompted for a filename, enter he
 
 Congratulations on your first Python program :D (PS! You can tell it to print anything you like, why not change it to say hello to you? Change it to say your name instead)
 
-###__ProTip__: { .protip}
+__ProTip__: 
 * On __Windows__ and __Ubuntu__, use Ctrl-N to create a new shell window, use ctrl-S to save your file after you’ve finished editing, and press F5 to run your program. On some computers you may need to press a Fn key too.
 * On __Mac OS X__, cmd-N to create a new shell window, Command-S to save your file, and hold down the function (fn) key and press F5 to run your program.
 
-#Step 2: Hello, Turtle! { .activity}
+#Step 2: Hello, Turtle! {.activity}
 
 Next, we're going to have some fun with turtles. A turtle is a tiny robot that draws on your screen, we can tell it to move around using Python commands.
 
@@ -75,7 +78,7 @@ Next, we're going to have some fun with turtles. A turtle is a tiny robot that d
      
     ```
 
-### Angles and Degrees
+## Angles and Degrees
 
 Play around a bit writing your own shapes, using `forward`, `backward`, `left`, `right`. Remember, `forward` and `backward` move in pixels, but `left` and `right` turn in angles. Let's look at a turtle turning right.
 
@@ -110,7 +113,7 @@ West      |     East
 When the turtle is facing North, turning left 90 degrees, makes it face West, turning 180 degrees makes it face south, and turning 270 degrees makes it face East. If you turn 360 degrees, you end up where you started. One full turn is always 360 degrees.
 
 
-###What does the code at the beginning of our program do { .protip}
+##What does the code at the beginning of our program do
 
 * `from turtle import *` tells Python we want to use the turtle library, a collection of code we can use to draw on the screen. Using a library means we can save time.
 
@@ -119,7 +122,7 @@ When the turtle is facing North, turning left 90 degrees, makes it face West, tu
 
 We will be putting these three instructions at the top of all our programs in this lesson. If you like you can make your turtle a different shape, or go as fast or slow as you want.
 
-#Step 3: Drawing Shapes! { .activity}
+#Step 3: Drawing Shapes! {.activity}
 
 Lets make a square by telling the turtle how to move around.
 
@@ -163,7 +166,7 @@ Lets make a square by telling the turtle how to move around.
 
 3. Run your code. Do you have a triangle?
 
-### Pick a Colour
+## Pick a Colour
 
 What's your favourite colour? You can change the colour of the lines using the function `pencolor` (Python uses American spellings), and you can also change the pen size using `pensize`:
 
@@ -196,7 +199,7 @@ What's your favourite colour? You can change the colour of the lines using the f
     What colour is #FF4F00?
 
 
-#Step 4: Repeating Yourself (with a for loop) { .activity}
+#Step 4: Repeating Yourself (with a for loop) {.activity}
 
 That last program was the same commands over and over again. Instead of writing them down, let's ask the computer to repeat them for us.  You should have encountered *iteration* in Scratch before using the `Forever` and `Repeat`/`Repeat until` blocks. In Python __for loops__ are used when you have a piece of code which you want to repeat n number of times. In this case we want to repeat the code (that is indented) 4 times (because a square has 4 sides). 
 
@@ -254,7 +257,7 @@ That last program was the same commands over and over again. Instead of writing 
 
 6. Save your program and choose: Run -> Run module.
 
-## Challenge: Drawing the other shapes { .challenge}
+## Challenge: Drawing the other shapes
 
 Can you draw the following shapes by changing the values?
 
@@ -267,7 +270,7 @@ Remember, a Triangle has three sides, and turns 120 degrees. Turning 120 degrees
 
 If you are turning six times, how much should you turn so it adds up to 360? Try out numbers and see what shapes you get.
 
-#Step 5: Turn, Turn, Turn { .activity}
+#Step 5: Turn, Turn, Turn {.activity}
 
 Instead of us working out the angle, why don't we let the computer do it for us. Python can let you do some operations on numbers, like addition, subtraction, multiplication and division.
 
@@ -294,7 +297,7 @@ If we need to turn 360 degrees in total, we can work out the angle we'll need. F
     
 2. Now change the number of sides, does Python get it right? Try drawing a hexagon (6 sides), or any number of sides you want!
     
-#Step 6: Solid Shape { .activity}
+#Step 6: Solid Shape {.activity}
 
 1. We can ask the turtle to fill in shapes with a colour, by using `begin_fill()` and `end_fill()`. Change your code to 
 add these commands in:
@@ -325,7 +328,7 @@ add these commands in:
     You use `begin_fill()` to tell the turtle you're drawing a shape to colour-in, and `end_fill()` to say you've finished it. 
 2. Try changing the colours, sides and lengths to see what shapes you can draw!
 
-#Step 7: Pen Goes Up, Pen Goes Down { .activity}
+#Step 7: Pen Goes Up, Pen Goes Down {.activity}
 
 If you want to move the turtle without leaving a trail behind it, you can use `penup()` and `pendown()` to turn drawing on and off.
 
@@ -348,199 +351,12 @@ If you want to move the turtle without leaving a trail behind it, you can use `p
 
 2. This should draw a dashed line across your screen. Run it and see!
 
-### Home, home on the screen. { .protip}
+## Home, home on the screen.
 
 One last little trick. `home()` returns the turtle to the starting position. `clear()` wipes the screen clean, and `reset()` moves the turtle and clears the screen.
 
-# Step 8: Go Wild! { .activity}
+# Step 8: Go Wild! 
 
 You can go `forward()`, `backward()`, `left()`, `right()`, you can loop using `for count in range(4)`, change colours, change speed and even fill in shapes!
 
-## Try { .try}
-+ Can you draw a house, a bird? a snake? a cat? a dog? a lion? Combine the shapes together and see what you can draw. Can you draw a robot?
-
----------------------------------------------------------------------------------
-
----
-lesson_title: Ghostbusters
-level: Level 1
-language: en
-stylesheet: scratch
-...
-
-# Introduction { .intro}
-This project is like the game __Whack-a-Mole__. You get points for hitting the ghosts that appear on the screen. The aim is to get as many points as possible in 30 seconds!
-
-#STEP 1: Create a flying ghost { .activity}
-
-## Activity Checklist { .check}
-
-+. __Start a new scratch project.__
-+ __Remove the cat sprite__ and replace the background with the __nature/woods__
-background.
-+ Use the `new sprite from file` button to add a new ghoul
-sprite to the project (use the __fantasy/ghost1__ costume). 
-
-__Now we want to make our ghost move__
-
-+ Add a `Variable` for this sprite only called `speed`.
-On the __Stage__, the stage monitor for this variable should say “__Sprite1 speed__”.
-If it just says “speed”, delete the variable and create it again, for this sprite only. Uncheck the box next to the speed block in the
-__Variables palette__ so it does not show on the Stage.
-The speed variable will control how fast the ghost moves. We use a variable so that we can change how fast the ghost moves as the game progresses.
-+ We want the ghost to start moving when the game starts, __so make a script like this__:
-
-```blocks
-
-	when FLAG clicked
-	set [speed] to (5)
-	forever
-		move [speed] steps
-```
-		
-##Test Your Project { .flag}
-__Click the green flag__ and see what your ghost does. Why does it get stuck on the edge of the screen?
-
-## Activity Checklist { .check}
-
-+ To stop the ghost getting stuck we need to make her go back the other way when it touches the edge of the screen. Edit your existing script by adding a  an `if on edge, bounce` block below your
-`move speed steps` block.
-
-```blocks
-
-	when FLAG clicked
-	set [speed] to (5)
-	forever
-		move [speed] steps
-		if on edge, bounce
-```
-+ To stop the ghost flipping upside down, click on the `only face left-right` button in the Sprite Summary area.
-
-##Test Your Project { .flag}
-__Click the green flag.__ 
-Does the ghost move from side to side across the screen?
-
-##Save your project { .save}
-
-##Things to try { .try}
-+ __Try changing the value of the speed variable to make the ghost fly faster or slower.__
-+ __How would you make the ghost get faster the longer it flies?__
-(This is a tricky one, so don’t worry if you can’t see how to do it. You’ll get more clues as you work through the project.)
-
-#STEP 2: Make the ghost appear & vanish randomly { .activity}
-
-To make the game more fun, we want the ghost to appear and vanish randomly. We’ll do that with another script that runs at the same time as the one that moves the ghost. This new script needs to hide the ghost for a random time, then show it for a random time, and repeat that forever (or until the game finishes).
-
-## Activity Checklist { .check}
-
-__Create this script for the ghost:__
-
-```blocks
-
-	when FLAG clicked
-	forever
-		hide
-		wait (pick random (2) to (5) secs)
-		show
-		wait (pick random (3) to (5) secs)
-
-```
-##Test Your Project { .flag}
-__Click the green flag.__ 
-Does the ghost move from side to side across the screen and vanish and appear again randomly?
-
-##Save your project { .save}
-
-##Things to try { .try}
-+ __Try changing the range of the random numbers. What happens if you pick very big numbers or very small numbers?__
-(Does this give you any more clues for how to make the ghost speed up the longer the game is played?)
-
-#STEP 3: Make the ghost disappear when it's clicked { .activity}
-
-To turn this into a game, we need to give the player something to do. They need to click on the ghost to make it disappear. When the ghost is clicked, we want it to disappear and play a sound.
-
-## Activity Checklist { .check}
-
-+ In the __Sounds__ tab, import the sound __electronic/fairydust__. 
-
-+ __Add this script to the ghost__:
-
-```blocks
-
-	when [sprite1] clicked
-	hide
-	play sound [Fairydust]
-```
-##Test Your Project { .flag}
-__Click the green flag.__ 
-
-Does the ghost disappear and play the sound when you click it?
-
-##Save your project { .save}
-
-##Things to try { .try}
-__Ask your volunteer if you can record your own sound to play.__
-
-#Step 4: Add a score and timer { .activity}
-
-We’ve got a ghost, but now we want to make a game! We want to score points every time we click on the ghost but we also want to have a time limit on the game. We can use a variable for the score and the timer.
-
-## Activity Checklist { .check}
-
-+ Create a new `Variable` for all sprites called __score__, and alter the script for the ghost to increase this variable by one when it is clicked.
-
-```blocks
-
-	when [sprite1] clicked
-	hide
-	play sound [Fairydust]
-	change score by (1)
-```
-+ Switch to the __Stage__ and create a __new variable__ (this time just for the stage) called __timer__. Add a new script that occurs when the green flag is clicked to set `timer` to __30__ and reset the score to __0__. Then use a `repeat until` block to wait a second and then reduce `timer` by
-one. This should repeat until timer is 0, at which point use `stop all` to stop the game.
-
-```blocks
-
-	when FLAG clicked
-	set [timer] to (30)
-	set [score]to (0)
-	repeat until <[timer] = 0>
-		wait (1) secs
-		change [timer] by (-1)
-	
-	stop all
-```
-
-
-##Test Your Project { .flag}
-__Click the green flag.__ 
-
-##Save your project { .save}
-
-##Things to try { .try}
-1. __How might you make the ghost speed up as the game goes on?__
-2. __Well done you’ve finished the basic game. There are more things you can do to your game though. Have a go at this challenge!__
-
-##Challenge: add more ghosts { .challenge}
-If one ghost is good, more must be better! __Let’s have three ghosts flying around.__
-1. Duplicate the ghost by __right-clicking__ it in the sprite list.
-2. For each ghost __adjust the size of the sprite__ so the ghosts are different sizes.
-3. For each ghost change the __speed variable__ so that they fly at different speeds.
-4. Move the ghosts around the canvas so that they are not all together.
-
-##Test Your Project { .flag}
-__Click the green flag.__ 
-
-Do you have three ghosts that move from side to side across the screen, randomly appear and disappear, and disappear when you click on them?
-
-##Save your project { .save}
-
-##Things to try { .try}
-
-1. __How many ghosts is a good number for the game?__
-2. __Can you make the ghosts look different? You could either edit their costumes, or use some blocks from the Looks palette to change them.__
-3. __Can you make the ghosts be worth different points? How about making the fastest (and smallest) ghost worth 10 points?__
-
-
-__Well done you’ve finished, now you can enjoy the game!__
-Don’t forget you can share your game with all your friends and family by clicking on __Share__ on the menu bar!
+Can you draw a house, a bird? a snake? a cat? a dog? a lion? Combine the shapes together and see what you can draw. Can you draw a robot?
