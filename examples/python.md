@@ -5,12 +5,10 @@ language: en
 stylesheet: python
 ...
 
-# 01—Turtle Power {.intro}
-
-__Introduction:__  
+##__Introduction:__  { .intro}
 This term we're going to be learning a computer programming language called Python. The person who created Python named it after his favourite TV show: Monty Python’s Flying Circus. Python is used by loads of programmers for many different things.  Python is a powerful and clever language, used at YouTube, NASA, CERN and others. If your club has a Raspberry Pi, you can use Python to program it. Many people love Python because it is easy to read (at least compared to some other programming languages). Being able to read code is a very important skill, just as important as writing it.
 
-#Step 0: Open up the Python Editor {.activity}
+#Step 0: Open up the Python Editor { .activity}
 
 If python is on your computer already, it's time to get started.
 
@@ -22,7 +20,7 @@ If you don't have Python yet, don't panic! You can download the latest version o
 
 When IDLE starts you will see an Output window called `Python Shell`. We need to open a new window to write code in. Go to `File -> New Window` so you're ready for Step 1. Make sure you have both windows visible. 
 
-#Step 1: Hello, World! {.activity}
+#Step 1: Hello, World! { .activity}
 
 1. Open IDLE, the editor that comes with Python. All our code will be written in this editor. When you open it, you will see an Output window, where errors and results will appear.
 
@@ -40,11 +38,11 @@ You can do this by choosing File -> Save. When prompted for a filename, enter he
 
 Congratulations on your first Python program :D (PS! You can tell it to print anything you like, why not change it to say hello to you? Change it to say your name instead)
 
-__ProTip__: 
+###__ProTip__: { .protip}
 * On __Windows__ and __Ubuntu__, use Ctrl-N to create a new shell window, use ctrl-S to save your file after you’ve finished editing, and press F5 to run your program. On some computers you may need to press a Fn key too.
 * On __Mac OS X__, cmd-N to create a new shell window, Command-S to save your file, and hold down the function (fn) key and press F5 to run your program.
 
-#Step 2: Hello, Turtle! {.activity}
+#Step 2: Hello, Turtle! { .activity}
 
 Next, we're going to have some fun with turtles. A turtle is a tiny robot that draws on your screen, we can tell it to move around using Python commands.
 
@@ -78,7 +76,7 @@ Next, we're going to have some fun with turtles. A turtle is a tiny robot that d
      
     ```
 
-## Angles and Degrees
+### Angles and Degrees
 
 Play around a bit writing your own shapes, using `forward`, `backward`, `left`, `right`. Remember, `forward` and `backward` move in pixels, but `left` and `right` turn in angles. Let's look at a turtle turning right.
 
@@ -113,7 +111,7 @@ West      |     East
 When the turtle is facing North, turning left 90 degrees, makes it face West, turning 180 degrees makes it face south, and turning 270 degrees makes it face East. If you turn 360 degrees, you end up where you started. One full turn is always 360 degrees.
 
 
-##What does the code at the beginning of our program do
+###What does the code at the beginning of our program do { .protip}
 
 * `from turtle import *` tells Python we want to use the turtle library, a collection of code we can use to draw on the screen. Using a library means we can save time.
 
@@ -122,7 +120,7 @@ When the turtle is facing North, turning left 90 degrees, makes it face West, tu
 
 We will be putting these three instructions at the top of all our programs in this lesson. If you like you can make your turtle a different shape, or go as fast or slow as you want.
 
-#Step 3: Drawing Shapes! {.activity}
+#Step 3: Drawing Shapes! { .activity}
 
 Lets make a square by telling the turtle how to move around.
 
@@ -166,7 +164,7 @@ Lets make a square by telling the turtle how to move around.
 
 3. Run your code. Do you have a triangle?
 
-## Pick a Colour
+### Pick a Colour
 
 What's your favourite colour? You can change the colour of the lines using the function `pencolor` (Python uses American spellings), and you can also change the pen size using `pensize`:
 
@@ -199,7 +197,7 @@ What's your favourite colour? You can change the colour of the lines using the f
     What colour is #FF4F00?
 
 
-#Step 4: Repeating Yourself (with a for loop) {.activity}
+#Step 4: Repeating Yourself (with a for loop) { .activity}
 
 That last program was the same commands over and over again. Instead of writing them down, let's ask the computer to repeat them for us.  You should have encountered *iteration* in Scratch before using the `Forever` and `Repeat`/`Repeat until` blocks. In Python __for loops__ are used when you have a piece of code which you want to repeat n number of times. In this case we want to repeat the code (that is indented) 4 times (because a square has 4 sides). 
 
@@ -257,7 +255,7 @@ That last program was the same commands over and over again. Instead of writing 
 
 6. Save your program and choose: Run -> Run module.
 
-## Challenge: Drawing the other shapes
+## Challenge: Drawing the other shapes { .challenge}
 
 Can you draw the following shapes by changing the values?
 
@@ -270,7 +268,7 @@ Remember, a Triangle has three sides, and turns 120 degrees. Turning 120 degrees
 
 If you are turning six times, how much should you turn so it adds up to 360? Try out numbers and see what shapes you get.
 
-#Step 5: Turn, Turn, Turn {.activity}
+#Step 5: Turn, Turn, Turn { .activity}
 
 Instead of us working out the angle, why don't we let the computer do it for us. Python can let you do some operations on numbers, like addition, subtraction, multiplication and division.
 
@@ -297,7 +295,7 @@ If we need to turn 360 degrees in total, we can work out the angle we'll need. F
     
 2. Now change the number of sides, does Python get it right? Try drawing a hexagon (6 sides), or any number of sides you want!
     
-#Step 6: Solid Shape {.activity}
+#Step 6: Solid Shape { .activity}
 
 1. We can ask the turtle to fill in shapes with a colour, by using `begin_fill()` and `end_fill()`. Change your code to 
 add these commands in:
@@ -328,7 +326,7 @@ add these commands in:
     You use `begin_fill()` to tell the turtle you're drawing a shape to colour-in, and `end_fill()` to say you've finished it. 
 2. Try changing the colours, sides and lengths to see what shapes you can draw!
 
-#Step 7: Pen Goes Up, Pen Goes Down {.activity}
+#Step 7: Pen Goes Up, Pen Goes Down { .activity}
 
 If you want to move the turtle without leaving a trail behind it, you can use `penup()` and `pendown()` to turn drawing on and off.
 
@@ -351,12 +349,32 @@ If you want to move the turtle without leaving a trail behind it, you can use `p
 
 2. This should draw a dashed line across your screen. Run it and see!
 
-## Home, home on the screen.
+### Home, home on the screen. { .protip}
 
 One last little trick. `home()` returns the turtle to the starting position. `clear()` wipes the screen clean, and `reset()` moves the turtle and clears the screen.
 
-# Step 8: Go Wild! 
+## Challenge: Drawing the other shapes { .challenge}
 
-You can go `forward()`, `backward()`, `left()`, `right()`, you can loop using `for count in range(4)`, change colours, change speed and even fill in shapes!
+Remember, a Triangle has three sides, and turns 120 degrees.
 
-Can you draw a house, a bird? a snake? a cat? a dog? a lion? Combine the shapes together and see what you can draw. Can you draw a robot?
+* list
+* One last little trick. home() returns the turtle to the starting position. clear() wipes the screen clean, and reset() moves the turtle and clears the screen.
+* list
+
+## Try: Drawing the other shapes { .try}
+
+Remember, a Triangle has three sides, and turns 120 degrees.
+
+* list
+* One last little trick. home() returns the turtle to the starting position. clear() wipes the screen clean, and reset() moves the turtle and clears the screen.
+* list 
+
+
+
+## Try: Drawing the other shapes { .try}
+
+Remember, a Triangle has three sides, and turns 120 degrees.
+
+* list
+* list
+* list 
