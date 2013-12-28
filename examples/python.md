@@ -22,6 +22,8 @@ When IDLE starts you will see an Output window called `Python Shell`. We need to
 
 #Step 1: Hello, World! { .activity}
 
+##Activity checklist { .check}
+
 1. Open IDLE, the editor that comes with Python. All our code will be written in this editor. When you open it, you will see an Output window, where errors and results will appear.
 
 2. If you haven't yet, choose `File -> New Window`. An empty window will appear, with '*Untitled*' in the title bar.  
@@ -378,3 +380,5 @@ Remember, a Triangle has three sides, and turns 120 degrees.
 * list
 * list
 * list 
+
+A paragraph after the list.

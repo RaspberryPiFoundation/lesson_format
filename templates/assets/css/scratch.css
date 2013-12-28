@@ -70,11 +70,19 @@ li pre {
 }
 /* experimental */
 .activity li {
-    /*float:left;*/
+    float:left;
     font-size: 16px;        
     line-height:24px;
     width:100%;
-    /*list-style-type: none;*/
+    list-style-position:inside;
+}
+.activity li:before {
+    content: " ";
+    float: right;
+    border-radius: 8px;
+    border: 3px solid #ABDBEA;
+    padding: 10px;
+    margin-left:20px;
 }
 .check li:before, .try li:before, .challenge li:before {
     content: " ";
@@ -82,7 +90,7 @@ li pre {
     border: 3px solid #ABDBEA;
     padding: 1px 12px;
     margin-right:20px;
-    margin-left:-50px;
+    margin-left:-60px;
     float:none;
 }
 .check ul, .try ul, .challenge ul {

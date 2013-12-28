@@ -99,25 +99,19 @@ header h1 {
     font-size:30px;
 }
 header h2 {
-    display:table-cell;
     background:#007CC9;
-    height:100px;
-    width:100px;
-    vertical-align:middle;
-    padding:20px;
-    text-align:center;
-    font-size:30px;
-}
-.intro header h1 {
-    background: #ABDBEA;
+    font-size: 30px;
+    height: 100px;
+    line-height: 100px;
+    margin-top: -20px;
     padding: 20px;
     text-align: center;
-    margin-left: 0px;
-    font-size: 30px;        
+    vertical-align: middle;
+    width: 100px;
 }
-.intro h1 {
-    font-size: 30px;
-    padding-top: 30px;
+.intro h1, .intro h2 {
+    font-size: 22px;
+    margin-top:40px;
 }
 
 .intro p {
@@ -326,7 +320,12 @@ header h2 {
     border: 3px solid #ABDBEA;
     padding: 10px 12px;
     margin-right:20px;
-    float:right;
+    float:left;
+}
+.check li p {
+    float:left;
+    margin:0;
+    clear:none;
 }
 .check ul, .try ul, .challenge ul {
     list-style-type:none;
@@ -340,7 +339,7 @@ header h2 {
     padding-left:20px;
 }
 .check li:before {
-    margin-left:-50px;
+    margin-left:-60px;
 }
 .protip {
     border: 3px solid #ff7f00;
@@ -388,20 +387,29 @@ pre code {
     clear:both;
     font-size:8px;
  }
+ /* things to be cleared */
+ .challenge ul:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+ }
  /* print styles */
-.try, .challenge {
+.try, .challenge, .protip {
     page-break-inside:avoid;
-}
-h1, h2 {
-    page-break-after:avoid;
-}
-.intro {
-    page-break-after:always;
 }
 h1, h2, .check, .try, .challenge {
     page-break-before: auto;
 }
-.check, ul, ol, pre {
+.challenge, .try, .check, .protip {
+    page-break-after:auto;
+}
+.check, ul, ol, pre, p {
     page-break-inside:avoid;
+}
+h1, h2, h3 {
+    page-break-after:avoid;
 }
 
