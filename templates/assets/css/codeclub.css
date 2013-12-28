@@ -327,6 +327,10 @@ header h2 {
     margin:0;
     clear:none;
 }
+.check li {
+    margin-left:25px;
+    margin-right:25px;
+}
 .check ul, .try ul, .challenge ul {
     list-style-type:none;
     line-height:24px;
