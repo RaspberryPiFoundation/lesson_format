@@ -329,7 +329,7 @@ header h2 {
 }
 .check li {
     margin-left:25px;
-    margin-right:25px;
+    width:90%;
 }
 .check ul, .try ul, .challenge ul {
     list-style-type:none;
@@ -350,9 +350,19 @@ header h2 {
     background: #fff99d;
     border-radius:12px;
     width:614px;
-    padding-bottom:20px;
     overflow:auto;
-    padding:0 20px;
+    padding:0 20px 20px 20px;
+}
+.protip li:before {
+    content:none;
+    margin:0;
+}
+.check .protip li{
+    margin-left:0;
+    width:100%;
+}
+.check .protip ul {
+    padding-left:0;
 }
 pre {
     font-family: "Source Code Pro",Courier,monospace;
