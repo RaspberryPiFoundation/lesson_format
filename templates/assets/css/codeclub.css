@@ -313,6 +313,7 @@ header h2 {
 }
 .check li, .challenge li, .try li {
     float:left;
+    list-style-position: outside;
 }
 .check li:before, .try li:before, .challenge li:before {
     content: " ";
