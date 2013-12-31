@@ -411,6 +411,9 @@ pre code {
     height: 0;
  }
  /* print styles */
+ .activity {
+    page-break-inside:avoid;
+ }
 .try, .challenge, .protip {
     page-break-inside:avoid;
 }
