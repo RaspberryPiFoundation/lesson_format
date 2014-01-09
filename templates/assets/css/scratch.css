@@ -66,7 +66,10 @@ li pre {
     margin: 20px;
 }
 .challenge ol, .challenge ul {
-    padding: 0 20px 0 60px;
+    padding: 0 20px 0 20px;
+}
+.try ul, .try ol {
+    padding: 0;
 }
 /* experimental */
 .activity li {
@@ -76,23 +79,6 @@ li pre {
     width:100%;
     list-style-position:inside;
 }
-.activity li:before {
-    content: " ";
-    float: right;
-    border-radius: 8px;
-    border: 3px solid #ABDBEA;
-    padding: 10px;
-    margin-left:20px;
-}
-.check li:before, .try li:before, .challenge li:before {
-    content: " ";
-    border-radius: 8px;
-    border: 3px solid #ABDBEA;
-    padding: 1px 12px;
-    margin-right:20px;
-    margin-left:-60px;
-    float:none;
-}
 .check ul, .try ul, .challenge ul {
     list-style-type:none;
     line-height:24px;
@@ -100,3 +86,4 @@ li pre {
 .check li:before {
     margin-left:-50px;
 }
+
