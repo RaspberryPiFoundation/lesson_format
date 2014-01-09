@@ -58,7 +58,7 @@ h2 {
     line-height: 22px;
     border-radius: 4px 4px 4px 4px;
 }
-h3 {
+h3, h4 {
 	font-size:20px;
 }
 p {
@@ -213,7 +213,7 @@ header h2 {
     line-height:40px;
     background-size: 40px 40px;
     background-repeat: no-repeat;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
     padding-bottom: 5px;
     padding-left: 50px;
     font-size: 20px;
@@ -396,13 +396,16 @@ pre code {
     -webkit-hyphens: none;
     -moz-hyphens: none;
     hyphens: none;
+    white-space:pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
 }
 .legal {
     clear:both;
     font-size:8px;
  }
  /* things to be cleared */
- .challenge ul:after {
+ .challenge ul:after, ol:after, ul:after {
     visibility: hidden;
     display: block;
     font-size: 0;
