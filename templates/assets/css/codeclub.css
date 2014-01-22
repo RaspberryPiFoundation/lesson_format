@@ -86,8 +86,8 @@ header {
     background-image: url("../img/logo.png");
     background-image: url("../img/logo.svg");
     background-repeat:no-repeat;
-    background-position:right center;
-    background-size:contain;
+    background-position:650px center;
+    background-size:auto 100px;
     padding:10px;
 }
 header h1 {
