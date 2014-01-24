@@ -17,17 +17,25 @@ pandoc_markdown="markdown_github+header_attributes+yaml_metadata_block+inline_co
 base = os.path.dirname(os.path.abspath(__file__))
 html_template = os.path.join(base, "templates/template.html")
 html_assets = os.path.join(base, "assets")
+scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 
 Term = collections.namedtuple('Term', 'filename name language term projects resources')
 Project = collections.namedtuple('Project', 'filename number title materials notes')
 Resources = collections.namedtuple('Resources', 'name files')
 
 # Utility
-def expand_glob(base_dir, paths):
-    output = []
-    for p in paths:
-        output.extend(glob.glob(os.path.join(base_dir, p)))
-    return output
+def expand_glob(base_dir, paths, one_file=False):
+    if one_file:
+        output = glob.glob(os.path.join(base_dir, paths))
+        if len(output) > 1:
+            raise AssertionError("Bad things")
+        return output[0]
+
+    else:
+        output = []
+        for p in paths:
+            output.extend(glob.glob(os.path.join(base_dir, p)))
+        return output
     
 def makedirs(path):
     if not os.path.exists(path):
@@ -55,7 +63,7 @@ def parse_manifest(filename):
 
     projects = []
     for p in json_manifest['projects']:
-        filename = os.path.join(base_dir, p['filename'])
+        filename = expand_glob(base_dir, p['filename'], one_file=True)
         materials = expand_glob(base_dir, p.get('materials',[]))
         notes = expand_glob(base_dir, p.get('notes', []))
     
@@ -106,7 +114,12 @@ def parse_project(p):
                 header_lines.append(line)
     header = yaml.safe_load("".join(header_lines))
 
-    title = header.get('lesson_title', p.title)
+    title = p.title
+    if header:
+        title = header.get('lesson_title', p.title)
+    if title is None:
+        title = ""
+
     return Project(
         filename = p.filename,
         number = p.number,
@@ -156,10 +169,11 @@ def build_html(markdown_file, output_file):
         "--template=%s"%html_template, 
         markdown_file, 
         "-o", output_file,
+        "--filter", scratchblocks_filter,
     ]
     
     working_dir = os.path.dirname(output_file)
-    makedirs(output_file)
+    makedirs(working_dir)
 
     # todo: add scratch filter, optional template
 
@@ -167,7 +181,7 @@ def build_html(markdown_file, output_file):
     
     
 
-def build_term(manifest, projects, output_dir):
+def build_term_index(manifest, projects, output_dir):
     pass
 
 def make_index(manifest, output_dir):
@@ -210,7 +224,7 @@ if __name__ == '__main__':
             
             projects.append(built_project)
 
-        terms[term.term] = build_term(term, projects, output_dir)
+        terms[term.term] = build_term_index(term, projects, output_dir)
 
 
     print "Building Index"
