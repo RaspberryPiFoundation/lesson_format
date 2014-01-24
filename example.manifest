@@ -1,0 +1,22 @@
+{
+    "name": "python",
+    "language": "en-GB",
+    "term": 4,
+
+    "projects": [
+        {
+            "filename": "lessons/01/01.md",
+            "number": 1,
+            "materials": ["lessons/01/01/*.sb"], 
+            "notes": ["lessons/01/notes/*.md"]  
+            "title": "Optional Title",
+        }
+    ],
+    "resources": [
+        { 
+            "name": "Volunteer Notes",
+            "files": []
+        }
+    ]
+}
+
