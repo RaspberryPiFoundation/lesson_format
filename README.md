@@ -9,6 +9,8 @@
 
 ## Running
 
+Check out the project repositories somewhere locally.
+
 ```
 ./build.sh <path to python repository> <path to scratch repository> ... <output_directory>
 ```
