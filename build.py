@@ -238,9 +238,10 @@ if __name__ == '__main__':
             src = os.path.join(html_assets, asset)
             dst = os.path.join(output_dir, asset)
             if os.path.isdir(src):
-                shutil.rmtree(dst)
+                if os.path.exists(dst):
+                    shutil.rmtree(dst)
                 shutil.copytree(src, dst)
             else:
-                shutil.copy(src, dst)
+                shutil.copy(src, output_dir)
 
     sys.exit(0)
