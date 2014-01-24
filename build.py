@@ -19,9 +19,9 @@ html_template = os.path.join(base, "templates/template.html")
 html_assets = os.path.join(base, "assets")
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 
-Term = collections.namedtuple('Term', 'filename name language term projects resources')
+Term = collections.namedtuple('Term', 'name language term projects resources')
 Project = collections.namedtuple('Project', 'filename number title materials notes')
-Resources = collections.namedtuple('Resources', 'name files')
+Resource = collections.namedtuple('Resource', 'name files')
 
 # Utility
 def expand_glob(base_dir, paths, one_file=False):
@@ -41,7 +41,25 @@ def makedirs(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+
+def copy(assets, output_dir):
+    for asset in os.listdir(assets):
+        if not asset.startswith('.'):
+            src = os.path.join(assets, asset)
+            dst = os.path.join(output_dir, asset)
+            if os.path.exists(dst):
+                if os.path.isdir(dst):
+                    shutil.rmtree(dst)
+                else:
+                    os.path.rm(dst)
+                    
+            if os.path.isdir(src):
+                shutil.copytree(src, dst)
+            else:
+                shutil.copy(src, output_dir)
 # Build process
+
+# Manifest and Project Header Parsing
 
 def find_manifests(dir):
     manifests = []
@@ -80,13 +98,12 @@ def parse_manifest(filename):
     for s in json_manifest['resources']:
         files = expand_glob(base_dir, s.get('files', []))
         
-        resources.append(Resources(
+        resources.append(Resource(
             name=s['name'],
             files=files,
         ))
 
     m = Term(
-        filename = filename, 
         name = json_manifest['name'],
         language = json_manifest['language'],
         term = int(json_manifest['term']),
@@ -129,6 +146,7 @@ def parse_project(p):
     )
 
 
+# Turning source materials into Final product
 
 def build_term_dir(manifest, output_dir):
     dir = os.path.join(output_dir, manifest.language, manifest.name)
@@ -139,25 +157,59 @@ def build_term_dir(manifest, output_dir):
 def build_project(project, output_dir):
     input_file = project.filename
     output_dir = os.path.join(output_dir,"%.02d"%project.number)
+    name, ext = os.path.basename(input_file).rsplit(".",1)
 
-    if input_file.endswith('.md'):
-        name, ext = os.path.basename(input_file).rsplit(".",1)
+    output_files = {}
+
+    if ext == "md":
         output_file = os.path.join(output_dir, "%s.html"%name)
         build_html(input_file, output_file)
+        output_files["html"] = output_file
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
+        output_files[ext] = output_file
 
-    # todo: zip materials
-    # todo: convert any notes
+    notes = []
+
+    for n in project.notes:
+        name, ext = os.path.basename(n).rsplit(".",1)
+        if ext == "md":
+            output_file = os.path.join(output_dir, "%s.html"%name)
+            build_html(n, output_file)
+        else:
+            output_file = os.path.join(output_dir, os.path.basename(n))
+            shutil.copy(n, output_file)
+        notes.append(output_file)
+    
+    materials = []
+    for file in project.materials:
+        output_file = os.path.join(output_dir, os.path.basename(file))
+        shutil.copy(file, output_file)
+        materials.append(output_file)
+
+    # todo: zip materials. 
 
     return Project(
-        filename = output_file,
+        filename = output_files,
         number = project.number,
         title = project.title,
-        materials = project.materials,
-        notes = project.notes,
+        materials = materials,
+        notes = notes,
     )
+
+def build_resource(resource, output_dir):
+    files = []
+    for n in resource.files:
+        name, ext = os.path.basename(n).rsplit(".",1)
+        if ext == "md":
+            output_file = os.path.join(output_dir, "%s.html"%name)
+            build_html(n, output_file)
+        else:
+            output_file = os.path.join(output_dir, os.path.basename(n))
+            shutil.copy(n, output_file)
+        files.append(output_file)
+    return Resource(name = resource.name, files=files)
 
 def build_html(markdown_file, output_file):
     cmd = [
@@ -175,22 +227,20 @@ def build_html(markdown_file, output_file):
     working_dir = os.path.dirname(output_file)
     makedirs(working_dir)
 
-    # todo: add scratch filter, optional template
-
     subprocess.check_call(cmd, cwd=working_dir)
     
     
 
-def build_term_index(manifest, projects, output_dir):
+def make_term_index(manifest, output_dir):
+    # todo: build index of all projects, and associated notes/resources
     pass
 
-def make_index(manifest, output_dir):
+def make_index(manifests, output_dir):
+    # todo: build an index of all terms
     pass
 
 
 if __name__ == '__main__':
-    print "Cloning repository"
-
     args = sys.argv[1::]
     if len(args) < 2:
         print "usage: %s <input repository directories> <output directory>"
@@ -200,32 +250,44 @@ if __name__ == '__main__':
 
     repositories, output_dir = args[:-1], args[-1]
 
-    print "Searching for manifests"
+    print "Searching for manifests .."
 
     manifests = []
     
     for m in find_manifests(repositories):
-        print m
-        manifests.append(parse_manifest(m))
+        print "Found Manifest:", m
+        try:
+            manifests.append(parse_manifest(m))
+        except StandardError:
+            print "Failed"
 
-    print "Building Terms:"
-
-    terms = {}
+    terms = []
     for term in manifests:
         term_dir = build_term_dir(term, output_dir)
         
-        print term.name, " -> ", term_dir
+        print "Building Term:", term.name,
         projects = []
         for p in term.projects:
             project = parse_project(p)
-            print term.name, project.title, project.filename
+            print "Building Project:", project.title, project.filename
 
             built_project = build_project(project, term_dir)
             
             projects.append(built_project)
 
-        terms[term.term] = build_term_index(term, projects, output_dir)
+        resources = []
+        for r in term.resources:
+            print "Building Resource:", r.name
+            resources.append(build_resource(r, output_dir))
 
+        term = Term(
+            name = term.name, term = term.term, language = term.language,
+            projects = projects,
+            resources = resources,
+        )
+
+        terms.append(make_term_index(term, output_dir))
+        print "Term built!"
 
     print "Building Index"
 
@@ -233,15 +295,8 @@ if __name__ == '__main__':
 
     print "Copying assets"
 
-    for asset in os.listdir(html_assets):
-        if not asset.startswith('.'):
-            src = os.path.join(html_assets, asset)
-            dst = os.path.join(output_dir, asset)
-            if os.path.isdir(src):
-                if os.path.exists(dst):
-                    shutil.rmtree(dst)
-                shutil.copytree(src, dst)
-            else:
-                shutil.copy(src, output_dir)
+    copy(html_assets, output_dir), 
+
+    print "Complete"
 
     sys.exit(0)

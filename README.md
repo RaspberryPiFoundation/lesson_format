@@ -26,12 +26,16 @@ $ python -m SimpleHTTPServer
 ## Status
 
 - Builds Python lessons from manifest, transforming markdown into html
+- Use pandoc scratchblocks filter to transform scratch into images
+- Manifest for Term 1, handling notes and main file, no resources
+- Copy across project notes, project materials into project directory
+- Copy across term resources into term directory
+- Transform any markdown which is a note for a project, or a resource for a term into html
 
 
 ## Todo
 
-- Use pandoc scratchblocks filter to transform scratch into images
-- Manifests for en-GB Scratch, Term 1 & 2
+- Complete Manifests for en-GB Scratch, Term 1 & 2
 - Manifests for en-GB Web Dev, Term 3
 - Document manifest format 
 - Build index.html for each term
