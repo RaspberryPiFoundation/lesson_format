@@ -154,41 +154,25 @@ def build_term_dir(manifest, output_dir):
     return dir
 
 
-def build_project(project, output_dir):
+def build_project(term_number, project, output_dir):
     # todo clean up this code because we keep repeating things.
 
     input_file = project.filename
-    output_dir = os.path.join(output_dir,"%.02d"%project.number)
+    output_dir = os.path.join(output_prefix,"%d.%.02d"%(term_number, project.number))
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
     output_files = {}
 
-    if ext == "md":
-        output_file = os.path.join(output_dir, "%s.html"%name)
-        build_html(input_file, output_file)
-        output_files["html"] = output_file
-    else:
-        output_file = os.path.join(output_dir, os.path.basename(input_file))
-        shutil.copy(input_file, output_file)
-        output_files[ext] = output_file
+    output_files.update(process_file(input_file, output_dir))
 
     notes = []
 
     for n in project.notes:
-        name, ext = os.path.basename(n).rsplit(".",1)
-        if ext == "md":
-            output_file = os.path.join(output_dir, "%s.html"%name)
-            build_html(n, output_file)
-        else:
-            output_file = os.path.join(output_dir, os.path.basename(n))
-            shutil.copy(n, output_file)
-        notes.append(output_file)
+        notes.append(process_file(n, output_dir))
     
     materials = []
     for file in project.materials:
-        output_file = os.path.join(output_dir, os.path.basename(file))
-        shutil.copy(file, output_file)
-        materials.append(output_file)
+        materials.append(copy_file(file, output_dir))
 
     # todo: zip materials. 
 
@@ -199,6 +183,24 @@ def build_project(project, output_dir):
         materials = materials,
         notes = notes,
     )
+
+def process_file(input_file, output_dir, convert_markdown=True):
+        name, ext = os.path.basename(input_file).rsplit(".",1)
+        if convert_markdown and ext == "md":
+            output_file = os.path.join(output_dir, "%s.html"%name)
+            build_html(n, output_file)
+            output["html"] = output_file
+        else:
+            output_file = os.path.join(output_dir, os.path.basename(input_file))
+            shutil.copy(input_file, output_file)
+            output[ext] = output_file
+        return output 
+
+def copy_file(input_file, output_dir):
+        name, ext = os.path.basename(input_file).rsplit(".",1)
+        output_file = os.path.join(output_dir, os.path.basename(input_file))
+        shutil.copy(input_file, output_file)
+        return output_file
 
 def build_resource(resource, output_dir):
     files = []
