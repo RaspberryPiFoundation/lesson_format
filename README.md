@@ -35,17 +35,22 @@ $ python -m SimpleHTTPServer
 
 ## Todo
 
-- Complete Manifests for en-GB Scratch, Term 1 & 2
-- Manifests for en-GB Web Dev, Term 3
-- Document manifest format 
 - Build index.html for each term
 - Build index.html for each language
 - Build index.html showing languages
 - Style index and directory listings
+
 - CCUK Legal disclaimer and template
 - CCW legal disclaimer and template
+
 - Zip/Bundle up project resources, add them to index
 - Zip/Bundle up Terms, add them to index
+
+- Complete Manifests for en-GB Scratch, Term 1 & 2
+- Add missing headers to markdown project files.
+- Manifests for en-GB Web Dev, Term 3
+
+- Document manifest format 
 - Unstyled PDF output, add it to index
 - Custom TeX output for pandoc, to make PDFs look more in-house style.
 - Nicer error messages and recovery

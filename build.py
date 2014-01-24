@@ -155,6 +155,8 @@ def build_term_dir(manifest, output_dir):
 
 
 def build_project(project, output_dir):
+    # todo clean up this code because we keep repeating things.
+
     input_file = project.filename
     output_dir = os.path.join(output_dir,"%.02d"%project.number)
     name, ext = os.path.basename(input_file).rsplit(".",1)
@@ -229,7 +231,11 @@ def build_html(markdown_file, output_file):
 
     subprocess.check_call(cmd, cwd=working_dir)
     
-    
+def build_pdf(markdown_file, output_file):
+    # todo: add pandoc call, but use a different template
+    # than the default, or perhaps a lua writer for xetex.
+    # then call xetex :/
+    pass
 
 def make_term_index(manifest, output_dir):
     # todo: build index of all projects, and associated notes/resources
