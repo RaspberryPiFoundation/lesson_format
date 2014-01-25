@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="description" content="Code Club - $lesson_title$">
-$for(author-meta)$
-  <meta name="author" content="$author-meta$">
-$endfor$
 $if(date-meta)$
-  <meta name="dcterms.date" content="$date-meta$">
+    <meta name="dcterms.date" content="$date-meta$">
 $endif$
-  <title>Code Club$if(lesson_title)$ - $lesson_title$$endif$</title>
+    <title>Code Club$if(lesson_title)$ - $lesson_title$$endif$</title>
 
+$for(css)$
+    <link rel="stylesheet" href="$css$">
+$endfor$
   $if(stylesheet)$<link rel="stylesheet" href="/css/$stylesheet$.css">$endif$
   $if(region)$<link rel="stylesheet" href="/css/codeclub-$region$.css">$endif$
 
@@ -27,9 +27,6 @@ $if(highlighting-css)$
 $highlighting-css$
   </style>
 $endif$
-$for(css)$
-  <link rel="stylesheet" href="$css$">
-$endfor$
 $if(math)$
   $math$
 $endif$
@@ -44,19 +41,10 @@ $include-before$
 $endfor$
 $if(lesson_title)$
 <header>
-<h1 class="title">$lesson_title$</h1>
-$if(subtitle)$
-<h1 class="subtitle">$subtitle$</h1>
-$endif$
 $for(level)$
-<h2 class="level">$level$</h2>
+<div class="level">$level$</div>
 $endfor$
-$for(author)$
-<h2 class="author">$author$</h2>
-$endfor$
-$if(date)$
-<h3 class="date">$date$</h3>
-$endif$
+<div class="title">$lesson_title$</div>
 </header>
 $endif$
 $if(legal)$
@@ -65,11 +53,6 @@ $if(legal)$
 $legal$
 </div>
 </section>
-$endif$
-$if(toc)$
-<nav id="$idprefix$TOC">
-$toc$
-</nav>
 $endif$
 $body$
 $if(legal)$
