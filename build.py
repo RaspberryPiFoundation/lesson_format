@@ -18,9 +18,8 @@ Term = collections.namedtuple('Term', 'name language number projects extras')
 Project = collections.namedtuple('Project', 'filename number title materials notes')
 Extra = collections.namedtuple('Extra', 'name materials notes')
 
-Style = collections.namedtuple('Style', 'name template stylesheet legal')
+Style = collections.namedtuple('Style', 'name template stylesheets legal')
 
-pandoc_markdown="markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes"
 
 base = os.path.dirname(os.path.abspath(__file__))
 
@@ -36,7 +35,7 @@ with open(os.path.join(base, "templates/world_legal.html")) as fh:
 note_style = lesson_style = Style(
     name = 'lesson', 
     template = os.path.join(base, "templates/lesson_template.html"),
-    stylesheet = "/css/lesson.css",
+    stylesheets = ["/css/lesson.css"],
     legal = world_legal,
 )
 
@@ -60,6 +59,10 @@ def main(argv):
             manifests.append(parse_manifest(m))
         except StandardError:
             print "Failed"
+
+    print "Copying assets"
+
+    copydir(html_assets, output_dir), 
 
     terms = []
     for term in manifests:
@@ -100,10 +103,6 @@ def main(argv):
 
     make_index(terms, output_dir)
 
-    print "Copying assets"
-
-    copydir(html_assets, output_dir), 
-
     print "Complete"
 
     return 0
@@ -113,17 +112,19 @@ def main(argv):
 def build_html(markdown_file, style, output_file):
     cmd = [
         "pandoc",
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
         "-t", "html5",
         "-s", 
         "--highlight-style", "pygments",
         "--section-divs",
         "--template=%s"%style.template, 
-        "-c", style.stylesheet,
         markdown_file, 
         "-o", output_file,
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%style.legal,
     ]
+    for stylesheet in style.stylesheets:
+        cmd.extend(("-c", stylesheet,))
     
     working_dir = os.path.dirname(output_file)
 

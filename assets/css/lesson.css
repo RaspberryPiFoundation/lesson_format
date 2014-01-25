@@ -199,9 +199,10 @@ header h2 {
 .activity h1 {
     font-size: 30px;
     color: #FFF;
+    background:#007CC9;
     margin-top: 30px;
     padding: 10px 10px;
-    background-color: rgb(51,150,55);
+    /*background-color: rgb(51,150,55);*/
     border-radius: 5px;
 }
 .activity h1 strong{
@@ -401,8 +402,13 @@ pre code {
     white-space: -o-pre-wrap;
 }
 .legal {
+    width: 804px;
+    margin: 15px auto;
     clear:both;
-    font-size:8px;
+    font-size:16px;
+    border-style: dotted;
+    border-radius: 5px;
+    padding: 5px;
  }
  /* things to be cleared */
  .challenge ul:after, ol:after, ul:after {
