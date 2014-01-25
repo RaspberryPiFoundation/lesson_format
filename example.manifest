@@ -18,6 +18,10 @@
             "notes": ["canalsobeglobbed.*"]
         },
         { 
+            "name": "manuals",
+            "resources": ["canalsobeglobbed.*"]
+        },
+        { 
             "name": "Flash Cards",
             "materials": ["canalsobeglobbed.*"]
         }

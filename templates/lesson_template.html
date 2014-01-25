@@ -3,18 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Code Club - $lesson_title$">
 $if(date-meta)$
     <meta name="dcterms.date" content="$date-meta$">
 $endif$
-    <title>Code Club$if(lesson_title)$ - $lesson_title$$endif$</title>
+    <title>$if(title)$$title$ — $endif$ $organization$</title>
 
 $for(css)$
     <link rel="stylesheet" href="$css$">
 $endfor$
   $if(stylesheet)$<link rel="stylesheet" href="/css/$stylesheet$.css">$endif$
-  $if(region)$<link rel="stylesheet" href="/css/codeclub-$region$.css">$endif$
-
   <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,16 +32,15 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
-<div id="cclesson">
 $for(include-before)$
 $include-before$
 $endfor$
-$if(lesson_title)$
+$if(title)$
 <header>
 $for(level)$
 <div class="level">$level$</div>
 $endfor$
-<div class="title">$lesson_title$</div>
+<div class="title">$title$</div>
 </header>
 $endif$
 $if(legal)$

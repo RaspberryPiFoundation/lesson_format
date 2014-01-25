@@ -31,17 +31,29 @@ $ python -m SimpleHTTPServer
 - Copy across project notes, project materials into project directory
 - Copy across term resources into term directory
 - Transform any markdown which is a note for a project, or a resource for a term into html
+- CCW legal disclaimer and template
+- CCUK Legal disclaimer and template
 
+## Next
+
+- Clean up and split out CSS
+    - make a new template to start from, not lesson_template.html
+        - Inject the logo into the document
+        - Seperate out colours and styles
+        - inject colors too with inline stylesheet, or ?
+    - Move lesson specific things to own lesson sheet.
+    - level should only be inserted if there.
+- Print and media queries for sizes.
 
 ## Todo
+
+- Split out CSS for lesson, scratch, and world scheme.
 
 - Build index.html for each term
 - Build index.html for each language
 - Build index.html showing languages
 - Style index and directory listings
 
-- CCUK Legal disclaimer and template
-- CCW legal disclaimer and template
 
 - Zip/Bundle up project resources, add them to index
 - Zip/Bundle up Terms, add them to index

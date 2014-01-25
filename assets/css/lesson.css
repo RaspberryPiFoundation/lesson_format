@@ -1,6 +1,9 @@
 * {
     margin: 0px padding: 0px;
     font: Arial, Helvetica, sans-serif;
+/*    -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;  
+    box-sizing: border-box;  */  
 }
 @font-face {
   font-family: 'PTSans';
@@ -46,9 +49,6 @@
 html {
     font-family: PTSans, Arial, sans-serif;
     font-size: 62.5%;
-}
-
-body {
     text-align: center;
     background: #FFF;
 }
@@ -64,7 +64,7 @@ h3, h4 {
 p {
     font-size: 16px;
 }
-#cclesson {
+body {
     width: 800px;
     margin: 15px auto;
     background: #FFF;
@@ -83,7 +83,6 @@ header {
     color: #FFFFFF;
     width:100%;
     height:100px;
-    background-image: url("/img/logo.png");
     background-image: url("/img/logo.svg");
     background-repeat:no-repeat;
     background-position:650px center;
@@ -98,6 +97,9 @@ header .title {
     line-height:60px;
     font-size:30px;
     font-weight: bold;
+}
+header .logo {
+	float: right;
 }
 header .level {
     float: left;
@@ -302,13 +304,13 @@ header .level {
     margin-top:0;
     padding-top:0;
 }
-.activity img {
+/*.activity img {
     float: right;
     margin-right: 100px;
     margin-left: 500px;
     padding: 5px;
     border: 5px solid rgb(230,134,45);
-}
+}*/
 .activity li {
     font-size: 16px;        
     line-height:24px;
@@ -368,20 +370,7 @@ header .level {
 .check .protip ul {
     padding-left:0;
 }
-pre {
-    font-family: "Source Code Pro",Courier,monospace;
-    font-weight: 400;
-    line-height: 1.5;
-    text-indent: 0;
-    clear:both;
-    background:#eee;
-    padding: 20px;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    hyphens: none;
-
-}
-code {
+p code {
     border-radius: 4px 4px 4px 4px;
     background: #CCCCCC;
     background:#B9E5FA;
@@ -394,16 +383,21 @@ code {
 	white-space: -pre-wrap; /* Opera 4-6 */
 	white-space: -o-pre-wrap; /* Opera 7 */
 }
-pre code {
-    background:transparent;
+	
+pre {
     font-size:16px;
+    font-family: "Source Code Pro",Courier,monospace;
+    font-weight: 400;
+    line-height: 1.5;
+    text-indent: 0;
+    clear:both;
+    background:#eee;
+    padding: 20px;
     -webkit-hyphens: none;
     -moz-hyphens: none;
     hyphens: none;
-    white-space:pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -o-pre-wrap;
 }
+
 .legal {
     width: 804px;
     margin: 15px auto;

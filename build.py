@@ -13,16 +13,16 @@ except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
 
-
+# todo : real classes
 Term = collections.namedtuple('Term', 'name language number projects extras')
 Project = collections.namedtuple('Project', 'filename number title materials notes')
 Extra = collections.namedtuple('Extra', 'name materials notes')
-
-Style = collections.namedtuple('Style', 'name template stylesheets legal')
-
+Style = collections.namedtuple('Style', 'name template stylesheets')
+Region = collections.namedtuple('Region','name stylesheets legal logo')
 
 base = os.path.dirname(os.path.abspath(__file__))
 
+template_base = os.path.join(base, "templates")
 html_assets = os.path.join(base, "assets")
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 
@@ -34,20 +34,18 @@ with open(os.path.join(base, "templates/world_legal.html")) as fh:
 
 note_style = lesson_style = Style(
     name = 'lesson', 
-    template = os.path.join(base, "templates/lesson_template.html"),
+    template = "lesson_template.html",
     stylesheets = ["/css/lesson.css"],
-    legal = world_legal,
 )
 
-def main(argv):
-    args = argv[1::]
-    if len(args) < 2:
-        print "usage: %s <input repository directories> <output directory>"
-        return -1
+codeclubworld = Region(
+    name='Code Club World',
+    legal = world_legal,
+    stylesheets = [],
+    logo = "/img/logo.svg",
+)
 
-    args = [os.path.abspath(a) for a in args]
-
-    repositories, output_dir = args[:-1], args[-1]
+def build(repositories, organization, output_dir):
 
     print "Searching for manifests .."
 
@@ -80,7 +78,7 @@ def main(argv):
             project_dir = os.path.join(term_dir,"%.02d"%(project.number))
             makedirs(project_dir)
 
-            built_project = build_project(project, project_dir)
+            built_project = build_project(project, organization, project_dir)
             
             projects.append(built_project)
 
@@ -88,7 +86,7 @@ def main(argv):
         
         for r in term.extras:
             print "Building Extra:", r.name
-            extras.append(build_extra(r, term_dir))
+            extras.append(build_extra(r, organization, term_dir))
 
         term = Term(
             name = term.name, number = term.number, language = term.language,
@@ -96,20 +94,18 @@ def main(argv):
             extras = extras,
         )
 
-        terms.append(make_term_index(term, output_dir))
+        terms.append(make_term_index(term, organization, output_dir))
         print "Term built!"
 
     print "Building Index"
 
-    make_index(terms, output_dir)
+    make_index(terms, organization, output_dir)
 
     print "Complete"
 
-    return 0
-
 # Markup process
 
-def build_html(markdown_file, style, output_file):
+def build_html(markdown_file, style, organization, output_file):
     cmd = [
         "pandoc",
         "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
@@ -117,14 +113,19 @@ def build_html(markdown_file, style, output_file):
         "-s", 
         "--highlight-style", "pygments",
         "--section-divs",
-        "--template=%s"%style.template, 
+        "--template=%s"%os.path.join(template_base, style.template), 
         markdown_file, 
         "-o", output_file,
         "--filter", scratchblocks_filter,
-        "-M", "legal=%s"%style.legal,
+        "-M", "legal=%s"%organization.legal,
+        "-M", "organization=%s"%organization.name,
+        "-M", "logo=%s"%organization.logo,
     ]
     for stylesheet in style.stylesheets:
         cmd.extend(("-c", stylesheet,))
+    for stylesheet in organization.stylesheets:
+        cmd.extend(("-c", stylesheet,))
+
     
     working_dir = os.path.dirname(output_file)
 
@@ -137,12 +138,12 @@ def build_pdf(markdown_file, style, output_file):
     pass
 
 
-def process_file(input_file, style, output_dir):
+def process_file(input_file, style, organization, output_dir):
     output = {}
     name, ext = os.path.basename(input_file).rsplit(".",1)
     if ext == "md":
         output_file = os.path.join(output_dir, "%s.html"%name)
-        build_html(input_file, style, output_file)
+        build_html(input_file, style, organization, output_file)
         output["html"] = output_file
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
@@ -152,7 +153,7 @@ def process_file(input_file, style, output_dir):
 
 # Process files within project and resource containers
 
-def build_project(project, output_dir):
+def build_project(project, organization, output_dir):
     # todo clean up this code because we keep repeating things.
 
     input_file = project.filename
@@ -160,12 +161,12 @@ def build_project(project, output_dir):
 
     output_files = {}
 
-    output_files.update(process_file(input_file, lesson_style, output_dir))
+    output_files.update(process_file(input_file, lesson_style, organization, output_dir))
 
     notes = []
 
     for note in project.notes:
-        notes.append(process_file(note, note_style, output_dir))
+        notes.append(process_file(note, note_style, organization, output_dir))
     
     materials = []
     for file in project.materials:
@@ -182,20 +183,20 @@ def build_project(project, output_dir):
     )
 
 
-def build_extra(extra, output_dir):
+def build_extra(extra, organization, output_dir):
     notes = []
     for name in extra.notes:
-        notes.append(process_file(name, note_style, output_dir))
+        notes.append(process_file(name, note_style, organization, output_dir))
     materials = []
     for name in extra.materials:
         materials.append(copy_file(name, output_dir))
     return Extra(name = extra.name, notes=notes, materials=materials)
 
-def make_term_index(manifest, output_dir):
+def make_term_index(manifest, organization, output_dir):
     # todo: build index of all projects, and associated notes/extras
     pass
 
-def make_index(manifests, output_dir):
+def make_index(manifests, organization, output_dir):
     # todo: build an index of all terms
     pass
 
@@ -333,6 +334,19 @@ def copy_file(input_file, output_dir):
         shutil.copy(input_file, output_file)
         return output_file
 
+
 if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    organization = codeclubworld
+    args = sys.argv[1::]
+    if len(args) < 2:
+        print "usage: %s <input repository directories> <output directory>"
+        sys.exit(-1)
+
+    args = [os.path.abspath(a) for a in args]
+
+    repositories, output_dir = args[:-1], args[-1]
+
+    build(repositories, organization, output_dir)
+
+    sys.exit(0)
 
