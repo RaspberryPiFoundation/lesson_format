@@ -3,17 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Code Club - $lesson-meta$">
+    <meta name="description" content="Code Club - $lesson_title$">
 $for(author-meta)$
   <meta name="author" content="$author-meta$">
 $endfor$
 $if(date-meta)$
   <meta name="dcterms.date" content="$date-meta$">
 $endif$
-  <title>Code Club - $lesson_title-meta$ </title>
-  <link rel="stylesheet" href="/css/codeclub.css">
-  $if(region)$<link rel="stylesheet" href="/css/codeclub-$region$.css">$endif$
+  <title>Code Club$if(lesson_title)$ - $lesson_title$$endif$</title>
+
   $if(stylesheet)$<link rel="stylesheet" href="/css/$stylesheet$.css">$endif$
+  $if(region)$<link rel="stylesheet" href="/css/codeclub-$region$.css">$endif$
+
   <style type="text/css">code{white-space: pre;}</style>
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -57,6 +58,13 @@ $if(date)$
 <h3 class="date">$date$</h3>
 $endif$
 </header>
+$endif$
+$if(legal)$
+<section>
+<div class="legal">
+$legal$
+</div>
+</section>
 $endif$
 $if(toc)$
 <nav id="$idprefix$TOC">

@@ -1,7 +1,7 @@
 {
     "name": "python",
     "language": "en-GB",
-    "term": 4,
+    "number": 4,
 
     "projects": [
         {
@@ -12,14 +12,14 @@
             "title": "Optional Title"
         }
     ],
-    "resources": [
+    "extras": [
         { 
             "name": "Volunteer Notes for Term",
-            "files": ["canalsobeglobbed.*"]
+            "notes": ["canalsobeglobbed.*"]
         },
         { 
             "name": "Flash Cards",
-            "files": ["canalsobeglobbed.*"]
+            "materials": ["canalsobeglobbed.*"]
         }
     ]
 }

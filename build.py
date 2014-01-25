@@ -13,65 +13,192 @@ except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
 
+
+Term = collections.namedtuple('Term', 'name language number projects extras')
+Project = collections.namedtuple('Project', 'filename number title materials notes')
+Extra = collections.namedtuple('Extra', 'name materials notes')
+
+Style = collections.namedtuple('Style', 'name template stylesheet legal')
+
 pandoc_markdown="markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes"
+
 base = os.path.dirname(os.path.abspath(__file__))
-html_template = os.path.join(base, "templates/template.html")
+
 html_assets = os.path.join(base, "assets")
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 
-Term = collections.namedtuple('Term', 'name language term projects resources')
-Project = collections.namedtuple('Project', 'filename number title materials notes')
-Resource = collections.namedtuple('Resource', 'name files')
+with open(os.path.join(base, "templates/uk_legal.html")) as fh:
+    uk_legal = fh.read()
 
-# Utility
-def expand_glob(base_dir, paths, one_file=False):
-    if one_file:
-        output = glob.glob(os.path.join(base_dir, paths))
-        if len(output) > 1:
-            raise AssertionError("Bad things")
-        return output[0]
+with open(os.path.join(base, "templates/world_legal.html")) as fh:
+    world_legal = fh.read()
 
-    else:
-        output = []
-        for p in paths:
-            output.extend(glob.glob(os.path.join(base_dir, p)))
-        return output
+note_style = lesson_style = Style(
+    name = 'lesson', 
+    template = os.path.join(base, "templates/lesson_template.html"),
+    stylesheet = "/css/lesson.css",
+    legal = world_legal,
+)
+
+def main(argv):
+    args = argv[1::]
+    if len(args) < 2:
+        print "usage: %s <input repository directories> <output directory>"
+        return -1
+
+    args = [os.path.abspath(a) for a in args]
+
+    repositories, output_dir = args[:-1], args[-1]
+
+    print "Searching for manifests .."
+
+    manifests = []
     
-def makedirs(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
+    for m in find_files(repositories, ".manifest"):
+        print "Found Manifest:", m
+        try:
+            manifests.append(parse_manifest(m))
+        except StandardError:
+            print "Failed"
+
+    terms = []
+    for term in manifests:
+        term_dir = os.path.join(output_dir, term.language, term.name, str(term.number))
+        makedirs(term_dir)
+        
+        print "Building Term:", term.name,
+
+        projects = []
+        
+        for p in term.projects:
+            project = parse_project_meta(p)
+            print "Building Project:", project.title, project.filename
+
+            project_dir = os.path.join(term_dir,"%.02d"%(project.number))
+            makedirs(project_dir)
+
+            built_project = build_project(project, project_dir)
+            
+            projects.append(built_project)
+
+        extras = []
+        
+        for r in term.extras:
+            print "Building Extra:", r.name
+            extras.append(build_extra(r, term_dir))
+
+        term = Term(
+            name = term.name, number = term.number, language = term.language,
+            projects = projects,
+            extras = extras,
+        )
+
+        terms.append(make_term_index(term, output_dir))
+        print "Term built!"
+
+    print "Building Index"
+
+    make_index(terms, output_dir)
+
+    print "Copying assets"
+
+    copydir(html_assets, output_dir), 
+
+    print "Complete"
+
+    return 0
+
+# Markup process
+
+def build_html(markdown_file, style, output_file):
+    cmd = [
+        "pandoc",
+        "-t", "html5",
+        "-s", 
+        "--highlight-style", "pygments",
+        "--section-divs",
+        "--template=%s"%style.template, 
+        "-c", style.stylesheet,
+        markdown_file, 
+        "-o", output_file,
+        "--filter", scratchblocks_filter,
+        "-M", "legal=%s"%style.legal,
+    ]
+    
+    working_dir = os.path.dirname(output_file)
+
+    subprocess.check_call(cmd, cwd=working_dir)
+    
+def build_pdf(markdown_file, style, output_file):
+    # todo: add pandoc call, but use a different template
+    # than the default, or perhaps a lua writer for xetex.
+    # then call xetex :/
+    pass
 
 
-def copy(assets, output_dir):
-    for asset in os.listdir(assets):
-        if not asset.startswith('.'):
-            src = os.path.join(assets, asset)
-            dst = os.path.join(output_dir, asset)
-            if os.path.exists(dst):
-                if os.path.isdir(dst):
-                    shutil.rmtree(dst)
-                else:
-                    os.path.rm(dst)
-                    
-            if os.path.isdir(src):
-                shutil.copytree(src, dst)
-            else:
-                shutil.copy(src, output_dir)
-# Build process
+def process_file(input_file, style, output_dir):
+    output = {}
+    name, ext = os.path.basename(input_file).rsplit(".",1)
+    if ext == "md":
+        output_file = os.path.join(output_dir, "%s.html"%name)
+        build_html(input_file, style, output_file)
+        output["html"] = output_file
+    else:
+        output_file = os.path.join(output_dir, os.path.basename(input_file))
+        shutil.copy(input_file, output_file)
+        output[ext] = output_file
+    return output 
+
+# Process files within project and resource containers
+
+def build_project(project, output_dir):
+    # todo clean up this code because we keep repeating things.
+
+    input_file = project.filename
+    name, ext = os.path.basename(input_file).rsplit(".",1)
+
+    output_files = {}
+
+    output_files.update(process_file(input_file, lesson_style, output_dir))
+
+    notes = []
+
+    for note in project.notes:
+        notes.append(process_file(note, note_style, output_dir))
+    
+    materials = []
+    for file in project.materials:
+        materials.append(copy_file(file, output_dir))
+
+    # todo: zip materials. 
+
+    return Project(
+        filename = output_files,
+        number = project.number,
+        title = project.title,
+        materials = materials,
+        notes = notes,
+    )
+
+
+def build_extra(extra, output_dir):
+    notes = []
+    for name in extra.notes:
+        notes.append(process_file(name, note_style, output_dir))
+    materials = []
+    for name in extra.materials:
+        materials.append(copy_file(name, output_dir))
+    return Extra(name = extra.name, notes=notes, materials=materials)
+
+def make_term_index(manifest, output_dir):
+    # todo: build index of all projects, and associated notes/extras
+    pass
+
+def make_index(manifests, output_dir):
+    # todo: build an index of all terms
+    pass
 
 # Manifest and Project Header Parsing
-
-def find_manifests(dir):
-    manifests = []
-    def visit(m, dirname, names):
-        for n in names:
-            if n.endswith(".manifest"):
-                m.append(os.path.join(dirname, n))
-    for d in dir:
-        os.path.walk(d, visit, manifests)
-    
-        
-    return manifests
 
 def parse_manifest(filename):
     with open(filename) as fh:
@@ -94,26 +221,28 @@ def parse_manifest(filename):
         )
         projects.append(project)
 
-    resources = []
-    for s in json_manifest['resources']:
-        files = expand_glob(base_dir, s.get('files', []))
+    extras = []
+    for s in json_manifest.get('extras',()):
+        notes = expand_glob(base_dir, s.get('notes', ()))
+        materials = expand_glob(base_dir, s.get('materials', ()))
         
-        resources.append(Resource(
+        extras.append(Extra(
             name=s['name'],
-            files=files,
+            notes=notes,
+            materials=materials,
         ))
 
     m = Term(
         name = json_manifest['name'],
         language = json_manifest['language'],
-        term = int(json_manifest['term']),
+        number = int(json_manifest['number']),
         projects = projects,
-        resources = resources,
+        extras = extras,
     )
 
     return m
 
-def parse_project(p):
+def parse_project_meta(p):
     if not p.filename.endswith('md'):
         return p
 
@@ -145,56 +274,57 @@ def parse_project(p):
         notes = p.notes,
     )
 
-
-# Turning source materials into Final product
-
-def build_term_dir(manifest, output_dir):
-    dir = os.path.join(output_dir, manifest.language, manifest.name)
-    makedirs(dir)
-    return dir
-
-
-def build_project(term_number, project, output_dir):
-    # todo clean up this code because we keep repeating things.
-
-    input_file = project.filename
-    output_dir = os.path.join(output_prefix,"%d.%.02d"%(term_number, project.number))
-    name, ext = os.path.basename(input_file).rsplit(".",1)
-
-    output_files = {}
-
-    output_files.update(process_file(input_file, output_dir))
-
-    notes = []
-
-    for n in project.notes:
-        notes.append(process_file(n, output_dir))
     
-    materials = []
-    for file in project.materials:
-        materials.append(copy_file(file, output_dir))
+# File and directory handling
 
-    # todo: zip materials. 
+def find_files(dir, extension):
+    manifests = []
+    def visit(m, dirname, names):
+        for n in names:
+            if n.endswith(extension):
+                m.append(os.path.join(dirname, n))
+    for d in dir:
+        os.path.walk(d, visit, manifests)
+    
+        
+    return manifests
 
-    return Project(
-        filename = output_files,
-        number = project.number,
-        title = project.title,
-        materials = materials,
-        notes = notes,
-    )
+def expand_glob(base_dir, paths, one_file=False):
+    if one_file:
+        output = glob.glob(os.path.join(base_dir, paths))
+        if len(output) > 1:
+            raise AssertionError("Bad things")
+        return output[0]
 
-def process_file(input_file, output_dir, convert_markdown=True):
-        name, ext = os.path.basename(input_file).rsplit(".",1)
-        if convert_markdown and ext == "md":
-            output_file = os.path.join(output_dir, "%s.html"%name)
-            build_html(n, output_file)
-            output["html"] = output_file
-        else:
-            output_file = os.path.join(output_dir, os.path.basename(input_file))
-            shutil.copy(input_file, output_file)
-            output[ext] = output_file
-        return output 
+    else:
+        output = []
+        for p in paths:
+            output.extend(glob.glob(os.path.join(base_dir, p)))
+        return output
+    
+def makedirs(path, clear=False):
+    if clear and os.path.exists(path):
+        shutil.rmtree(path)
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+def copydir(assets, output_dir):
+    for asset in os.listdir(assets):
+        if not asset.startswith('.'):
+            src = os.path.join(assets, asset)
+            dst = os.path.join(output_dir, asset)
+            if os.path.exists(dst):
+                if os.path.isdir(dst):
+                    shutil.rmtree(dst)
+                else:
+                    os.path.rm(dst)
+                    
+            if os.path.isdir(src):
+                shutil.copytree(src, dst)
+            else:
+                shutil.copy(src, output_dir)
+
 
 def copy_file(input_file, output_dir):
         name, ext = os.path.basename(input_file).rsplit(".",1)
@@ -202,109 +332,6 @@ def copy_file(input_file, output_dir):
         shutil.copy(input_file, output_file)
         return output_file
 
-def build_resource(resource, output_dir):
-    files = []
-    for n in resource.files:
-        name, ext = os.path.basename(n).rsplit(".",1)
-        if ext == "md":
-            output_file = os.path.join(output_dir, "%s.html"%name)
-            build_html(n, output_file)
-        else:
-            output_file = os.path.join(output_dir, os.path.basename(n))
-            shutil.copy(n, output_file)
-        files.append(output_file)
-    return Resource(name = resource.name, files=files)
-
-def build_html(markdown_file, output_file):
-    cmd = [
-        "pandoc",
-        "-t", "html5",
-        "-s", 
-        "--highlight-style", "pygments",
-        "--section-divs",
-        "--template=%s"%html_template, 
-        markdown_file, 
-        "-o", output_file,
-        "--filter", scratchblocks_filter,
-    ]
-    
-    working_dir = os.path.dirname(output_file)
-    makedirs(working_dir)
-
-    subprocess.check_call(cmd, cwd=working_dir)
-    
-def build_pdf(markdown_file, output_file):
-    # todo: add pandoc call, but use a different template
-    # than the default, or perhaps a lua writer for xetex.
-    # then call xetex :/
-    pass
-
-def make_term_index(manifest, output_dir):
-    # todo: build index of all projects, and associated notes/resources
-    pass
-
-def make_index(manifests, output_dir):
-    # todo: build an index of all terms
-    pass
-
-
 if __name__ == '__main__':
-    args = sys.argv[1::]
-    if len(args) < 2:
-        print "usage: %s <input repository directories> <output directory>"
-        sys.exit(-1)
+    sys.exit(main(sys.argv))
 
-    args = [os.path.abspath(a) for a in args]
-
-    repositories, output_dir = args[:-1], args[-1]
-
-    print "Searching for manifests .."
-
-    manifests = []
-    
-    for m in find_manifests(repositories):
-        print "Found Manifest:", m
-        try:
-            manifests.append(parse_manifest(m))
-        except StandardError:
-            print "Failed"
-
-    terms = []
-    for term in manifests:
-        term_dir = build_term_dir(term, output_dir)
-        
-        print "Building Term:", term.name,
-        projects = []
-        for p in term.projects:
-            project = parse_project(p)
-            print "Building Project:", project.title, project.filename
-
-            built_project = build_project(project, term_dir)
-            
-            projects.append(built_project)
-
-        resources = []
-        for r in term.resources:
-            print "Building Resource:", r.name
-            resources.append(build_resource(r, output_dir))
-
-        term = Term(
-            name = term.name, term = term.term, language = term.language,
-            projects = projects,
-            resources = resources,
-        )
-
-        terms.append(make_term_index(term, output_dir))
-        print "Term built!"
-
-    print "Building Index"
-
-    make_index(terms, output_dir)
-
-    print "Copying assets"
-
-    copy(html_assets, output_dir), 
-
-    print "Complete"
-
-    sys.exit(0)
