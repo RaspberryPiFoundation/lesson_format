@@ -8,6 +8,7 @@ import glob
 import json
 import subprocess
 import tempfile
+import string
 
 import xml.etree.ElementTree as ET
 try:
@@ -16,24 +17,16 @@ except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
 
-# todo : real classes
-Term = collections.namedtuple('Term', 'name language number projects extras')
-Project = collections.namedtuple('Project', 'filename number title materials notes')
-Extra = collections.namedtuple('Extra', 'name materials notes')
+Region = collections.namedtuple('Region','name stylesheets legal logo css_variables')
 Style = collections.namedtuple('Style', 'name template stylesheets')
-Region = collections.namedtuple('Region','name stylesheets legal logo')
-Worksheet = collections.namedtuple('Worksheet','format filename')
 
 base = os.path.dirname(os.path.abspath(__file__))
-
 template_base = os.path.join(base, "templates")
-html_assets = os.path.join(base, "assets")
-scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 
-with open(os.path.join(base, "templates/uk_legal.html")) as fh:
+with open(os.path.join(template_base, "uk_legal.html")) as fh:
     uk_legal = fh.read()
 
-with open(os.path.join(base, "templates/world_legal.html")) as fh:
+with open(os.path.join(template_base, "world_legal.html")) as fh:
     world_legal = fh.read()
 
 note_style = index_style = Style(
@@ -51,9 +44,37 @@ codeclubworld = Region(
     name='Code Club World',
     legal = world_legal,
     stylesheets = [],
-    logo = "/img/logo.svg",
+    logo = "/img/ccw_logo.svg",
+    css_variables = {
+        "header_bg_light": "#ADCAEA",
+        "header_bg_dark": "#007CC9",
+        "header_text": "#FFFFFF",
+    }
 )
 
+codeclubuk = Region(
+    name='Code Club',
+    legal = uk_legal,
+    stylesheets = [],
+    logo = "/img/ccuk_logo.svg",
+    css_variables = {
+        "header_bg_light": "#B1DAAE",
+        "header_bg_dark": "#349946",
+        "header_text": "#FFFFFF",
+    }
+)
+
+# todo : real classes
+
+Term = collections.namedtuple('Term', 'name language number projects extras')
+Project = collections.namedtuple('Project', 'filename number title materials notes')
+Extra = collections.namedtuple('Extra', 'name materials notes')
+Worksheet = collections.namedtuple('Worksheet','format filename')
+
+css_assets = os.path.join(template_base,"css")
+
+scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
+html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
 # Markup process
 
@@ -180,8 +201,9 @@ def make_term_index(term, organization, output_dir):
     output_file = os.path.join(output_dir, "index.html")
     title = term.name
 
-    root = ET.Element('section')
-    h1 = ET.SubElement(root, 'h1')
+    root = ET.Element('body')
+    section = ET.SubElement(root,'section')
+    h1 = ET.SubElement(section, 'h1')
     h1.text = "Projects"
     ol = ET.SubElement(root, 'ol')
     for project in sorted(term.projects, key=lambda x:x.number):
@@ -193,7 +215,27 @@ def make_term_index(term, organization, output_dir):
         a = ET.SubElement(li, 'a', {'href': url})
         a.text = project.title or url
 
-    # todo: add extra resources, handle multiple files.
+    for extra in term.extras:
+        section = ET.SubElement(root, 'section')
+        h1 = ET.SubElement(section, 'h1')
+        h1.text = extra.name
+        ol = ET.SubElement(root, 'ol')
+        print extra.notes, extra.materials
+        for files in extra.notes:
+            file = sort_files(files)[0]
+            # todo: handle multiple formats
+            url = os.path.relpath(file.filename, output_dir)
+            li = ET.SubElement(ol, 'li')
+            a = ET.SubElement(li, 'a', {'href': url})
+            a.text = url
+        
+        
+        for file in extra.materials: 
+            url = os.path.relpath(file.filename, output_dir)
+            li = ET.SubElement(ol, 'li')
+            a = ET.SubElement(li, 'a', {'href': url})
+            a.text = file.filename
+    # todo: handle multiple files.
 
     print output_file
 
@@ -256,7 +298,10 @@ def build(repositories, organization, output_dir):
 
     print "Copying assets"
 
-    copydir(html_assets, output_dir), 
+    copydir(html_assets, output_dir)
+    css_dir = os.path.join(output_dir, "css")
+    makedirs(css_dir)
+    make_css(css_assets, organization, css_dir)
 
     languages = {}
 
@@ -383,6 +428,29 @@ def parse_project_meta(p):
         notes = p.notes,
     )
 
+def make_css(stylesheet_dir, organization, output_dir):
+    for asset in os.listdir(stylesheet_dir):
+        if not asset.startswith('.'):
+            src = os.path.join(stylesheet_dir, asset)
+            dst = os.path.join(output_dir, asset)
+            if os.path.exists(dst):
+                if os.path.isdir(dst):
+                    shutil.rmtree(dst)
+                    makedirs(dst)
+                else:
+                    os.remove(dst)
+                    
+            if os.path.isdir(src):
+                make_css(src, organization, dst)
+            else:
+                if asset.endswith('.css'):
+                    with open(src,"r") as src_fh, open(dst,"w") as dst_fh:
+                        template = string.Template(src_fh.read())
+                        print organization.css_variables
+                        dst_fh.write(template.substitute(organization.css_variables))
+
+                else:
+                    shutil.copy(src, output_dir)
     
 # File and directory handling
 
@@ -419,15 +487,15 @@ def makedirs(path, clear=False):
 
 
 def copydir(assets, output_dir):
-    for asset in os.listdir(assets):
+    for src in assets:
+        asset = os.path.basename(src)
         if not asset.startswith('.'):
-            src = os.path.join(assets, asset)
             dst = os.path.join(output_dir, asset)
             if os.path.exists(dst):
                 if os.path.isdir(dst):
                     shutil.rmtree(dst)
                 else:
-                    os.path.rm(dst)
+                    os.remove(dst)
                     
             if os.path.isdir(src):
                 shutil.copytree(src, dst)
@@ -443,13 +511,13 @@ def copy_file(input_file, output_dir):
 
 
 if __name__ == '__main__':
-    organization = codeclubworld
     args = sys.argv[1::]
-    if len(args) < 2:
-        print "usage: %s <input repository directories> <output directory>"
+    if len(args) < 3:
+        print "usage: %s <region> <input repository directories> <output directory>"
         sys.exit(-1)
 
-    args = [os.path.abspath(a) for a in args]
+    organization = {'world':codeclubworld, 'uk':codeclubuk}[args[0]]
+    args = [os.path.abspath(a) for a in args[1:]]
 
     repositories, output_dir = args[:-1], args[-1]
 

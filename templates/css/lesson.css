@@ -91,10 +91,9 @@
 .activity h1 {
     font-size: 30px;
     color: #FFF;
-    background:#007CC9;
+    background: ${header_bg_dark};
     margin-top: 30px;
     padding: 10px 10px;
-    /*background-color: rgb(51,150,55);*/
     border-radius: 5px;
 }
 .activity h1 strong{
