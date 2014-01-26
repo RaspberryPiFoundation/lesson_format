@@ -7,6 +7,9 @@ import collections
 import glob
 import json
 import subprocess
+import tempfile
+
+import xml.etree.ElementTree as ET
 try:
     import yaml
 except ImportError:
@@ -19,6 +22,7 @@ Project = collections.namedtuple('Project', 'filename number title materials not
 Extra = collections.namedtuple('Extra', 'name materials notes')
 Style = collections.namedtuple('Style', 'name template stylesheets')
 Region = collections.namedtuple('Region','name stylesheets legal logo')
+Worksheet = collections.namedtuple('Worksheet','format filename')
 
 base = os.path.dirname(os.path.abspath(__file__))
 
@@ -50,77 +54,43 @@ codeclubworld = Region(
     logo = "/img/logo.svg",
 )
 
-def build(repositories, organization, output_dir):
-
-    print "Searching for manifests .."
-
-    manifests = []
-    
-    for m in find_files(repositories, ".manifest"):
-        print "Found Manifest:", m
-        try:
-            manifests.append(parse_manifest(m))
-        except StandardError:
-            print "Failed"
-
-    print "Copying assets"
-
-    copydir(html_assets, output_dir), 
-
-    terms = []
-    for term in manifests:
-        term_dir = os.path.join(output_dir, term.language, term.name, str(term.number))
-        makedirs(term_dir)
-        
-        print "Building Term:", term.name,
-
-        projects = []
-        
-        for p in term.projects:
-            project = parse_project_meta(p)
-            print "Building Project:", project.title, project.filename
-
-            project_dir = os.path.join(term_dir,"%.02d"%(project.number))
-            makedirs(project_dir)
-
-            built_project = build_project(project, organization, project_dir)
-            
-            projects.append(built_project)
-
-        extras = []
-        
-        for r in term.extras:
-            print "Building Extra:", r.name
-            extras.append(build_extra(r, organization, term_dir))
-
-        term = Term(
-            name = term.name, number = term.number, language = term.language,
-            projects = projects,
-            extras = extras,
-        )
-
-        terms.append(make_term_index(term, organization, output_dir))
-        print "Term built!"
-
-    print "Building Index"
-
-    make_index(terms, organization, output_dir)
-
-    print "Complete"
 
 # Markup process
 
-def build_html(markdown_file, style, organization, output_file):
+def markdown_to_html(markdown_file, style, organization, output_file):
+    commands = (
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+    )
+
+    pandoc_html(markdown_file, style, organization, {}, commands, output_file)
+
+def make_html(variables, html, style, organization, output_file):
+    commands = (
+        "-f", "html"
+    )
+    
+    
+
+    fd, input_file = tempfile.mkstemp(suffix=".html")
+    try:
+        with os.fdopen(fd,'wb') as fh:
+            fh.write(ET.tostring(html, encoding='utf-8', method='html'))
+        pandoc_html(input_file, style, organization, variables, commands, output_file)
+    finally:
+        os.remove(input_file)
+
+
+
+def pandoc_html(input_file, style, organization, variables, commands, output_file):
     cmd = [
         "pandoc",
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+        input_file, 
+        "-o", output_file,
         "-t", "html5",
         "-s", 
         "--highlight-style", "pygments",
         "--section-divs",
         "--template=%s"%os.path.join(template_base, style.template), 
-        markdown_file, 
-        "-o", output_file,
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%organization.legal,
         "-M", "organization=%s"%organization.name,
@@ -130,11 +100,14 @@ def build_html(markdown_file, style, organization, output_file):
         cmd.extend(("-c", stylesheet,))
     for stylesheet in organization.stylesheets:
         cmd.extend(("-c", stylesheet,))
-
+    for k,v in variables.iteritems(): 
+        cmd.extend(("-M", "%s=%s"%(k,v)))
     
     working_dir = os.path.dirname(output_file)
 
     subprocess.check_call(cmd, cwd=working_dir)
+
+
     
 def build_pdf(markdown_file, style, output_file):
     # todo: add pandoc call, but use a different template
@@ -144,16 +117,16 @@ def build_pdf(markdown_file, style, output_file):
 
 
 def process_file(input_file, style, organization, output_dir):
-    output = {}
+    output = []
     name, ext = os.path.basename(input_file).rsplit(".",1)
     if ext == "md":
         output_file = os.path.join(output_dir, "%s.html"%name)
-        build_html(input_file, style, organization, output_file)
-        output["html"] = output_file
+        markdown_to_html(input_file, style, organization, output_file)
+        output.append(Worksheet(filename=output_file, format="html"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
-        output[ext] = output_file
+        output.append(Worksheet(filename=output_file, format=ext))
     return output 
 
 # Process files within project and resource containers
@@ -164,9 +137,7 @@ def build_project(project, organization, output_dir):
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
-    output_files = {}
-
-    output_files.update(process_file(input_file, lesson_style, organization, output_dir))
+    output_files = process_file(input_file, lesson_style, organization, output_dir)
 
     notes = []
 
@@ -197,14 +168,145 @@ def build_extra(extra, organization, output_dir):
         materials.append(copy_file(name, output_dir))
     return Extra(name = extra.name, notes=notes, materials=materials)
 
-def make_term_index(manifest, organization, output_dir):
-    # todo: build index of all projects, and associated notes/extras
-    pass
+def sort_files(files):
+    sort_key = {
+        'html':2,
+        'pdf':1,
+    }
+    return sorted(files, key=lambda x:sort_key.get(x.format,0), reverse=True)
 
-def make_index(manifests, organization, output_dir):
-    # todo: build an index of all terms
-    pass
+def make_term_index(term, organization, output_dir):
 
+    output_file = os.path.join(output_dir, "index.html")
+    title = term.name
+
+    root = ET.Element('section')
+    h1 = ET.SubElement(root, 'h1')
+    h1.text = "Projects"
+    ol = ET.SubElement(root, 'ol')
+    for project in sorted(term.projects, key=lambda x:x.number):
+        files = sort_files(project.filename)
+        # todo: handle multiple formats
+        url = os.path.relpath(files[0].filename, output_dir)
+
+        li = ET.SubElement(ol, 'li')
+        a = ET.SubElement(li, 'a', {'href': url})
+        a.text = project.title or url
+
+    # todo: add extra resources, handle multiple files.
+
+    print output_file
+
+    make_html({'title':title, 'level':"T%d"%term.number}, root, index_style, organization, output_file)
+    return output_file, term
+
+
+def make_lang_index(language, terms, organization, output_dir):
+    output_file = os.path.join(output_dir, "index.html")
+    title = "Terms"
+
+    root = ET.Element('section')
+    h1 = ET.SubElement(root, 'h1')
+    h1.text = "Projects"
+    ol = ET.SubElement(root, 'ol')
+    for term_index, term in sorted(terms, key=lambda x:x[1].number):
+        url = os.path.relpath(term_index, output_dir)
+
+        li = ET.SubElement(ol, 'li')
+        a = ET.SubElement(li, 'a', {'href': url})
+        a.text = term.name or url
+
+
+    make_html({'title':title, 'level':language}, root, index_style, organization, output_file)
+    return output_file
+
+def make_index(languages, organization, output_dir):
+    output_file = os.path.join(output_dir, "index.html")
+    title = organization.name
+
+    root = ET.Element('section')
+    h1 = ET.SubElement(root, 'h1')
+    h1.text = "Languages"
+    ol = ET.SubElement(root, 'ol')
+    for language, filename in languages.iteritems(): # todo, sort?
+        url = os.path.relpath(filename, output_dir)
+
+        li = ET.SubElement(ol, 'li')
+        a = ET.SubElement(li, 'a', {'href': url})
+        a.text = language
+
+
+    make_html({'title':title}, root, index_style, organization, output_file)
+
+def build(repositories, organization, output_dir):
+
+    print "Searching for manifests .."
+
+    termlangs = {}
+    
+    for m in find_files(repositories, ".manifest"):
+        print "Found Manifest:", m
+        try:
+            term = parse_manifest(m)
+            if term.language not in termlangs:
+                termlangs[term.language] = []
+            termlangs[term.language].append(term)
+        except StandardError:
+            print "Failed"
+
+    print "Copying assets"
+
+    copydir(html_assets, output_dir), 
+
+    languages = {}
+
+    for language, terms in termlangs.iteritems():
+        out_terms = []
+        lang_dir = os.path.join(output_dir, term.language)
+
+        for term in terms:
+            term_dir = os.path.join(lang_dir, "%s.%d"%(term.name, term.number))
+            makedirs(term_dir)
+            
+            print "Building Term:", term.name,
+
+            projects = []
+            
+            for p in term.projects:
+                project = parse_project_meta(p)
+                print "Building Project:", project.title, project.filename
+
+                project_dir = os.path.join(term_dir,"%.02d"%(project.number))
+                makedirs(project_dir)
+
+                built_project = build_project(project, organization, project_dir)
+                
+                projects.append(built_project)
+
+            extras = []
+            
+            for r in term.extras:
+                print "Building Extra:", r.name
+                extras.append(build_extra(r, organization, term_dir))
+
+            term = Term(
+                name = term.name, number = term.number, language = term.language,
+                projects = projects,
+                extras = extras,
+            )
+
+            out_terms.append(make_term_index(term, organization, term_dir))
+
+            print "Term built!"
+
+        print "Building",language,"index"
+
+        languages[language]=make_lang_index(language, out_terms, organization, lang_dir)
+
+    print "Building", organization.name, "index"
+    make_index(languages, organization, output_dir)
+    print "Complete"
+    
 # Manifest and Project Header Parsing
 
 def parse_manifest(filename):
@@ -269,7 +371,7 @@ def parse_project_meta(p):
 
     title = p.title
     if header:
-        title = header.get('lesson_title', p.title)
+        title = header.get('title', p.title)
     if title is None:
         title = ""
 
