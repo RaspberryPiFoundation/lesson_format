@@ -1,0 +1,19 @@
+section  h1{
+    border-radius: 4px 4px 4px 4px;
+    background: rgb(0, 124, 201);;
+    padding: 8px;
+    margin-left: 0px;
+    margin-top: 0px;
+    color: #fff; 
+}
+
+section h2{
+    border-radius: 4px 4px 4px 4px;
+    margin: 15px;
+    padding: 8px;
+    font-size:16px;
+    margin-left: 0px;
+    margin-top: 0px;
+    border: 1px dotted #007CC9;
+    border-radius: 5px;
+}

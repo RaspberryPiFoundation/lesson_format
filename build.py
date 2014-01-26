@@ -39,7 +39,7 @@ with open(os.path.join(base, "templates/world_legal.html")) as fh:
 note_style = index_style = Style(
     name = 'lesson', 
     template = "template.html",
-    stylesheets = ["/css/main.css"],
+    stylesheets = ["/css/main.css", "/css/notes.css"],
 )
 lesson_style = Style(
     name = 'lesson', 

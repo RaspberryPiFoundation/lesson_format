@@ -11,24 +11,27 @@
     - make a new template to start from, not lesson_template.html
     - Inject the logo into the document
     - level should only be inserted if there.
-- Term Index Created.
+- Term, Language, Root Index Created.
+- Write links to worksheets, links to terms
 
 ## Next
 
-- Write links to worksheets, links to terms
-- Write links to supporting materials, addtional resources
+- Write links to extra items in project index.
+- Write links to alternative formats for project worksheets
+- Write links to project materials for projects.
 
-- Build index.html for each language
-- Build index.html showing languages
-
-- Split out CSS for lesson, and world scheme.
-    - inject colors too with inline stylesheet, or ?
+- Generate CCW/CCUK builds
+    - Parse arguments..
     - Seperate out colours and styles
-- Print and media queries for sizes.
+    - Split out CSS for lesson, and world scheme.
+    - Templated CSS by python, generate when copying across? (heh, sweet)
 
 - Zip/Bundle up project resources, add them to index
 - Zip/Bundle up Terms, add them to index
 
+- Print and media queries for sizes.
+
+- Tidy up manifests
 - Complete Manifests for en-GB Scratch, Term 1 & 2
 - Add missing headers to markdown project files.
 - Manifests for en-GB Web Dev, Term 3
