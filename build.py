@@ -32,10 +32,15 @@ with open(os.path.join(base, "templates/uk_legal.html")) as fh:
 with open(os.path.join(base, "templates/world_legal.html")) as fh:
     world_legal = fh.read()
 
-note_style = lesson_style = Style(
+note_style = index_style = Style(
     name = 'lesson', 
-    template = "lesson_template.html",
-    stylesheets = ["/css/lesson.css"],
+    template = "template.html",
+    stylesheets = ["/css/main.css"],
+)
+lesson_style = Style(
+    name = 'lesson', 
+    template = "template.html",
+    stylesheets = ["/css/main.css","/css/lesson.css"],
 )
 
 codeclubworld = Region(

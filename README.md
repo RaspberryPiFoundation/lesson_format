@@ -34,20 +34,21 @@ $ python -m SimpleHTTPServer
 - CCW legal disclaimer and template
 - CCUK Legal disclaimer and template
 
-## Next
 
 - Clean up and split out CSS
     - make a new template to start from, not lesson_template.html
-        - Inject the logo into the document
+    - Inject the logo into the document
+    - level should only be inserted if there.
+## Next
+        - Copy across existing styles
         - Seperate out colours and styles
         - inject colors too with inline stylesheet, or ?
     - Move lesson specific things to own lesson sheet.
-    - level should only be inserted if there.
 - Print and media queries for sizes.
 
 ## Todo
 
-- Split out CSS for lesson, scratch, and world scheme.
+- Split out CSS for lesson, and world scheme.
 
 - Build index.html for each term
 - Build index.html for each language
