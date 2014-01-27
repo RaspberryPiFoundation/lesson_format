@@ -72,7 +72,7 @@ codeclubuk = Region(
 # todo : real classes
 
 Term = collections.namedtuple('Term', 'name language number projects extras')
-Project = collections.namedtuple('Project', 'filename number title materials note')
+Project = collections.namedtuple('Project', 'filename number title materials note embeds')
 Extra = collections.namedtuple('Extra', 'name materials note')
 Worksheet = collections.namedtuple('Worksheet','format filename')
 
@@ -174,6 +174,11 @@ def build_project(project, organization, output_dir):
     for file in project.materials:
         materials.append(copy_file(file, output_dir))
 
+    embeds = []
+    for file in project.embeds:
+        print "embed",file
+        embeds.append(copy_file(file, output_dir))
+
     # todo: zip materials. 
 
     return Project(
@@ -182,6 +187,7 @@ def build_project(project, organization, output_dir):
         title = project.title,
         materials = materials,
         note = notes,
+        embeds = embeds,
     )
 
 
@@ -392,6 +398,8 @@ def parse_manifest(filename):
     for p in json_manifest['projects']:
         filename = expand_glob(base_dir, p['filename'], one_file=True)
         materials = expand_glob(base_dir, p.get('materials',[]))
+        embeds = expand_glob(base_dir, p.get('embeds',[]))
+
         if 'note' in p:
             note = expand_glob(base_dir, p['note'], one_file=True)
         else:
@@ -403,6 +411,7 @@ def parse_manifest(filename):
             title = p.get('title', None),
             materials = materials,
             note = note,
+            embeds = embeds,
         )
         projects.append(project)
 
@@ -454,12 +463,24 @@ def parse_project_meta(p):
     if title is None:
         title = ""
 
+    if header:
+        raw_embeds = header.get('embeds', ())
+        if raw_embeds:
+            base_dir = os.path.dirname(p.filename)
+            embeds = expand_glob(base_dir, raw_embeds)
+            embeds.extend(p.embeds)
+        else:
+            embeds = p.embeds
+    else:
+        embeds = p.embeds
+
     return Project(
         filename = p.filename,
         number = p.number,
         title = title,
         materials = p.materials,
         note = p.note,
+        embeds = embeds,
     )
 
 def make_css(stylesheet_dir, organization, output_dir):
@@ -510,6 +531,8 @@ def expand_glob(base_dir, paths, one_file=False):
 
     else:
         output = []
+        if not hasattr(paths, '__iter__'):
+            paths = (paths,)
         for p in paths:
             output.extend(glob.glob(os.path.join(base_dir, p)))
         return output
