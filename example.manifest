@@ -8,14 +8,14 @@
             "filename": "lessons/01/*.md",
             "number": 1,
             "materials": ["lessons/01/01/*.sb"], 
-            "notes": ["lessons/01/notes/*.md"],  
+            "notes": "lessons/01/notes/*.md",  
             "title": "Optional Title"
         }
     ],
     "extras": [
         { 
             "name": "Volunteer Notes for Term",
-            "notes": ["canalsobeglobbed.*"]
+            "notes": "canalsobeglobbed.*"
         },
         { 
             "name": "manuals",

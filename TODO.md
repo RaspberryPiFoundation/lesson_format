@@ -19,11 +19,14 @@
     - Seperate out colours and styles
     - Split out CSS for lesson, and world scheme.
     - Templated CSS by python, generate when copying across? (heh, sweet)
+- Write links to materials for projects.
+- Write links to alternative formats for project worksheets
 
 ## Next
 
-- Write links to materials for projects/zip materials?
-- Write links to alternative formats for project worksheets
+- Tidy up indexes.
+
+- Zip any supporting materials per project.
 
 - Print and media queries for pages.
 

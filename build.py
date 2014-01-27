@@ -34,6 +34,11 @@ note_style = index_style = Style(
     template = "template.html",
     stylesheets = ["/css/main.css", "/css/notes.css"],
 )
+index_style = Style(
+    name = 'lesson', 
+    template = "template.html",
+    stylesheets = ["/css/main.css", "/css/index.css"],
+)
 lesson_style = Style(
     name = 'lesson', 
     template = "template.html",
@@ -67,8 +72,8 @@ codeclubuk = Region(
 # todo : real classes
 
 Term = collections.namedtuple('Term', 'name language number projects extras')
-Project = collections.namedtuple('Project', 'filename number title materials notes')
-Extra = collections.namedtuple('Extra', 'name materials notes')
+Project = collections.namedtuple('Project', 'filename number title materials note')
+Extra = collections.namedtuple('Extra', 'name materials note')
 Worksheet = collections.namedtuple('Worksheet','format filename')
 
 css_assets = os.path.join(template_base,"css")
@@ -162,8 +167,8 @@ def build_project(project, organization, output_dir):
 
     notes = []
 
-    for note in project.notes:
-        notes.append(process_file(note, note_style, organization, output_dir))
+    if project.note:
+        notes.extend(process_file(project.note, note_style, organization, output_dir))
     
     materials = []
     for file in project.materials:
@@ -176,18 +181,18 @@ def build_project(project, organization, output_dir):
         number = project.number,
         title = project.title,
         materials = materials,
-        notes = notes,
+        note = notes,
     )
 
 
 def build_extra(extra, organization, output_dir):
-    notes = []
-    for name in extra.notes:
-        notes.append(process_file(name, note_style, organization, output_dir))
+    note = []
+    if extra.note:
+        note.extend(process_file(extra.note, note_style, organization, output_dir))
     materials = []
     for name in extra.materials:
         materials.append(copy_file(name, output_dir))
-    return Extra(name = extra.name, notes=notes, materials=materials)
+    return Extra(name = extra.name, note=note, materials=materials)
 
 def sort_files(files):
     sort_key = {
@@ -202,32 +207,52 @@ def make_term_index(term, organization, output_dir):
     title = term.name
 
     root = ET.Element('body')
-    section = ET.SubElement(root,'section')
+    section = ET.SubElement(root,'section', {'class': 'projects'})
     h1 = ET.SubElement(section, 'h1')
     h1.text = "Projects"
-    ol = ET.SubElement(root, 'ol')
+    ol = ET.SubElement(root, 'ol', {'class': 'projects'})
     for project in sorted(term.projects, key=lambda x:x.number):
-        files = sort_files(project.filename)
-        # todo: handle multiple formats
-        url = os.path.relpath(files[0].filename, output_dir)
+        li = ET.SubElement(ol, 'li', {'class': 'projectfiles'})
+        ul = ET.SubElement(li, 'ul')
 
-        li = ET.SubElement(ol, 'li')
-        a = ET.SubElement(li, 'a', {'href': url})
+        files = sort_files(project.filename)
+        first, others = files[0], files[1:]
+
+        url = os.path.relpath(first.filename, output_dir)
+
+        a_li = ET.SubElement(ul, 'li')
+        a = ET.SubElement(a_li, 'a', {'href': url})
         a.text = project.title or url
 
+        for file in others:
+            url = os.path.relpath(file.filename, output_dir)
+            a_li = ET.SubElement(ul, 'li')
+            a = ET.SubElement(a_li, 'a', {'href': url})
+            a.text = file.format
+            
+        for file in project.note:
+            print file
+            url = os.path.relpath(file.filename, output_dir)
+            a_li = ET.SubElement(ul, 'li')
+            a = ET.SubElement(a_li, 'a', {'href': url})
+            a.text = "Notes (%s)"%(file.format)
+
+
     for extra in term.extras:
-        section = ET.SubElement(root, 'section')
+        section = ET.SubElement(root, 'section', {'class':'extras'})
         h1 = ET.SubElement(section, 'h1')
         h1.text = extra.name
         ol = ET.SubElement(root, 'ol')
-        print extra.notes, extra.materials
-        for files in extra.notes:
-            file = sort_files(files)[0]
+        print extra.note, extra.materials
+
+        if extra.note:
+            print extra.note
+            file = sort_files(extra.note)[0]
             # todo: handle multiple formats
             url = os.path.relpath(file.filename, output_dir)
             li = ET.SubElement(ol, 'li')
             a = ET.SubElement(li, 'a', {'href': url})
-            a.text = url
+            a.text = extra.name
         
         
         for file in extra.materials: 
@@ -293,8 +318,11 @@ def build(repositories, organization, output_dir):
             if term.language not in termlangs:
                 termlangs[term.language] = []
             termlangs[term.language].append(term)
-        except StandardError:
-            print "Failed"
+        except StandardError as e:
+
+            import traceback
+            traceback.print_exc()
+            print "Failed", e
 
     print "Copying assets"
 
@@ -364,25 +392,31 @@ def parse_manifest(filename):
     for p in json_manifest['projects']:
         filename = expand_glob(base_dir, p['filename'], one_file=True)
         materials = expand_glob(base_dir, p.get('materials',[]))
-        notes = expand_glob(base_dir, p.get('notes', []))
+        if 'note' in p:
+            note = expand_glob(base_dir, p['note'], one_file=True)
+        else:
+            note = None
     
         project = Project(
             filename = filename,
             number = p['number'],
             title = p.get('title', None),
             materials = materials,
-            notes = notes,
+            note = note,
         )
         projects.append(project)
 
     extras = []
     for s in json_manifest.get('extras',()):
-        notes = expand_glob(base_dir, s.get('notes', ()))
+        if 'note' in s:
+            note = expand_glob(base_dir, s['note'], one_file=True)
+        else:
+            note = None
         materials = expand_glob(base_dir, s.get('materials', ()))
         
         extras.append(Extra(
             name=s['name'],
-            notes=notes,
+            note=note,
             materials=materials,
         ))
 
@@ -425,7 +459,7 @@ def parse_project_meta(p):
         number = p.number,
         title = title,
         materials = p.materials,
-        notes = p.notes,
+        note = p.note,
     )
 
 def make_css(stylesheet_dir, organization, output_dir):
@@ -469,7 +503,8 @@ def find_files(dir, extension):
 def expand_glob(base_dir, paths, one_file=False):
     if one_file:
         output = glob.glob(os.path.join(base_dir, paths))
-        if len(output) > 1:
+        if len(output) != 1:
+            print os.path.join(base_dir, paths), output
             raise AssertionError("Bad things")
         return output[0]
 
