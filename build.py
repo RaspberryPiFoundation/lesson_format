@@ -295,6 +295,7 @@ def make_index(languages, organization, output_dir):
     h1 = ET.SubElement(root, 'h1')
     h1.text = "Languages"
     ol = ET.SubElement(root, 'ol')
+
     for language, filename in languages.iteritems(): # todo, sort?
         url = os.path.relpath(filename, output_dir)
 
@@ -332,9 +333,11 @@ def build(repositories, organization, output_dir):
     make_css(css_assets, organization, css_dir)
 
     languages = {}
+    project_count = {}
 
     for language, terms in termlangs.iteritems():
         out_terms = []
+        count = 0;
         lang_dir = os.path.join(output_dir, term.language)
 
         for term in terms:
@@ -346,6 +349,7 @@ def build(repositories, organization, output_dir):
             projects = []
             
             for p in term.projects:
+                count+=1
                 project = parse_project_meta(p)
                 print "Building Project:", project.title, project.filename
 
@@ -375,9 +379,16 @@ def build(repositories, organization, output_dir):
         print "Building",language,"index"
 
         languages[language]=make_lang_index(language, out_terms, organization, lang_dir)
+        project_count[language]=count
 
     print "Building", organization.name, "index"
-    make_index(languages, organization, output_dir)
+
+    sorted_languages = collections.OrderedDict()
+    for lang in sorted(project_count.keys(), key=lambda x:project_count[x], reverse=True):
+        sorted_languages[lang] = languages[lang]
+
+
+    make_index(sorted_languages, organization, output_dir)
     print "Complete"
     
 # Manifest and Project Header Parsing

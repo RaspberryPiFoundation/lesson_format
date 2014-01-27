@@ -24,13 +24,14 @@
 - Let projects link to embedded images
 - Add missing headers to markdown project files, in term 1
 - Let yaml headers override project materials, notes too
-
+- Add manifest for en-GB term 2 with link to PDFs
+- Manifests for en-GB Web Dev, Term 3
 
 ## Next
 
-- Add manifest for en-GB term 2 with link to PDFs
+- Sort languages by number of projects.
 
-- Complete Manifests for en-GB Scratch, Term 1 & 2
+- Complete Manifests for en-GB Term 1 2 3 by adding materials.
 
 - Tidy up index styles.
 
@@ -38,14 +39,16 @@
 
 - Print and media queries for pages.
 
-- Manifests for en-GB Web Dev, Term 3
 - Tidy up manifests
 
-- Document the manifest format/ markdown headers
-- Unstyled PDF output, add it to index
-- Custom TeX output for pandoc, to make PDFs look more in-house style.
 - Nicer error messages and recovery
 
-- Zip/Bundle up project resources, add them to index
+- Document the manifest format/ markdown headers
+- README for markup too.
+
+Internationalization
+
+- Unstyled PDF output, add it to index
+- Custom TeX output for pandoc, to make PDFs look more in-house style.
 - Maybe Zip/Bundle up Terms, add them to index - They need to be standalone
 

@@ -15,7 +15,7 @@
     "extras": [
         { 
             "name": "Volunteer Notes for Term",
-            "notes": "canalsobeglobbed.*"
+            "note": "canalsobeglobbed.*"
         },
         { 
             "name": "manuals",
