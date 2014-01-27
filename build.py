@@ -176,7 +176,6 @@ def build_project(project, organization, output_dir):
 
     embeds = []
     for file in project.embeds:
-        print "embed",file
         embeds.append(copy_file(file, output_dir))
 
     # todo: zip materials. 
@@ -237,7 +236,6 @@ def make_term_index(term, organization, output_dir):
             a.text = file.format
             
         for file in project.note:
-            print file
             url = os.path.relpath(file.filename, output_dir)
             a_li = ET.SubElement(ul, 'li')
             a = ET.SubElement(a_li, 'a', {'href': url})
@@ -249,10 +247,8 @@ def make_term_index(term, organization, output_dir):
         h1 = ET.SubElement(section, 'h1')
         h1.text = extra.name
         ol = ET.SubElement(root, 'ol')
-        print extra.note, extra.materials
 
         if extra.note:
-            print extra.note
             file = sort_files(extra.note)[0]
             # todo: handle multiple formats
             url = os.path.relpath(file.filename, output_dir)
@@ -266,9 +262,7 @@ def make_term_index(term, organization, output_dir):
             li = ET.SubElement(ol, 'li')
             a = ET.SubElement(li, 'a', {'href': url})
             a.text = file.filename
-    # todo: handle multiple files.
 
-    print output_file
 
     make_html({'title':title, 'level':"T%d"%term.number}, root, index_style, organization, output_file)
     return output_file, term
@@ -457,13 +451,26 @@ def parse_project_meta(p):
                 header_lines.append(line)
     header = yaml.safe_load("".join(header_lines))
 
-    title = p.title
     if header:
         title = header.get('title', p.title)
-    if title is None:
-        title = ""
+        number = header.get('number', p.number)
+        title = header.get('title', p.title)
 
-    if header:
+        raw_note = header.get('note', None)
+        if raw_note:
+            base_dir = os.path.dirname(p.filename)
+            note = expand_glob(base_dir, raw_note, one_file=True)
+        else:
+            note = p.note
+
+        raw_materials = header.get('materials', ())
+        if raw_materials:
+            base_dir = os.path.dirname(p.filename)
+            materials = expand_glob(base_dir, raw_materials)
+            materials.extend(p.materials)
+        else:
+            materials = p.materials
+
         raw_embeds = header.get('embeds', ())
         if raw_embeds:
             base_dir = os.path.dirname(p.filename)
@@ -471,17 +478,17 @@ def parse_project_meta(p):
             embeds.extend(p.embeds)
         else:
             embeds = p.embeds
-    else:
-        embeds = p.embeds
 
-    return Project(
-        filename = p.filename,
-        number = p.number,
-        title = title,
-        materials = p.materials,
-        note = p.note,
-        embeds = embeds,
-    )
+        return Project(
+            filename = p.filename,
+            number = number,
+            title = title,
+            materials = materials,
+            note = note,
+            embeds = embeds,
+        )
+    else:
+        return p
 
 def make_css(stylesheet_dir, organization, output_dir):
     for asset in os.listdir(stylesheet_dir):
@@ -501,7 +508,6 @@ def make_css(stylesheet_dir, organization, output_dir):
                 if asset.endswith('.css'):
                     with open(src,"r") as src_fh, open(dst,"w") as dst_fh:
                         template = string.Template(src_fh.read())
-                        print organization.css_variables
                         dst_fh.write(template.substitute(organization.css_variables))
 
                 else:

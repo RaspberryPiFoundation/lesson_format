@@ -21,22 +21,27 @@
     - Templated CSS by python, generate when copying across? (heh, sweet)
 - Write links to materials for projects.
 - Write links to alternative formats for project worksheets
+- Let projects link to embedded images
+- Add missing headers to markdown project files, in term 1
+- Let yaml headers override project materials, notes too
+
 
 ## Next
 
-- Tidy up indexes.
+- Add manifest for en-GB term 2 with link to PDFs
+
+- Complete Manifests for en-GB Scratch, Term 1 & 2
+
+- Tidy up index styles.
 
 - Zip any supporting materials per project.
 
 - Print and media queries for pages.
 
-- Tidy up manifests
-- Complete Manifests for en-GB Scratch, Term 1 & 2
-- Add missing headers to markdown project files, in term 1
-- Add manifest for en-GB term 2 with link to PDFs
 - Manifests for en-GB Web Dev, Term 3
+- Tidy up manifests
 
-- Document the manifest format 
+- Document the manifest format/ markdown headers
 - Unstyled PDF output, add it to index
 - Custom TeX output for pandoc, to make PDFs look more in-house style.
 - Nicer error messages and recovery
