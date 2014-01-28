@@ -1,0 +1,19 @@
+{
+    "name": "example",
+    "language": "en-GB",
+    "number": 0,
+
+    "projects": [
+        {
+            "filename": "01 Turtle Power/01.md",
+            "number": 1
+        },
+        {
+            "filename": "02 Ghostbusters/Ghostbusters.md",
+            "number": 2
+        }
+    ],
+    "extras": [
+    ]
+}
+

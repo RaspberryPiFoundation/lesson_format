@@ -27,34 +27,42 @@
 - Add manifest for en-GB term 2 with link to PDFs
 - Manifests for en-GB Web Dev, Term 3
 - Sort languages by number of projects.
+- Add sv-SE to output
+- Get classes in directory listings
 
 ## Next
 
+- Indexes should have proper class names + styles
+    - Tidy up index styles.
 
-- Complete Manifests for en-GB Term 1 2 3 by adding materials.
 - Zip any supporting materials per project.
     - Python zip lib or use zip -freshen
+    
+- Complete Manifests for en-GB Term 1 2 3 by adding materials.
 
-- Tidy up index styles.
-    - pandoc is stripping classes :/
-    - ensure classes are inside.
-    - nicer things for languages
-
-- internationalization options
+- Internationalization options
     - full names of languages
+    - alternative legal text
+    in lang/code.lang json
 
-- more in manifest
+- Theme in json config and out of build.py
+    in templates/ccw.theme templates/ccuk.theme
+
+- More detail in manifest
     - full names of courses/terms
     - introductory schpeil
 
+- 
 - Print and media queries for pages.
 
 - Tidy up manifests
 
 - Nicer error messages and recovery
+- Better argument parsing.
 
 - Document the manifest format/ markdown headers
 - README for markup too.
+- Build example term + manifest + project to show it.
 
 Internationalization
 
