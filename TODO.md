@@ -26,16 +26,26 @@
 - Let yaml headers override project materials, notes too
 - Add manifest for en-GB term 2 with link to PDFs
 - Manifests for en-GB Web Dev, Term 3
+- Sort languages by number of projects.
 
 ## Next
 
-- Sort languages by number of projects.
 
 - Complete Manifests for en-GB Term 1 2 3 by adding materials.
+- Zip any supporting materials per project.
+    - Python zip lib or use zip -freshen
 
 - Tidy up index styles.
+    - pandoc is stripping classes :/
+    - ensure classes are inside.
+    - nicer things for languages
 
-- Zip any supporting materials per project.
+- internationalization options
+    - full names of languages
+
+- more in manifest
+    - full names of courses/terms
+    - introductory schpeil
 
 - Print and media queries for pages.
 

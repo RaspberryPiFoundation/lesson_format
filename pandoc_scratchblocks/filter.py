@@ -42,7 +42,7 @@ def render_blocks(key, value, format, meta):
     if key == "CodeBlock":
         [[ident,classes,keyvals], code] = value
 
-        if u"blocks" in classes:
+        if u"blocks" in classes or u"scratch" in classes:
             image = block_to_image(code, os.getcwd())
             alt = Str(code)
             return Para([Image([alt], [os.path.basename(image),""])])

@@ -91,20 +91,17 @@ def markdown_to_html(markdown_file, style, organization, output_file):
     pandoc_html(markdown_file, style, organization, {}, commands, output_file)
 
 def make_html(variables, html, style, organization, output_file):
+    variables = dict(variables)
+    variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
+
     commands = (
-        "-f", "html"
+        "-f", "html",
+        "-R",
     )
     
-    
+    input_file = '/dev/null'
 
-    fd, input_file = tempfile.mkstemp(suffix=".html")
-    try:
-        with os.fdopen(fd,'wb') as fh:
-            fh.write(ET.tostring(html, encoding='utf-8', method='html'))
-        pandoc_html(input_file, style, organization, variables, commands, output_file)
-    finally:
-        os.remove(input_file)
-
+    pandoc_html(input_file, style, organization, variables, commands, output_file)
 
 
 def pandoc_html(input_file, style, organization, variables, commands, output_file):
@@ -113,7 +110,7 @@ def pandoc_html(input_file, style, organization, variables, commands, output_fil
         input_file, 
         "-o", output_file,
         "-t", "html5",
-        "-s", 
+        "-s",  # smart quotes
         "--highlight-style", "pygments",
         "--section-divs",
         "--template=%s"%os.path.join(template_base, style.template), 
@@ -212,10 +209,11 @@ def make_term_index(term, organization, output_dir):
     title = term.name
 
     root = ET.Element('body')
-    section = ET.SubElement(root,'section', {'class': 'projects'})
-    h1 = ET.SubElement(section, 'h1')
+    section = ET.SubElement(root,'section', {'class':'projects'})
+    h1 = ET.SubElement(section,'h1')
     h1.text = "Projects"
     ol = ET.SubElement(root, 'ol', {'class': 'projects'})
+    
     for project in sorted(term.projects, key=lambda x:x.number):
         li = ET.SubElement(ol, 'li', {'class': 'projectfiles'})
         ul = ET.SubElement(li, 'ul')
