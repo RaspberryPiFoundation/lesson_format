@@ -116,7 +116,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
         "--template=%s"%os.path.join(template_base, style.html_template), 
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
-        "-M", "theme=%s"%theme.name,
+        "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
     ]
     for stylesheet in style.stylesheets:
@@ -144,7 +144,7 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
         "--highlight-style", "pygments",
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
-        "-M", "theme=%s"%theme.name,
+        "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
     ]
     if style.tex_template:
