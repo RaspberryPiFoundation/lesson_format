@@ -30,6 +30,7 @@ Language.translate=translate
 base = os.path.dirname(os.path.abspath(__file__))
 template_base = os.path.join(base, "templates")
 theme_base = os.path.join(base, "themes")
+language_base = os.path.join(base, "languages")
 
 note_style = index_style = Style(
     name = 'lesson', 
@@ -49,11 +50,6 @@ lesson_style = Style(
     tex_template = None,
     stylesheets = ["/css/main.css","/css/lesson.css"],
 )
-
-EN_GB=Language(code='en-GB', name='English', legal={}, translations={})
-LANGUAGES = {
- 'en-GB' : EN_GB,
-}
 
 # todo : real classes
 
@@ -342,7 +338,7 @@ def make_index(languages, language, theme, output_dir):
 
 # The all singing all dancing build function of doing everything.
 
-def build(repositories, theme, output_dir):
+def build(repositories, theme, all_languages, output_dir):
 
     print "Searching for manifests .."
 
@@ -372,14 +368,14 @@ def build(repositories, theme, output_dir):
     project_count = {}
 
     for language_code, terms in termlangs.iteritems():
-        if language_code not in LANGUAGES:
-            LANGUAGES[language_code] = Language(
+        if language_code not in all_languages:
+            all_languages[language_code] = Language(
                 code = language_code,
                 name = language_code,
                 legal = {},
                 translations = {}
             )
-        language = LANGUAGES[language_code]
+        language = all_languages[language_code]
         print "Language", language.name
         out_terms = []
         count = 0;
@@ -433,13 +429,13 @@ def build(repositories, theme, output_dir):
 
     sorted_languages =  []
     for lang in sorted(project_count.keys(), key=lambda x:project_count[x], reverse=True):
-        sorted_languages.append((LANGUAGES[lang], languages[lang]))
+        sorted_languages.append((all_languages[lang], languages[lang]))
 
 
-    make_index(sorted_languages,LANGUAGES[theme.language], theme, output_dir)
+    make_index(sorted_languages,all_languages[theme.language], theme, output_dir)
     print "Complete"
     
-# Manifest, Theme and Project Header Parsing
+# Manifest, Theme, Language, and Project Header Parsing
 
 def parse_manifest(filename):
     with open(filename) as fh:
@@ -494,6 +490,24 @@ def parse_manifest(filename):
     )
 
     return m
+
+def load_languages(dir):
+    languages = {}
+    for file in expand_glob(dir,"*.language"): 
+        language = parse_language(file)
+        languages[language.code] = language
+    return languages
+
+def parse_language(filename):
+    with open(filename) as fh:
+        obj = json.load(fh)
+    
+    return Language(
+        code = obj['code'],
+        name = obj['name'],
+        legal = obj['legal'],
+        translations = obj['translations'],
+    )
 
 def load_themes(dir):
     themes = {}
@@ -688,11 +702,12 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     theme = load_themes(theme_base)[args[0]]
+    languages = load_languages(language_base)
     args = [os.path.abspath(a) for a in args[1:]]
 
     repositories, output_dir = args[:-1], args[-1]
 
-    build(repositories, theme, output_dir)
+    build(repositories, theme, languages, output_dir)
 
     sys.exit(0)
 
