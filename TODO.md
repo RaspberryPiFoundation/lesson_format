@@ -47,11 +47,11 @@
     
 - Unstyled PDF output, add it to index
 
-## Next
-
 - Move Regions/Languages out of build.py and into json files.
     in templates/ccw.theme templates/ccuk.theme
     in lang/code.lang json
+
+## Next
 
 - Complete Manifests for en-GB Term 1 2 3 4, en-GB
     - Add headers to all worksheets, notes, where possible
@@ -63,17 +63,18 @@
     - Fix header CSS so it works on smaller screens
     - Try and make it a little bit more responsive.
 
+- Better documentation
+    - Document manifest format, markdown headers fully
+    - Document markup we use, including sourcecode blocks
+      all markdown, and all markdown extensions
+    - Document theme json, language json
+
 - Tidy up Code
     - Nicer error messages and recovery
     - List missing files, or files that have broken
     - Missing fields or broken fields in json too.
     - Better argument parsing.
     - Maybe start to introduce classes.
-
-- Better documentation
-    - Document manifest format, markdown headers fully
-    - Document markup we use, including sourcecode blocks
-      all markdown, and all markdown extensions
 
 
 - Make PDFs for offline reading, and downloadable terms
