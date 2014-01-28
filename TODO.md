@@ -42,12 +42,13 @@
     - Use Language to set text like 'Projects'
     - Use Language to set legal text if present
 
-
-## Next
-
 - Zip any supporting materials per project.
     - Python zip lib or use zip -freshen
     
+- Unstyled PDF output, add it to index
+
+## Next
+
 - Complete Manifests for en-GB Term 1 2 3 by adding materials.
 
 - Tidy up index styles.
@@ -65,7 +66,6 @@
     in templates/ccw.theme templates/ccuk.theme
     in lang/code.lang json
 
-- Unstyled PDF output, add it to index
 - Custom TeX output for pandoc, to make PDFs look more in-house style.
 - Maybe Zip/Bundle up Terms, add them to index - They need to be standalone
 

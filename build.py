@@ -19,7 +19,7 @@ except ImportError:
     sys.exit(-10)
 
 Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables')
-Style = collections.namedtuple('Style', 'name template stylesheets')
+Style = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations')
 
 def translate(self, text):
@@ -38,17 +38,20 @@ with open(os.path.join(template_base, "world_legal.html")) as fh:
 
 note_style = index_style = Style(
     name = 'lesson', 
-    template = "template.html",
+    html_template = "template.html",
+    tex_template = None,
     stylesheets = ["/css/main.css", "/css/notes.css"],
 )
 index_style = Style(
     name = 'lesson', 
-    template = "template.html",
+    html_template = "template.html",
+    tex_template = None,
     stylesheets = ["/css/main.css", "/css/index.css"],
 )
 lesson_style = Style(
     name = 'lesson', 
-    template = "template.html",
+    html_template = "template.html",
+    tex_template = None,
     stylesheets = ["/css/main.css","/css/lesson.css"],
 )
 
@@ -110,7 +113,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
         "-s",  # smart quotes
         "--highlight-style", "pygments",
         "--section-divs",
-        "--template=%s"%os.path.join(template_base, style.template), 
+        "--template=%s"%os.path.join(template_base, style.html_template), 
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
         "-M", "theme=%s"%theme.name,
@@ -128,12 +131,40 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
     subprocess.check_call(cmd, cwd=working_dir)
 
 
+def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
+    return None #todo fix the output
+    legal = language.legal.get(theme.id, theme.legal)
+
+    cmd = [
+        "pandoc",
+        input_file, 
+        "-o", output_file,
+        "-t", "latex",
+        "-s",  # smart quotes
+        "--highlight-style", "pygments",
+        "--filter", scratchblocks_filter,
+        "-M", "legal=%s"%legal,
+        "-M", "theme=%s"%theme.name,
+        "-M", "logo=%s"%theme.logo,
+    ]
+    if style.tex_template:
+        cmd.append("--template=%s"%os.path.join(template_base, style.tex_template))
+    for k,v in variables.iteritems(): 
+        cmd.extend(("-M", "%s=%s"%(k,v)))
     
-def build_pdf(markdown_file, style, output_file):
-    # todo: add pandoc call, but use a different template
-    # than the default, or perhaps a lua writer for xetex.
-    # then call xetex :/
-    pass
+    print " ".join([repr(s.encode('utf-8')) for s in cmd])
+    working_dir = os.path.dirname(output_file)
+
+    return 0 == subprocess.call(cmd, cwd=working_dir)
+
+
+    
+def markdown_to_pdf(markdown_file, style, language, theme, output_file):
+    commands = (
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+    )
+
+    return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
 def markdown_to_html(markdown_file, style, language, theme, output_file):
     commands = (
@@ -163,6 +194,10 @@ def process_file(input_file, style, language, theme, output_dir):
         output_file = os.path.join(output_dir, "%s.html"%name)
         markdown_to_html(input_file, style, language, theme, output_file)
         output.append(Resource(filename=output_file, format="html"))
+
+        output_file = os.path.join(output_dir, "%s.pdf"%name)
+        if markdown_to_pdf(input_file, style, language, theme, output_file):
+            output.append(Resource(filename=output_file, format="pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
