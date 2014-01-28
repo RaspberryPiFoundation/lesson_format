@@ -29,12 +29,7 @@ Language.translate=translate
 
 base = os.path.dirname(os.path.abspath(__file__))
 template_base = os.path.join(base, "templates")
-
-with open(os.path.join(template_base, "uk_legal.html")) as fh:
-    uk_legal = fh.read()
-
-with open(os.path.join(template_base, "world_legal.html")) as fh:
-    world_legal = fh.read()
+theme_base = os.path.join(base, "themes")
 
 note_style = index_style = Style(
     name = 'lesson', 
@@ -53,34 +48,6 @@ lesson_style = Style(
     html_template = "template.html",
     tex_template = None,
     stylesheets = ["/css/main.css","/css/lesson.css"],
-)
-
-codeclubworld = Theme(
-    id='world',
-    language='en-GB',
-    name='Code Club World',
-    legal = world_legal,
-    stylesheets = [],
-    logo = "/img/ccw_logo.svg",
-    css_variables = {
-        "header_bg_light": "#ADCAEA",
-        "header_bg_dark": "#007CC9",
-        "header_text": "#FFFFFF",
-    }
-)
-
-codeclubuk = Theme(
-    id='uk',
-    language='en-GB',
-    name='Code Club',
-    legal = uk_legal,
-    stylesheets = [],
-    logo = "/img/ccuk_logo.svg",
-    css_variables = {
-        "header_bg_light": "#B1DAAE",
-        "header_bg_dark": "#349946",
-        "header_text": "#FFFFFF",
-    }
 )
 
 EN_GB=Language(code='en-GB', name='English', legal={}, translations={})
@@ -472,7 +439,7 @@ def build(repositories, theme, output_dir):
     make_index(sorted_languages,LANGUAGES[theme.language], theme, output_dir)
     print "Complete"
     
-# Manifest and Project Header Parsing
+# Manifest, Theme and Project Header Parsing
 
 def parse_manifest(filename):
     with open(filename) as fh:
@@ -527,6 +494,28 @@ def parse_manifest(filename):
     )
 
     return m
+
+def load_themes(dir):
+    themes = {}
+    for file in expand_glob(dir,"*.theme"): 
+        theme = parse_theme(file)
+        themes[theme.id] = theme
+    return themes
+
+def parse_theme(filename):
+    with open(filename) as fh:
+        obj = json.load(fh)
+    
+    return Theme(
+        id = obj['id'],
+        name = obj['name'],
+        language = obj['language'],
+        stylesheets = obj['stylesheets'],
+        legal = obj['legal'],
+        logo = obj['logo'],
+        css_variables = obj['css_variables'],
+    )
+
 
 def parse_project_meta(p):
     if not p.filename.endswith('md'):
@@ -698,7 +687,7 @@ if __name__ == '__main__':
         print "usage: %s <region> <input repository directories> <output directory>"
         sys.exit(-1)
 
-    theme = {'world':codeclubworld, 'uk':codeclubuk}[args[0]]
+    theme = load_themes(theme_base)[args[0]]
     args = [os.path.abspath(a) for a in args[1:]]
 
     repositories, output_dir = args[:-1], args[-1]

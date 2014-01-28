@@ -49,23 +49,34 @@
 
 ## Next
 
-- Complete Manifests for en-GB Term 1 2 3 by adding materials.
-
-- Tidy up index styles.
-- Print and media queries for pages.
-
-- Tidy up manifests
-
-- Nicer error messages and recovery
-- Better argument parsing.
-
-- Document the manifest format/ markdown headers
-- README for markup too.
-
 - Move Regions/Languages out of build.py and into json files.
     in templates/ccw.theme templates/ccuk.theme
     in lang/code.lang json
 
-- Custom TeX output for pandoc, to make PDFs look more in-house style.
-- Maybe Zip/Bundle up Terms, add them to index - They need to be standalone
+- Complete Manifests for en-GB Term 1 2 3 4, en-GB
+    - Add headers to all worksheets, notes, where possible
+    - Add titles for all pdfs
+    - Add all materials.
+
+- Clean up CSS
+    - Styling for language lists, term pages
+    - Fix header CSS so it works on smaller screens
+    - Try and make it a little bit more responsive.
+
+- Tidy up Code
+    - Nicer error messages and recovery
+    - List missing files, or files that have broken
+    - Missing fields or broken fields in json too.
+    - Better argument parsing.
+    - Maybe start to introduce classes.
+
+- Better documentation
+    - Document manifest format, markdown headers fully
+    - Document markup we use, including sourcecode blocks
+      all markdown, and all markdown extensions
+
+
+- Make PDFs for offline reading, and downloadable terms
+    - Custom TeX output for pandoc, to make PDFs look more in-house style.
+    - Maybe Zip/Bundle up Terms, add them to index - They need to be standalone
 
