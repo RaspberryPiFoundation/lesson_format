@@ -38,8 +38,12 @@
 - Internationalization options
     - full names of languages
 
-## Next
+- Internationalization
+    - Use Language to set text like 'Projects'
+    - Use Language to set legal text if present
 
+
+## Next
 
 - Zip any supporting materials per project.
     - Python zip lib or use zip -freshen
@@ -56,10 +60,6 @@
 
 - Document the manifest format/ markdown headers
 - README for markup too.
-
-- Internationalization
-    - Use Language to set text like 'Projects'
-    - Use Language to set legal text if present
 
 - Move Regions/Languages out of build.py and into json files.
     in templates/ccw.theme templates/ccuk.theme
