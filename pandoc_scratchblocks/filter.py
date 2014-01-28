@@ -25,6 +25,7 @@ with open(os.path.join(base, "scratch_template.html")) as fh:
 tempdir = None
 
 def block_to_image(block, output_dir):
+    block = block.encode('utf-8')
     name = sha1(block)
     html_file = os.path.join(tempdir, "%s.html"%(name))
     image_file = os.path.join(output_dir, "%s.png"%(name))

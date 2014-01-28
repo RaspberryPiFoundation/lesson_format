@@ -323,6 +323,7 @@ def build(repositories, organization, output_dir):
             traceback.print_exc()
             print "Failed", e
 
+    print termlangs
     print "Copying assets"
 
     copydir(html_assets, output_dir)
@@ -334,9 +335,10 @@ def build(repositories, organization, output_dir):
     project_count = {}
 
     for language, terms in termlangs.iteritems():
+        print "Language", language
         out_terms = []
         count = 0;
-        lang_dir = os.path.join(output_dir, term.language)
+        lang_dir = os.path.join(output_dir, language)
 
         for term in terms:
             term_dir = os.path.join(lang_dir, "%s.%d"%(term.name, term.number))
@@ -540,7 +542,6 @@ def expand_glob(base_dir, paths, one_file=False):
     if one_file:
         output = glob.glob(os.path.join(base_dir, paths))
         if len(output) != 1:
-            print os.path.join(base_dir, paths), output
             raise AssertionError("Bad things")
         return output[0]
 
