@@ -29,30 +29,24 @@
 - Sort languages by number of projects.
 - Add sv-SE to output
 - Get classes in directory listings
+- Indexes should have proper class names + styles
+- More detail in manifest
+    - full names of courses/terms
+    - introductory schpeil
+- Build example term + manifest + project to show it.
+- Pass language around instead of lang code? If Possible.
+- Internationalization options
+    - full names of languages
 
 ## Next
 
-- Indexes should have proper class names + styles
-    - Tidy up index styles.
 
 - Zip any supporting materials per project.
     - Python zip lib or use zip -freshen
     
 - Complete Manifests for en-GB Term 1 2 3 by adding materials.
 
-- Internationalization options
-    - full names of languages
-    - alternative legal text
-    in lang/code.lang json
-
-- Theme in json config and out of build.py
-    in templates/ccw.theme templates/ccuk.theme
-
-- More detail in manifest
-    - full names of courses/terms
-    - introductory schpeil
-
-- 
+- Tidy up index styles.
 - Print and media queries for pages.
 
 - Tidy up manifests
@@ -62,9 +56,14 @@
 
 - Document the manifest format/ markdown headers
 - README for markup too.
-- Build example term + manifest + project to show it.
 
-Internationalization
+- Internationalization
+    - Use Language to set text like 'Projects'
+    - Use Language to set legal text if present
+
+- Move Regions/Languages out of build.py and into json files.
+    in templates/ccw.theme templates/ccuk.theme
+    in lang/code.lang json
 
 - Unstyled PDF output, add it to index
 - Custom TeX output for pandoc, to make PDFs look more in-house style.

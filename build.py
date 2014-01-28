@@ -19,6 +19,7 @@ except ImportError:
 
 Region = collections.namedtuple('Region','name stylesheets legal logo css_variables')
 Style = collections.namedtuple('Style', 'name template stylesheets')
+Language = collections.namedtuple('Language', 'code name legal')
 
 base = os.path.dirname(os.path.abspath(__file__))
 template_base = os.path.join(base, "templates")
@@ -69,9 +70,13 @@ codeclubuk = Region(
     }
 )
 
+LANGUAGES = {
+ 'en-GB' : Language(code='en-GB', name='English', legal={}),
+}
+
 # todo : real classes
 
-Term = collections.namedtuple('Term', 'name language number projects extras')
+Term = collections.namedtuple('Term', 'id title description language number projects extras')
 Project = collections.namedtuple('Project', 'filename number title materials note embeds')
 Extra = collections.namedtuple('Extra', 'name materials note')
 Worksheet = collections.namedtuple('Worksheet','format filename')
@@ -81,28 +86,7 @@ css_assets = os.path.join(template_base,"css")
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
-# Markup process
-
-def markdown_to_html(markdown_file, style, organization, output_file):
-    commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
-    )
-
-    pandoc_html(markdown_file, style, organization, {}, commands, output_file)
-
-def make_html(variables, html, style, organization, output_file):
-    variables = dict(variables)
-    variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
-
-    commands = (
-        "-f", "html",
-        "-R",
-    )
-    
-    input_file = '/dev/null'
-
-    pandoc_html(input_file, style, organization, variables, commands, output_file)
-
+# Markup processing
 
 def pandoc_html(input_file, style, organization, variables, commands, output_file):
     cmd = [
@@ -137,6 +121,26 @@ def build_pdf(markdown_file, style, output_file):
     # than the default, or perhaps a lua writer for xetex.
     # then call xetex :/
     pass
+
+def markdown_to_html(markdown_file, style, organization, output_file):
+    commands = (
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+    )
+
+    pandoc_html(markdown_file, style, organization, {}, commands, output_file)
+
+def make_html(variables, html, style, organization, output_file):
+    variables = dict(variables)
+    variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
+
+    commands = (
+        "-f", "html",
+        "-R",
+    )
+    
+    input_file = '/dev/null'
+
+    pandoc_html(input_file, style, organization, variables, commands, output_file)
 
 
 def process_file(input_file, style, organization, output_dir):
@@ -196,6 +200,8 @@ def build_extra(extra, organization, output_dir):
         materials.append(copy_file(name, output_dir))
     return Extra(name = extra.name, note=note, materials=materials)
 
+# Building indexes
+
 def sort_files(files):
     sort_key = {
         'html':2,
@@ -206,17 +212,22 @@ def sort_files(files):
 def make_term_index(term, organization, output_dir):
 
     output_file = os.path.join(output_dir, "index.html")
-    title = term.name
+    title = term.title
 
     root = ET.Element('body')
+    if term.description:
+        section = ET.SubElement(root,'section', {'class':'description'})
+        p = ET.SubElement(section, 'p')
+        p.text = term.description
+
     section = ET.SubElement(root,'section', {'class':'projects'})
     h1 = ET.SubElement(section,'h1')
     h1.text = "Projects"
-    ol = ET.SubElement(root, 'ol', {'class': 'projects'})
+    ol = ET.SubElement(root, 'ol', {'class': 'projectlist'})
     
     for project in sorted(term.projects, key=lambda x:x.number):
-        li = ET.SubElement(ol, 'li', {'class': 'projectfiles'})
-        ul = ET.SubElement(li, 'ul')
+        li = ET.SubElement(ol, 'li')
+        ul = ET.SubElement(li, 'ul', {'class': 'projectfiles'})
 
         files = sort_files(project.filename)
         first, others = files[0], files[1:]
@@ -224,40 +235,43 @@ def make_term_index(term, organization, output_dir):
         url = os.path.relpath(first.filename, output_dir)
 
         a_li = ET.SubElement(ul, 'li')
-        a = ET.SubElement(a_li, 'a', {'href': url})
+        a = ET.SubElement(a_li, 'a', {'href': url, 'class':'worksheet'})
         a.text = project.title or url
 
         for file in others:
             url = os.path.relpath(file.filename, output_dir)
             a_li = ET.SubElement(ul, 'li')
-            a = ET.SubElement(a_li, 'a', {'href': url})
+            a = ET.SubElement(a_li, 'a', {'href': url, 'class':'alternate'})
             a.text = file.format
             
-        for file in project.note:
+        for file in sort_files(project.note):
             url = os.path.relpath(file.filename, output_dir)
             a_li = ET.SubElement(ul, 'li')
-            a = ET.SubElement(a_li, 'a', {'href': url})
-            a.text = "Notes (%s)"%(file.format)
+            a = ET.SubElement(a_li, 'a', {'href': url, 'class':'notes'})
+            if file.format != 'html':
+                a.text = "Notes (%s)"%(file.format)
+            else:
+                a.text = "Notes"
 
 
+    section = ET.SubElement(root, 'section', {'class':'extras'})
+    h1 = ET.SubElement(section, 'h1')
+    h1.text = 'Extras'
+
+    ol = ET.SubElement(root, 'ol', {'class':'extralist'})
     for extra in term.extras:
-        section = ET.SubElement(root, 'section', {'class':'extras'})
-        h1 = ET.SubElement(section, 'h1')
-        h1.text = extra.name
-        ol = ET.SubElement(root, 'ol')
-
         if extra.note:
             file = sort_files(extra.note)[0]
             # todo: handle multiple formats
             url = os.path.relpath(file.filename, output_dir)
-            li = ET.SubElement(ol, 'li')
+            li = ET.SubElement(ol, 'li', {'class':'extranote'})
             a = ET.SubElement(li, 'a', {'href': url})
             a.text = extra.name
         
         
         for file in extra.materials: 
             url = os.path.relpath(file.filename, output_dir)
-            li = ET.SubElement(ol, 'li')
+            li = ET.SubElement(ol, 'li', {'class':'extramaterial'})
             a = ET.SubElement(li, 'a', {'href': url})
             a.text = file.filename
 
@@ -268,21 +282,20 @@ def make_term_index(term, organization, output_dir):
 
 def make_lang_index(language, terms, organization, output_dir):
     output_file = os.path.join(output_dir, "index.html")
-    title = "Terms"
 
-    root = ET.Element('section')
+    root = ET.Element('section', {'class':'termlist'})
     h1 = ET.SubElement(root, 'h1')
-    h1.text = "Projects"
+    h1.text = "Terms"
     ol = ET.SubElement(root, 'ol')
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
         url = os.path.relpath(term_index, output_dir)
 
-        li = ET.SubElement(ol, 'li')
+        li = ET.SubElement(ol, 'li', {'class':'term'})
         a = ET.SubElement(li, 'a', {'href': url})
-        a.text = term.name or url
+        a.text = term.title or url
 
 
-    make_html({'title':title, 'level':language}, root, index_style, organization, output_file)
+    make_html({'title':language.name}, root, index_style, organization, output_file)
     return output_file
 
 def make_index(languages, organization, output_dir):
@@ -292,17 +305,19 @@ def make_index(languages, organization, output_dir):
     root = ET.Element('section')
     h1 = ET.SubElement(root, 'h1')
     h1.text = "Languages"
-    ol = ET.SubElement(root, 'ol')
+    ol = ET.SubElement(root, 'ol', {'class':'langs'})
 
-    for language, filename in languages.iteritems(): # todo, sort?
+    for language, filename in languages:
         url = os.path.relpath(filename, output_dir)
 
-        li = ET.SubElement(ol, 'li')
+        li = ET.SubElement(ol, 'li', {'class':'lang'})
         a = ET.SubElement(li, 'a', {'href': url})
-        a.text = language
+        a.text = language.name
 
 
     make_html({'title':title}, root, index_style, organization, output_file)
+
+# The all singing all dancing build function of doing everything.
 
 def build(repositories, organization, output_dir):
 
@@ -323,7 +338,6 @@ def build(repositories, organization, output_dir):
             traceback.print_exc()
             print "Failed", e
 
-    print termlangs
     print "Copying assets"
 
     copydir(html_assets, output_dir)
@@ -334,17 +348,24 @@ def build(repositories, organization, output_dir):
     languages = {}
     project_count = {}
 
-    for language, terms in termlangs.iteritems():
-        print "Language", language
+    for language_code, terms in termlangs.iteritems():
+        if language_code not in LANGUAGES:
+            LANGUAGES[language_code] = Language(
+                code = language_code,
+                name = language_code,
+                legal = {},
+            )
+        language = LANGUAGES[language_code]
+        print "Language", language.name
         out_terms = []
         count = 0;
-        lang_dir = os.path.join(output_dir, language)
+        lang_dir = os.path.join(output_dir, language.code)
 
         for term in terms:
-            term_dir = os.path.join(lang_dir, "%s.%d"%(term.name, term.number))
+            term_dir = os.path.join(lang_dir, "%s.%d"%(term.id, term.number))
             makedirs(term_dir)
             
-            print "Building Term:", term.name,
+            print "Building Term:", term.title,
 
             projects = []
             
@@ -367,7 +388,9 @@ def build(repositories, organization, output_dir):
                 extras.append(build_extra(r, organization, term_dir))
 
             term = Term(
-                name = term.name, number = term.number, language = term.language,
+                id = term.id,
+                number = term.number, language = term.language,
+                title = term.title, description= term.description,
                 projects = projects,
                 extras = extras,
             )
@@ -378,14 +401,14 @@ def build(repositories, organization, output_dir):
 
         print "Building",language,"index"
 
-        languages[language]=make_lang_index(language, out_terms, organization, lang_dir)
-        project_count[language]=count
+        languages[language_code]=make_lang_index(language, out_terms, organization, lang_dir)
+        project_count[language_code]=count
 
     print "Building", organization.name, "index"
 
-    sorted_languages = collections.OrderedDict()
+    sorted_languages =  []
     for lang in sorted(project_count.keys(), key=lambda x:project_count[x], reverse=True):
-        sorted_languages[lang] = languages[lang]
+        sorted_languages.append((LANGUAGES[lang], languages[lang]))
 
 
     make_index(sorted_languages, organization, output_dir)
@@ -435,7 +458,9 @@ def parse_manifest(filename):
         ))
 
     m = Term(
-        name = json_manifest['name'],
+        id = json_manifest['id'],
+        title = json_manifest['title'],
+        description = json_manifest['description'],
         language = json_manifest['language'],
         number = int(json_manifest['number']),
         projects = projects,

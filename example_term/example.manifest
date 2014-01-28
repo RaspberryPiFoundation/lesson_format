@@ -1,5 +1,7 @@
 {
-    "name": "example",
+    "id": "example",
+    "title":"Example Term",
+    "description":"This is for example purposes",
     "language": "en-GB",
     "number": 0,
 
