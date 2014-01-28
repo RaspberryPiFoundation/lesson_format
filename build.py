@@ -87,7 +87,7 @@ LANGUAGES = {
 
 # todo : real classes
 
-Term = collections.namedtuple('Term', 'id title description language number projects extras')
+Term = collections.namedtuple('Term', 'id manifest title description language number projects extras')
 Project = collections.namedtuple('Project', 'filename number title materials note embeds')
 Extra = collections.namedtuple('Extra', 'name materials note')
 Resource = collections.namedtuple('Resource','format filename')
@@ -186,8 +186,8 @@ def build_project(term, project, language, theme, output_dir):
     
     materials = None
     if project.materials:
-        zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.name, language.translate("resources"))
-        materials = zip_files(project.materials,output_dir, zipfilename)
+        zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
+        materials = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
 
     embeds = []
     for file in project.embeds:
@@ -210,7 +210,7 @@ def build_extra(term, extra, language, theme, output_dir):
     materials = None
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
-        materials = zip_files(extra.materials,output_dir, zipfilename)
+        materials = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename)
     return Extra(name = extra.name, note=note, materials=materials)
 
 # Building indexes
@@ -265,6 +265,13 @@ def make_term_index(term, language, theme, output_dir):
                 a.text = "%s (%s)"%(language.translate("Notes"),file.format)
             else:
                 a.text = language.translate("Notes")
+
+        if project.materials:
+            file = project.materials
+            url = os.path.relpath(file.filename, output_dir)
+            a_li = ET.SubElement(ul, 'li')
+            a = ET.SubElement(a_li, 'a', {'href': url, 'class':'materials'})
+            a.text = "%s (%s)"%(language.translate("Materials"),file.format)
 
 
     section = ET.SubElement(root, 'section', {'class':'extras'})
@@ -404,6 +411,7 @@ def build(repositories, theme, output_dir):
 
             term = Term(
                 id = term.id,
+                manifest=term.manifest,
                 number = term.number, language = term.language,
                 title = term.title, description= term.description,
                 projects = projects,
@@ -475,6 +483,7 @@ def parse_manifest(filename):
     m = Term(
         id = json_manifest['id'],
         title = json_manifest['title'],
+        manifest=filename,
         description = json_manifest['description'],
         language = json_manifest['language'],
         number = int(json_manifest['number']),
@@ -599,21 +608,27 @@ def makedirs(path, clear=False):
     if not os.path.exists(path):
         os.makedirs(path)
 
-banned_chars= re.compile(r'[\\/?|;:!#@$%^&*<>, ]')
+banned_chars= re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
 def safe_filename(filename):
-    return banned_chars.sub(filename, "_")
+    return banned_chars.sub("_", filename)
 
-def zip_files(source_files, output_dir, output_file):
+def zip_files(relative_dir, source_files, output_dir, output_file):
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
         cmd = [
-            'zip', '-f', output_file,
+            'zip'
         ]
-        for file in source_files:
-            cmd.append(safe_filename(source_files))
+        if os.path.exists(output_file):
+            os.remove(output_file)
 
-        subprocess.check_call(zip_files)
-        return output_file
+        cmd.append(output_file)
+        for file in source_files:
+            cmd.append(os.path.relpath(file, relative_dir))
+        
+        ret = subprocess.call(cmd, cwd=relative_dir)
+        if ret != 0 and ret != 12: # 12 means zip did nothing
+            raise StandardError('zip failure %d'%ret)
+        return Resource(format="zip", filename=output_file)
     else:
         return None
 
