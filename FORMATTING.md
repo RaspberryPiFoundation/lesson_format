@@ -1,3 +1,8 @@
+# Lesson Formatting and Style Guide
+
+This formatter builds static html pages from annotated markdown files, and builds indexes of terms, and languages for the use on projects.codeclubworld.org. It handles syntax highlighting, even in Scratch.
+
+
 # Manifest Files 
 
 A manifest file is a json file which is a list of all files needed for a term.
