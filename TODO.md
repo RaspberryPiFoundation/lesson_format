@@ -51,6 +51,8 @@
     in templates/ccw.theme templates/ccuk.theme
     in lang/code.lang json
 
+- Added other languages to scratch rendering.
+
 ## Next
 
 - Complete Manifests for en-GB Term 1 2 3 4, en-GB
