@@ -91,6 +91,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
     
     working_dir = os.path.dirname(output_file)
 
+
     subprocess.check_call(cmd, cwd=working_dir)
 
 
@@ -245,20 +246,20 @@ def make_term_index(term, language, theme, output_dir):
 
         url = os.path.relpath(first.filename, output_dir)
 
-        a_li = ET.SubElement(ul, 'li')
-        a = ET.SubElement(a_li, 'a', {'href': url, 'class':'worksheet'})
+        a_li = ET.SubElement(ul, 'li', {'class':'worksheet'})
+        a = ET.SubElement(a_li, 'a', {'href': url})
         a.text = project.title or url
 
         for file in others:
             url = os.path.relpath(file.filename, output_dir)
-            a_li = ET.SubElement(ul, 'li')
-            a = ET.SubElement(a_li, 'a', {'href': url, 'class':'alternate'})
+            a_li = ET.SubElement(ul, 'li', {'class':'alternate'})
+            a = ET.SubElement(a_li, 'a', {'href': url})
             a.text = file.format
             
         for file in sort_files(project.note):
             url = os.path.relpath(file.filename, output_dir)
-            a_li = ET.SubElement(ul, 'li')
-            a = ET.SubElement(a_li, 'a', {'href': url, 'class':'notes'})
+            a_li = ET.SubElement(ul, 'li', {'class':'notes'})
+            a = ET.SubElement(a_li, 'a', {'href': url})
             if file.format != 'html':
                 a.text = "%s (%s)"%(language.translate("Notes"),file.format)
             else:
@@ -267,7 +268,7 @@ def make_term_index(term, language, theme, output_dir):
         if project.materials:
             file = project.materials
             url = os.path.relpath(file.filename, output_dir)
-            a_li = ET.SubElement(ul, 'li')
+            a_li = ET.SubElement(ul, 'li', {'class':'materials'})
             a = ET.SubElement(a_li, 'a', {'href': url, 'class':'materials'})
             a.text = "%s (%s)"%(language.translate("Materials"),file.format)
 
@@ -694,6 +695,8 @@ def copy_file(input_file, output_dir):
         shutil.copy(input_file, output_file)
         return output_file
 
+THEMES = load_themes(theme_base)
+LANGUAGES = load_languages(language_base)
 
 if __name__ == '__main__':
     args = sys.argv[1::]
@@ -701,8 +704,8 @@ if __name__ == '__main__':
         print "usage: %s <region> <input repository directories> <output directory>"
         sys.exit(-1)
 
-    theme = load_themes(theme_base)[args[0]]
-    languages = load_languages(language_base)
+    theme = THEMES[args[0]]
+    languages = LANGUAGES
     args = [os.path.abspath(a) for a in args[1:]]
 
     repositories, output_dir = args[:-1], args[-1]
