@@ -60,6 +60,7 @@
 
 - Clean up CSS
     - Styling for language lists, term pages
+    - Ye GODS MY EYES
     - Fix header CSS so it works on smaller screens
     - Try and make it a little bit more responsive.
 
@@ -68,7 +69,7 @@
     - Document markup we use, including sourcecode blocks
       all markdown, and all markdown extensions
     - Document theme json, language json
-
+    - A lesson formatting howto.
 - Tidy up Code
     - Nicer error messages and recovery
     - List missing files, or files that have broken
