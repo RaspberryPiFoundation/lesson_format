@@ -5,6 +5,7 @@
     <script src="jquery.min.js"></script> 
     <link rel="stylesheet" href="scratchblocks2/scratchblocks2.css">
     <script src="scratchblocks2/scratchblocks2.js"></script>
+    <script src="scratchblocks2/translations.js"></script>
     <title></title>
     <style>
     #main { display: table-cell; }
@@ -19,6 +20,10 @@ $block
 </div>
 </body>
 <script>
+scratchblocks2.reset_languages();
+for (var lang in scratchblocks2._translations) {
+	scratchblocks2.load_language(scratchblocks2._translations[lang]);
+}
 scratchblocks2.parse("pre");
 </script>
 </html>
