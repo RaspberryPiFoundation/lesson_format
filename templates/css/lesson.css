@@ -168,6 +168,7 @@
     border: 3px solid #00b1da;
     border-radius:12px;
     width:654px;
+    margin: 0 auto;
     padding-bottom:20px;
     overflow:auto;
 }
