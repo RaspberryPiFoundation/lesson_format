@@ -61,6 +61,7 @@ Resource = collections.namedtuple('Resource','format filename')
 css_assets = os.path.join(template_base,"css")
 
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
+rasterize = os.path.join(base, "pandoc_scratchblocks/rasterize.js")
 html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
 # Markup processing
@@ -94,42 +95,10 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
 
     subprocess.check_call(cmd, cwd=working_dir)
 
-
-def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
-    return None #todo fix the output
-    legal = language.legal.get(theme.id, theme.legal)
-
-    cmd = [
-        "pandoc",
-        input_file, 
-        "-o", output_file,
-        "-t", "latex",
-        "-s",  # smart quotes
-        "--highlight-style", "pygments",
-        "--filter", scratchblocks_filter,
-        "-M", "legal=%s"%legal,
-        "-M", "organization=%s"%theme.name,
-        "-M", "logo=%s"%theme.logo,
-    ]
-    if style.tex_template:
-        cmd.append("--template=%s"%os.path.join(template_base, style.tex_template))
-    for k,v in variables.iteritems(): 
-        cmd.extend(("-M", "%s=%s"%(k,v)))
+def phantomjs_pdf(input_url, output_file):
+    cmd = ['phantomjs', rasterize, input_url, output_file, '"A4"']
+    return 0 == subprocess.call(cmd)
     
-    print " ".join([repr(s.encode('utf-8')) for s in cmd])
-    working_dir = os.path.dirname(output_file)
-
-    return 0 == subprocess.call(cmd, cwd=working_dir)
-
-
-    
-def markdown_to_pdf(markdown_file, style, language, theme, output_file):
-    commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
-    )
-
-    return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
-
 def markdown_to_html(markdown_file, style, language, theme, output_file):
     commands = (
         "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
@@ -151,7 +120,7 @@ def make_html(variables, html, style, language, theme, output_file):
     pandoc_html(input_file, style, language, theme, variables, commands, output_file)
 
 
-def process_file(input_file, style, language, theme, output_dir):
+def process_file(input_file, style, language, theme, output_dir, base_url):
     output = []
     name, ext = os.path.basename(input_file).rsplit(".",1)
     if ext == "md":
@@ -160,7 +129,8 @@ def process_file(input_file, style, language, theme, output_dir):
         output.append(Resource(filename=output_file, format="html"))
 
         output_file = os.path.join(output_dir, "%s.pdf"%name)
-        if markdown_to_pdf(input_file, style, language, theme, output_file):
+        output_url = os.path.join(base_url, '%s.html' % name)
+        if phantomjs_pdf(output_url, output_file):
             output.append(Resource(filename=output_file, format="pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
@@ -170,13 +140,13 @@ def process_file(input_file, style, language, theme, output_dir):
 
 # Process files within project and resource containers
 
-def build_project(term, project, language, theme, output_dir):
+def build_project(term, project, language, theme, output_dir, project_url):
     # todo clean up this code because we keep repeating things.
 
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
-    output_files = process_file(input_file, lesson_style, language, theme, output_dir)
+    output_files = process_file(input_file, lesson_style, language, theme, output_dir, project_url)
 
     notes = []
 
@@ -255,6 +225,8 @@ def make_term_index(term, language, theme, output_dir):
             a_li = ET.SubElement(ul, 'li', {'class':'alternate'})
             a = ET.SubElement(a_li, 'a', {'href': url})
             a.text = file.format
+            if file.format == 'pdf':
+                a.text = (project.title or url) + ' (pdf)'
             
         for file in sort_files(project.note):
             url = os.path.relpath(file.filename, output_dir)
@@ -337,6 +309,21 @@ def make_index(languages, language, theme, output_dir):
 
     make_html({'title':title}, root, index_style, language, theme, output_file)
 
+def start_webserver(start_dir):
+    port = 8001
+    base_url = 'http://127.0.0.1:%d/' % port
+
+    cmd = ['python', '-m', 'SimpleHTTPServer', str(port)]
+    server_pid = subprocess.Popen(cmd, cwd=start_dir)
+
+    print "Starting a local web server at port %d (pid %d)" % (port, server_pid.pid)
+
+    return (base_url, server_pid)
+    
+def stop_webserver(server_pid):
+    print "Stopping local web server (pid %d)" % server_pid.pid
+    server_pid.terminate()
+
 # The all singing all dancing build function of doing everything.
 
 def build(repositories, theme, all_languages, output_dir):
@@ -368,6 +355,8 @@ def build(repositories, theme, all_languages, output_dir):
     languages = {}
     project_count = {}
 
+    base_url, server_pid = start_webserver(output_dir)
+
     for language_code, terms in termlangs.iteritems():
         if language_code not in all_languages:
             all_languages[language_code] = Language(
@@ -396,9 +385,10 @@ def build(repositories, theme, all_languages, output_dir):
                 print "Building Project:", project.title, project.filename
 
                 project_dir = os.path.join(term_dir,"%.02d"%(project.number))
+                project_url = os.path.join(base_url, language.code, "%s.%d" % (term.id, term.number), "%.02d"%(project.number))
                 makedirs(project_dir)
 
-                built_project = build_project(term, project, language, theme, project_dir)
+                built_project = build_project(term, project, language, theme, project_dir, project_url)
                 
                 projects.append(built_project)
 
@@ -426,6 +416,7 @@ def build(repositories, theme, all_languages, output_dir):
         languages[language_code]=make_lang_index(language, out_terms, theme, lang_dir)
         project_count[language_code]=count
 
+    stop_webserver(server_pid)
     print "Building", theme.name, "index"
 
     sorted_languages =  []
