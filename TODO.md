@@ -53,25 +53,27 @@
 
 - Added other languages to scratch rendering.
 
-## Next
-
-- Complete Manifests for en-GB Term 1 2 3 4, en-GB
-    - Add headers to all worksheets, notes, where possible
-    - Add titles for all pdfs
-    - Add all materials.
-
-- Clean up CSS
-    - Styling for language lists, term pages
-    - Ye GODS MY EYES
-    - Fix header CSS so it works on smaller screens
-    - Try and make it a little bit more responsive.
-
 - Better documentation
     - Document manifest format, markdown headers fully
     - Document markup we use, including sourcecode blocks
       all markdown, and all markdown extensions
     - Document theme json, language json
     - A lesson formatting howto.
+
+## Next
+
+
+- Update source materials
+    - Complete Manifests for en-GB Term 1 2 3 4, en-GB
+    - Add titles for all pdfs
+    - Add all materials.
+    - Add headers to all worksheets, notes, where possible
+
+- Clean up CSS
+    - Simple Styling for language lists, term pages
+    - Fix header CSS so it works on smaller screens
+    - Try and make it a little bit more responsive.
+
 - Tidy up Code
     - Nicer error messages and recovery
     - List missing files, or files that have broken

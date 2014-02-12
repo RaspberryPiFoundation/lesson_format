@@ -159,6 +159,7 @@
 }
 .try code {
 	background:#fff;
+	color: #007CC9;
 }
 .activity .try li:before {
     border-color:#00b1da;
@@ -168,6 +169,7 @@
     border: 3px solid #00b1da;
     border-radius:12px;
     width:654px;
+    margin: 0 auto;
     padding-bottom:20px;
     overflow:auto;
 }
