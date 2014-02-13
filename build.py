@@ -143,6 +143,10 @@ def process_file(input_file, style, language, theme, output_dir, base_url):
 def build_project(term, project, language, theme, output_dir, project_url):
     # todo clean up this code because we keep repeating things.
 
+    embeds = []
+    for file in project.embeds:
+        embeds.append(copy_file(file, output_dir))
+
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
@@ -157,10 +161,6 @@ def build_project(term, project, language, theme, output_dir, project_url):
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
         materials = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
-
-    embeds = []
-    for file in project.embeds:
-        embeds.append(copy_file(file, output_dir))
 
     return Project(
         filename = output_files,
