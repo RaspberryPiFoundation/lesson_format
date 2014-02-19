@@ -12,7 +12,7 @@
 $for(css)$
     <link rel="stylesheet" href="$css$">
 $endfor$
-  $if(stylesheet)$<link rel="stylesheet" href="/css/$stylesheet$.css">$endif$
+  $if(stylesheet)$<link rel="stylesheet" href="$root$/css/$stylesheet$.css">$endif$
 $if(highlighting-css)$
   <style type="text/css">
 $highlighting-css$
@@ -36,7 +36,7 @@ $for(level)$
 $endfor$
 <div class="title">$title$</div>
 $if(logo)$
-<div class="logo"><img src="$logo$"/></div>
+<div class="logo"><img src="$root$$logo$"/></div>
 $endif$
 </header>
 $endif$

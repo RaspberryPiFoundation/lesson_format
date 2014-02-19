@@ -27,7 +27,7 @@
     padding-top: 10px;
 }
 .intro li.activity {
-    background-image: url(/img/check.svg);
+    background-image: url(../img/check.svg);
     background-size: 40px 40px;
     background-repeat: no-repeat;
     margin-bottom: 10px;
@@ -36,7 +36,7 @@
     padding-left: 50px;
 }
 .intro li.test {
-    background-image: url(/img/flag.svg);
+    background-image: url(../img/flag.svg);
     background-repeat: no-repeat;
     background-size: 40px 40px;
     margin-bottom: 10px;
@@ -46,7 +46,7 @@
 }
 
 .intro li.save {
-    background-image: url(/img/save.svg);
+    background-image: url(../img/save.svg);
     background-repeat: no-repeat;
     background-size: 40px 40px;
     margin-bottom: 10px;
@@ -101,7 +101,7 @@
 }
 .check h2{
     color: rgb(230,134,45);
-    background-image: url(/img/check.svg);
+    background-image: url(../img/check.svg);
     line-height:40px;
     background-size: 40px 40px;
     background-repeat: no-repeat;
@@ -114,7 +114,7 @@
 }
 .flag h2 {
     color: rgb(54,161,55);
-    background-image: url(/img/flag.svg);
+    background-image: url(../img/flag.svg);
     background-position: 0px 10px;
     background-size: 40px 40px;
     background-repeat: no-repeat;
@@ -130,7 +130,7 @@
 }
 .save h2 {
     color: rgb(36,90,154);
-    background-image: url(/img/save.svg);
+    background-image: url(../img/save.svg);
     background-position: 0px 10px;
     background-size: 40px 40px;
     background-repeat: no-repeat;

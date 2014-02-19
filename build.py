@@ -65,7 +65,9 @@ html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
 # Markup processing
 
-def pandoc_html(input_file, style, language, theme, variables, commands, output_file):
+def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
+
+    root = get_path_to(root_dir, output_file)
     legal = language.legal.get(theme.id, theme.legal)
 
     cmd = [
@@ -81,11 +83,12 @@ def pandoc_html(input_file, style, language, theme, variables, commands, output_
         "-M", "legal=%s"%legal,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
+        "-M", "root=%s"%root,
     ]
     for stylesheet in style.stylesheets:
-        cmd.extend(("-c", stylesheet,))
+        cmd.extend(("-c", root + stylesheet,))
     for stylesheet in theme.stylesheets:
-        cmd.extend(("-c", stylesheet,))
+        cmd.extend(("-c", root + stylesheet,))
     for k,v in variables.iteritems(): 
         cmd.extend(("-M", "%s=%s"%(k,v)))
     
@@ -130,14 +133,14 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def markdown_to_html(markdown_file, style, language, theme, output_file):
+def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
     commands = (
         "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
     )
 
-    pandoc_html(markdown_file, style, language, theme, {}, commands, output_file)
+    pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
 
-def make_html(variables, html, style, language, theme, output_file):
+def make_html(variables, html, style, language, theme, root_dir, output_file):
     variables = dict(variables)
     variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
 
@@ -148,15 +151,15 @@ def make_html(variables, html, style, language, theme, output_file):
     
     input_file = '/dev/null'
 
-    pandoc_html(input_file, style, language, theme, variables, commands, output_file)
+    pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
 
 
-def process_file(input_file, style, language, theme, output_dir):
+def process_file(input_file, style, language, theme, root_dir, output_dir):
     output = []
     name, ext = os.path.basename(input_file).rsplit(".",1)
     if ext == "md":
         output_file = os.path.join(output_dir, "%s.html"%name)
-        markdown_to_html(input_file, style, language, theme, output_file)
+        markdown_to_html(input_file, style, language, theme, root_dir, output_file)
         output.append(Resource(filename=output_file, format="html"))
 
         output_file = os.path.join(output_dir, "%s.pdf"%name)
@@ -170,18 +173,18 @@ def process_file(input_file, style, language, theme, output_dir):
 
 # Process files within project and resource containers
 
-def build_project(term, project, language, theme, output_dir):
+def build_project(term, project, language, theme, root_dir, output_dir):
     # todo clean up this code because we keep repeating things.
 
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
-    output_files = process_file(input_file, lesson_style, language, theme, output_dir)
+    output_files = process_file(input_file, lesson_style, language, theme, root_dir, output_dir)
 
     notes = []
 
     if project.note:
-        notes.extend(process_file(project.note, note_style, language, theme, output_dir))
+        notes.extend(process_file(project.note, note_style, language, theme, root_dir, output_dir))
     
     materials = None
     if project.materials:
@@ -202,10 +205,10 @@ def build_project(term, project, language, theme, output_dir):
     )
 
 
-def build_extra(term, extra, language, theme, output_dir):
+def build_extra(term, extra, language, theme, root_dir, output_dir):
     note = []
     if extra.note:
-        note.extend(process_file(extra.note, note_style, language, theme, output_dir))
+        note.extend(process_file(extra.note, note_style, language, theme, root_dir, output_dir))
     materials = None
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
@@ -221,7 +224,7 @@ def sort_files(files):
     }
     return sorted(files, key=lambda x:sort_key.get(x.format,0), reverse=True)
 
-def make_term_index(term, language, theme, output_dir):
+def make_term_index(term, language, theme, root_dir, output_dir):
 
     output_file = os.path.join(output_dir, "index.html")
     title = term.title
@@ -296,11 +299,11 @@ def make_term_index(term, language, theme, output_dir):
             a.text = filename
 
 
-    make_html({'title':title, 'level':"T%d"%term.number}, root, index_style, language, theme, output_file)
+    make_html({'title':title, 'level':"T%d"%term.number}, root, index_style, language, theme, root_dir, output_file)
     return output_file, term
 
 
-def make_lang_index(language, terms, theme, output_dir):
+def make_lang_index(language, terms, theme, root_dir, output_dir):
     output_file = os.path.join(output_dir, "index.html")
 
     root = ET.Element('section', {'class':'termlist'})
@@ -315,10 +318,10 @@ def make_lang_index(language, terms, theme, output_dir):
         a.text = term.title or url
 
 
-    make_html({'title':language.name}, root, index_style, language, theme, output_file)
+    make_html({'title':language.name}, root, index_style, language, theme, root_dir, output_file)
     return output_file
 
-def make_index(languages, language, theme, output_dir):
+def make_index(languages, language, theme, root_dir, output_dir):
     output_file = os.path.join(output_dir, "index.html")
     title = theme.name
 
@@ -335,7 +338,7 @@ def make_index(languages, language, theme, output_dir):
         a.text = lang.name
 
 
-    make_html({'title':title}, root, index_style, language, theme, output_file)
+    make_html({'title':title}, root, index_style, language, theme, root_dir, output_file)
 
 # The all singing all dancing build function of doing everything.
 
@@ -398,7 +401,7 @@ def build(repositories, theme, all_languages, output_dir):
                 project_dir = os.path.join(term_dir,"%.02d"%(project.number))
                 makedirs(project_dir)
 
-                built_project = build_project(term, project, language, theme, project_dir)
+                built_project = build_project(term, project, language, theme, output_dir, project_dir)
                 
                 projects.append(built_project)
 
@@ -406,7 +409,7 @@ def build(repositories, theme, all_languages, output_dir):
             
             for r in term.extras:
                 print "Building Extra:", r.name
-                extras.append(build_extra(term, r, language, theme, term_dir))
+                extras.append(build_extra(term, r, language, theme, output_dir, term_dir))
 
             term = Term(
                 id = term.id,
@@ -417,13 +420,13 @@ def build(repositories, theme, all_languages, output_dir):
                 extras = extras,
             )
 
-            out_terms.append(make_term_index(term, language, theme, term_dir))
+            out_terms.append(make_term_index(term, language, theme, output_dir, term_dir))
 
             print "Term built!"
 
         print "Building",language.name,"index"
 
-        languages[language_code]=make_lang_index(language, out_terms, theme, lang_dir)
+        languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir)
         project_count[language_code]=count
 
     print "Building", theme.name, "index"
@@ -433,7 +436,7 @@ def build(repositories, theme, all_languages, output_dir):
         sorted_languages.append((all_languages[lang], languages[lang]))
 
 
-    make_index(sorted_languages,all_languages[theme.language], theme, output_dir)
+    make_index(sorted_languages,all_languages[theme.language], theme, output_dir, output_dir)
     print "Complete"
     
 # Manifest, Theme, Language, and Project Header Parsing
@@ -613,6 +616,17 @@ def make_css(stylesheet_dir, theme, output_dir):
                     shutil.copy(src, output_dir)
     
 # File and directory handling
+
+def get_path_to(root_dir, output_file):
+    rel = os.path.relpath(output_file, root_dir)
+    dirs = os.path.dirname(rel)
+    if dirs:
+        subdirs = len(dirs.split("/"))
+        path = "/".join([".."] * subdirs)
+    else:
+        path = "."
+    return path
+    
 
 def find_files(dir, extension):
     manifests = []
