@@ -4,6 +4,7 @@ from pandocfilters import toJSONFilter, Str, Para, Image
 import shutil
 import sys
 import os
+import cgi
 import os.path
 import hashlib
 import subprocess
@@ -32,7 +33,7 @@ def block_to_image(block, output_dir):
 
     if True: # not os.path.exists(image_file):
         with open(html_file,"wb") as fh:
-            raw = html_template.substitute(block=block)
+            raw = html_template.substitute(block=cgi.escape(block))
             fh.write(raw)
 
         subprocess.check_call(['phantomjs', rasterize, html_file, image_file])
