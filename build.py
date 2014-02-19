@@ -61,6 +61,7 @@ Resource = collections.namedtuple('Resource','format filename')
 css_assets = os.path.join(template_base,"css")
 
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
+rasterize = os.path.join(base, "rasterize.js")
 html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
 # Markup processing
@@ -94,9 +95,33 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
     
     working_dir = os.path.dirname(output_file)
 
-
     subprocess.check_call(cmd, cwd=working_dir)
 
+def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
+    commands = (
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+    )
+
+    pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
+
+def make_html(variables, html, style, language, theme, root_dir, output_file):
+    variables = dict(variables)
+    variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
+
+    commands = (
+        "-f", "html",
+        "-R",
+    )
+    
+    input_file = '/dev/null'
+
+    pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
+
+def phantomjs_pdf(input_file, output_file):
+    print input_file
+    cmd = ['phantomjs', rasterize, input_file, output_file, '"A4"']
+    return 0 == subprocess.call(cmd)
+    
 
 def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
     return None #todo fix the output
@@ -133,26 +158,6 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
-    commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
-    )
-
-    pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
-
-def make_html(variables, html, style, language, theme, root_dir, output_file):
-    variables = dict(variables)
-    variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
-
-    commands = (
-        "-f", "html",
-        "-R",
-    )
-    
-    input_file = '/dev/null'
-
-    pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
-
 
 def process_file(input_file, style, language, theme, root_dir, output_dir):
     output = []
@@ -162,9 +167,9 @@ def process_file(input_file, style, language, theme, root_dir, output_dir):
         markdown_to_html(input_file, style, language, theme, root_dir, output_file)
         output.append(Resource(filename=output_file, format="html"))
 
-        output_file = os.path.join(output_dir, "%s.pdf"%name)
-        if markdown_to_pdf(input_file, style, language, theme, output_file):
-            output.append(Resource(filename=output_file, format="pdf"))
+        pdf_output_file = os.path.join(output_dir, "%s.pdf"%name)
+        if phantomjs_pdf(output_file, pdf_output_file):
+            output.append(Resource(filename=pdf_output_file, format="pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
@@ -175,6 +180,10 @@ def process_file(input_file, style, language, theme, root_dir, output_dir):
 
 def build_project(term, project, language, theme, root_dir, output_dir):
     # todo clean up this code because we keep repeating things.
+
+    embeds = []
+    for file in project.embeds:
+        embeds.append(copy_file(file, output_dir))
 
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
@@ -190,10 +199,6 @@ def build_project(term, project, language, theme, root_dir, output_dir):
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
         materials = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
-
-    embeds = []
-    for file in project.embeds:
-        embeds.append(copy_file(file, output_dir))
 
     return Project(
         filename = output_files,
@@ -258,6 +263,8 @@ def make_term_index(term, language, theme, root_dir, output_dir):
             a_li = ET.SubElement(ul, 'li', {'class':'alternate'})
             a = ET.SubElement(a_li, 'a', {'href': url})
             a.text = file.format
+            if file.format == 'pdf':
+                a.text = (project.title or url) + ' (pdf)'
             
         for file in sort_files(project.note):
             url = os.path.relpath(file.filename, output_dir)
@@ -339,7 +346,7 @@ def make_index(languages, language, theme, root_dir, output_dir):
 
 
     make_html({'title':title}, root, index_style, language, theme, root_dir, output_file)
-
+    
 # The all singing all dancing build function of doing everything.
 
 def build(repositories, theme, all_languages, output_dir):
