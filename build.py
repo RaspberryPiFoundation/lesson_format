@@ -168,8 +168,10 @@ def process_file(input_file, style, language, theme, root_dir, output_dir):
         output.append(Resource(filename=output_file, format="html"))
 
         pdf_output_file = os.path.join(output_dir, "%s.pdf"%name)
-        if phantomjs_pdf(output_file, pdf_output_file):
-            output.append(Resource(filename=pdf_output_file, format="pdf"))
+        # Don't build PDFs yet, need to work out right version of phantomjs
+        # and fix CSS/print isues
+        #if phantomjs_pdf(output_file, pdf_output_file):
+        #    output.append(Resource(filename=pdf_output_file, format="pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
