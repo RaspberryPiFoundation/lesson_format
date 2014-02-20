@@ -32,6 +32,9 @@ template_base = os.path.join(base, "templates")
 theme_base = os.path.join(base, "themes")
 language_base = os.path.join(base, "languages")
 
+PANDOC_MARKDOWN = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes"
+
+
 note_style = index_style = Style(
     name = 'lesson', 
     html_template = "template.html",
@@ -86,6 +89,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "logo=%s"%theme.logo,
         "-M", "root=%s"%root,
     ]
+    cmd.extend(commands)
     for stylesheet in style.stylesheets:
         cmd.extend(("-c", root + stylesheet,))
     for stylesheet in theme.stylesheets:
@@ -99,7 +103,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
 
 def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
     commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes-implicit_figures",
+        "-f", PANDOC_MARKDOWN,
     )
 
     pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
@@ -139,6 +143,7 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
     ]
+    cmd.extend(commands)
     if style.tex_template:
         cmd.append("--template=%s"%os.path.join(template_base, style.tex_template))
     for k,v in variables.iteritems(): 
@@ -153,7 +158,7 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
     
 def markdown_to_pdf(markdown_file, style, language, theme, output_file):
     commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes-implicit_figures",
+        "-f", PANDOC_MARKDOWN,
     )
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)

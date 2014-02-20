@@ -1,3 +1,4 @@
+all: update world uk
 
 clone: clear
 	mkdir repositories
