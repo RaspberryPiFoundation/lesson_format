@@ -60,6 +60,8 @@
     - Document theme json, language json
     - A lesson formatting howto.
 
+- PhantomJS support.
+
 ## Next
 
 

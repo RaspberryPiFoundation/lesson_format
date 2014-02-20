@@ -99,7 +99,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
 
 def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
     commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes-implicit_figures",
     )
 
     pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
@@ -153,7 +153,7 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
     
 def markdown_to_pdf(markdown_file, style, language, theme, output_file):
     commands = (
-        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes",
+        "-f", "markdown_github+header_attributes+yaml_metadata_block+inline_code_attributes-implicit_figures",
     )
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
@@ -653,7 +653,7 @@ def expand_glob(base_dir, paths, one_file=False):
     if one_file:
         output = glob.glob(os.path.join(base_dir, paths))
         if len(output) != 1:
-            raise AssertionError("Bad things")
+            raise AssertionError("Looked for one file matching '%s', found: %r"%(os.path.join(base_dir,paths), output))
         return output[0]
 
     else:
