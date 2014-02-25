@@ -1,4 +1,5 @@
-all: update world uk
+all:
+
 
 clone: clear
 	mkdir repositories
@@ -19,11 +20,18 @@ clear:
 	rm -fR repositories
 
 
-uk: update
+pages_uk: update
 	python build.py uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/ 
 	
-world: update
+pages_world: update
 	python build.py world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
+
+world: pages_world
+	cd repositories/codeclubworld-projects && git commit -am"Rebuild" && git push
+
+uk: pages_uk
+	cd repositories/codeclubuk-projects && git commit -am"Rebuild" && git push
 
 example:
 	python build.py world example* output
+

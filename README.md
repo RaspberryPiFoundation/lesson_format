@@ -201,8 +201,8 @@ The first argument is the theme for the website, currently either `world` or uk`
 ### Examples:
 
 ```
-./build.sh world <path to python repository> <path to scratch repository> ... <world output repository>
-./build.sh uk <path to python repository> <path to scratch repository> ... <uk output repository>
+./build.py world <path to python repository> <path to scratch repository> ... <world output repository>
+./build.py uk <path to python repository> <path to scratch repository> ... <uk output repository>
 ```
 
 ## Underneath the hood

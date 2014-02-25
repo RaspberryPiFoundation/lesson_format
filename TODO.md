@@ -64,6 +64,7 @@
 
 ## Next
 
+- Avoid recreating zip file when contents haven't changed
 
 - Update source materials
     - Complete Manifests for en-GB Term 1 2 3 4, en-GB
