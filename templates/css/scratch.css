@@ -13,7 +13,7 @@
     float:right;
 }
 
-.blockgrey, .blocklightgrey, .blockorange, .blockpurple, .blockpink, .blockblue, .blocklightblue, .blockyellow, .blockgreen, .blocklightgreen {
+.blockgrey, .blocklightgrey, .blockorange, .blockpurple, .blockpink, .blockblue, .blocklightblue, .blockyellow, .blockbrown, .blockgreen, .blocklightgreen {
 	border-radius: 3px;
     font-weight: normal;
     padding:2px;
@@ -43,6 +43,10 @@
 
 .blockgreen { /*Pen*/
     background-color: rgb(0,161,120);
+}
+
+.blockbrown { /*Events*/
+    background-color: rgb(200,131,48);
 }
 
 .blockyellow { /*Control*/
