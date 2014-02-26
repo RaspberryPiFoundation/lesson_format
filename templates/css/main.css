@@ -106,10 +106,9 @@ header .title {
 }
 header .logo {
 	float: right;
-        vertical-align: middle;
 }
 header .logo img {
-	max-height: 100px;
+	height: 100px;
 }
 
 
@@ -153,4 +152,6 @@ h1, h2,h3 {
 ul, ol, pre, p {
     page-break-inside:avoid;
 }
+
+
 
