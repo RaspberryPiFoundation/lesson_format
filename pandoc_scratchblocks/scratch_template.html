@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html lang="${lang}">
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,10 +20,13 @@ $block
 </div>
 </body>
 <script>
+var lang = "${lang}";
 scratchblocks2.reset_languages();
-for (var lang in scratchblocks2._translations) {
-	scratchblocks2.load_language(scratchblocks2._translations[lang]);
+for (var language in scratchblocks2._translations) {
+if  (!lang || lang == language || lang.indexOf(language) == 0) { 
+	scratchblocks2.load_language(scratchblocks2._translations[language]);
 }
-scratchblocks2.parse("pre");
+}
+scratchblocks2.parse('pre');
 </script>
 </html>

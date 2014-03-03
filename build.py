@@ -88,6 +88,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
         "-M", "root=%s"%root,
+        "-M", "lang=%s"%language.code,
     ]
     cmd.extend(commands)
     for stylesheet in style.stylesheets:
@@ -142,6 +143,7 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
         "-M", "legal=%s"%legal,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
+        "-M", "lang=%s"%language.code,
     ]
     cmd.extend(commands)
     if style.tex_template:

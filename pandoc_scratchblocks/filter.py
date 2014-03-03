@@ -25,15 +25,16 @@ with open(os.path.join(base, "scratch_template.html")) as fh:
 
 tempdir = None
 
-def block_to_image(block, output_dir):
+def block_to_image(block, lang, output_dir):
     block = block.encode('utf-8')
+    lang = lang.encode('utf-8')
     name = sha1(block)
     html_file = os.path.join(tempdir, "%s.html"%(name))
     image_file = os.path.join(output_dir, "%s.png"%(name))
 
     if True: # not os.path.exists(image_file):
         with open(html_file,"wb") as fh:
-            raw = html_template.substitute(block=cgi.escape(block))
+            raw = html_template.substitute(block=cgi.escape(block), lang=lang)
             fh.write(raw)
 
         subprocess.check_call(['phantomjs', rasterize, html_file, image_file])
@@ -41,11 +42,18 @@ def block_to_image(block, output_dir):
     
     
 def render_blocks(key, value, format, meta):
+    lang = meta.get("language")
+    if lang:
+        lang = lang["c"][0]["c"]
+    else:
+        lang = meta.get("lang")
+        if lang: 
+            lang = lang["c"]
     if key == "CodeBlock":
         [[ident,classes,keyvals], code] = value
 
         if u"blocks" in classes or u"scratch" in classes:
-            image = block_to_image(code, os.getcwd())
+            image = block_to_image(code, lang, os.getcwd())
             alt = Str(code)
             return Para([Image([alt], [os.path.basename(image),""])])
 
