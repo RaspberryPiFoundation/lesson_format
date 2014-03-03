@@ -57,7 +57,7 @@ lesson_style = Style(
 # todo : real classes
 
 Term = collections.namedtuple('Term', 'id manifest title description language number projects extras')
-Project = collections.namedtuple('Project', 'filename number title materials note embeds')
+Project = collections.namedtuple('Project', 'filename number title materials note embeds extras')
 Extra = collections.namedtuple('Extra', 'name materials note')
 Resource = collections.namedtuple('Resource','format filename')
 
@@ -203,7 +203,11 @@ def build_project(term, project, language, theme, root_dir, output_dir):
 
     if project.note:
         notes.extend(process_file(project.note, note_style, language, theme, root_dir, output_dir))
-    
+
+    extras = []
+    for e in project.extras:
+        extras.append(build_project_extra(term, project, e, language, theme, root_dir, output_dir))
+
     materials = None
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
@@ -216,8 +220,18 @@ def build_project(term, project, language, theme, root_dir, output_dir):
         materials = materials,
         note = notes,
         embeds = embeds,
+        extras = extras,
     )
 
+def build_project_extra(term, project, extra, language, theme, root_dir, output_dir):
+    note = []
+    if extra.note:
+        note.extend(process_file(extra.note, note_style, language, theme, root_dir, output_dir))
+    materials = None
+    if extra.materials:
+        zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
+        materials = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename)
+    return Extra(name = extra.name, note=note, materials=materials)
 
 def build_extra(term, extra, language, theme, root_dir, output_dir):
     note = []
@@ -283,6 +297,17 @@ def make_term_index(term, language, theme, root_dir, output_dir):
                 a.text = "%s (%s)"%(language.translate("Notes"),file.format)
             else:
                 a.text = language.translate("Notes")
+
+        for extra in sorted(project.extras, key=lambda x:x.name):
+            for file in sort_files(extra.note):
+                url = os.path.relpath(file.filename, output_dir)
+                a_li = ET.SubElement(ul, 'li', {'class':'extra'})
+                a = ET.SubElement(a_li, 'a', {'href': url})
+                if file.format != 'html':
+                    a.text = "%s (%s)"%(extra.name,file.format)
+                else:
+                    a.text = extra.name
+
 
         if project.materials:
             file = project.materials
@@ -465,38 +490,10 @@ def parse_manifest(filename):
 
     projects = []
     for p in json_manifest['projects']:
-        filename = expand_glob(base_dir, p['filename'], one_file=True)
-        materials = expand_glob(base_dir, p.get('materials',[]))
-        embeds = expand_glob(base_dir, p.get('embeds',[]))
-
-        if 'note' in p:
-            note = expand_glob(base_dir, p['note'], one_file=True)
-        else:
-            note = None
-    
-        project = Project(
-            filename = filename,
-            number = p['number'],
-            title = p.get('title', None),
-            materials = materials,
-            note = note,
-            embeds = embeds,
-        )
+        project = parse_project(p, base_dir)
         projects.append(project)
 
-    extras = []
-    for s in json_manifest.get('extras',()):
-        if 'note' in s:
-            note = expand_glob(base_dir, s['note'], one_file=True)
-        else:
-            note = None
-        materials = expand_glob(base_dir, s.get('materials', ()))
-        
-        extras.append(Extra(
-            name=s['name'],
-            note=note,
-            materials=materials,
-        ))
+    extras = parse_extras(json_manifest.get('extras',()), base_dir)
 
     m = Term(
         id = json_manifest['id'],
@@ -511,6 +508,44 @@ def parse_manifest(filename):
 
     return m
 
+def parse_project(p, base_dir):
+    filename = expand_glob(base_dir, p['filename'], one_file=True)
+    materials = expand_glob(base_dir, p.get('materials',[]))
+    embeds = expand_glob(base_dir, p.get('embeds',[]))
+    extras = p.get('extras', [])
+
+    if 'note' in p:
+        note = expand_glob(base_dir, p['note'], one_file=True)
+    else:
+        note = None
+    extras = parse_extras(extras, base_dir)
+
+    return Project(
+        filename = filename,
+        number = p['number'],
+        title = p.get('title', None),
+        materials = materials,
+        note = note,
+        embeds = embeds,
+        extras = extras,
+    )
+
+def parse_extras(extras_raw, base_dir):
+    extras = []
+    for s in extras_raw:
+        if 'note' in s:
+            note = expand_glob(base_dir, s['note'], one_file=True)
+        else:
+            note = None
+        materials = expand_glob(base_dir, s.get('materials', ()))
+        
+        extras.append(Extra(
+            name=s['name'],
+            note=note,
+            materials=materials,
+        ))
+    return extras
+    
 def load_languages(dir):
     languages = {}
     for file in expand_glob(dir,"*.language"): 
@@ -604,6 +639,7 @@ def parse_project_meta(p):
             materials = materials,
             note = note,
             embeds = embeds,
+            extras = p.extras,
         )
     else:
         return p
