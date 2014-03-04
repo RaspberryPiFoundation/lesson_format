@@ -102,15 +102,20 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
 
     subprocess.check_call(cmd, cwd=working_dir)
 
-def markdown_to_html(markdown_file, style, language, theme, root_dir, output_file):
+def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir, output_file):
     commands = (
         "-f", PANDOC_MARKDOWN,
     )
+    variables = {}
+    if breadcrumb:
+        variables['breadcrumb'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
 
-    pandoc_html(markdown_file, style, language, theme, {}, commands, root_dir, output_file)
+    pandoc_html(markdown_file, style, language, theme, variables, commands, root_dir, output_file)
 
-def make_html(variables, html, style, language, theme, root_dir, output_file):
+def make_html(variables, breadcrumb, html, style, language, theme, root_dir, output_file):
     variables = dict(variables)
+    if breadcrumb:
+        variables['breadcrumb'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
     variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
 
     commands = (
@@ -166,12 +171,12 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
 
-def process_file(input_file, style, language, theme, root_dir, output_dir):
+def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir):
     output = []
     name, ext = os.path.basename(input_file).rsplit(".",1)
     if ext == "md":
         output_file = os.path.join(output_dir, "%s.html"%name)
-        markdown_to_html(input_file, style, language, theme, root_dir, output_file)
+        markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename=output_file, format="html"))
 
         pdf_output_file = os.path.join(output_dir, "%s.pdf"%name)
@@ -187,7 +192,7 @@ def process_file(input_file, style, language, theme, root_dir, output_dir):
 
 # Process files within project and resource containers
 
-def build_project(term, project, language, theme, root_dir, output_dir):
+def build_project(term, project, language, theme, root_dir, output_dir, breadcrumb):
     # todo clean up this code because we keep repeating things.
 
     embeds = []
@@ -197,16 +202,17 @@ def build_project(term, project, language, theme, root_dir, output_dir):
     input_file = project.filename
     name, ext = os.path.basename(input_file).rsplit(".",1)
 
-    output_files = process_file(input_file, lesson_style, language, theme, root_dir, output_dir)
+    project_breadcrumb = breadcrumb + [(project.title, "")]
+    output_files = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir)
 
     notes = []
 
     if project.note:
-        notes.extend(process_file(project.note, note_style, language, theme, root_dir, output_dir))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir))
 
     extras = []
     for e in project.extras:
-        extras.append(build_project_extra(term, project, e, language, theme, root_dir, output_dir))
+        extras.append(build_project_extra(term, project, e, language, theme, root_dir, output_dir, breadcrumb))
 
     materials = None
     if project.materials:
@@ -224,20 +230,22 @@ def build_project(term, project, language, theme, root_dir, output_dir):
         extras = extras,
     )
 
-def build_project_extra(term, project, extra, language, theme, root_dir, output_dir):
+def build_project_extra(term, project, extra, language, theme, root_dir, output_dir, breadcrumb):
     note = []
+    breadcrumb = term_breadcrumb + [(extra.name, '')]
     if extra.note:
-        note.extend(process_file(extra.note, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
     materials = None
     if extra.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
         materials = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename)
     return Extra(name = extra.name, note=note, materials=materials)
 
-def build_extra(term, extra, language, theme, root_dir, output_dir):
+def build_extra(term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note = []
+    breadcrumb = term_breadcrumb + [(extra.name, '')]
     if extra.note:
-        note.extend(process_file(extra.note, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
     materials = None
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
@@ -253,7 +261,7 @@ def sort_files(files):
     }
     return sorted(files, key=lambda x:sort_key.get(x.format,0), reverse=True)
 
-def make_term_index(term, language, theme, root_dir, output_dir, output_file):
+def make_term_index(term, language, theme, root_dir, output_dir, output_file, project_breadcrumb):
 
     title = term.title
 
@@ -346,11 +354,12 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file):
             a.text = filename
 
 
-    make_html({'title':title, 'level':"T%d"%term.number}, root, index_style, language, theme, root_dir, output_file)
+    make_html({'title':title, 'level':"T%d"%term.number}, project_breadcrumb, root, index_style, language, theme, root_dir, output_file)
+
     return output_file, term
 
 
-def make_lang_index(language, terms, theme, root_dir, output_dir, output_file):
+def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, lang_breadcrumb):
     root = ET.Element('section', {'class':'termlist'})
     h1 = ET.SubElement(root, 'h1')
     h1.text = language.translate("Terms")
@@ -363,7 +372,8 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file):
         a.text = term.title or url
 
 
-    make_html({'title':language.name}, root, index_style, language, theme, root_dir, output_file)
+
+    make_html({'title':language.name}, lang_breadcrumb, root, index_style, language, theme, root_dir, output_file)
     return output_file
 
 def make_index(languages, language, theme, root_dir, output_file):
@@ -381,9 +391,21 @@ def make_index(languages, language, theme, root_dir, output_file):
         a = ET.SubElement(li, 'a', {'href': url})
         a.text = lang.name
 
+    make_html({'title':title}, None, root, index_style, language, theme, root_dir, output_file)
 
-    make_html({'title':title}, root, index_style, language, theme, root_dir, output_file)
-    
+def build_breadcrumb(breadcrumb, output_file):
+    output_dir = os.path.dirname(output_file)
+    ol = ET.Element('ol', {'class':'breadcrumb'})
+    for name, path in breadcrumb[:-1]:
+        url = os.path.relpath(path, output_dir)
+        li = ET.SubElement(ol, 'li')
+        a = ET.SubElement(li, 'a', {'href':url})
+        a.text = name
+    li = ET.SubElement(ol, 'li')
+    a = ET.SubElement(li, 'a', {'href':'#'})
+    a.text = breadcrumb[-1][0]
+    return ol
+
 # The all singing all dancing build function of doing everything.
 
 def build(repositories, theme, all_languages, output_dir):
@@ -419,7 +441,7 @@ def build(repositories, theme, all_languages, output_dir):
 
 
     root_index_file = os.path.join(output_dir, "index.html")
-    breadcrumbs = [('Languages', root_index_file)]
+    root_breadcrumb = [('Languages', root_index_file)]
 
     for language_code, terms in termlangs.iteritems():
         if language_code not in all_languages:
@@ -435,7 +457,7 @@ def build(repositories, theme, all_languages, output_dir):
         count = 0;
         lang_dir = os.path.join(output_dir, language.code)
         lang_index_file = os.path.join(lang_dir, "index.html")
-        lang_breadcrumbs = breadcrumbs + [(language.name, lang_index_file)]
+        lang_breadcrumb = root_breadcrumb + [(language.name, lang_index_file)]
 
         for term in terms:
             term_dir = os.path.join(lang_dir, "%s.%d"%(term.id, term.number))
@@ -444,7 +466,7 @@ def build(repositories, theme, all_languages, output_dir):
             print "Building Term:", term.title,
 
             term_index_file = os.path.join(term_dir, "index.html")
-            term_breadcumb = lang_breadcrumbs + [(term.title, term_index_file)]
+            term_breadcrumb = lang_breadcrumb + [(term.title, term_index_file)]
 
             projects = []
             
@@ -456,7 +478,7 @@ def build(repositories, theme, all_languages, output_dir):
                 project_dir = os.path.join(term_dir,"%.02d"%(project.number))
                 makedirs(project_dir)
 
-                built_project = build_project(term, project, language, theme, output_dir, project_dir)
+                built_project = build_project(term, project, language, theme, output_dir, project_dir, term_breadcrumb)
                 
                 projects.append(built_project)
 
@@ -464,7 +486,7 @@ def build(repositories, theme, all_languages, output_dir):
             
             for r in term.extras:
                 print "Building Extra:", r.name
-                extras.append(build_extra(term, r, language, theme, output_dir, term_dir))
+                extras.append(build_extra(term, r, language, theme, output_dir, term_dir, term_breadcrumb))
 
             term = Term(
                 id = term.id,
@@ -475,13 +497,13 @@ def build(repositories, theme, all_languages, output_dir):
                 extras = extras,
             )
 
-            out_terms.append(make_term_index(term, language, theme, output_dir, term_dir, term_index_file))
+            out_terms.append(make_term_index(term, language, theme, output_dir, term_dir, term_index_file, term_breadcrumb))
 
             print "Term built!"
 
         print "Building",language.name,"index"
 
-        languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir, lang_index_file)
+        languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir, lang_index_file, lang_breadcrumb)
         project_count[language_code]=count
 
     print "Building", theme.name, "index"

@@ -154,4 +154,32 @@ ul, ol, pre, p {
 }
 
 
+section.breadcrumb {
+   padding-top: 0px;
+   padding-bottom: 0px;
+}
+
+section.breadcrumb ol {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+section.breadcrumb li {
+    display: inline-block;
+    padding-right: 8px;
+}
+section.breadcrumb li:after {
+    content: " >";
+}
+
+section.breadcrumb li:last-child:after {
+    content: "";
+}
+
+section.breadcrumb a {
+    color: ${header_bg_dark};
+}
+section.breadcrumb a.current {
+    text-decoration: none;
+}
 
