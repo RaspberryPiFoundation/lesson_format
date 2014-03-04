@@ -63,7 +63,7 @@ body {
     clear:both;
 }
 h1, h2 {
-    font-size: 20px;
+    font-size: 25px;
     line-height: 22px;
 }
 h3, h4 {
@@ -163,6 +163,7 @@ section.breadcrumb ol {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    font-size: small;
 }
 section.breadcrumb li {
     display: inline-block;
@@ -178,8 +179,6 @@ section.breadcrumb li:last-child:after {
 
 section.breadcrumb a {
     color: ${header_bg_dark};
-}
-section.breadcrumb a.current {
     text-decoration: none;
 }
 

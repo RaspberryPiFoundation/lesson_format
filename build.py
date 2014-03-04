@@ -230,7 +230,7 @@ def build_project(term, project, language, theme, root_dir, output_dir, breadcru
         extras = extras,
     )
 
-def build_project_extra(term, project, extra, language, theme, root_dir, output_dir, breadcrumb):
+def build_project_extra(term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     if extra.note:
@@ -334,24 +334,25 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
     section = ET.SubElement(root, 'section', {'class':'extras'})
     h1 = ET.SubElement(section, 'h1')
     h1.text = language.translate('Extras')
-
-    ol = ET.SubElement(section, 'ol', {'class':'extralist'})
-    for extra in term.extras:
-        if extra.note:
-            file = sort_files(extra.note)[0]
-            # todo: handle multiple formats
-            url = os.path.relpath(file.filename, output_dir)
-            li = ET.SubElement(ol, 'li', {'class':'extranote'})
-            a = ET.SubElement(li, 'a', {'href': url})
-            a.text = extra.name
-        
-        
-        if extra.materials: 
-            filename = extra.materials
-            url = os.path.relpath(filename, output_dir)
-            li = ET.SubElement(ol, 'li', {'class':'extramaterial'})
-            a = ET.SubElement(li, 'a', {'href': url})
-            a.text = filename
+    
+    if term.extras:
+        ol = ET.SubElement(section, 'ol', {'class':'extralist'})
+        for extra in term.extras:
+            if extra.note:
+                file = sort_files(extra.note)[0]
+                # todo: handle multiple formats
+                url = os.path.relpath(file.filename, output_dir)
+                li = ET.SubElement(ol, 'li', {'class':'extranote'})
+                a = ET.SubElement(li, 'a', {'href': url})
+                a.text = extra.name
+            
+            
+            if extra.materials: 
+                filename = extra.materials
+                url = os.path.relpath(filename, output_dir)
+                li = ET.SubElement(ol, 'li', {'class':'extramaterial'})
+                a = ET.SubElement(li, 'a', {'href': url})
+                a.text = filename
 
 
     make_html({'title':title, 'level':"T%d"%term.number}, project_breadcrumb, root, index_style, language, theme, root_dir, output_file)
@@ -402,8 +403,8 @@ def build_breadcrumb(breadcrumb, output_file):
         a = ET.SubElement(li, 'a', {'href':url})
         a.text = name
     li = ET.SubElement(ol, 'li')
-    a = ET.SubElement(li, 'a', {'href':'#'})
-    a.text = breadcrumb[-1][0]
+    strong = ET.SubElement(li, 'strong')
+    strong.text = breadcrumb[-1][0]
     return ol
 
 # The all singing all dancing build function of doing everything.
