@@ -253,9 +253,8 @@ def sort_files(files):
     }
     return sorted(files, key=lambda x:sort_key.get(x.format,0), reverse=True)
 
-def make_term_index(term, language, theme, root_dir, output_dir):
+def make_term_index(term, language, theme, root_dir, output_dir, output_file):
 
-    output_file = os.path.join(output_dir, "index.html")
     title = term.title
 
     root = ET.Element('body')
@@ -270,10 +269,10 @@ def make_term_index(term, language, theme, root_dir, output_dir):
     ol = ET.SubElement(section, 'ol', {'class': 'projectlist'})
     
     for project in sorted(term.projects, key=lambda x:x.number):
-        li = ET.SubElement(ol, 'li', {'class': 'project'})
+        li = ET.SubElement(ol, 'li', {'class': 'project', 'value':project.number})
         if project.level:
             div = ET.SubElement(li, 'div', {'class':'level'})
-            div.text = language.translate("Level %d")%project.level
+            div.text = unicode(project.level)
 
         li.text = project.title or url
         ul = ET.SubElement(li, 'ul', {'class': 'projectfiles'})
@@ -351,9 +350,7 @@ def make_term_index(term, language, theme, root_dir, output_dir):
     return output_file, term
 
 
-def make_lang_index(language, terms, theme, root_dir, output_dir):
-    output_file = os.path.join(output_dir, "index.html")
-
+def make_lang_index(language, terms, theme, root_dir, output_dir, output_file):
     root = ET.Element('section', {'class':'termlist'})
     h1 = ET.SubElement(root, 'h1')
     h1.text = language.translate("Terms")
@@ -361,7 +358,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir):
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
         url = os.path.relpath(term_index, output_dir)
 
-        li = ET.SubElement(ol, 'li', {'class':'term'})
+        li = ET.SubElement(ol, 'li', {'class':'term', 'value': term.number})
         a = ET.SubElement(li, 'a', {'href': url})
         a.text = term.title or url
 
@@ -369,8 +366,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir):
     make_html({'title':language.name}, root, index_style, language, theme, root_dir, output_file)
     return output_file
 
-def make_index(languages, language, theme, root_dir, output_dir):
-    output_file = os.path.join(output_dir, "index.html")
+def make_index(languages, language, theme, root_dir, output_file):
     title = theme.name
 
     root = ET.Element('section')
@@ -379,7 +375,7 @@ def make_index(languages, language, theme, root_dir, output_dir):
     ol = ET.SubElement(root, 'ol', {'class':'langs'})
 
     for lang, filename in languages:
-        url = os.path.relpath(filename, output_dir)
+        url = os.path.relpath(filename, root_dir)
 
         li = ET.SubElement(ol, 'li', {'class':'lang'})
         a = ET.SubElement(li, 'a', {'href': url})
@@ -395,6 +391,8 @@ def build(repositories, theme, all_languages, output_dir):
     print "Searching for manifests .."
 
     termlangs = {}
+
+    breadcrumbs = []
     
     for m in find_files(repositories, ".manifest"):
         print "Found Manifest:", m
@@ -419,6 +417,10 @@ def build(repositories, theme, all_languages, output_dir):
     languages = {}
     project_count = {}
 
+
+    root_index_file = os.path.join(output_dir, "index.html")
+    breadcrumbs = [('Languages', root_index_file)]
+
     for language_code, terms in termlangs.iteritems():
         if language_code not in all_languages:
             all_languages[language_code] = Language(
@@ -432,12 +434,17 @@ def build(repositories, theme, all_languages, output_dir):
         out_terms = []
         count = 0;
         lang_dir = os.path.join(output_dir, language.code)
+        lang_index_file = os.path.join(lang_dir, "index.html")
+        lang_breadcrumbs = breadcrumbs + [(language.name, lang_index_file)]
 
         for term in terms:
             term_dir = os.path.join(lang_dir, "%s.%d"%(term.id, term.number))
             makedirs(term_dir)
             
             print "Building Term:", term.title,
+
+            term_index_file = os.path.join(term_dir, "index.html")
+            term_breadcumb = lang_breadcrumbs + [(term.title, term_index_file)]
 
             projects = []
             
@@ -468,13 +475,13 @@ def build(repositories, theme, all_languages, output_dir):
                 extras = extras,
             )
 
-            out_terms.append(make_term_index(term, language, theme, output_dir, term_dir))
+            out_terms.append(make_term_index(term, language, theme, output_dir, term_dir, term_index_file))
 
             print "Term built!"
 
         print "Building",language.name,"index"
 
-        languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir)
+        languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir, lang_index_file)
         project_count[language_code]=count
 
     print "Building", theme.name, "index"
@@ -484,7 +491,7 @@ def build(repositories, theme, all_languages, output_dir):
         sorted_languages.append((all_languages[lang], languages[lang]))
 
 
-    make_index(sorted_languages,all_languages[theme.language], theme, output_dir, output_dir)
+    make_index(sorted_languages,all_languages[theme.language], theme, output_dir, lang_index_file)
     print "Complete"
     
 # Manifest, Theme, Language, and Project Header Parsing

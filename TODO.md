@@ -64,7 +64,11 @@
 
 ## Next
 
+- Breadcrumbs
+
 - Avoid recreating zip file when contents haven't changed
+  - Zip freshen ? or skip materials if not rebuilt,
+  - Same as scratchblocks.
 
 - Update source materials
     - Complete Manifests for en-GB Term 1 2 3 4, en-GB
