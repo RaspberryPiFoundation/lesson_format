@@ -28,19 +28,44 @@ section h2{
     border-radius: 5px;
 }
 
-section ol > li {
-	padding: 0;
-	margin: 0;
-	width:100%
+ol {
+    font-size: large;
 }
 
-section ul {
-	padding: 0;
-	margin: 0;
-	display: table-row;
+ol.terms, ol.langs, ol.projectlist, ol.extralist {
+    padding-left: 0px;
+}
+ol.terms, ol.projectlist {
+    list-style-position:inside;
+}
+ol.langs, ol.extralist, ul.projectfiles {
+    list-style-type: none;
+}
+li.term, li.lang, li.project, li.extranote, li.extramaterial {
+    background-color: rgb(230, 233, 227);
+    border-radius: 5px;
+    margin: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 8px;
 }
 
-section ul li {
-	display: table-cell;
-	width: 1%;
+li.term, li.lang {
+    color: ${header_bg_dark};
 }
+
+li.term a, li.lang a, ul.projectfiles a, ol.extralist a {
+    color: ${header_bg_dark};
+}
+
+ul.projectfiles {
+    margin-top: 8px;
+    font-size: medium;
+}
+
+li.project div.level {
+   float:right;
+   font-size: medium;
+   color: rgb(102, 102, 102);
+}
+   

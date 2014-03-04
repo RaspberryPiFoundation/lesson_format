@@ -57,7 +57,7 @@ lesson_style = Style(
 # todo : real classes
 
 Term = collections.namedtuple('Term', 'id manifest title description language number projects extras')
-Project = collections.namedtuple('Project', 'filename number title materials note embeds extras')
+Project = collections.namedtuple('Project', 'filename number level title materials note embeds extras')
 Extra = collections.namedtuple('Extra', 'name materials note')
 Resource = collections.namedtuple('Resource','format filename')
 
@@ -217,6 +217,7 @@ def build_project(term, project, language, theme, root_dir, output_dir):
         filename = output_files,
         number = project.number,
         title = project.title,
+        level = project.level,
         materials = materials,
         note = notes,
         embeds = embeds,
@@ -266,20 +267,26 @@ def make_term_index(term, language, theme, root_dir, output_dir):
     section = ET.SubElement(root,'section', {'class':'projects'})
     h1 = ET.SubElement(section,'h1')
     h1.text = language.translate("Projects")
-    ol = ET.SubElement(root, 'ol', {'class': 'projectlist'})
+    ol = ET.SubElement(section, 'ol', {'class': 'projectlist'})
     
     for project in sorted(term.projects, key=lambda x:x.number):
-        li = ET.SubElement(ol, 'li')
+        li = ET.SubElement(ol, 'li', {'class': 'project'})
+        if project.level:
+            div = ET.SubElement(li, 'div', {'class':'level'})
+            div.text = language.translate("Level %d")%project.level
+
+        li.text = project.title or url
         ul = ET.SubElement(li, 'ul', {'class': 'projectfiles'})
 
         files = sort_files(project.filename)
         first, others = files[0], files[1:]
 
+
         url = os.path.relpath(first.filename, output_dir)
 
         a_li = ET.SubElement(ul, 'li', {'class':'worksheet'})
         a = ET.SubElement(a_li, 'a', {'href': url})
-        a.text = project.title or url
+        a.text = language.translate("Student worksheet")
 
         for file in others:
             url = os.path.relpath(file.filename, output_dir)
@@ -321,7 +328,7 @@ def make_term_index(term, language, theme, root_dir, output_dir):
     h1 = ET.SubElement(section, 'h1')
     h1.text = language.translate('Extras')
 
-    ol = ET.SubElement(root, 'ol', {'class':'extralist'})
+    ol = ET.SubElement(section, 'ol', {'class':'extralist'})
     for extra in term.extras:
         if extra.note:
             file = sort_files(extra.note)[0]
@@ -350,7 +357,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir):
     root = ET.Element('section', {'class':'termlist'})
     h1 = ET.SubElement(root, 'h1')
     h1.text = language.translate("Terms")
-    ol = ET.SubElement(root, 'ol')
+    ol = ET.SubElement(root, 'ol', {'class':'terms'})
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
         url = os.path.relpath(term_index, output_dir)
 
@@ -524,6 +531,7 @@ def parse_project(p, base_dir):
         filename = filename,
         number = p['number'],
         title = p.get('title', None),
+        level = p.get('level', None),
         materials = materials,
         note = note,
         embeds = embeds,
@@ -608,6 +616,7 @@ def parse_project_meta(p):
         title = header.get('title', p.title)
         number = header.get('number', p.number)
         title = header.get('title', p.title)
+        level = header.get('level', p.level)
 
         raw_note = header.get('note', None)
         if raw_note:
@@ -636,6 +645,7 @@ def parse_project_meta(p):
             filename = p.filename,
             number = number,
             title = title,
+            level = level,
             materials = materials,
             note = note,
             embeds = embeds,
