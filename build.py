@@ -269,7 +269,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file):
     ol = ET.SubElement(section, 'ol', {'class': 'projectlist'})
     
     for project in sorted(term.projects, key=lambda x:x.number):
-        li = ET.SubElement(ol, 'li', {'class': 'project', 'value':project.number})
+        li = ET.SubElement(ol, 'li', {'class': 'project', 'value':unicode(project.number)})
         if project.level:
             div = ET.SubElement(li, 'div', {'class':'level'})
             div.text = unicode(project.level)
@@ -358,7 +358,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file):
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
         url = os.path.relpath(term_index, output_dir)
 
-        li = ET.SubElement(ol, 'li', {'class':'term', 'value': term.number})
+        li = ET.SubElement(ol, 'li', {'class':'term', 'value':unicode(term.number)})
         a = ET.SubElement(li, 'a', {'href': url})
         a.text = term.title or url
 
@@ -491,7 +491,7 @@ def build(repositories, theme, all_languages, output_dir):
         sorted_languages.append((all_languages[lang], languages[lang]))
 
 
-    make_index(sorted_languages,all_languages[theme.language], theme, output_dir, lang_index_file)
+    make_index(sorted_languages,all_languages[theme.language], theme, output_dir, root_index_file)
     print "Complete"
     
 # Manifest, Theme, Language, and Project Header Parsing
