@@ -136,7 +136,15 @@ A manifest file is a json file which is a list of all files needed for a term, a
             "number": 3,
             "title": "A lesson",
             "materials": ["files to include in the lesson downlaod"], 
-            "note": "note for instructor"
+            "note": "note for instructor",
+            "extras": [
+                {
+                    "name": "Handout",
+                    "materials": ["same as above"],
+                    "note": "lesson-handout.md"
+                }
+
+            ]
         }
     ],
     "extras": [
@@ -144,6 +152,7 @@ A manifest file is a json file which is a list of all files needed for a term, a
             "name": "notes",
             "materials": ["same as above"],
             "note": "note for instructor"
+        }
     ]
 }
 ```
