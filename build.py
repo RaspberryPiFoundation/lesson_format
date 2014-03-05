@@ -20,7 +20,7 @@ except ImportError:
 
 Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables')
 Style = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
-Language = collections.namedtuple('Language', 'code name legal translations')
+Language = collections.namedtuple('Language', 'code name legal translations links')
 
 def translate(self, text):
     return self.translations.get(text, text)
@@ -373,7 +373,15 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
         a = ET.SubElement(li, 'a', {'href': url})
         a.text = term.title or url
 
-
+    if language.links:
+        for title, links in language.links.iteritems():
+            h1 = ET.SubElement(root, 'h1')
+            h1.text = title
+            ul = ET.SubElement(root, 'ul', {'class':'resources'})
+            for link in links:
+                li = ET.SubElement(ul, 'li', {'class':'resource'})
+                a = ET.SubElement(li, 'a', {'href': link['url']})
+                a.text = link['name']
 
     make_html({'title':u"%s \u2014 %s Projects"%(theme.name,language.name)}, lang_breadcrumb, root, index_style, language, theme, root_dir, output_file)
     return output_file
@@ -601,6 +609,7 @@ def parse_language(filename):
         name = obj['name'],
         legal = obj['legal'],
         translations = obj['translations'],
+        links = obj.get('links', {})
     )
 
 def load_themes(dir):

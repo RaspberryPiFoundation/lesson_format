@@ -2,5 +2,10 @@
 	"code": "en-GB",
 	"name": "English",
 	"legal": {},
-	"translations": {}
+	"translations": {},
+	"links" : {
+		"Club Resources": [
+			{ "name": "Terms and Conditions", "url":"https://www.codeclub.org.uk/terms-and-conditions"}
+		]
+	}	
 }

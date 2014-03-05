@@ -26,20 +26,20 @@ section h2{
     border-radius: 5px;
 }
 
-ol {
+ol, ul.resources {
     font-size: large;
 }
 
-ol.terms, ol.langs, ol.projectlist, ol.extralist {
+ol.terms, ol.langs, ol.projectlist, ol.extralist, ul.resources {
     padding-left: 0px;
 }
 ol.terms, ol.projectlist {
     list-style-position:inside;
 }
-ol.langs, ol.extralist, ul.projectfiles {
+ol.langs, ol.extralist, ul.projectfiles, ul.resources{
     list-style-type: none;
 }
-li.term, li.lang, li.project, li.extranote, li.extramaterial {
+li.term, li.lang, li.project, li.extranote, li.extramaterial, li.resource {
     background-color: rgb(230, 233, 227);
     border: 1px solid rgb(205, 211, 198);
     border-radius: 5px;
@@ -49,15 +49,13 @@ li.term, li.lang, li.project, li.extranote, li.extramaterial {
     padding: 8px;
 }
 
-li.term, li.lang {
+li.term, li.lang, li.resource {
     color: ${header_bg_dark};
 }
 
-li.term a, li.lang a, ul.projectfiles a, ol.extralist a {
+li.term a, li.lang a, ul.projectfiles a, ol.extralist a, ul.resources a{
     color: ${header_bg_dark};
     text-decoration: none;
-}
-li.term a, li.lang a {
 }
 
 ul.projectfiles {
