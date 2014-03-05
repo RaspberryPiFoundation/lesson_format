@@ -41,6 +41,7 @@ ol.langs, ol.extralist, ul.projectfiles {
 }
 li.term, li.lang, li.project, li.extranote, li.extramaterial {
     background-color: rgb(230, 233, 227);
+    border: 1px solid rgb(205, 211, 198);
     border-radius: 5px;
     margin: 15px;
     margin-left: 0px;
@@ -54,9 +55,9 @@ li.term, li.lang {
 
 li.term a, li.lang a, ul.projectfiles a, ol.extralist a {
     color: ${header_bg_dark};
+    text-decoration: none;
 }
 li.term a, li.lang a {
-    text-decoration: none;
 }
 
 ul.projectfiles {

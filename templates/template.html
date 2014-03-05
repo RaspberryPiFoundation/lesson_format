@@ -31,13 +31,13 @@ $include-before$
 $endfor$
 $if(title)$
 <header>
-$for(level)$
-<div class="level">$level$</div>
-$endfor$
-<div class="title">$title$</div>
 $if(logo)$
 <div class="logo"><img src="$root$$logo$"/></div>
 $endif$
+<div class="title">$title$</div>
+$for(level)$
+<div><span class="level">$level$</span></div>
+$endfor$
 </header>
 $endif$
 $if(legal)$

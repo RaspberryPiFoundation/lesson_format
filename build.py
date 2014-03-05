@@ -263,7 +263,7 @@ def sort_files(files):
 
 def make_term_index(term, language, theme, root_dir, output_dir, output_file, project_breadcrumb):
 
-    title = term.title
+    title = u"%s \u2014 %s"%(theme.name, term.title)
 
     root = ET.Element('body')
     if term.description:
@@ -331,11 +331,12 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             a.text = "%s (%s)"%(language.translate("Materials"),file.format)
 
 
-    section = ET.SubElement(root, 'section', {'class':'extras'})
-    h1 = ET.SubElement(section, 'h1')
-    h1.text = language.translate('Extras')
     
     if term.extras:
+        section = ET.SubElement(root, 'section', {'class':'extras'})
+        h1 = ET.SubElement(section, 'h1')
+        h1.text = language.translate('Extras')
+
         ol = ET.SubElement(section, 'ol', {'class':'extralist'})
         for extra in term.extras:
             if extra.note:
@@ -355,7 +356,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                 a.text = filename
 
 
-    make_html({'title':title, 'level':"T%d"%term.number}, project_breadcrumb, root, index_style, language, theme, root_dir, output_file)
+    make_html({'title':title}, project_breadcrumb, root, index_style, language, theme, root_dir, output_file)
 
     return output_file, term
 
@@ -374,7 +375,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
 
 
 
-    make_html({'title':language.name}, lang_breadcrumb, root, index_style, language, theme, root_dir, output_file)
+    make_html({'title':u"%s \u2014 %s Projects"%(theme.name,language.name)}, lang_breadcrumb, root, index_style, language, theme, root_dir, output_file)
     return output_file
 
 def make_index(languages, language, theme, root_dir, output_file):
