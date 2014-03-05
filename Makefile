@@ -27,10 +27,10 @@ pages_world: update
 	python build.py world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
 
 world: pages_world
-	cd repositories/codeclubworld-projects && git commit -am"Rebuild" && git push
+	cd repositories/codeclubworld-projects && git add * && git commit -am"Rebuild" && git push
 
 uk: pages_uk
-	cd repositories/codeclubuk-projects && git commit -am"Rebuild" && git push
+	cd repositories/codeclubuk-projects && git add * && git commit -am"Rebuild" && git push
 
 example:
 	python build.py world example* output
