@@ -96,9 +96,6 @@
     padding: 10px 10px;
     border-radius: 5px;
 }
-.activity h1 strong{
-    color: #ABDBEA;
-}
 .check h2{
     color: rgb(230,134,45);
     background-image: url(../img/check.svg);
