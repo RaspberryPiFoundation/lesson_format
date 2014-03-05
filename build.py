@@ -282,14 +282,12 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             div = ET.SubElement(li, 'div', {'class':'level'})
             div.text = unicode(project.level)
 
-        li.text = project.title or url
-        ul = ET.SubElement(li, 'ul', {'class': 'projectfiles'})
-
         files = sort_files(project.filename)
         first, others = files[0], files[1:]
-
-
         url = os.path.relpath(first.filename, output_dir)
+
+        li.text = project.title or url
+        ul = ET.SubElement(li, 'ul', {'class': 'projectfiles'})
 
         a_li = ET.SubElement(ul, 'li', {'class':'worksheet'})
         a = ET.SubElement(a_li, 'a', {'href': url})
