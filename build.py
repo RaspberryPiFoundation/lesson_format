@@ -291,7 +291,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
 
         a_li = ET.SubElement(ul, 'li', {'class':'worksheet'})
         a = ET.SubElement(a_li, 'a', {'href': url})
-        a.text = language.translate("Student worksheet")
+        a.text = language.translate("Student project")
 
         for file in others:
             url = os.path.relpath(file.filename, output_dir)
