@@ -33,10 +33,10 @@ ol, ul.resources {
 ol.terms, ol.langs, ol.projectlist, ol.extralist, ul.resources {
     padding-left: 0px;
 }
-ol.terms {
+ol.projectlist {
     list-style-position:inside;
 }
-ol.projectlist, ol.langs, ol.extralist, ul.projectfiles, ul.resources{
+ol.terms, ol.langs, ol.extralist, ul.projectfiles, ul.resources{
     list-style-type: none;
 }
 li.term, li.lang, li.project, li.extranote, li.extramaterial, li.resource {
