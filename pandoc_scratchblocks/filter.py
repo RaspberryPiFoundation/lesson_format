@@ -32,7 +32,7 @@ def block_to_image(block, lang, output_dir):
     html_file = os.path.join(tempdir, "%s.html"%(name))
     image_file = os.path.join(output_dir, "%s.png"%(name))
 
-    if True: # not os.path.exists(image_file):
+    if not os.path.exists(image_file):
         with open(html_file,"wb") as fh:
             raw = html_template.substitute(block=cgi.escape(block), lang=lang)
             fh.write(raw)

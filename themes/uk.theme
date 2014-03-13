@@ -9,5 +9,7 @@
         "header_bg_light": "#B1DAAE",
         "header_bg_dark": "#349946",
         "header_text": "#FFFFFF"
-    }
+    },
+    "analytics_account": "UA-30750176-1",
+    "analytics_domain" : "codeclub.org.uk"
 }

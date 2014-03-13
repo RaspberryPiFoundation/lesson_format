@@ -18,7 +18,7 @@ except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
 
-Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables')
+Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain')
 Style = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations links')
 
@@ -90,6 +90,11 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "root=%s"%root,
         "-M", "lang=%s"%language.code,
     ]
+    if theme.analytics_account:
+        cmd.extend([
+            "-M", "analytics_account=%s"%theme.analytics_account,
+            "-M", "analytics_domain=%s"%theme.analytics_domain,
+        ])
     cmd.extend(commands)
     for stylesheet in style.stylesheets:
         cmd.extend(("-c", root + stylesheet,))
@@ -150,6 +155,11 @@ def pandoc_pdf(input_file, style, language, theme, variables, commands, output_f
         "-M", "logo=%s"%theme.logo,
         "-M", "lang=%s"%language.code,
     ]
+    if theme.analytics_account:
+        cmd.extend([
+            "-M", "analytics_account=%s"%theme.analytics_account,
+            "-M", "analytics_domain=%s"%theme.analytics_domain,
+        ])
     cmd.extend(commands)
     if style.tex_template:
         cmd.append("--template=%s"%os.path.join(template_base, style.tex_template))
@@ -628,6 +638,8 @@ def parse_theme(filename):
         stylesheets = obj['stylesheets'],
         legal = obj['legal'],
         logo = obj['logo'],
+        analytics_account = obj.get('analytics_account'),
+        analytics_domain = obj.get('analytics_domain'),
         css_variables = obj['css_variables'],
     )
 
@@ -771,16 +783,17 @@ def zip_files(relative_dir, source_files, output_dir, output_file):
         cmd = [
             'zip'
         ]
-        if os.path.exists(output_file):
-            os.remove(output_file)
+        #if os.path.exists(output_file):
+        #    os.remove(output_file)
 
-        cmd.append(output_file)
-        for file in source_files:
-            cmd.append(os.path.relpath(file, relative_dir))
-        
-        ret = subprocess.call(cmd, cwd=relative_dir)
-        if ret != 0 and ret != 12: # 12 means zip did nothing
-            raise StandardError('zip failure %d'%ret)
+        if not os.path.exists(output_file):
+            cmd.append(output_file)
+            for file in source_files:
+                cmd.append(os.path.relpath(file, relative_dir))
+            
+            ret = subprocess.call(cmd, cwd=relative_dir)
+            if ret != 0 and ret != 12: # 12 means zip did nothing
+                raise StandardError('zip failure %d'%ret)
         return Resource(format="zip", filename=output_file)
     else:
         return None
