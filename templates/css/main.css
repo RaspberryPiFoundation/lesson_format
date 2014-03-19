@@ -180,3 +180,24 @@ section.breadcrumb a {
     text-decoration: none;
 }
 
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  ol.breadcrumb, #legal {
+    display: none;
+  }
+
+  .activity {
+    page-break-after: always;
+  }
+
+  body .activity:last-child {
+    page-break-after: avoid !important;
+  }
+
+  .protip {
+    page-break-before: avoid;
+  }
+}
