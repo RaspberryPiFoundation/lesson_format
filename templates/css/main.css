@@ -189,8 +189,8 @@ section.breadcrumb a {
     display: none;
   }
 
-  .activity {
-    page-break-after: always;
+  .check {
+    page-break-inside:avoid;
   }
 
   body .activity:last-child {
@@ -199,5 +199,11 @@ section.breadcrumb a {
 
   .protip {
     page-break-before: avoid;
+  }
+  h1, h2, h3 {
+    page-break-after:avoid;
+  }
+  code {
+    page-break-inside:avoid;
   }
 }
