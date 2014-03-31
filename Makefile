@@ -21,10 +21,10 @@ clear:
 
 
 pages_uk: update
-	python build.py uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/ 
+	python build.py ${options} uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/ 
 	
 pages_world: update
-	python build.py world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
+	python build.py ${options} world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
 
 world: pages_world
 	cd repositories/codeclubworld-projects && git add * && git commit -am"Rebuild" && git push

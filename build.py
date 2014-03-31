@@ -202,7 +202,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
 
 # Process files within project and resource containers
 
-def build_project(term, project, language, theme, root_dir, output_dir, breadcrumb):
+def build_project(rebuild, term, project, language, theme, root_dir, output_dir, breadcrumb):
     # todo clean up this code because we keep repeating things.
 
     embeds = []
@@ -222,12 +222,12 @@ def build_project(term, project, language, theme, root_dir, output_dir, breadcru
 
     extras = []
     for e in project.extras:
-        extras.append(build_project_extra(term, project, e, language, theme, root_dir, output_dir, breadcrumb))
+        extras.append(build_project_extra(rebuild, term, project, e, language, theme, root_dir, output_dir, breadcrumb))
 
     materials = None
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
-        materials = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
+        materials = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename, rebuild)
 
     return Project(
         filename = output_files,
@@ -240,7 +240,7 @@ def build_project(term, project, language, theme, root_dir, output_dir, breadcru
         extras = extras,
     )
 
-def build_project_extra(term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_project_extra(rebuild, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     if extra.note:
@@ -248,10 +248,10 @@ def build_project_extra(term, project, extra, language, theme, root_dir, output_
     materials = None
     if extra.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
-        materials = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename)
+        materials = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename, rebuild)
     return Extra(name = extra.name, note=note, materials=materials)
 
-def build_extra(term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     if extra.note:
@@ -259,7 +259,7 @@ def build_extra(term, extra, language, theme, root_dir, output_dir, term_breadcr
     materials = None
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
-        materials = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename)
+        materials = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename, rebuild)
     return Extra(name = extra.name, note=note, materials=materials)
 
 # Building indexes
@@ -426,7 +426,7 @@ def build_breadcrumb(breadcrumb, output_file):
 
 # The all singing all dancing build function of doing everything.
 
-def build(repositories, theme, all_languages, output_dir):
+def build(rebuild, repositories, theme, all_languages, output_dir):
 
     print "Searching for manifests .."
 
@@ -496,7 +496,7 @@ def build(repositories, theme, all_languages, output_dir):
                 project_dir = os.path.join(term_dir,"%.02d"%(project.number))
                 makedirs(project_dir)
 
-                built_project = build_project(term, project, language, theme, output_dir, project_dir, term_breadcrumb)
+                built_project = build_project(rebuild, term, project, language, theme, output_dir, project_dir, term_breadcrumb)
                 
                 projects.append(built_project)
 
@@ -504,7 +504,7 @@ def build(repositories, theme, all_languages, output_dir):
             
             for r in term.extras:
                 print "Building Extra:", r.name
-                extras.append(build_extra(term, r, language, theme, output_dir, term_dir, term_breadcrumb))
+                extras.append(build_extra(rebuild, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
 
             term = Term(
                 id = term.id,
@@ -777,14 +777,14 @@ banned_chars= re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
 def safe_filename(filename):
     return banned_chars.sub("_", filename)
 
-def zip_files(relative_dir, source_files, output_dir, output_file):
+def zip_files(relative_dir, source_files, output_dir, output_file, rebuild):
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
         cmd = [
             'zip'
         ]
-        #if os.path.exists(output_file):
-        #    os.remove(output_file)
+        if rebuild and os.path.exists(output_file):
+            os.remove(output_file)
 
         if not os.path.exists(output_file):
             cmd.append(output_file)
@@ -828,8 +828,13 @@ LANGUAGES = load_languages(language_base)
 if __name__ == '__main__':
     args = sys.argv[1::]
     if len(args) < 3:
-        print "usage: %s <region> <input repository directories> <output directory>"
+        print "usage: %s (--rebuild) <region> <input repository directories> <output directory>"
         sys.exit(-1)
+    rebuild = False
+
+    if args[0] == "--rebuild":
+        rebuild = True
+        args.pop(0)
 
     theme = THEMES[args[0]]
     languages = LANGUAGES
@@ -837,7 +842,7 @@ if __name__ == '__main__':
 
     repositories, output_dir = args[:-1], args[-1]
 
-    build(repositories, theme, languages, output_dir)
+    build(rebuild, repositories, theme, languages, output_dir)
 
     sys.exit(0)
 

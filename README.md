@@ -218,6 +218,10 @@ The first argument is the theme for the website, currently either `world` or uk`
 ./build.py uk <path to python repository> <path to scratch repository> ... <uk output repository>
 ```
 
+There is also a makefile which can be used to automate the process. First run `make clone` to build a local copy of all of the source and target repositories, then run `make uk world` or just `make uk`/`make world`. You only need to run `make clone` once, and not before every `make uk world`.
+
+If you have changed the resources, you should force the build script to rebuild the zip files. This is done by passing a flag `--rebuild` to `build.py`, i.e `./build.py --rebuild uk ...` or `make options=--rebuild uk world`
+
 ## Underneath the hood
 
 It loads themes from `themes/*`, language support from `languages/*`, before starting.
