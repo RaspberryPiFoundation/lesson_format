@@ -243,6 +243,12 @@ $ cd output
 $ python -m SimpleHTTPServer <port>
 ```
 
+## Bugs/Features Missing
+
+When it encounters an error in the manifest, the entire term is skipped. Errors can be missing files or json syntax errors.
+
+Only projects can have embedded files, not notes. If you have a note/extra with pngs etc, put those file names inside the manifest, under the project embeds.
+
 
 
 
