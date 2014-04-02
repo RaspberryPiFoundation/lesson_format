@@ -834,7 +834,7 @@ THEMES = load_themes(theme_base)
 LANGUAGES = load_languages(language_base)
 
 def check_requirements():
-
+    pass
 
 if __name__ == '__main__':
     args = sys.argv[1::]
