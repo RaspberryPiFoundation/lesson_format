@@ -1,0 +1,5 @@
+
+//	http://hugogiraudel.com/2013/08/12/sass-functions/
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}

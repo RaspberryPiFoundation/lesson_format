@@ -1,0 +1,610 @@
+/*!
+ * Code-Club-Projects
+ * @author Jonic Linley <jonic@codeclub.org.uk>
+ * @version 1.0.0
+ */
+
+@charset "UTF-8";
+/**
+ * Typecsset
+ *
+ * Typecsset is a small, unopinionated library for creating beautifully set type
+ * on the web. Typecsset gives perfect vertical rhythm at any configurable font
+ * size, as well as many other typographical niceties.
+ */
+/*------------------------------------*\
+    #SHARED
+\*------------------------------------*/
+/**
+ * A lot of elements in Typecsset need to share some declarations (mainly for
+ * vertical rhythm), so we `@extend` some silent classes.
+ */
+h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
+  margin-bottom: 34px;
+  margin-bottom: 1.54545rem;
+}
+
+/*------------------------------------*\
+    #BASE
+\*------------------------------------*/
+/**
+ * 1. Set the base element’s `font-size` to the value of your choosing. Set in
+ *    ems, assuming a browser default of 16px.
+ * 2. Work out the unitless `line-height` for your project based around your
+ *    desired `line-height` (defined previously in pixels), and your project’s
+ *    base font size.
+ */
+/**
+ * 3. If you have chosen to display a baseline grid, we turn it on here.
+ */
+html {
+  font-size: 1.375em;
+  /* [1] */
+  line-height: 1.54545;
+  /* [2] */
+  background-image: url(http://basehold.it/i/34);
+  /* [3] */
+}
+
+body {
+  margin: 0;
+}
+
+/*------------------------------------*\
+    #HEADINGS
+\*------------------------------------*/
+h1 {
+  font-size: 48px;
+  font-size: 2.18182rem;
+  line-height: 1.41667;
+}
+
+h2 {
+  font-size: 36px;
+  font-size: 1.63636rem;
+  line-height: 1.88889;
+}
+
+h3 {
+  font-size: 30px;
+  font-size: 1.36364rem;
+  line-height: 1.13333;
+}
+
+h4 {
+  font-size: 24px;
+  font-size: 1.09091rem;
+  line-height: 1.41667;
+}
+
+h5 {
+  font-size: 20px;
+  font-size: 0.90909rem;
+  line-height: 1.7;
+}
+
+h6 {
+  font-size: 20px;
+  font-size: 0.90909rem;
+  line-height: 1.7;
+}
+
+/*------------------------------------*\
+    #LISTS
+\*------------------------------------*/
+ul, ol, dd {
+  margin-left: 68px;
+  margin-left: 3.09091rem;
+}
+
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+/*------------------------------------*\
+    #PARAGRAPHS
+\*------------------------------------*/
+/**
+ * Not strictly a paragraph, but probably doesn’t need its own section.
+ */
+/*------------------------------------*\
+    #CODE
+\*------------------------------------*/
+/**
+ * 1. Fix an odd quirk whereby, without this, code blocks are rendered at a
+ *    font-size smaller than 1em.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  /* [1] */
+}
+
+/*------------------------------------*\
+    #QUOTES
+\*------------------------------------*/
+/**
+ * 1. Hang the opening quote of the blockquote.
+ */
+blockquote {
+  text-indent: -0.41em;
+  /* [1] */
+}
+
+/**
+ * Set up quote marks on quoting elements. This is very English-based, so we are
+ * using “, ”, ‘, and ’ quotes.
+ */
+blockquote {
+  quotes: "“" "”";
+  margin-left: 68px;
+  margin-left: 3.09091rem;
+}
+blockquote p:before {
+  content: "“";
+  content: open-quote;
+}
+blockquote p:after {
+  content: "";
+  content: no-close-quote;
+}
+blockquote p:last-of-type:after {
+  content: "”";
+  content: close-quote;
+}
+
+q {
+  quotes: "‘" "’" "“" "”";
+  /**
+   * If an element opens with an inline quote, let’s hang that.
+   */
+}
+q:before {
+  content: "‘";
+  content: open-quote;
+}
+q:after {
+  content: "’";
+  content: close-quote;
+}
+q q:before {
+  content: "“";
+  content: open-quote;
+}
+q q:after {
+  content: "”";
+  content: close-quote;
+}
+q:first-child {
+  display: inline-block;
+  text-indent: -0.22em;
+}
+
+/*------------------------------------*\
+    #TABLES
+\*------------------------------------*/
+/**
+ * Crude table styles; tables are very difficult to keep on the baseline.
+ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 17px;
+}
+
+@font-face {
+  font-family: 'VAGbold';
+  src: url("../fonts/vagrounded-bold-webfont.eot");
+  src: url("../fonts/vagrounded-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/vagrounded-bold-webfont.woff") format("woff"), url("../fonts/vagrounded-bold-webfont.ttf") format("truetype"), url("../fonts/vagrounded-bold-webfont.svg#VAGRoundedBoldRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'VAGlight';
+  src: url("../fonts/vagrounded-light-webfont.eot");
+  src: url("../fonts/vagrounded-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/vagrounded-light-webfont.woff") format("woff"), url("../fonts/vagrounded-light-webfont.ttf") format("truetype"), url("../fonts/vagrounded-light-webfont.svg#VAGRoundedBoldRegular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Light.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Light.woff") format("woff"), url("../fonts/ComicNeue-Light.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Light-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Light-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Light-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Light-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 100;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Regular-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Regular-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Regular-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 300;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Comic Neue';
+  src: url("../fonts/ComicNeue-Bold-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Bold-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Bold-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 700;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Light.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Light.woff") format("woff"), url("../fonts/ComicNeue-Angular-Light.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Light-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Light-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Light-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Light-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 100;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Regular.woff") format("woff"), url("../fonts/ComicNeue-Angular-Regular.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Regular-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Regular-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Regular-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Regular-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 300;
+  font-style: oblique;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Bold.woff") format("woff"), url("../fonts/ComicNeue-Angular-Bold.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Comic Neue Angular';
+  src: url("../fonts/ComicNeue-Angular-Bold-Oblique.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/ComicNeue-Angular-Bold-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Bold-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Bold-Oblique.ttf") format("truetype");
+  /* Safari, Android, iOS */
+  font-weight: 700;
+  font-style: oblique;
+}
+.reset, figure {
+  margin: 0;
+  padding: 0;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-success {
+  color: #29c76c;
+}
+
+.text-warning {
+  color: #f5a200;
+}
+
+.text-danger {
+  color: #ed6751;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+article:before, div:before, dl:before, fieldset:before, footer:before, form:before, header:before, main:before, ol:before, section:before, nav:before, ul:before, article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after {
+  content: '';
+  display: table;
+}
+article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after {
+  clear: both;
+}
+
+body {
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -o-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  background: #f8faf4;
+  border-top: 7px solid rgba(52, 153, 70, 0.2);
+  min-height: 100%;
+  min-width: 320px;
+}
+@media print {
+  html {
+    background: #fff;
+    border: none;
+  }
+}
+
+body {
+  color: #111111;
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  -webkit-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern";
+  font-feature-settings: "kern";
+  font-weight: 500;
+  margin: 1em auto;
+  max-width: 800px;
+  min-height: 100%;
+  min-width: 320px;
+  -webkit-tap-highlight-color: transparent;
+}
+@media print {
+  body {
+    color: #000;
+    margin: 0;
+    max-width: 100%;
+  }
+}
+
+a {
+  color: #349946;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:active, a:focus, a:hover {
+  color: #277335;
+  text-decoration: underline;
+}
+a:visited {
+  color: #349946;
+  text-decoration: none;
+}
+.text-success a, a.text-success {
+  color: #29c76c;
+}
+.text-success a:active, .text-success a:focus, .text-success a:hover, .text-success a:visited, a.text-success:active, a.text-success:focus, a.text-success:hover, a.text-success:visited {
+  color: #49da87;
+}
+.text-warning a, a.text-warning {
+  color: #f5a200;
+}
+.text-warning a:active, .text-warning a:focus, .text-warning a:hover, .text-warning a:visited, a.text-warning:active, a.text-warning:focus, a.text-warning:hover, a.text-warning:visited {
+  color: #ffb729;
+}
+.text-danger a, a.text-danger {
+  color: #ed6751;
+}
+.text-danger a:active, .text-danger a:focus, .text-danger a:hover, .text-danger a:visited, a.text-danger:active, a.text-danger:focus, a.text-danger:hover, a.text-danger:visited {
+  color: #f28f7f;
+}
+
+address {
+  font-style: normal;
+}
+
+b {
+  color: #111111;
+  font-weight: 500;
+}
+
+blockquote {
+  margin: 0;
+}
+
+button {
+  border: none;
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-weight: 500;
+}
+
+cite {
+  display: block;
+}
+
+code {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+}
+
+em {
+  font-style: italic;
+}
+
+figure {
+  display: block;
+  margin-bottom: 34px;
+  margin-bottom: 1.54545rem;
+}
+figure img {
+  display: block;
+  width: 100%;
+}
+
+i {
+  font-style: italic;
+}
+
+input {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-weight: 500;
+}
+
+h1, .h1 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+h2, .h2 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+h3, .h3 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+h4, .h4 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+h5, .h5 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+h6, .h6 {
+  font-family: VAGbold, sans-serif;
+  font-weight: 500;
+}
+
+label {
+  margin: 0;
+}
+
+ol li {
+  list-style: decimal;
+}
+ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+p, .p {
+  max-width: 38em;
+}
+p.lead, .p.lead {
+  color: #111111;
+  font-size: 22px;
+}
+p.full, .p.full {
+  max-width: none;
+}
+
+select {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-weight: 500;
+}
+
+strong {
+  color: #111111;
+  font-weight: 500;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+textarea {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-weight: 500;
+}
+
+time {
+  display: inline-block;
+  font-size: 14px;
+}
+
+ul li {
+  list-style: disc;
+}
+ul ol, ul ul {
+  margin-bottom: 0;
+}
+
+/* No files to import found in modules/* */
