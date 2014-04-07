@@ -2,7 +2,7 @@
     "id":"uk",
     "language":"en-GB",
     "name":"Code Club",
-    "legal" :"These projects are for use inside the UK only. All Code Clubs <strong>must</strong> be registered. You can check registered clubs on the map at <a href=\"http://www.codeclub.org.uk/\">www.codeclub.org.uk</a>. This coursework is developed in the open on GitHub, <a href=\"http://github.com/CodeClub/\">github.com/CodeClub/</a> come and join us!",
+    "legal" :"These projects are for use inside the UK only. All Code Clubs <strong>must</strong> be registered. You can check registered clubs on the map at <a href=\"http://www.codeclub.org.uk/\">www.codeclub.org.uk</a>. This coursework is developed in the open on GitHub (<a href=\"http://github.com/CodeClub/\">github.com/CodeClub/</a>), come and join us!",
     "stylesheets": [],
     "logo": "/img/ccuk_logo.svg",
     "css_variables": {
