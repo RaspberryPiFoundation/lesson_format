@@ -2,4 +2,7 @@
 output
 *.py?
 *.swp
+/repositories
 venv/
+node_modules
+.sass-cache
