@@ -1,5 +1,3 @@
-all:
-
 
 clone: clear
 	mkdir repositories
@@ -17,21 +15,19 @@ update:
 	cd repositories/codeclubworld-projects && git pull && git checkout gh-pages
 
 clear:
-	rm -fR repositories
+	rm -rf repositories
 
+pages_uk:
+	python build.py ${options} uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/
 
-pages_uk: update
-	python build.py ${options} uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/ 
-	
 pages_world: update
 	python build.py ${options} world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
 
 world: pages_world
-	cd repositories/codeclubworld-projects && git add * && git commit -am"Rebuild" && git push
+	cd repositories/codeclubworld-projects && git add * && git commit -am "Rebuild" && git push
 
 uk: pages_uk
-	cd repositories/codeclubuk-projects && git add * && git commit -am"Rebuild" && git push
+	cd repositories/codeclubuk-projects && git add * && git commit -am "Rebuild" && git push
 
-example:
-	python build.py world example* output
-
+css:
+	python build.py ${options} css repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/
