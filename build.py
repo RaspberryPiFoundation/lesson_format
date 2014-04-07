@@ -11,12 +11,18 @@ import subprocess
 import tempfile
 import string
 
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 import xml.etree.ElementTree as ET
 try:
     import yaml
 except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
+
+PANDOC_INSTALL_URL = 'http://johnmacfarlane.net/pandoc/installing.html'
 
 Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain')
 Style = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
@@ -68,7 +74,6 @@ rasterize = os.path.join(base, "rasterize.js")
 html_assets = [os.path.join(base, "assets",x) for x in ("fonts", "img")]
 
 # Markup processing
-
 def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
 
     root = get_path_to(root_dir, output_file)
@@ -104,8 +109,11 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         cmd.extend(("-M", "%s=%s"%(k,v)))
     
     working_dir = os.path.dirname(output_file)
-
-    subprocess.check_call(cmd, cwd=working_dir)
+    try:
+        subprocess.check_call(cmd, cwd=working_dir)
+    except OSError:
+        logger.error('Pandoc is required, check %s' % PANDOC_INSTALL_URL)
+        exit()
 
 def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir, output_file):
     commands = (
@@ -825,10 +833,14 @@ def copy_file(input_file, output_dir):
 THEMES = load_themes(theme_base)
 LANGUAGES = load_languages(language_base)
 
+def check_requirements():
+    pass
+
 if __name__ == '__main__':
     args = sys.argv[1::]
     if len(args) < 3:
-        print "usage: %s (--rebuild) <region> <input repository directories> <output directory>"
+        print "usage: (--rebuild) <region> <input repository directories> <output directory>"
+        print "usage: <region> <input repository directories> <output directory>"
         sys.exit(-1)
     rebuild = False
 
