@@ -1,0 +1,19 @@
+{
+  "name": "Code-Club-Projects",
+  "description": "A simple build tool to generate PDFs for course materials from a HTML source",
+  "version": "1.0.0",
+  "author": {
+    "email": "jonic@codeclub.org.uk",
+    "name": "Jonic Linley",
+    "url": "http://codeclub.org.uk/"
+  },
+  "copyright": "Copyright 2014 Code Club",
+  "dependencies": {
+    "html5shiv": "~3.7.0",
+    "normalize-css": "~2.1.3"
+  },
+  "devDependencies": {
+    "bourbon": "~3.1.8",
+    "typecsset": "git@github.com:csswizardry/typecsset.git#~0.3.0"
+  }
+}
