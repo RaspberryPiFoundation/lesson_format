@@ -33,7 +33,7 @@ def translate(self, text):
 
 Language.translate = translate
 base               = os.path.dirname(os.path.abspath(__file__))
-template_base      = os.path.join(base, "templates")
+template_base      = os.path.join(base, "assets/templates")
 theme_base         = os.path.join(base, "themes")
 language_base      = os.path.join(base, "languages")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes"
@@ -44,21 +44,21 @@ note_style = index_style = Style(
     name          = 'lesson',
     html_template = "template.html",
     tex_template  = None,
-    stylesheets   = ["/styles/master.min.css"],
+    stylesheets   = ["/css/master.min.css"],
 )
 
 index_style = Style(
     name          = 'lesson',
     html_template = "template.html",
     tex_template  = None,
-    stylesheets   = ["/styles/master.min.css"],
+    stylesheets   = ["/css/master.min.css"],
 )
 
 lesson_style = Style(
     name          = 'lesson',
     html_template = "lesson_template.html",
     tex_template  = None,
-    stylesheets   = ["/styles/master.min.css"],
+    stylesheets   = ["/css/master.min.css"],
 )
 
 # todo : real classes
@@ -66,7 +66,7 @@ Term                 = collections.namedtuple('Term', 'id manifest title descrip
 Project              = collections.namedtuple('Project', 'filename number level title materials note embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note')
 Resource             = collections.namedtuple('Resource', 'format filename')
-css_assets           = os.path.join(template_base, "styles")
+css_assets           = os.path.join(base, "assets/css")
 scratchblocks_filter = os.path.join(base, "pandoc_scratchblocks/filter.py")
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
@@ -614,7 +614,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
 
     copydir(html_assets, output_dir)
 
-    css_dir = os.path.join(output_dir, "styles")
+    css_dir = os.path.join(output_dir, "css")
 
     makedirs(css_dir)
 

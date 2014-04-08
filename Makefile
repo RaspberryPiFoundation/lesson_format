@@ -17,10 +17,10 @@ update:
 clear:
 	rm -rf repositories
 
-pages_uk: update
+pages_uk:
 	python build.py ${options} uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/
 
-pages_world: update
+pages_world:
 	python build.py ${options} world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
 
 world: pages_world

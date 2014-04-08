@@ -4,9 +4,9 @@
 module.exports = function (grunt) {
   grunt.initConfig({
     css: {
-      any: 'assets/styles/**/*.scss',
-      input: 'assets/styles/master.scss',
-      output: 'templates/styles/master.min.css'
+      any: 'assets/sass/**/*.scss',
+      input: 'assets/sass/master.scss',
+      output: 'assets/css/master.min.css'
     },
 
     pkg: grunt.file.readJSON('package.json'),
