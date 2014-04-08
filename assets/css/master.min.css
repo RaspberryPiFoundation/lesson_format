@@ -746,6 +746,11 @@ ul ol, ul ul {
   padding: 0.5em;
 }
 
+.projects-level {
+  float: right;
+  text-transform: uppercase;
+}
+
 .title {
   background: rgba(52, 153, 70, 0.15);
   border-radius: 50px 15px 15px 50px;

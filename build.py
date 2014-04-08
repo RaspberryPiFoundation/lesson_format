@@ -322,12 +322,12 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             'class': 'projects-item'
         })
 
-        # if project.level:
-        #     div = ET.SubElement(projects_item, 'span', {
-        #         'class': 'projects-level'
-        #     })
+        if project.level:
+            projects_level = ET.SubElement(projects_item, 'span', {
+                'class': 'projects-level'
+            })
 
-        #     div.text = unicode(project.level)
+            projects_level.text = unicode(project.level)
 
         files = sort_files(project.filename)
 
