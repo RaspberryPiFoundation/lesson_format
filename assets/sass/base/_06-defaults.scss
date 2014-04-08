@@ -38,6 +38,7 @@ html {
 		max-width:   800px;
 		min-height:  100%;
 		min-width:   320px;
+		position:    relative;
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
 		@include print {
@@ -53,6 +54,7 @@ a {
 	color:           $color-primary;
 	cursor:          pointer;
 	text-decoration: none;
+	@include transition(all 0.1s ease-in-out);
 
 	&:active,
 	&:focus,
@@ -162,12 +164,12 @@ input {
 	font-weight: $base-font-weight;
 }
 
-h1, .h1, %h1 { font-family: $h1-font-family; font-weight: $h1-font-weight; }
-h2, .h2, %h2 { font-family: $h2-font-family; font-weight: $h2-font-weight; }
-h3, .h3, %h3 { font-family: $h3-font-family; font-weight: $h3-font-weight; }
-h4, .h4, %h4 { font-family: $h4-font-family; font-weight: $h4-font-weight; }
-h5, .h5, %h5 { font-family: $h5-font-family; font-weight: $h5-font-weight; }
-h6, .h6, %h6 { font-family: $h5-font-family; font-weight: $h5-font-weight; }
+h1, .h1, %h1 { font-family: $h1-font-family; font-size: $typecsset-h1-size; font-weight: $h1-font-weight; }
+h2, .h2, %h2 { font-family: $h2-font-family; font-size: $typecsset-h2-size; font-weight: $h2-font-weight; }
+h3, .h3, %h3 { font-family: $h3-font-family; font-size: $typecsset-h3-size; font-weight: $h3-font-weight; }
+h4, .h4, %h4 { font-family: $h4-font-family; font-size: $typecsset-h4-size; font-weight: $h4-font-weight; }
+h5, .h5, %h5 { font-family: $h5-font-family; font-size: $typecsset-h5-size; font-weight: $h5-font-weight; }
+h6, .h6, %h6 { font-family: $h6-font-family; font-size: $typecsset-h6-size; font-weight: $h6-font-weight; }
 
 label {
 	margin: 0;

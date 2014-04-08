@@ -1,0 +1,30 @@
+
+.index-list {
+	@extend %clearfix;
+
+	margin: 0 0 1em;
+}
+
+	.index-item {
+		list-style: none;
+		margin:     0 0 0.5em;
+		width:      50%;
+	}
+
+		.index-link {
+			background:    $color-primary;
+			border-radius: 0.25em;
+			color:         #fff;
+			display:       block;
+			padding:       0 0.5em;
+
+			&:hover,
+			&:visited {
+				color:           #fff;
+				text-decoration: none;
+			}
+
+			&:hover {
+				background: darken($color-primary, 10);
+			}
+		}

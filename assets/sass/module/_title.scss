@@ -1,0 +1,10 @@
+
+.title {
+	@extend %h2;
+
+	background:    rgba($color-primary, 0.15);
+	border-radius: 50px 15px 15px 50px;
+	line-height:   100px;
+	margin:        0;
+	padding-left:  120px;
+}

@@ -1,0 +1,15 @@
+
+.projects-list {
+	@extend %clearfix;
+
+	margin: 0 0 1em;
+}
+
+	.projects-item {
+		background:    $color-primary;
+		border-radius: 0.5em;
+		color:         #fff;
+		list-style:    none;
+		margin:        0 0 1em;
+		padding:       0.5em;
+	}

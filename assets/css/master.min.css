@@ -380,11 +380,11 @@ td {
   transform: translateY(-50%);
 }
 
-article:before, div:before, dl:before, fieldset:before, footer:before, form:before, header:before, main:before, ol:before, section:before, nav:before, ul:before, article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after {
+article:before, div:before, dl:before, fieldset:before, footer:before, form:before, header:before, main:before, ol:before, section:before, nav:before, ul:before, .header:before, .breadcrumbs-list:before, .index-list:before, .projects-list:before, article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after, .header:after, .breadcrumbs-list:after, .index-list:after, .projects-list:after {
   content: '';
   display: table;
 }
-article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after {
+article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after, .header:after, .breadcrumbs-list:after, .index-list:after, .projects-list:after {
   clear: both;
 }
 
@@ -432,6 +432,7 @@ body {
   max-width: 800px;
   min-height: 100%;
   min-width: 320px;
+  position: relative;
   -webkit-tap-highlight-color: transparent;
 }
 @media print {
@@ -446,6 +447,9 @@ a {
   color: #349946;
   cursor: pointer;
   text-decoration: none;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 a:active, a:focus, a:hover {
   color: #277335;
@@ -526,31 +530,37 @@ input {
 
 h1, .h1 {
   font-family: VAGbold, sans-serif;
+  font-size: 48px;
   font-weight: 500;
 }
 
-h2, .h2 {
+h2, .h2, .index-title, .title {
   font-family: VAGbold, sans-serif;
+  font-size: 36px;
   font-weight: 500;
 }
 
 h3, .h3 {
   font-family: VAGbold, sans-serif;
+  font-size: 30px;
   font-weight: 500;
 }
 
 h4, .h4 {
   font-family: VAGbold, sans-serif;
+  font-size: 24px;
   font-weight: 500;
 }
 
 h5, .h5 {
   font-family: VAGbold, sans-serif;
+  font-size: 20px;
   font-weight: 500;
 }
 
 h6, .h6 {
   font-family: VAGbold, sans-serif;
+  font-size: 20px;
   font-weight: 500;
 }
 
@@ -607,4 +617,139 @@ ul ol, ul ul {
   margin-bottom: 0;
 }
 
-/* No files to import found in modules/* */
+.breadcrumbs {
+  background: rgba(52, 153, 70, 0.05);
+  border-radius: 15px;
+  margin: 0 0 1em;
+}
+@media print {
+  .breadcrumbs {
+    display: none;
+  }
+}
+
+.header {
+  margin-bottom: 1em;
+  position: relative;
+}
+
+.breadcrumbs-list {
+  font-size: 1em;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.breadcrumbs-item {
+  float: left;
+  line-height: 1;
+  list-style: none;
+}
+.breadcrumbs-item:before {
+  content: '\00A0/\00A0';
+}
+.breadcrumbs-item:first-child:before {
+  content: '';
+}
+
+.files-list {
+  background: #d9ead8;
+  border-radius: 0.2em;
+  margin: 0.25em 0 0 0;
+  padding: 0.5em;
+}
+
+.files-item {
+  color: #349946;
+  margin-left: 1.25em;
+}
+
+.home-link {
+  border-radius: 50px;
+  display: block;
+  height: 100px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100px;
+}
+
+.index-list {
+  margin: 0 0 1em;
+}
+
+.index-item {
+  list-style: none;
+  margin: 0 0 0.5em;
+  width: 50%;
+}
+
+.index-link {
+  background: #349946;
+  border-radius: 0.25em;
+  color: #fff;
+  display: block;
+  padding: 0 0.5em;
+}
+.index-link:hover, .index-link:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.index-link:hover {
+  background: #277335;
+}
+
+.index-title {
+  margin-bottom: 0.5em;
+}
+
+.legal-notice {
+  background: rgba(52, 119, 209, 0.05);
+  border: 1px dashed #3477d1;
+  border-radius: 15px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+.legal-notice p {
+  font-size: 0.65em;
+  margin: 0;
+  max-width: none;
+}
+@media print {
+  .legal-notice {
+    display: none;
+  }
+}
+
+.level-indicator {
+  background: #3477d1;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  line-height: 1.5em;
+  padding: 0 0.5em;
+  position: absolute;
+  right: -5px;
+  text-transform: uppercase;
+  top: -5px;
+}
+
+.projects-list {
+  margin: 0 0 1em;
+}
+
+.projects-item {
+  background: #349946;
+  border-radius: 0.5em;
+  color: #fff;
+  list-style: none;
+  margin: 0 0 1em;
+  padding: 0.5em;
+}
+
+.title {
+  background: rgba(52, 153, 70, 0.15);
+  border-radius: 50px 15px 15px 50px;
+  line-height: 100px;
+  margin: 0;
+  padding-left: 120px;
+}

@@ -1,0 +1,13 @@
+
+.level-indicator {
+	background:     $color-highlight;
+	border-radius:  5px;
+	color:          #fff;
+	display:        block;
+	line-height:    1.5em;
+	padding:        0 0.5em;
+	position:       absolute;
+	right:          -5px;
+	text-transform: uppercase;
+	top:            -5px;
+}
