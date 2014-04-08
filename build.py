@@ -124,7 +124,7 @@ def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir
     variables = {}
 
     if breadcrumb:
-        variables['breadcrumb'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
+        variables['breadcrumbs'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
 
     pandoc_html(markdown_file, style, language, theme, variables, commands, root_dir, output_file)
 
@@ -132,7 +132,7 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
     variables = dict(variables)
 
     if breadcrumb:
-        variables['breadcrumb'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
+        variables['breadcrumbs'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
 
     variables['body'] = ET.tostring(html, encoding='utf-8', method='html')
 
@@ -315,12 +315,12 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         p.text = term.description
 
     projectList = ET.SubElement(root, 'ul', {
-        'class': 'project-list'
+        'class': 'projects-list'
     })
 
     for project in sorted(term.projects, key=lambda x:x.number):
         projectItem = ET.SubElement(projectList, 'li', {
-            'class': 'project-item'
+            'class': 'projects-item'
         })
 
         # if project.level:
@@ -339,15 +339,15 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         projectItem.text = project.title or url
 
         projectFilesList = ET.SubElement(projectItem, 'ul', {
-            'class': 'project-files-list'
+            'class': 'files-list'
         })
 
         projectFilesItem = ET.SubElement(projectFilesList, 'li', {
-            'class': 'project-files-item'
+            'class': 'files-item'
         })
 
         projectFilesLink = ET.SubElement(projectFilesItem, 'a', {
-            'class': 'project-files-link worksheet',
+            'class': 'files-link worksheet',
             'href': url
         })
 
@@ -357,11 +357,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             url = os.path.relpath(file.filename, output_dir)
 
             projectFilesItem = ET.SubElement(projectFilesList, 'li', {
-                'class': 'project-files-item'
+                'class': 'files-item'
             })
 
             projectFilesLink = ET.SubElement(a_li, 'a', {
-                'class': 'project-files-link alternate',
+                'class': 'files-link alternate',
                 'href': url
             })
 
@@ -374,11 +374,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             url = os.path.relpath(file.filename, output_dir)
 
             projectFilesItem = ET.SubElement(projectFilesList, 'li', {
-                'class': 'project-files-item'
+                'class': 'files-item'
             })
 
             projectFilesLink = ET.SubElement(projectFilesItem, 'a', {
-                'class': 'project-files-link notes',
+                'class': 'files-link notes',
                 'href': url
             })
 
@@ -392,11 +392,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                 url = os.path.relpath(file.filename, output_dir)
 
                 projectFilesItem = ET.SubElement(projectFilesList, 'li', {
-                    'class': 'project-files-item'
+                    'class': 'files-item'
                 })
 
                 projectFilesLink = ET.SubElement(projectFilesItem, 'a', {
-                    'class': 'project-files-link extra',
+                    'class': 'files-link extra',
                     'href': url
                 })
 
@@ -411,11 +411,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             url = os.path.relpath(file.filename, output_dir)
 
             projectFilesItem = ET.SubElement(projectFilesList, 'li', {
-                'class': 'project-files-item'
+                'class': 'files-item'
             })
 
             projectFilesLink = ET.SubElement(projectFilesItem, 'a', {
-                'class':'project-files-link materials',
+                'class': 'files-link materials',
                 'href': url
             })
 
@@ -478,18 +478,18 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
     h1.text = language.translate("Terms")
 
     ul = ET.SubElement(root, 'ul', {
-        'class': 'term-list'
+        'class': 'terms-list'
     })
 
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
         url = os.path.relpath(term_index, output_dir)
 
         li = ET.SubElement(ul, 'li', {
-            'class': 'term-item'
+            'class': 'terms-item'
         })
 
         a = ET.SubElement(li, 'a', {
-            'class': 'term-link',
+            'class': 'terms-link',
             'href': url
         })
 
@@ -508,16 +508,16 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
             h1.text = title
 
             ul = ET.SubElement(section, 'ul', {
-                'class': 'resource-list'
+                'class': 'resources-list'
             })
 
             for link in links:
                 li = ET.SubElement(ul, 'li', {
-                    'class': 'resource-item'
+                    'class': 'resources-item'
                 })
 
                 a = ET.SubElement(li, 'a', {
-                    'class': 'resource-link',
+                    'class': 'resources-link',
                     'href': link['url']
                 })
 
@@ -541,18 +541,18 @@ def make_index(languages, language, theme, root_dir, output_file):
     h1.text = language.translate("Languages")
 
     ul = ET.SubElement(root, 'ul', {
-        'class': 'language-list'
+        'class': 'languages-list'
     })
 
     for lang, filename in languages:
         url = os.path.relpath(filename, root_dir)
 
         li = ET.SubElement(ul, 'li', {
-            'class': 'language-item'
+            'class': 'languages-item'
         })
 
         a = ET.SubElement(li, 'a', {
-            'class': 'language-link',
+            'class': 'languages-link',
             'href': url
         })
 
@@ -564,25 +564,25 @@ def build_breadcrumb(breadcrumb, output_file):
     output_dir = os.path.dirname(output_file)
 
     ul = ET.Element('ul', {
-        'class': 'breadcrumb-list'
+        'class': 'breadcrumbs-list'
     })
 
     for name, path in breadcrumb[:-1]:
         url = os.path.relpath(path, output_dir)
 
         li = ET.SubElement(ul, 'li', {
-            'class':'breadcrumb-item'
+            'class': 'breadcrumbs-item'
         })
 
         a = ET.SubElement(li, 'a', {
-            'class': 'breadcrumb-link',
+            'class': 'breadcrumbs-link',
             'href': url
         })
 
         a.text = name
 
     li = ET.SubElement(ul, 'li', {
-        'class': 'breadcrumb-item current'
+        'class': 'breadcrumbs-item current'
     })
 
     li.text = breadcrumb[-1][0]
