@@ -464,8 +464,8 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
     return output_file, term
 
 def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, lang_breadcrumb):
-    index_section = ET.Element('index', {
-        'class': 'terms'
+    index_section = ET.Element('section', {
+        'class': 'index'
     })
 
     index_title = ET.SubElement(index_section, 'h1', {
@@ -516,7 +516,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
 
                 index_link.text = link['name']
 
-    make_html({'title':u"%s \u2014 %s Projects"%(theme.name,language.name)}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
+    make_html({'title':u"%s Terms &amp; Resources"%(language.name)}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
 
     return output_file
 
