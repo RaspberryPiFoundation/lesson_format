@@ -317,6 +317,8 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         'class': 'projects-list'
     })
 
+    project_counter = 1
+
     for project in sorted(term.projects, key=lambda x:x.number):
         projects_item = ET.SubElement(projects_list, 'li', {
             'class': 'projects-item'
@@ -335,7 +337,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
 
         url = os.path.relpath(first.filename, output_dir)
 
-        projects_item.text = project.title or url
+        projects_item.text = str(project_counter) + '. ' + (project.title or url)
 
         files_list = ET.SubElement(projects_item, 'ul', {
             'class': 'files-list'
@@ -419,6 +421,8 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             })
 
             files_link.text = "%s (%s)"%(language.translate("Materials"),file.format)
+
+        project_counter += 1
 
     if term.extras:
         index_title = ET.SubElement(index_section, 'h1', {
