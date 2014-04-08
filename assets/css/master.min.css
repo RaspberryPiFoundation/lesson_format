@@ -428,7 +428,7 @@ body {
   -moz-font-feature-settings: "kern";
   font-feature-settings: "kern";
   font-weight: 500;
-  margin: 1em auto;
+  margin: 1em auto 2em auto;
   max-width: 800px;
   min-height: 100%;
   min-width: 320px;
@@ -652,7 +652,7 @@ ul ol, ul ul {
 }
 
 .files-list {
-  background: #d9ead8;
+  background: #fff;
   border-radius: 0.2em;
   margin: 0.25em 0 0 0;
   padding: 0.5em;

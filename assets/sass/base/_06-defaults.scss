@@ -34,7 +34,7 @@ html {
 		font-weight: $base-font-weight;
 		@extend %text-rendering;
 		@extend %text-size-adjust;
-		margin:      1em auto;
+		margin:      1em auto 2em auto;
 		max-width:   800px;
 		min-height:  100%;
 		min-width:   320px;
