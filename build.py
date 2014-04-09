@@ -10,6 +10,7 @@ import json
 import subprocess
 import tempfile
 import string
+from datetime import datetime
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -37,8 +38,8 @@ template_base      = os.path.join(base, "assets/templates")
 theme_base         = os.path.join(base, "assets/themes")
 language_base      = os.path.join(base, "assets/languages")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes"
-
-banned_chars = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
+year               = datetime.now().year
+banned_chars       = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
 
 note_style = index_style = Style(
     name          = 'lesson',
@@ -80,11 +81,13 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         input_file,
         "-o", output_file,
         "-t", "html5",
+        "--section-divs",
         "-s",  # smart quotes
         "--highlight-style", "pygments",
         "--template=%s"%os.path.join(template_base, style.html_template),
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
+        "-M", "year=%s"%year,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
         "-M", "root=%s"%root,
