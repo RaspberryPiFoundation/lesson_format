@@ -23,9 +23,10 @@ $color-success-active:   lighten($color-success,   10);
 $color-warning-active:   lighten($color-warning,   10);
 
 //	Font Families
-$font-family-primary:   'Comic Neue', 'Comic Sans', sans-serif;
+$font-family-primary:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-family-secondary: VAGbold, sans-serif;
-$font-family-monospace: Consolas, monaco, monospace;
+$font-family-print:     'Comic Neue', 'Comic Sans', sans-serif;
+$font-family-monospace: Consolas, Menlo, Courier, monospace;
 
 //	Configure Typecsset
 $typecsset-base-font-size:   22px;
@@ -33,12 +34,12 @@ $typecsset-base-line-height: 34px;
 
 //	Default Stuff
 $base-font-size:   $typecsset-base-font-size;
-$base-font-weight: 500;
+$base-font-weight: 300;
 $base-line-height: $typecsset-base-line-height;
 
 //	Font Weights
-$font-weight-light: 300;
-$font-weight-bold:  700;
+$font-weight-light: 100;
+$font-weight-bold:  500;
 
 //	Other Typography Settings
 $font-size-small: 14px;

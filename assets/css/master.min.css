@@ -423,11 +423,11 @@ html {
 
 body {
   color: #111111;
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-feature-settings: "kern";
   -moz-font-feature-settings: "kern";
   font-feature-settings: "kern";
-  font-weight: 500;
+  font-weight: 300;
   margin: 1em auto 2em auto;
   max-width: 800px;
   min-height: 100%;
@@ -484,7 +484,7 @@ address {
 
 b {
   color: #111111;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 blockquote {
@@ -493,8 +493,8 @@ blockquote {
 
 button {
   border: none;
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 
 cite {
@@ -502,7 +502,7 @@ cite {
 }
 
 code {
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 em {
@@ -524,44 +524,44 @@ i {
 }
 
 input {
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 
 h1, .h1 {
   font-family: VAGbold, sans-serif;
   font-size: 48px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 h2, .h2, .index-title, .title {
   font-family: VAGbold, sans-serif;
   font-size: 36px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 h3, .h3 {
   font-family: VAGbold, sans-serif;
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 h4, .h4 {
   font-family: VAGbold, sans-serif;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 h5, .h5 {
   font-family: VAGbold, sans-serif;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 h6, .h6 {
   font-family: VAGbold, sans-serif;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 label {
@@ -587,13 +587,13 @@ p.full, .p.full {
 }
 
 select {
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 
 strong {
   color: #111111;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 table {
@@ -601,8 +601,8 @@ table {
 }
 
 textarea {
-  font-family: "Comic Neue", "Comic Sans", sans-serif;
-  font-weight: 500;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 
 time {
@@ -634,7 +634,7 @@ ul ol, ul ul {
 }
 
 .breadcrumbs-list {
-  font-size: 1em;
+  font-size: 0.75em;
   margin: 0;
   padding: 0.5em;
 }
