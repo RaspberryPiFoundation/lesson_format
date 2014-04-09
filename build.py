@@ -34,8 +34,8 @@ def translate(self, text):
 Language.translate = translate
 base               = os.path.dirname(os.path.abspath(__file__))
 template_base      = os.path.join(base, "assets/templates")
-theme_base         = os.path.join(base, "themes")
-language_base      = os.path.join(base, "languages")
+theme_base         = os.path.join(base, "assets/themes")
+language_base      = os.path.join(base, "assets/languages")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes"
 
 banned_chars = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
