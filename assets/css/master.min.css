@@ -502,7 +502,12 @@ cite {
 }
 
 code {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #d7d7d7;
+  border-radius: 0.25em;
+  color: #111;
+  font-family: Consolas, monaco, monospace;
+  font-size: 0.8em;
+  padding: 0 0.5em;
 }
 
 em {
@@ -517,15 +522,6 @@ figure {
 figure img {
   display: block;
   width: 100%;
-}
-
-i {
-  font-style: italic;
-}
-
-input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
 }
 
 h1, .h1 {
@@ -562,6 +558,24 @@ h6, .h6 {
   font-family: VAGbold, sans-serif;
   font-size: 20px;
   font-weight: 300;
+}
+
+i {
+  font-style: italic;
+}
+
+input {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+kbd {
+  background: #d7d7d7;
+  border-radius: 0.25em;
+  color: #111;
+  font-family: Consolas, monaco, monospace;
+  font-size: 0.8em;
+  padding: 0 0.5em;
 }
 
 label {
@@ -720,17 +734,83 @@ ul ol, ul ul {
   }
 }
 
+.lesson-steps b, .lesson-steps em, .lesson-steps i, .lesson-steps li, .lesson-steps p, .lesson-steps strong {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  font-weight: 500;
+}
+.lesson-steps b, .lesson-steps strong {
+  font-weight: 700;
+}
+.lesson-steps h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+.lesson-steps h2 {
+  font-size: 1.3em;
+  margin-bottom: 0.2em;
+}
+.lesson-steps h1 b, .lesson-steps h1 strong, .lesson-steps h2 b, .lesson-steps h2 strong {
+  font-family: VAGbold, sans-serif;
+}
+.lesson-steps section {
+  margin-bottom: 1.5em;
+}
+.lesson-steps section#introduction {
+  border-bottom: 3px dotted #f5a200;
+}
+.lesson-steps ul {
+  margin-left: 0;
+}
+.lesson-steps li {
+  list-style: none;
+  margin-left: 1.5em;
+  position: relative;
+}
+.lesson-steps li:before {
+  background: rgba(52, 119, 209, 0.1);
+  border: 0.15em solid #3477d1;
+  border-radius: 0.25em;
+  content: ' ';
+  display: block;
+  left: -1.3em;
+  position: absolute;
+  top: 0.2em;
+  height: 1em;
+  width: 1em;
+}
+.lesson-steps li img {
+  border: none;
+}
+.lesson-steps li img:before {
+  content: ' ';
+  display: block;
+}
+.lesson-steps img {
+  border: 0.15em solid #f5a200;
+  border-radius: 0.25em;
+  display: block;
+  margin: 0 auto 1em auto;
+}
+
 .level-indicator {
   background: #3477d1;
   border-radius: 5px;
   color: #fff;
   display: block;
-  line-height: 1.5em;
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
+  line-height: 30px;
   padding: 0 0.5em;
   position: absolute;
   right: -5px;
   text-transform: uppercase;
   top: -5px;
+}
+@media print {
+  .level-indicator {
+    border-radius: 15px;
+    right: 0;
+    top: 0;
+  }
 }
 
 .projects-list {
@@ -757,4 +837,47 @@ ul ol, ul ul {
   line-height: 100px;
   margin: 0;
   padding-left: 120px;
+}
+
+.check h2 {
+  background: url("../img/check.png") left center no-repeat;
+  background-size: 1em auto;
+  color: #f5a200;
+  padding-left: 1.2em;
+}
+
+.flag {
+  background: rgba(52, 153, 70, 0.1);
+  border: 1px dotted #349946;
+  border-radius: 0.5em;
+  padding: 0.5em 1em 1em;
+}
+.flag h2 {
+  background: url("../img/flag.png") left center no-repeat;
+  background-size: 1em auto;
+  color: #349946;
+  padding-left: 1.2em;
+}
+.flag p {
+  margin: 0;
+}
+.flag ul {
+  margin: 0;
+}
+.flag li:before {
+  background: rgba(52, 153, 70, 0.15);
+  border-color: #349946;
+}
+
+.save h2 {
+  background: #3477d1;
+  border-radius: 0.25em;
+  color: #fff;
+  margin-bottom: 1.5em;
+  padding-left: 1.2em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.save h2:after {
+  content: '!';
 }

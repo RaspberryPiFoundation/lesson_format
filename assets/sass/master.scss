@@ -13,10 +13,10 @@
 
 //	Application styles
 	//	Base dependencies
-	@import 'base/*';
+	@import 'base/**/*';
 
 	//	Layout
-	@import 'layout/*';
+	@import 'layout/**/*';
 
 	//	Modules
-	@import 'module/*';
+	@import 'module/**/*';

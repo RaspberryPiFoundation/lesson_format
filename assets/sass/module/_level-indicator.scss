@@ -4,10 +4,17 @@
 	border-radius:  5px;
 	color:          #fff;
 	display:        block;
-	line-height:    1.5em;
+	font-family:    $font-family-print;
+	line-height:    30px;
 	padding:        0 0.5em;
 	position:       absolute;
 	right:          -5px;
 	text-transform: uppercase;
 	top:            -5px;
+
+	@include print {
+		border-radius: 15px;
+		right: 0;
+		top:   0;
+	}
 }
