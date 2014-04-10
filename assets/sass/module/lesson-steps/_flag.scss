@@ -3,6 +3,7 @@
 	background:    rgba($color-primary, 0.1);
 	border:        1px dotted $color-primary;
 	border-radius: 0.5em;
+	overflow:      none;
 	padding:       0.5em 1em 1em;
 
 	h2 {
@@ -13,7 +14,7 @@
 	}
 
 	p {
-		margin: 0;
+		margin-bottom: 0.75em;
 	}
 
 	ul {

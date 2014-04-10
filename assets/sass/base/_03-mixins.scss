@@ -34,12 +34,6 @@
 	}
 }
 
-@mixin print {
-	@media print {
-		@content;
-	}
-}
-
 @mixin mq($measurement, $value) {
 	@media only screen and ($measurement: $value + px) {
 		@content;

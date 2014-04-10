@@ -11,10 +11,4 @@
 	right:          -5px;
 	text-transform: uppercase;
 	top:            -5px;
-
-	@include print {
-		border-radius: 15px;
-		right: 0;
-		top:   0;
-	}
 }

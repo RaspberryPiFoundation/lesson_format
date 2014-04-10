@@ -213,111 +213,28 @@ td {
   font-style: normal;
 }
 @font-face {
-  font-family: 'VAGlight';
-  src: url("../fonts/vagrounded-light-webfont.eot");
-  src: url("../fonts/vagrounded-light-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/vagrounded-light-webfont.woff") format("woff"), url("../fonts/vagrounded-light-webfont.ttf") format("truetype"), url("../fonts/vagrounded-light-webfont.svg#VAGRoundedBoldRegular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Comic Neue';
-  src: url("../fonts/ComicNeue-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Light.woff") format("woff"), url("../fonts/ComicNeue-Light.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 100;
-}
-@font-face {
-  font-family: 'Comic Neue';
-  src: url("../fonts/ComicNeue-Light-Oblique.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Light-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Light-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Light-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 100;
-  font-style: oblique;
-}
-@font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular.eot");
-  /* IE9 Compat Modes */
   src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
-  /* Safari, Android, iOS */
   font-weight: 300;
 }
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular-Oblique.eot");
-  /* IE9 Compat Modes */
   src: url("../fonts/ComicNeue-Regular-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Regular-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
   font-weight: 300;
   font-style: oblique;
 }
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold.eot");
-  /* IE9 Compat Modes */
   src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
-  /* Safari, Android, iOS */
   font-weight: 700;
 }
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold-Oblique.eot");
-  /* IE9 Compat Modes */
   src: url("../fonts/ComicNeue-Bold-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Bold-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 700;
-  font-style: oblique;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Light.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Light.woff") format("woff"), url("../fonts/ComicNeue-Angular-Light.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 100;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Light-Oblique.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Light-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Light-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Light-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 100;
-  font-style: oblique;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Regular.woff") format("woff"), url("../fonts/ComicNeue-Angular-Regular.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 300;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Regular-Oblique.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Regular-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Regular-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Regular-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 300;
-  font-style: oblique;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Bold.woff") format("woff"), url("../fonts/ComicNeue-Angular-Bold.ttf") format("truetype");
-  /* Safari, Android, iOS */
-  font-weight: 700;
-}
-@font-face {
-  font-family: 'Comic Neue Angular';
-  src: url("../fonts/ComicNeue-Angular-Bold-Oblique.eot");
-  /* IE9 Compat Modes */
-  src: url("../fonts/ComicNeue-Angular-Bold-Oblique.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Angular-Bold-Oblique.woff") format("woff"), url("../fonts/ComicNeue-Angular-Bold-Oblique.ttf") format("truetype");
-  /* Safari, Android, iOS */
   font-weight: 700;
   font-style: oblique;
 }
@@ -414,12 +331,6 @@ html {
   min-height: 100%;
   min-width: 320px;
 }
-@media print {
-  html {
-    background: #fff;
-    border: none;
-  }
-}
 
 body {
   color: #111111;
@@ -428,19 +339,13 @@ body {
   -moz-font-feature-settings: "kern";
   font-feature-settings: "kern";
   font-weight: 300;
-  margin: 1em auto 2em auto;
+  margin: 0 auto;
+  padding: 1em 0 2em;
   max-width: 800px;
   min-height: 100%;
   min-width: 320px;
   position: relative;
   -webkit-tap-highlight-color: transparent;
-}
-@media print {
-  body {
-    color: #000;
-    margin: 0;
-    max-width: 100%;
-  }
 }
 
 a {
@@ -636,11 +541,6 @@ ul ol, ul ul {
   border-radius: 15px;
   margin: 0 0 1em;
 }
-@media print {
-  .breadcrumbs {
-    display: none;
-  }
-}
 
 .header {
   margin-bottom: 1em;
@@ -728,11 +628,6 @@ ul ol, ul ul {
   margin: 0;
   max-width: none;
 }
-@media print {
-  .legal-notice {
-    display: none;
-  }
-}
 
 .lesson-steps b, .lesson-steps em, .lesson-steps i, .lesson-steps li, .lesson-steps p, .lesson-steps strong {
   font-family: "Comic Neue", "Comic Sans", sans-serif;
@@ -805,13 +700,6 @@ ul ol, ul ul {
   text-transform: uppercase;
   top: -5px;
 }
-@media print {
-  .level-indicator {
-    border-radius: 15px;
-    right: 0;
-    top: 0;
-  }
-}
 
 .projects-list {
   margin: 0 0 1em;
@@ -850,6 +738,7 @@ ul ol, ul ul {
   background: rgba(52, 153, 70, 0.1);
   border: 1px dotted #349946;
   border-radius: 0.5em;
+  overflow: none;
   padding: 0.5em 1em 1em;
 }
 .flag h2 {
@@ -859,7 +748,7 @@ ul ol, ul ul {
   padding-left: 1.2em;
 }
 .flag p {
-  margin: 0;
+  margin-bottom: 0.75em;
 }
 .flag ul {
   margin: 0;
@@ -874,10 +763,79 @@ ul ol, ul ul {
   border-radius: 0.25em;
   color: #fff;
   margin-bottom: 1.5em;
+  overflow: none;
   padding-left: 1.2em;
   text-align: center;
   text-transform: uppercase;
 }
 .save h2:after {
   content: '!';
+}
+
+@media print {
+  html {
+    background: #fff;
+    border: none;
+  }
+
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  a {
+    color: #111111 !important;
+  }
+
+  h1, .h1 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  h2, .h2 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  h3, .h3 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  h4, .h4 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  h5, .h5 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  h6, .h6 {
+    font-family: VAGbold, sans-serif;
+  }
+
+  .breadcrumbs {
+    display: none;
+  }
+
+  .legal-notice {
+    display: none;
+    padding: 1em 0 0;
+  }
+  .legal-notice.copyright {
+    background: none;
+    border: none;
+    border-top: 1px solid #777;
+    border-radius: 0;
+    display: block;
+  }
+
+  .lesson-steps section {
+    page-break-inside: avoid;
+  }
+
+  .level-indicator {
+    border-radius: 15px;
+    right: 0;
+    top: 0;
+  }
 }

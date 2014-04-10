@@ -11,8 +11,4 @@
 		margin:    0;
 		max-width: none;
 	}
-
-	@include print {
-		display: none;
-	}
 }

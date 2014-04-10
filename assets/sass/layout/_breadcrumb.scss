@@ -3,8 +3,4 @@
 	background:    rgba($color-primary, 0.05);
 	border-radius: 15px;
 	margin:        0 0 1em;
-
-	@include print {
-		display: none;
-	}
 }
