@@ -23,11 +23,17 @@ except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
     sys.exit(-10)
 
-PANDOC_INSTALL_URL = 'http://johnmacfarlane.net/pandoc/installing.html'
+PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
+WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
 Theme = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain')
 Style = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations links')
+
+def progress_print(*args):
+    if progress:
+        for a in args:
+            print a
 
 def translate(self, text):
     return self.translations.get(text, text)
@@ -150,39 +156,48 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
 def phantomjs_pdf(input_file, output_file):
     print input_file
+
     cmd = ['phantomjs', rasterize, input_file, output_file, '"A4"']
+
     return 0 == subprocess.call(cmd)
 
+def webkit_to_pdf(input_file, output_file):
+    cmd = [
+        "wkhtmltopdf",
+        "--print-media-type",
+        input_file,
+        output_file,
+    ]
+
+    print " ".join(cmd)
+
+    working_dir = os.path.dirname(output_file)
+
+    try:
+        result = subprocess.check_call(cmd, cwd=working_dir)
+    except OSError:
+        logger.error('wkhtmltopdf is required, check %s' % WKHTMLTOPDF_INSTALL_URL)
+        exit()
+
+    return 0 == result
 
 def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
-    return None #todo fix the output
-    legal = language.legal.get(theme.id, theme.legal)
-
     cmd = [
         "pandoc",
         input_file,
         "-o", output_file,
         "-t", "latex",
-        "-s",  # smart quotes
-        "--highlight-style", "pygments",
-        "--filter", scratchblocks_filter,
-        "-M", "legal=%s"%legal,
-        "-M", "organization=%s"%theme.name,
-        "-M", "logo=%s"%theme.logo,
-        "-M", "lang=%s"%language.code,
     ]
-    if theme.analytics_account:
-        cmd.extend([
-            "-M", "analytics_account=%s"%theme.analytics_account,
-            "-M", "analytics_domain=%s"%theme.analytics_domain,
-        ])
+
     cmd.extend(commands)
+
     if style.tex_template:
         cmd.append("--template=%s"%os.path.join(template_base, style.tex_template))
     for k,v in variables.iteritems():
         cmd.extend(("-M", "%s=%s"%(k,v)))
 
-    print " ".join([repr(s.encode('utf-8')) for s in cmd])
+    print " ".join(cmd)
+
     working_dir = os.path.dirname(output_file)
 
     return 0 == subprocess.call(cmd, cwd=working_dir)
@@ -195,21 +210,36 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
 def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir):
-    output    = []
-    name, ext = os.path.basename(input_file).rsplit(".", 1)
+    output        = []
+    name, ext     = os.path.basename(input_file).rsplit(".", 1)
+    pdf_generated = False
 
     if ext == "md":
+        # Generate HTML
         output_file = os.path.join(output_dir, "%s.html"%name)
-
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
+        output.append(Resource(filename = output_file, format = "html"))
 
-        output.append(Resource(filename=output_file, format="html"))
+        # Set input to newly generated HTML to act as source for PDF generation
+        input_file  = output_file
+        output_file = os.path.join(output_dir, "%s.pdf"%name)
 
-        # Don't build PDFs yet, need to work out right version of phantomjs
-        # and fix CSS/print isues
-        # pdf_output_file = os.path.join(output_dir, "%s.pdf"%name)
-        # if phantomjs_pdf(output_file, pdf_output_file):
-        #     output.append(Resource(filename=pdf_output_file, format="pdf"))
+        #
+        # Here are three methods of generating PDFs. None of them support
+        # webfonts. Uncomment only one at a time to test them
+        #
+
+        # Requires wkhtmltopdf - http://wkhtmltopdf.org
+        # webkit_to_pdf(input_file, output_file)
+
+        # Requires Pandoc and LaTeX/MacTeX
+        # markdown_to_pdf(input_file, style, language, theme, output_file)
+
+        # Requires PhantomJS - `brew install phantomjs`
+        # phantomjs_pdf(output_file, pdf_output_file):
+
+        if (pdf_generated):
+            output.append(Resource(filename = output_file, format = "pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
 
@@ -589,7 +619,7 @@ def build_breadcrumb(breadcrumb, output_file):
     return breadcrumbs_list
 
 def build(rebuild, repositories, theme, all_languages, output_dir):
-    print "Searching for manifests..."
+    progress_print("Searching for manifests...")
 
     termlangs = {}
 
@@ -597,7 +627,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
     sorted_languages = []
 
     for m in find_files(repositories, ".manifest"):
-        print "Found Manifest:", m
+        progress_print("Found Manifest:", m)
         try:
             term = parse_manifest(m)
             if term.language not in termlangs:
@@ -607,9 +637,9 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
 
             import traceback
             traceback.print_exc()
-            print "Failed", e
+            progress_print("Failed", e)
 
-    print "Copying assets..."
+    progress_print("Copying assets...")
 
     copydir(html_assets, output_dir)
 
@@ -637,7 +667,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
 
             language = all_languages[language_code]
 
-            print "Language", language.name
+            progress_print("Language", language.name)
 
             out_terms = []
             count = 0;
@@ -649,7 +679,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
                 term_dir = os.path.join(lang_dir, "%s.%d"%(term.id, term.number))
                 makedirs(term_dir)
 
-                print "Building Term:", term.title,
+                progress_print("Building Term:", term.title)
 
                 term_index_file = os.path.join(term_dir, "index.html")
                 term_breadcrumb = lang_breadcrumb + [(term.title, term_index_file)]
@@ -659,7 +689,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
                 for p in term.projects:
                     count+=1
                     project = parse_project_meta(p)
-                    print "Building Project:", project.title, project.filename
+                    progress_print("Building Project:", project.title, project.filename)
 
                     project_dir = os.path.join(term_dir,"%.02d"%(project.number))
                     makedirs(project_dir)
@@ -671,7 +701,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
                 extras = []
 
                 for r in term.extras:
-                    print "Building Extra:", r.name
+                    progress_print("Building Extra:", r.name)
                     extras.append(build_extra(rebuild, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
 
                 term = Term(
@@ -685,14 +715,14 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
 
                 out_terms.append(make_term_index(term, language, theme, output_dir, term_dir, term_index_file, term_breadcrumb))
 
-                print "Term built!"
+                progress_print("Term built!")
 
-            print "Building",language.name,"index"
+            progress_print("Building", language.name, "index")
 
             languages[language_code]=make_lang_index(language, out_terms, theme, output_dir, lang_dir, lang_index_file, lang_breadcrumb)
             project_count[language_code]=count
 
-        print "Building", theme.name, "index"
+        progress_print("Building", theme.name, "index")
 
         sorted_languages =  []
 
@@ -702,7 +732,7 @@ def build(rebuild, repositories, theme, all_languages, output_dir):
 
         make_index(sorted_languages,all_languages[theme.language], theme, output_dir, root_index_file)
 
-    print "Complete"
+    progress_print("Complete")
 
 # Manifest, Theme, Language, and Project Header Parsing
 
@@ -1005,10 +1035,14 @@ if __name__ == '__main__':
         print "usage: <region> <input repository directories> <output directory>"
 
         sys.exit(-1)
-    rebuild = False
+    rebuild = progress = False
 
     if args[0] == "--rebuild":
         rebuild = True
+        args.pop(0)
+
+    if args[0] == "--progress":
+        progress = True
         args.pop(0)
 
     if args[0] != 'css':
