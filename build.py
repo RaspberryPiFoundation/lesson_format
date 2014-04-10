@@ -230,13 +230,13 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         #
 
         # Requires wkhtmltopdf - http://wkhtmltopdf.org
-        # webkit_to_pdf(input_file, output_file)
+        pdf_generated = webkit_to_pdf(input_file, output_file)
 
         # Requires Pandoc and LaTeX/MacTeX
-        # markdown_to_pdf(input_file, style, language, theme, output_file)
+        # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
 
         # Requires PhantomJS - `brew install phantomjs`
-        # phantomjs_pdf(output_file, pdf_output_file):
+        # pdf_generated = phantomjs_pdf(output_file, pdf_output_file):
 
         if (pdf_generated):
             output.append(Resource(filename = output_file, format = "pdf"))
