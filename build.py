@@ -230,7 +230,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         #
 
         # Requires wkhtmltopdf - http://wkhtmltopdf.org
-        pdf_generated = webkit_to_pdf(input_file, output_file)
+        # pdf_generated = webkit_to_pdf(input_file, output_file)
 
         # Requires Pandoc and LaTeX/MacTeX
         # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
