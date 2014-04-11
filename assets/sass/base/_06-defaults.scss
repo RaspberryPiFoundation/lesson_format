@@ -191,6 +191,10 @@ label {
 ol {
 	li {
 		list-style: decimal;
+
+		p {
+			margin: 0;
+		}
 	}
 
 	ol, ul {
@@ -240,6 +244,10 @@ time {
 ul {
 	li {
 		list-style: disc;
+
+		p {
+			margin: 0;
+		}
 	}
 
 	ol, ul {

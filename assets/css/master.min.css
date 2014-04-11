@@ -515,6 +515,9 @@ label {
 ol li {
   list-style: decimal;
 }
+ol li p {
+  margin: 0;
+}
 ol ol, ol ul {
   margin-bottom: 0;
 }
@@ -556,6 +559,9 @@ time {
 
 ul li {
   list-style: disc;
+}
+ul li p {
+  margin: 0;
 }
 ul ol, ul ul {
   margin-bottom: 0;

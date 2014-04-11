@@ -84,7 +84,7 @@
   color: #5c0b0d;
 }
 .sb2 .obsolete > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #971c1c #da4646 #da4646 #971c1c;
 }
 .sb2 .obsolete > .ring-inner:before {
@@ -97,7 +97,7 @@
   background: #d42828;
 }
 .sb2 .obsolete.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .control.stack:before,
 .sb2 .control.cap:before {
@@ -130,7 +130,7 @@
   color: #533e09;
 }
 .sb2 .control > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #a07812 #e5b53a #e5b53a #a07812;
 }
 .sb2 .control > .ring-inner:before {
@@ -143,7 +143,7 @@
   background: #e1a91a;
 }
 .sb2 .control.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .custom.stack:before,
 .sb2 .custom.cap:before {
@@ -176,7 +176,7 @@
   color: #1e0a38;
 }
 .sb2 .custom > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #46206d #794aa7 #794aa7 #46206d;
 }
 .sb2 .custom > .ring-inner:before {
@@ -189,7 +189,7 @@
   background: #632d99;
 }
 .sb2 .custom.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .events.stack:before,
 .sb2 .events.cap:before {
@@ -222,7 +222,7 @@
   color: #4a3011;
 }
 .sb2 .events > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #8e5d22 #cf944d #cf944d #8e5d22;
 }
 .sb2 .events > .ring-inner:before {
@@ -235,7 +235,7 @@
   background: #c88330;
 }
 .sb2 .events.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .list.stack:before,
 .sb2 .list.cap:before {
@@ -268,7 +268,7 @@
   color: #4b210c;
 }
 .sb2 .list > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #a74a1b #d26f3d #d26f3d #a74a1b;
 }
 .sb2 .list > .ring-inner:before {
@@ -281,7 +281,7 @@
   background: #cc5b22;
 }
 .sb2 .list.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .looks.stack:before,
 .sb2 .looks.cap:before {
@@ -314,7 +314,7 @@
   color: #1e0a38;
 }
 .sb2 .looks > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #623c99 #9a6ddc #9a6ddc #623c99;
 }
 .sb2 .looks > .ring-inner:before {
@@ -327,7 +327,7 @@
   background: #8a55d7;
 }
 .sb2 .looks.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .motion.stack:before,
 .sb2 .motion.cap:before {
@@ -360,7 +360,7 @@
   color: #1b274e;
 }
 .sb2 .motion > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #344d97 #6380da #6380da #344d97;
 }
 .sb2 .motion > .ring-inner:before {
@@ -373,7 +373,7 @@
   background: #4a6cd4;
 }
 .sb2 .motion.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .operators.stack:before,
 .sb2 .operators.cap:before {
@@ -406,7 +406,7 @@
   color: #214306;
 }
 .sb2 .operators > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #488f0e #a7ce87 #a7ce87 #488f0e;
 }
 .sb2 .operators > .ring-inner:before {
@@ -419,7 +419,7 @@
   background: #5cb712;
 }
 .sb2 .operators.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .pen.stack:before,
 .sb2 .pen.cap:before {
@@ -452,7 +452,7 @@
   color: none;
 }
 .sb2 .pen > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #0a6e4d #30a880 #30a880 #0a6e4d;
 }
 .sb2 .pen > .ring-inner:before {
@@ -465,7 +465,7 @@
   background: #0e9a6c;
 }
 .sb2 .pen.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .sensing.stack:before,
 .sb2 .sensing.cap:before {
@@ -498,7 +498,7 @@
   color: #103c53;
 }
 .sb2 .sensing > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #1f75a1 #49b1e6 #49b1e6 #1f75a1;
 }
 .sb2 .sensing > .ring-inner:before {
@@ -511,7 +511,7 @@
   background: #2ca5e2;
 }
 .sb2 .sensing.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .sound.stack:before,
 .sb2 .sound.cap:before {
@@ -544,7 +544,7 @@
   color: #451848;
 }
 .sb2 .sound > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #852f8b #c45ccb #c45ccb #852f8b;
 }
 .sb2 .sound > .ring-inner:before {
@@ -557,7 +557,7 @@
   background: #bb42c3;
 }
 .sb2 .sound.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .variables.stack:before,
 .sb2 .variables.cap:before {
@@ -590,7 +590,7 @@
   color: #572d08;
 }
 .sb2 .variables > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #c36612 #f08d33 #f08d33 #c36612;
 }
 .sb2 .variables > .ring-inner:before {
@@ -603,7 +603,7 @@
   background: #ee7d16;
 }
 .sb2 .variables.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .custom-arg.stack:before,
 .sb2 .custom-arg.cap:before {
@@ -636,7 +636,7 @@
   color: none;
 }
 .sb2 .custom-arg > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #423584 #6857b8 #6857b8 #423584;
 }
 .sb2 .custom-arg > .ring-inner:before {
@@ -649,7 +649,7 @@
   background: #5947b1;
 }
 .sb2 .custom-arg.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .extension.stack:before,
 .sb2 .extension.cap:before {
@@ -682,7 +682,7 @@
   color: #1b1b23;
 }
 .sb2 .extension > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #353444 #646376 #646376 #353444;
 }
 .sb2 .extension > .ring-inner:before {
@@ -695,7 +695,7 @@
   background: #4b4a60;
 }
 .sb2 .extension.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .grey.stack:before,
 .sb2 .grey.cap:before {
@@ -728,7 +728,7 @@
   color: #393939;
 }
 .sb2 .grey > .ring-inner {
-  background-color: #ffffff;
+  background-color: transparent;
   border-color: #656565 #b7b7b7 #b7b7b7 #656565;
 }
 .sb2 .grey > .ring-inner:before {
@@ -741,7 +741,7 @@
   background: #969696;
 }
 .sb2 .grey.cmouth > .stack:before {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .script * {
   background: red;
@@ -839,7 +839,7 @@
   border: inherit;
   border-top: none;
   border-width: 1px;
-  background: #ffffff;
+  background: transparent;
   border-radius: 0 0 4px 4px;
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
@@ -979,7 +979,7 @@
   -moz-border-radius: 0 0 4px 4px;
 }
 .sb2 .cwrap {
-  background: #ffffff;
+  background: transparent;
   display: block;
 }
 .sb2 .cwrap .cstart {
@@ -989,7 +989,7 @@
   min-width: 60px;
 }
 .sb2 .cwrap .cmouth {
-  background: #ffffff;
+  background: transparent;
   display: block;
   position: relative;
 }
@@ -1122,7 +1122,7 @@
   background-size: contain;
 }
 .sb2 .comment {
-  background: #ffffff;
+  background: transparent;
 }
 .sb2 .comment div {
   margin: 4px 0 1px 1px;
@@ -1221,8 +1221,8 @@
 .sb2 .grey > .ring-inner > .number.reporter,
 .sb2 .grey > .ring-inner > .empty.number,
 .sb2 .grey > .ring-inner > .number.number {
-  background: #ffffff;
-  border-color: #ffffff;
+  background: transparent;
+  border-color: transparent;
   min-width: 27px;
 }
 .sb2 .grey > .ring-inner > .empty.stack:before,
@@ -1233,8 +1233,8 @@
 .sb2 .grey > .ring-inner > .number.reporter:before,
 .sb2 .grey > .ring-inner > .empty.number:before,
 .sb2 .grey > .ring-inner > .number.number:before {
-  background: #ffffff;
-  border-color: #ffffff;
+  background: transparent;
+  border-color: transparent;
 }
 .sb2 .grey > .ring-inner > .empty.stack,
 .sb2 .grey > .ring-inner > .number.stack {
