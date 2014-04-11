@@ -150,12 +150,21 @@ figure {
 	figcaption {}
 }
 
-h1, .h1, %h1 { font-family: $h1-font-family; font-size: $typecsset-h1-size; font-weight: $h1-font-weight; }
-h2, .h2, %h2 { font-family: $h2-font-family; font-size: $typecsset-h2-size; font-weight: $h2-font-weight; }
-h3, .h3, %h3 { font-family: $h3-font-family; font-size: $typecsset-h3-size; font-weight: $h3-font-weight; }
-h4, .h4, %h4 { font-family: $h4-font-family; font-size: $typecsset-h4-size; font-weight: $h4-font-weight; }
-h5, .h5, %h5 { font-family: $h5-font-family; font-size: $typecsset-h5-size; font-weight: $h5-font-weight; }
-h6, .h6, %h6 { font-family: $h6-font-family; font-size: $typecsset-h6-size; font-weight: $h6-font-weight; }
+h1, .h1, %h1 { font-family: $font-family-primary; font-size: $typecsset-h1-size; font-weight: $font-weight-bold; }
+h2, .h2, %h2 { font-family: $font-family-primary; font-size: $typecsset-h2-size; font-weight: $font-weight-bold; }
+h3, .h3, %h3 { font-family: $font-family-primary; font-size: $typecsset-h3-size; font-weight: $font-weight-bold; }
+h4, .h4, %h4 { font-family: $font-family-primary; font-size: $typecsset-h4-size; font-weight: $font-weight-bold; }
+h5, .h5, %h5 { font-family: $font-family-primary; font-size: $typecsset-h5-size; font-weight: $font-weight-bold; }
+h6, .h6, %h6 { font-family: $font-family-primary; font-size: $typecsset-h6-size; font-weight: $font-weight-bold; }
+
+html[lang="en-GB"] {
+	h1, .h1, %h1 { font-family: $h1-font-family; font-weight: $h1-font-weight; }
+	h2, .h2, %h2 { font-family: $h2-font-family; font-weight: $h2-font-weight; }
+	h3, .h3, %h3 { font-family: $h3-font-family; font-weight: $h3-font-weight; }
+	h4, .h4, %h4 { font-family: $h4-font-family; font-weight: $h4-font-weight; }
+	h5, .h5, %h5 { font-family: $h5-font-family; font-weight: $h5-font-weight; }
+	h6, .h6, %h6 { font-family: $h6-font-family; font-weight: $h6-font-weight; }
+}
 
 i {
 	font-style: italic;

@@ -4,11 +4,14 @@
 	border-radius:  5px;
 	color:          #fff;
 	display:        block;
-	font-family:    $font-family-print;
 	line-height:    30px;
 	padding:        0 0.5em;
 	position:       absolute;
 	right:          -5px;
 	text-transform: uppercase;
 	top:            -5px;
+
+	html[lang="en-GB"] & {
+		font-family: $font-family-print;
+	}
 }

@@ -1041,9 +1041,7 @@ if __name__ == '__main__':
         rebuild = True
         args.pop(0)
 
-    if args[0] == "--progress":
-        progress = True
-        args.pop(0)
+    progress = True
 
     if args[0] != 'css':
         theme = THEMES[args[0]]

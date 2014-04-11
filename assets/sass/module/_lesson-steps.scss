@@ -1,12 +1,21 @@
 
 .lesson-steps {
-	b, em, i, li, p, strong {
-		font-family: $font-family-print;
-		font-weight: 500;
-	}
 
-	b, strong {
-		font-weight: 700;
+	html[lang="en-GB"] & {
+		b, em, i, li, p, strong {
+			font-family: $font-family-print;
+			font-weight: 500;
+		}
+
+		b, strong {
+			font-weight: 700;
+		}
+
+		h1, h2 {
+			b, strong {
+				font-family: $font-family-secondary;
+			}
+		}
 	}
 
 	h1 {
@@ -17,12 +26,6 @@
 	h2 {
 		font-size:     1.3em;
 		margin-bottom: 0.2em;
-	}
-
-	h1, h2 {
-		b, strong {
-			font-family: $font-family-secondary;
-		}
 	}
 
 	section {
