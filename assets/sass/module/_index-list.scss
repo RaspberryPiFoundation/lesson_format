@@ -8,7 +8,10 @@
 	.index-item {
 		list-style: none;
 		margin:     0 0 0.5em;
-		width:      50%;
+
+		@media screen and (min-width: 501px) {
+			width: 50%;
+		}
 	}
 
 		.index-link {
