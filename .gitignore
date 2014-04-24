@@ -2,7 +2,8 @@
 output
 *.py?
 *.swp
-/repositories
+/lessons
+/output
 venv/
 node_modules
 .sass-cache

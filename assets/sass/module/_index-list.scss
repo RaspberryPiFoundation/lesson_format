@@ -27,4 +27,18 @@
 			&:hover {
 				background: darken($color-primary, 10);
 			}
+
+			.world & {
+				background: $color-highlight;
+				color:      #fff;
+
+				&:hover,
+				&:visited {
+					color: #fff;
+				}
+
+				&:hover {
+					background: darken($color-highlight, 10);
+				}
+			}
 		}

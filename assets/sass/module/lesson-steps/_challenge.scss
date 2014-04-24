@@ -1,0 +1,21 @@
+
+.challenge {
+	background:    rgba($color-highlight, 0.1);
+	border:        1px dotted $color-highlight;
+	border-radius: 0.5em;
+	overflow:      none;
+	padding:       0.5em 1em 1em;
+
+	h2 {
+		background-size: 1em auto;
+		color:           $color-highlight;
+	}
+
+	p {
+		margin-bottom: 0.75em;
+	}
+
+	ul {
+		margin: 0;
+	}
+}

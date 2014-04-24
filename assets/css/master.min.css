@@ -25,8 +25,8 @@ h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
 }
 
 h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
-  margin-bottom: 34px;
-  margin-bottom: 1.54545rem;
+  margin-bottom: 30px;
+  margin-bottom: 1.57895rem;
 }
 
 /*------------------------------------*\
@@ -43,11 +43,11 @@ h1, h2, h3, h4, h5, h6, ul, ol, dd, p, address, pre, blockquote, table {
  * 3. If you have chosen to display a baseline grid, we turn it on here.
  */
 html {
-  font-size: 1.375em;
+  font-size: 1.1875em;
   /* [1] */
-  line-height: 1.54545;
+  line-height: 1.57895;
   /* [2] */
-  background-image: url(http://basehold.it/i/34);
+  background-image: url(http://basehold.it/i/30);
   /* [3] */
 }
 
@@ -60,46 +60,46 @@ body {
 \*------------------------------------*/
 h1 {
   font-size: 48px;
-  font-size: 2.18182rem;
-  line-height: 1.41667;
+  font-size: 2.52632rem;
+  line-height: 1.25;
 }
 
 h2 {
   font-size: 36px;
-  font-size: 1.63636rem;
-  line-height: 1.88889;
+  font-size: 1.89474rem;
+  line-height: 1.66667;
 }
 
 h3 {
   font-size: 30px;
-  font-size: 1.36364rem;
-  line-height: 1.13333;
+  font-size: 1.57895rem;
+  line-height: 1;
 }
 
 h4 {
   font-size: 24px;
-  font-size: 1.09091rem;
-  line-height: 1.41667;
+  font-size: 1.26316rem;
+  line-height: 1.25;
 }
 
 h5 {
   font-size: 20px;
-  font-size: 0.90909rem;
-  line-height: 1.7;
+  font-size: 1.05263rem;
+  line-height: 1.5;
 }
 
 h6 {
   font-size: 20px;
-  font-size: 0.90909rem;
-  line-height: 1.7;
+  font-size: 1.05263rem;
+  line-height: 1.5;
 }
 
 /*------------------------------------*\
     #LISTS
 \*------------------------------------*/
 ul, ol, dd {
-  margin-left: 68px;
-  margin-left: 3.09091rem;
+  margin-left: 60px;
+  margin-left: 3.15789rem;
 }
 
 li > ul,
@@ -145,8 +145,8 @@ blockquote {
  */
 blockquote {
   quotes: "“" "”";
-  margin-left: 68px;
-  margin-left: 3.09091rem;
+  margin-left: 60px;
+  margin-left: 3.15789rem;
 }
 blockquote p:before {
   content: "“";
@@ -202,7 +202,7 @@ table {
 
 th,
 td {
-  padding: 17px;
+  padding: 15px;
 }
 
 @font-face {
@@ -329,7 +329,10 @@ html {
   background: #f8faf4;
   border-top: 7px solid rgba(52, 153, 70, 0.2);
   min-height: 100%;
-  min-width: 320px;
+  padding: 0 10px;
+}
+html.world {
+  border-top-color: rgba(52, 119, 209, 0.2);
 }
 
 body {
@@ -343,7 +346,7 @@ body {
   padding: 1em 0 2em;
   max-width: 800px;
   min-height: 100%;
-  min-width: 320px;
+  min-width: 300px;
   position: relative;
   -webkit-tap-highlight-color: transparent;
 }
@@ -363,6 +366,15 @@ a:active, a:focus, a:hover {
 a:visited {
   color: #349946;
   text-decoration: none;
+}
+.world a {
+  color: #3477d1;
+}
+.world a:active, .world a:focus, .world a:hover {
+  color: #275fab;
+}
+.world a:visited {
+  color: #3477d1;
 }
 .text-success a, a.text-success {
   color: #29c76c;
@@ -414,6 +426,18 @@ code {
   font-size: 0.8em;
   padding: 0 0.5em;
 }
+code.blockblue {
+  background: rgba(52, 119, 209, 0.5);
+}
+code.blockorange {
+  background: rgba(245, 162, 0, 0.5);
+}
+code.blockyellow {
+  background: rgba(245, 162, 0, 0.25);
+}
+code.blockpurple {
+  background: rgba(155, 89, 182, 0.25);
+}
 
 em {
   font-style: italic;
@@ -421,8 +445,8 @@ em {
 
 figure {
   display: block;
-  margin-bottom: 34px;
-  margin-bottom: 1.54545rem;
+  margin-bottom: 30px;
+  margin-bottom: 1.57895rem;
 }
 figure img {
   display: block;
@@ -522,9 +546,6 @@ ol ol, ol ul {
   margin-bottom: 0;
 }
 
-p, .p {
-  max-width: 38em;
-}
 p.lead, .p.lead {
   color: #111111;
   font-size: 22px;
@@ -572,6 +593,9 @@ ul ol, ul ul {
   border-radius: 15px;
   margin: 0 0 1em;
 }
+.world .breadcrumbs {
+  background: rgba(52, 119, 209, 0.05);
+}
 
 .header {
   margin-bottom: 1em;
@@ -579,14 +603,14 @@ ul ol, ul ul {
 }
 
 .breadcrumbs-list {
-  font-size: 0.75em;
+  font-size: 0.9em;
   margin: 0;
-  padding: 0.5em;
+  padding: 0 1em;
 }
 
 .breadcrumbs-item {
   float: left;
-  line-height: 1;
+  line-height: 2;
   list-style: none;
 }
 .breadcrumbs-item:before {
@@ -598,24 +622,29 @@ ul ol, ul ul {
 
 .files-list {
   background: #fff;
-  border-radius: 0.2em;
+  border-radius: 0.4em;
   margin: 0.25em 0 0 0;
   padding: 0.5em;
+  text-indent: 0;
 }
 
 .files-item {
   color: #349946;
   margin-left: 1.25em;
 }
+.world .files-item {
+  color: #3477d1;
+}
 
 .home-link {
   border-radius: 50px;
   display: block;
   height: 100px;
-  left: 0;
-  position: absolute;
-  top: 0;
+  margin: 0 auto 1em;
   width: 100px;
+}
+.world .home-link {
+  width: 161px;
 }
 
 .index-list {
@@ -641,6 +670,16 @@ ul ol, ul ul {
 }
 .index-link:hover {
   background: #277335;
+}
+.world .index-link {
+  background: #3477d1;
+  color: #fff;
+}
+.world .index-link:hover, .world .index-link:visited {
+  color: #fff;
+}
+.world .index-link:hover {
+  background: #275fab;
 }
 
 .index-title {
@@ -711,6 +750,14 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   content: ' ';
   display: block;
 }
+.lesson-steps li img.inline {
+  display: inline !important;
+  margin: 0;
+  vertical-align: top;
+}
+.lesson-steps li img.inline:before {
+  display: none;
+}
 .lesson-steps img {
   border: 0.15em solid #f5a200;
   border-radius: 0.25em;
@@ -723,12 +770,13 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   border-radius: 5px;
   color: #fff;
   display: block;
+  font-size: 0.9em;
   line-height: 30px;
   padding: 0 0.5em;
   position: absolute;
-  right: -5px;
+  right: 0;
   text-transform: uppercase;
-  top: -5px;
+  top: 70px;
 }
 html[lang="en-GB"] .level-indicator {
   font-family: "Comic Neue", "Comic Sans", sans-serif;
@@ -744,20 +792,46 @@ html[lang="en-GB"] .level-indicator {
   color: #fff;
   list-style: none;
   margin: 0 0 1em;
-  padding: 0.5em;
+  padding: 0.25em;
+  text-indent: 0.65em;
+}
+.world .projects-item {
+  background: #3477d1;
 }
 
 .projects-level {
   float: right;
+  padding-right: 0.65em;
   text-transform: uppercase;
 }
 
 .title {
   background: rgba(52, 153, 70, 0.15);
-  border-radius: 50px 15px 15px 50px;
-  line-height: 100px;
+  border-radius: 1.5em;
+  line-height: 50px;
   margin: 0;
-  padding-left: 120px;
+  text-align: center;
+}
+.world .title {
+  background: rgba(52, 119, 209, 0.15);
+}
+
+.challenge {
+  background: rgba(52, 119, 209, 0.1);
+  border: 1px dotted #3477d1;
+  border-radius: 0.5em;
+  overflow: none;
+  padding: 0.5em 1em 1em;
+}
+.challenge h2 {
+  background-size: 1em auto;
+  color: #3477d1;
+}
+.challenge p {
+  margin-bottom: 0.75em;
+}
+.challenge ul {
+  margin: 0;
 }
 
 .check h2 {
@@ -803,6 +877,24 @@ html[lang="en-GB"] .level-indicator {
 }
 .save h2:after {
   content: '!';
+}
+
+.try {
+  background: rgba(52, 119, 209, 0.1);
+  border: 1px dotted #3477d1;
+  border-radius: 0.5em;
+  overflow: none;
+  padding: 0.5em 1em 1em;
+}
+.try h2 {
+  background-size: 1em auto;
+  color: #3477d1;
+}
+.try p {
+  margin-bottom: 0.75em;
+}
+.try ul {
+  margin: 0;
 }
 
 @media print {

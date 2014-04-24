@@ -22,6 +22,12 @@ $color-highlight-active: lighten($color-highlight, 10);
 $color-success-active:   lighten($color-success,   10);
 $color-warning-active:   lighten($color-warning,   10);
 
+//	More specific colors (bad, but bear with it)
+$color-code-blue:   rgba($color-highlight, 0.5);
+$color-code-orange: rgba($color-warning,   0.5);
+$color-code-yellow: rgba($color-warning,   0.25);
+$color-code-purple: rgba(#9b59b6,          0.25);
+
 //	Font Families
 $font-family-primary:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-family-secondary: VAGbold, sans-serif;
@@ -29,8 +35,8 @@ $font-family-print:     'Comic Neue', 'Comic Sans', sans-serif;
 $font-family-monospace: Consolas, monaco, monospace;;
 
 //	Configure Typecsset
-$typecsset-base-font-size:   22px;
-$typecsset-base-line-height: 34px;
+$typecsset-base-font-size:   19px;
+$typecsset-base-line-height: 30px;
 
 //	Default Stuff
 $base-font-size:   $typecsset-base-font-size;

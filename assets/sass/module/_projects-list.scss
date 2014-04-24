@@ -11,10 +11,16 @@
 		color:         #fff;
 		list-style:    none;
 		margin:        0 0 1em;
-		padding:       0.5em;
+		padding:       0.25em;
+		text-indent:   0.65em;
+
+		.world & {
+			background: $color-highlight;
+		}
 	}
 
 		.projects-level {
 			float:          right;
+			padding-right:  0.65em;
 			text-transform: uppercase;
 		}

@@ -43,11 +43,29 @@ module.exports = function (grunt) {
     },
 
     shell: {
-      makeCSS: {
+      makeCSS_UK: {
         options: {
           stdout: true
         },
-        command: 'make css'
+        command: 'make css_uk'
+      },
+      makeCSS_WORLD: {
+        options: {
+          stdout: true
+        },
+        command: 'make css_world'
+      },
+      makePages_UK: {
+        options: {
+          stdout: true
+        },
+        command: 'make pages_uk'
+      },
+      makePages_WORLD: {
+        options: {
+          stdout: true
+        },
+        command: 'make pages_world'
       }
     },
 
@@ -56,7 +74,15 @@ module.exports = function (grunt) {
         files: '<%= css.any %>',
         tasks: [
           'sass:dev',
-          'shell:makeCSS'
+          'shell:makeCSS_UK',
+          'shell:makeCSS_WORLD'
+        ]
+      },
+      py: {
+        files: 'build.py',
+        tasks: [
+          'shell:makePages_UK',
+          'shell:makePages_WORLD'
         ]
       }
     }
@@ -66,12 +92,14 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'sass:dev',
-    'shell:makeCSS',
+    'shell:makeCSS_UK',
+    'shell:makeCSS_WORLD',
     'watch'
   ]);
 
   grunt.registerTask('build', [
     'sass:dist',
-    'shell:makeCSS'
+    'shell:makeCSS_UK',
+    'shell:makeCSS_WORLD'
   ]);
 };

@@ -65,6 +65,16 @@
 					content: ' ';
 					display: block;
 				}
+
+				&.inline {
+					display: inline !important;
+					margin:  0;
+					vertical-align: top;
+
+					&:before {
+						display: none;
+					}
+				}
 			}
 		}
 

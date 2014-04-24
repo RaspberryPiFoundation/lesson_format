@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html$if(lang)$ lang="$lang$"$endif$>
+<html class="$theme$" $if(lang)$ lang="$lang$"$endif$>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +11,14 @@
     <link rel="stylesheet" href="$root$/css/master.min.css">
   </head>
 
-  <body$if(lang)$ class="$lang$"$endif$>
+  <body class="index-template $theme$">
     <header class="header" role="banner">
-      $if(logo)$<a class="home-link" href="$root$/index.html"><img alt="" class="logo" height="100" src="$root$$logo$" width="100"></a>$endif$
+      $if(logo)$<a class="home-link" href="$root$/index.html"><img alt="" class="logo" height="100" src="$root$$logo$"></a>$endif$
       $if(title)$<h1 class="title">$title$</h1>$endif$
       $if(level)$<span class="level-indicator">$level$</span>$endif$
     </header>
 
     $if(breadcrumbs)$<nav class="breadcrumbs">$breadcrumbs$</nav>$endif$
-
-$if(legal)$
-    <aside class="legal-notice">
-      <p>$legal$</p>
-    </aside>
-$endif$
 
     <main class="main" role="main">
 $body$

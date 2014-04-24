@@ -3,8 +3,12 @@
 	@extend %h2;
 
 	background:    rgba($color-primary, 0.15);
-	border-radius: 50px 15px 15px 50px;
-	line-height:   100px;
+	border-radius: 1.5em;
+	line-height:   50px;
 	margin:        0;
-	padding-left:  120px;
+	text-align:    center;
+
+	.world & {
+		background: rgba($color-highlight, 0.15);
+	}
 }

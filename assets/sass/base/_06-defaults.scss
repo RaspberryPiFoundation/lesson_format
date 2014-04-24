@@ -17,7 +17,11 @@ html {
 	background: $color-bg;
 	border-top: 7px solid rgba($color-primary, 0.2);
 	min-height: 100%;
-	min-width:  320px;
+	padding:    0 10px;
+
+	&.world {
+		border-top-color: rgba($color-highlight, 0.2);
+	}
 }
 
 	body {
@@ -33,7 +37,7 @@ html {
 		padding:     1em 0 2em;
 		max-width:   800px;
 		min-height:  100%;
-		min-width:   320px;
+		min-width:   300px;
 		position:    relative;
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	}
@@ -56,6 +60,20 @@ a {
 	&:visited {
 		color:           $color-primary;
 		text-decoration: none;
+	}
+
+	.world & {
+		color: $color-highlight;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: darken($color-highlight, 10);
+		}
+
+		&:visited {
+			color: $color-highlight;
+		}
 	}
 
 	.text-success &,
@@ -125,6 +143,11 @@ code {
 	font-family:   $font-family-monospace;
 	font-size:     0.8em;
 	padding:       0 0.5em;
+
+	&.blockblue   { background: $color-code-blue;   }
+	&.blockorange { background: $color-code-orange; }
+	&.blockyellow { background: $color-code-yellow; }
+	&.blockpurple { background: $color-code-purple; }
 }
 
 dl {
@@ -203,8 +226,6 @@ ol {
 }
 
 p, .p, %p {
-	max-width: 38em;
-
 	&.lead {
 		color:     $color-base-dark;
 		font-size: $font-size-large;
