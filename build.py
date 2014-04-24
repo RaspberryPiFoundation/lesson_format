@@ -368,22 +368,28 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
     project_counter = 1
 
     for project in sorted(term.projects, key=lambda x:x.number):
+        files  = sort_files(project.filename)
+        first  = files[0]
+        others = files[1:]
+        url    = os.path.relpath(first.filename, output_dir)
+
         projects_item = ET.SubElement(projects_list, 'li', {
             'class': 'projects-item'
         })
 
+        projects_title = ET.SubElement(projects_item, 'span', {
+            'class': 'projects-title'
+        })
+
+        projects_title.text = str(project_counter) + '. ' + (project.title or url)
+
         if project.level:
-            projects_level = ET.SubElement(projects_item, 'span', {
+            projects_level = ET.SubElement(projects_title, 'span', {
                 'class': 'projects-level'
             })
 
             projects_level.text = unicode(project.level)
 
-        files              = sort_files(project.filename)
-        first              = files[0]
-        others             = files[1:]
-        url                = os.path.relpath(first.filename, output_dir)
-        projects_item.text = str(project_counter) + '. ' + (project.title or url)
 
         files_list = ET.SubElement(projects_item, 'ul', {
             'class': 'files-list'
@@ -411,7 +417,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                 'href': pdf_url
             })
 
-            pdf_link.text = language.translate('Download as PDF')
+            pdf_link.text = language.translate('Download PDF')
 
         for file in others:
             url        = os.path.relpath(file.filename, output_dir)
@@ -459,13 +465,13 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                     'href': note_pdf_url
                 })
 
-                pdf_link.text = language.translate('Download as PDF')
+                pdf_link.text = language.translate('Download PDF')
 
         if project.materials:
             file       = project.materials
             url        = os.path.relpath(file.filename, output_dir)
             files_item = ET.SubElement(files_list, 'li', {
-                'class': 'files-item'
+                'class': 'files-item materials'
             })
 
             files_link = ET.SubElement(files_item, 'a', {
@@ -473,38 +479,49 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                 'href': url
             })
 
-            files_link.text = "%s - %s file"%(language.translate("Project Materials"),file.format)
+            files_link.text = language.translate("Download Project Materials")
 
-        for extra in sorted(project.extras, key=lambda x:x.name):
-            if hasattr(extra, 'pdf'):
-                pdf_url  = os.path.relpath(extra.pdf, output_dir)
+        if project.extras:
+            extras_list_title = ET.SubElement(projects_item, 'span', {
+                'class': 'projects-title'
+            })
 
-            for file in sort_files(extra.note):
-                url        = os.path.relpath(file.filename, output_dir)
-                files_item = ET.SubElement(files_list, 'li', {
-                    'class': 'files-item'
-                })
+            extras_list_title.text = language.translate("Scratch Cards for this lesson");
 
-                files_link = ET.SubElement(files_item, 'a', {
-                    'class': 'files-link extra',
-                    'href': url
-                })
+            extras_list = ET.SubElement(projects_item, 'ul', {
+                'class': 'files-list extras'
+            })
 
-                files_link.text = extra.name
+            for extra in sorted(project.extras, key=lambda x:x.name):
+                if hasattr(extra, 'pdf'):
+                    pdf_url  = os.path.relpath(extra.pdf, output_dir)
 
-                if file.format != 'html':
-                    files_link.text = "%s (%s)"%(extra.name,file.format)
-
-                if pdf_url:
-                    separator = ET.SubElement(files_item, 'span')
-                    separator.text = ' ' + unichr(8212) + ' ';
-
-                    pdf_link = ET.SubElement(files_item, 'a', {
-                        'class': 'files-link pdf',
-                        'href': pdf_url
+                for file in sort_files(extra.note):
+                    url        = os.path.relpath(file.filename, output_dir)
+                    files_item = ET.SubElement(extras_list, 'li', {
+                        'class': 'files-item'
                     })
 
-                    pdf_link.text = language.translate('Download as PDF')
+                    files_link = ET.SubElement(files_item, 'a', {
+                        'class': 'files-link extra',
+                        'href': url
+                    })
+
+                    files_link.text = extra.name
+
+                    if file.format != 'html':
+                        files_link.text = "%s (%s)"%(extra.name,file.format)
+
+                    if pdf_url:
+                        separator = ET.SubElement(files_item, 'span')
+                        separator.text = ' ' + unichr(8212) + ' ';
+
+                        pdf_link = ET.SubElement(files_item, 'a', {
+                            'class': 'files-link pdf',
+                            'href': pdf_url
+                        })
+
+                        pdf_link.text = language.translate('Download PDF')
 
         project_counter += 1
 

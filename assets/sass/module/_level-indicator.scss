@@ -1,6 +1,6 @@
 
 .level-indicator {
-	background:     $color-highlight;
+	background:     $color-primary;
 	border-radius:  5px;
 	color:          #fff;
 	display:        block;
@@ -9,10 +9,9 @@
 	padding:        0 0.5em;
 	position:       absolute;
 	right:          0;
-	text-transform: uppercase;
 	top:            70px;
 
-	html[lang="en-GB"] & {
-		font-family: $font-family-print;
+	.world & {
+		background: $color-highlight;
 	}
 }
