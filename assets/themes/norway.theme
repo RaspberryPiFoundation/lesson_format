@@ -1,0 +1,13 @@
+{
+    "id":"norway",
+    "language":"nb-NO",
+    "name":"Kodeklubben Prosjekter",
+    "legal": "Dette kurset er utviklet av <a href=\"http://www.codeclub.org.uk/\">Code Club (http://www.codeclub.org.uk/)</a> i England, og oversatt til norsk av <a href=\"http://www.kodeklubben.no/\">Kodeklubben (http://www.kodeklubben.no/)</a>.",
+    "stylesheets": [],
+    "logo": "/img/ccno_logo.png",
+    "css_variables": {
+        "header_bg_light": "#B1DAAE",
+        "header_bg_dark": "#349946",
+        "header_text": "#FFFFFF"
+    }
+}

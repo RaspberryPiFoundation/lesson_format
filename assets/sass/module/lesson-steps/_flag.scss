@@ -1,0 +1,28 @@
+
+.flag {
+	background:    rgba($color-primary, 0.1);
+	border:        1px dotted $color-primary;
+	border-radius: 0.5em;
+	overflow:      none;
+	padding:       0.5em 1em 1em;
+
+	h2 {
+		background:      url('../img/flag.png') left center no-repeat;
+		background-size: 1em auto;
+		color:           $color-primary;
+		padding-left:    1.2em;
+	}
+
+	p {
+		margin-bottom: 0.75em;
+	}
+
+	ul {
+		margin: 0;
+	}
+
+		li:before {
+			background:   rgba($color-primary, 0.15);
+			border-color: $color-primary;
+		}
+}

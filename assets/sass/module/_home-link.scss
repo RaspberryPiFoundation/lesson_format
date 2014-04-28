@@ -1,0 +1,12 @@
+
+.home-link {
+	border-radius: 50px;
+	display:       block;
+	height:        100px;
+	margin:        0 auto 1em;
+	width:         100px;
+
+	.world & {
+		width: 161px;
+	}
+}

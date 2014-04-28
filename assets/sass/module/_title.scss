@@ -1,0 +1,14 @@
+
+.title {
+	@extend %h2;
+
+	background:    rgba($color-primary, 0.15);
+	border-radius: 1.5em;
+	line-height:   50px;
+	margin:        0;
+	text-align:    center;
+
+	.world & {
+		background: rgba($color-highlight, 0.15);
+	}
+}

@@ -1,0 +1,42 @@
+
+.projects-list {
+	@extend %clearfix;
+
+	margin: 0 0 1em;
+}
+
+	.projects-item {
+		background:    $color-primary;
+		border-radius: 0.5em;
+		color:         #fff;
+		list-style:    none;
+		margin:        0 0 1em;
+		padding:       0.25em;
+
+		.world & {
+			background: $color-highlight;
+		}
+	}
+
+		.projects-title {
+			display:     block;
+			line-height: 2;
+			margin-left: 0.75em;
+		}
+
+			.projects-level {
+				white-space: nowrap;
+
+				&:before {
+					content: ' \2014  ';
+				}
+
+				@media screen and (min-width: 501px) {
+					float:         right;
+					padding-right: 0.65em;
+
+					&:before {
+						content: '';
+					}
+				}
+			}

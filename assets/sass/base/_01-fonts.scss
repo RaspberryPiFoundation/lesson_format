@@ -1,0 +1,49 @@
+
+@font-face {
+	font-family: 'VAGbold';
+	src: url("../fonts/vagrounded-bold-webfont.eot");
+	src: url("../fonts/vagrounded-bold-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/vagrounded-bold-webfont.woff") format("woff"),
+		 url("../fonts/vagrounded-bold-webfont.ttf") format("truetype"),
+		 url("../fonts/vagrounded-bold-webfont.svg#VAGRoundedBoldRegular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Comic Neue';
+	src: url('../fonts/ComicNeue-Regular.eot');
+	src: url('../fonts/ComicNeue-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/ComicNeue-Regular.woff') format('woff'),
+		 url('../fonts/ComicNeue-Regular.ttf')  format('truetype');
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: 'Comic Neue';
+	src: url('../fonts/ComicNeue-Regular-Oblique.eot');
+	src: url('../fonts/ComicNeue-Regular-Oblique.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/ComicNeue-Regular-Oblique.woff') format('woff'),
+		 url('../fonts/ComicNeue-Regular-Oblique.ttf')  format('truetype');
+	font-weight: 300;
+	font-style: oblique;
+}
+
+@font-face {
+	font-family: 'Comic Neue';
+	src: url('../fonts/ComicNeue-Bold.eot');
+	src: url('../fonts/ComicNeue-Bold.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/ComicNeue-Bold.woff') format('woff'),
+		 url('../fonts/ComicNeue-Bold.ttf')  format('truetype');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'Comic Neue';
+	src: url('../fonts/ComicNeue-Bold-Oblique.eot');
+	src: url('../fonts/ComicNeue-Bold-Oblique.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/ComicNeue-Bold-Oblique.woff') format('woff'),
+		 url('../fonts/ComicNeue-Bold-Oblique.ttf')  format('truetype');
+	font-weight: 700;
+	font-style: oblique;
+}

@@ -1,0 +1,104 @@
+
+.lesson-steps {
+
+	html[lang="en-GB"] & {
+		b, em, i, li, p, strong {
+			font-family: $font-family-print;
+			font-weight: 500;
+		}
+
+		b, strong {
+			font-weight: 700;
+		}
+
+		h1, h2 {
+			b, strong {
+				font-family: $font-family-secondary;
+			}
+		}
+	}
+
+	h1 {
+		font-size:     1.5em;
+		margin-bottom: 0.5em;
+	}
+
+	h2 {
+		font-size:     1.3em;
+		margin-bottom: 0.2em;
+	}
+
+	section {
+		margin-bottom: 1.5em;
+
+		&#introduction {
+			border-bottom: 3px dotted $color-warning;
+		}
+	}
+
+	ol {
+		margin-left: 1.55em;
+	}
+
+	ul {
+		margin-left: 0;
+
+		li {
+			list-style:  none;
+			margin-left: 1.5em;
+			position:    relative;
+
+			&:before {
+				background:    rgba($color-highlight, 0.1);
+				border:        0.15em solid $color-highlight;
+				border-radius: 0.25em;
+				content:       ' ';
+				display:       block;
+				left:          -1.3em;
+				position:      absolute;
+				top:           0.2em;
+				height:        1em;
+				width:         1em;
+			}
+
+			img {
+				border:    none;
+				max-width: 100%;
+
+				&:before {
+					content: ' ';
+					display: block;
+				}
+
+				&.inline {
+					display: inline !important;
+					margin:  0;
+					vertical-align: top;
+
+					&:before {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	img {
+		border:        0.15em solid $color-warning;
+		border-radius: 0.25em;
+		display:       block;
+		margin:        0 auto 1em auto;
+		max-width:     100%;
+	}
+
+	pre {
+		margin: 0 0 2em !important;
+
+		code {
+			background:  none;
+			padding:     0 !important;
+			text-indent: 0;
+		}
+	}
+
+}

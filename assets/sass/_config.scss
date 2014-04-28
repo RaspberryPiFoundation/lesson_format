@@ -1,0 +1,87 @@
+
+//	Media Query Breakpoints
+$break-narrow:  320;
+$break-medium:  600;
+$break-regular: 800;
+$break-wide:    1000;
+
+//	Colors
+$color-bg:               #f8faf4;
+$color-base:             #111;
+$color-base-dark:        #111;
+$color-base-light:       #ccc;
+
+$color-primary:          #349946;
+$color-danger:           #ed6751;
+$color-highlight:        #3477d1;
+$color-success:          #29c76c;
+$color-warning:          #f5a200;
+
+$color-danger-active:    lighten($color-danger,    10);
+$color-highlight-active: lighten($color-highlight, 10);
+$color-success-active:   lighten($color-success,   10);
+$color-warning-active:   lighten($color-warning,   10);
+
+//	More specific colors (bad, but bear with it)
+$color-code-blue:   rgba($color-highlight, 0.5);
+$color-code-orange: rgba($color-warning,   0.5);
+$color-code-yellow: rgba($color-warning,   0.25);
+$color-code-purple: rgba(#9b59b6,          0.25);
+
+//	Font Families
+$font-family-primary:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-secondary: VAGbold, sans-serif;
+$font-family-print:     'Comic Neue', 'Comic Sans', sans-serif;
+$font-family-monospace: Consolas, monaco, monospace;;
+
+//	Configure Typecsset
+$typecsset-base-font-size:   19px;
+$typecsset-base-line-height: 30px;
+
+//	Default Stuff
+$base-font-size:   $typecsset-base-font-size;
+$base-font-weight: 300;
+$base-line-height: $typecsset-base-line-height;
+
+//	Font Weights
+$font-weight-light: 100;
+$font-weight-bold:  500;
+
+//	Other Typography Settings
+$font-size-small: 14px;
+$font-size-large: 22px;
+
+//	Heading Sizes
+$typecsset-h1-size: 48px;
+$typecsset-h2-size: 36px;
+$typecsset-h3-size: 30px;
+$typecsset-h4-size: 24px;
+$typecsset-h5-size: 20px;
+$typecsset-h6-size: 20px;
+
+//	Heading colors
+$h1-color: #000;
+$h2-color: #000;
+$h3-color: #000;
+$h4-color: #000;
+$h5-color: #000;
+$h6-color: #b22d00;
+
+//	Heading typefaces
+$h1-font-family: $font-family-secondary;
+$h2-font-family: $font-family-secondary;
+$h3-font-family: $font-family-secondary;
+$h4-font-family: $font-family-secondary;
+$h5-font-family: $font-family-secondary;
+$h6-font-family: $font-family-secondary;
+
+//	Heading Weights
+$h1-font-weight: $base-font-weight;
+$h2-font-weight: $base-font-weight;
+$h3-font-weight: $base-font-weight;
+$h4-font-weight: $base-font-weight;
+$h5-font-weight: $base-font-weight;
+$h6-font-weight: $base-font-weight;
+
+//	Debug stuff
+$typecsset-show-baseline: true;

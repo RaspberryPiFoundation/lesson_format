@@ -1,0 +1,22 @@
+
+.breadcrumbs-list {
+	@extend %clearfix;
+
+	font-size: 0.9em;
+	margin:  0;
+	padding: 0 1em;
+}
+
+	.breadcrumbs-item {
+		float:       left;
+		line-height: 2;
+		list-style:  none;
+
+		&:before {
+			content: '\00A0/\00A0';
+		}
+
+		&:first-child:before {
+			content: '';
+		}
+	}

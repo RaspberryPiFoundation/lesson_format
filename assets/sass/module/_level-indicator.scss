@@ -1,0 +1,17 @@
+
+.level-indicator {
+	background:     $color-primary;
+	border-radius:  5px;
+	color:          #fff;
+	display:        block;
+	font-size:      0.9em;
+	line-height:    30px;
+	padding:        0 0.5em;
+	position:       absolute;
+	right:          0;
+	top:            70px;
+
+	.world & {
+		background: $color-highlight;
+	}
+}

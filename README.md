@@ -20,9 +20,9 @@ For Example
     ---
     title: An example Markdown File
     ...
-    
+
     # Introduction {.intro}
-        
+
     ```scratch
     when FLAG clicked
       move 10 steps
@@ -48,7 +48,7 @@ note: "notes for club leaders.md"
 Rest of markdown file ...
 ```
 
-- The language is optional, but useful. 
+- The language is optional, but useful.
 - The stylesheet is needed for scratch worksheets.
 - Embeds is a file, or a list of files for images used inside the document
 - Materials is a file, or list of files of things that accompany the lesson (e.g scratch files)
@@ -61,7 +61,7 @@ The lesson formatter parses these headers for building the static pages and inde
 
 ## Code Club Markdown Annotations
 
-Each lesson begins with an introduction, 
+Each lesson begins with an introduction,
 
 - Mark up introduction headers `# Intro {.intro}` (always a h1)
 
@@ -109,14 +109,13 @@ We use `scratch`, or `blocks` as the name of the language, for example, in markd
     Another paragraph
 
 
-
 ## Term Manifests
 
 A manifest file is a json file which is a list of all files needed for a term, and looks like the following:
 
 ```
 {
-    "id": "example", 
+    "id": "example",
     "title":"Example Term",
     "description":"This is for example purposes",
     "language": "en-GB",
@@ -131,11 +130,11 @@ A manifest file is a json file which is a list of all files needed for a term, a
             "filename": "02 Ghostbusters/Ghostbusters.md",
             "number": 2
         },
-        { 
+        {
             "filename": "pdf/*.pdf",
             "number": 3,
             "title": "A lesson",
-            "materials": ["files to include in the lesson downlaod"], 
+            "materials": ["files to include in the lesson downlaod"],
             "note": "note for instructor",
             "extras": [
                 {
@@ -157,7 +156,7 @@ A manifest file is a json file which is a list of all files needed for a term, a
 }
 ```
 
-- id is the identifier, and used for filenames and urls 
+- id is the identifier, and used for filenames and urls
 - title is the proper name of the term, used for lists and headers
 - description is used in the term page, with a list of projects
 - number is the term number. currently scratch is 1&2, webdev is 3, python is 4.
@@ -168,7 +167,7 @@ Then there is a list of projects, and a list of extra files to include
 
 ## Translations
 
-The lesson formatter can use different languages in the project listing. 
+The lesson formatter can use different languages in the project listing.
 
 ```
 {
@@ -189,7 +188,7 @@ The lesson formatter can use different languages in the project listing.
 
 ## Themes
 
-There are two themes, Code Club World, and Code Club UK. They specify the default css, html templates, and css color variables. 
+There are two themes, Code Club World, and Code Club UK. They specify the default css, html templates, and css color variables.
 
 # Installation and Running
 
@@ -203,7 +202,7 @@ It won't work on windows.
 
 - Python 2, with the pyyaml library (`pip install pyyaml`)
 - Pandoc (a recent version, 1.12 or newer)
-- Phantomjs 
+- Phantomjs
 
 ## Running
 
@@ -239,7 +238,7 @@ creating indexes by language, term, too.
 Run a webserver in the output directory, e.g.
 
 ```
-$ cd output
+$ cd <output directory>
 $ python -m SimpleHTTPServer <port>
 ```
 
@@ -248,7 +247,3 @@ $ python -m SimpleHTTPServer <port>
 When it encounters an error in the manifest, the entire term is skipped. Errors can be missing files or json syntax errors.
 
 Only projects can have embedded files, not notes. If you have a note/extra with pngs etc, put those file names inside the manifest, under the project embeds.
-
-
-
-

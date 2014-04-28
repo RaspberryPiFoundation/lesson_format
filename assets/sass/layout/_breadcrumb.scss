@@ -1,0 +1,10 @@
+
+.breadcrumbs {
+	background:    rgba($color-primary, 0.05);
+	border-radius: 15px;
+	margin:        0 0 1em;
+
+	.world & {
+		background: rgba($color-highlight, 0.05);
+	}
+}

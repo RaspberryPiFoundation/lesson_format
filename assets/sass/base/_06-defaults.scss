@@ -1,0 +1,278 @@
+
+//  Setup Box Sizing
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
+//	CLEARFIX ALL THE THINGS
+
+article, div, dl, fieldset, footer, form, header, main, ol, section, nav, ul {
+	@extend %clearfix;
+}
+
+//  Sort the body's defaults out
+
+html {
+	background: $color-bg;
+	border-top: 7px solid rgba($color-primary, 0.2);
+	min-height: 100%;
+	padding:    0 10px;
+
+	&.world {
+		border-top-color: rgba($color-highlight, 0.2);
+	}
+}
+
+	body {
+		color:       $color-base;
+		font-family: $font-family-primary;
+	    -webkit-font-feature-settings: "kern";
+	    -moz-font-feature-settings: "kern";
+	    font-feature-settings: "kern";
+		font-weight: $base-font-weight;
+		@extend %text-rendering;
+		@extend %text-size-adjust;
+		margin:      0 auto;
+		padding:     1em 0 2em;
+		max-width:   800px;
+		min-height:  100%;
+		min-width:   300px;
+		position:    relative;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	}
+
+//	Base element styles
+
+a {
+	color:           $color-primary;
+	cursor:          pointer;
+	text-decoration: none;
+	@include transition(all 0.1s ease-in-out);
+
+	&:active,
+	&:focus,
+	&:hover {
+		color:           darken($color-primary, 10);
+		text-decoration: underline;
+	}
+
+	&:visited {
+		color:           $color-primary;
+		text-decoration: none;
+	}
+
+	.world & {
+		color: $color-highlight;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: darken($color-highlight, 10);
+		}
+
+		&:visited {
+			color: $color-highlight;
+		}
+	}
+
+	.text-success &,
+	&.text-success {
+		color: $color-success;
+
+		&:active,
+		&:focus,
+		&:hover,
+		&:visited {
+			color: $color-success-active;
+		}
+	}
+
+	.text-warning &,
+	&.text-warning {
+		color: $color-warning;
+
+		&:active,
+		&:focus,
+		&:hover,
+		&:visited {
+			color: $color-warning-active;
+		}
+	}
+
+	.text-danger &,
+	&.text-danger {
+		color: $color-danger;
+
+		&:active,
+		&:focus,
+		&:hover,
+		&:visited {
+			color: $color-danger-active;
+		}
+	}
+}
+
+address {
+	font-style: normal;
+}
+
+b {
+	color:       $color-base-dark;
+	font-weight: $font-weight-bold;
+}
+
+blockquote {
+	margin: 0;
+}
+
+button {
+	border:      none;
+	font-family: $font-family-primary;
+	font-weight: $base-font-weight;
+}
+
+cite {
+	display: block;
+}
+
+code {
+	background:    #d7d7d7;
+	border-radius: 0.25em;
+	color:         #111;
+	font-family:   $font-family-monospace;
+	font-size:     0.8em;
+	padding:       0 0.5em;
+
+	&.blockblue   { background: $color-code-blue;   }
+	&.blockorange { background: $color-code-orange; }
+	&.blockyellow { background: $color-code-yellow; }
+	&.blockpurple { background: $color-code-purple; }
+}
+
+dl {
+	dd {}
+
+	dt {}
+}
+
+em {
+	font-style: italic;
+}
+
+figure {
+	@extend %reset;
+	display: block;
+	@include rem(margin-bottom, $base-line-height);
+
+	img {
+		display:   block;
+		max-width: 100%;
+		width:     100%;
+	}
+
+	figcaption {}
+}
+
+h1, .h1, %h1 { font-family: $font-family-primary; font-size: $typecsset-h1-size; font-weight: $font-weight-bold; }
+h2, .h2, %h2 { font-family: $font-family-primary; font-size: $typecsset-h2-size; font-weight: $font-weight-bold; }
+h3, .h3, %h3 { font-family: $font-family-primary; font-size: $typecsset-h3-size; font-weight: $font-weight-bold; }
+h4, .h4, %h4 { font-family: $font-family-primary; font-size: $typecsset-h4-size; font-weight: $font-weight-bold; }
+h5, .h5, %h5 { font-family: $font-family-primary; font-size: $typecsset-h5-size; font-weight: $font-weight-bold; }
+h6, .h6, %h6 { font-family: $font-family-primary; font-size: $typecsset-h6-size; font-weight: $font-weight-bold; }
+
+html[lang="en-GB"] {
+	h1, .h1, %h1 { font-family: $h1-font-family; font-weight: $h1-font-weight; }
+	h2, .h2, %h2 { font-family: $h2-font-family; font-weight: $h2-font-weight; }
+	h3, .h3, %h3 { font-family: $h3-font-family; font-weight: $h3-font-weight; }
+	h4, .h4, %h4 { font-family: $h4-font-family; font-weight: $h4-font-weight; }
+	h5, .h5, %h5 { font-family: $h5-font-family; font-weight: $h5-font-weight; }
+	h6, .h6, %h6 { font-family: $h6-font-family; font-weight: $h6-font-weight; }
+}
+
+i {
+	font-style: italic;
+}
+
+input {
+	font-family: $font-family-primary;
+	font-weight: $base-font-weight;
+}
+
+kbd {
+	background:    #d7d7d7;
+	border-radius: 0.25em;
+	color:         #111;
+	font-family:   $font-family-monospace;
+	font-size:     0.8em;
+	padding:       0 0.5em;
+}
+
+label {
+	margin: 0;
+}
+
+ol {
+	li {
+		list-style: decimal;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	ol, ul {
+		margin-bottom: 0;
+	}
+}
+
+p, .p, %p {
+	&.lead {
+		color:     $color-base-dark;
+		font-size: $font-size-large;
+	}
+
+	&.full {
+		max-width: none;
+	}
+}
+
+pre {}
+
+select {
+	font-family: $font-family-primary;
+	font-weight: $base-font-weight;
+}
+
+strong {
+	color:       $color-base-dark;
+	font-weight: $font-weight-bold;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+textarea {
+	font-family: $font-family-primary;
+	font-weight: $base-font-weight;
+}
+
+time {
+	display:   inline-block;
+	font-size: $font-size-small;
+}
+
+ul {
+	li {
+		list-style: disc;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	ol, ul {
+		margin-bottom: 0;
+	}
+}

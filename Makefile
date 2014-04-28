@@ -1,37 +1,45 @@
-all:
 
+clone:
+	remove_dirs
+	make_dirs
 
-clone: clear
-	mkdir repositories
-	git clone git@github.com:CodeClub/scratch-curriculum.git repositories/scratch-curriculum
-	git clone git@github.com:CodeClub/webdev-curriculum.git repositories/webdev-curriculum
-	git clone git@github.com:CodeClub/python-curriculum.git repositories/python-curriculum
-	git clone git@github.com:CodeClub/CodeClubUK-Projects.git repositories/codeclubuk-projects
-	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git repositories/codeclubworld-projects
+	git clone git@github.com:CodeClub/scratch.git lessons/scratch
+	git clone git@github.com:CodeClub/webdev.git  lessons/webdev
+	git clone git@github.com:CodeClub/python.git  lessons/python
+
+	git clone git@github.com:CodeClub/CodeClubUK-Projects.git    output/codeclubuk
+	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git output/codeclubworld
 
 update:
-	cd repositories/scratch-curriculum && git pull && git checkout master
-	cd repositories/webdev-curriculum && git pull && git checkout master
-	cd repositories/python-curriculum && git pull && git checkout master
-	cd repositories/codeclubuk-projects && git pull && git checkout gh-pages
-	cd repositories/codeclubworld-projects && git pull && git checkout gh-pages
+	cd lessons/scratch && git pull && git checkout master
+	cd lessons/webdev  && git pull && git checkout master
+	cd lessons/python  && git pull && git checkout master
 
-clear:
-	rm -fR repositories
+	cd output/codeclubuk    && git pull && git checkout gh-pages
+	cd output/codeclubworld && git pull && git checkout gh-pages
 
+make_dirs:
+	mkdir lessons
+	mkdir output
+
+remove_dirs:
+	rm -rf lessons
+	rm -rf output
 
 pages_uk: update
-	python build.py ${options} uk repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubuk-projects/ 
-	
+	python build.py ${options} uk lessons/scratch lessons/python lessons/webdev output/codeclubuk
+
 pages_world: update
-	python build.py ${options} world repositories/scratch-curriculum/ repositories/python-curriculum repositories/webdev-curriculum/ repositories/codeclubworld-projects/
+	python build.py ${options} world lessons/scratch lessons/python lessons/webdev output/codeclubworld
 
-world: pages_world
-	cd repositories/codeclubworld-projects && git add * && git commit -am"Rebuild" && git push
+commit_uk: pages_uk
+	cd output/codeclubuk && git add * && git commit -am "Rebuild" && git push
 
-uk: pages_uk
-	cd repositories/codeclubuk-projects && git add * && git commit -am"Rebuild" && git push
+commit_world: pages_world
+	cd output/codeclubworld && git add * && git commit -am "Rebuild" && git push
 
-example:
-	python build.py world example* output
+css_uk:
+	python build.py ${options} css lessons/scratch lessons/python lessons/webdev output/codeclubuk
 
+css_world:
+	python build.py ${options} css lessons/scratch lessons/python lessons/webdev output/codeclubworld

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html$if(lang)$ lang="$lang$"$endif$>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Code Club Projects Pattern Library</title>
+
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <link rel="stylesheet" href="./assets/css/master.min.css">
+  </head>
+    <header class="header" role="banner">
+      <a class="home-link" href="./index.html"><img alt="" class="logo" height="100" src="./assets/img/ccuk_logo.png" width="100"></a>
+      <h1 class="title">Projects Component Library</h1>
+      <span class="level-indicator">Level 1</span>
+    </header>
+
+    <nav class="breadcrumbs">
+      <ul class="breadcrumbs-list">
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="../../../index.html">Languages</a></li>
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="../../index.html">English</a></li>
+        <li class="breadcrumbs-item"><a class="breadcrumbs-link" href="../index.html">Beginner Scratch</a></li>
+        <li class="breadcrumbs-item current">Felix and Herbert</li>
+      </ul>
+    </nav>
+
+    <aside class="legal-notice">
+      <p>These projects are for use inside the UK only. All Code Clubs <strong>must</strong> be registered. You can check registered clubs on the map at <a href="http://www.codeclub.org.uk/">www.codeclub.org.uk</a>. This coursework is developed in the open on GitHub (<a href="http://github.com/CodeClub/">github.com/CodeClub/</a>), come and join us!</p>
+      <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+    </aside>
+
+    <main class="main" role="main">
+      <section class="index">
+        <h1 class="index-title">Languages</h1>
+
+        <ul class="index-list">
+          <li class="index-item"><a class="index-link" href="en-GB/index.html">English</a></li>
+        </ul>
+      </section>
+
+      <section class="index">
+        <h1 class="index-title">Terms</h1>
+
+        <ul class="index-list">
+          <li class="index-item"><a class="index-link" href="scratch.1/index.html">Beginner Scratch</a></li>
+          <li class="index-item"><a class="index-link" href="scratch.2/index.html">Advanced Scratch</a></li>
+          <li class="index-item"><a class="index-link" href="webdev.3/index.html">HTML &amp; CSS</a></li>
+          <li class="index-item"><a class="index-link" href="python.4/index.html">Python</a></li>
+        </ul>
+      </section>
+
+      <section class="index">
+        <h1 class="index-title">Club Resources</h1>
+
+        <ul class="index-list">
+          <li class="index-item"><a class="index-link" href="https://www.codeclub.org.uk/terms-and-conditions">Terms and Conditions</a></li>
+        </ul>
+      </section>
+
+      <section class="index">
+        <h1 class="index-title">Projects</h1>
+
+        <p class="index-description">Scratch is a simple, fun way to program by dragging and dropping blocks together</p>
+
+        <ul class="projects-list">
+          <li class="projects-item">
+            Felix and Herbert
+
+            <ul class="files-list">
+              <li class="files-item"><a class="files-link worksheet" href="#">Student project</a></li>
+              <li class="files-item"><a class="files-link notes"     href="#">Notes</a></li>
+              <li class="files-item"><a class="files-link alternate" href="#">Alternate</a></li>
+              <li class="files-item"><a class="files-link extra"     href="#">Extras</a></li>
+              <li class="files-item"><a class="files-link materials" href="#">Materials (zip)</a></li>
+            </ul>
+          </li>
+
+          <li class="projects-item">
+            Ghostbusters
+
+            <ul class="files-list">
+              <li class="files-item"><a class="files-link worksheet" href="02/Ghostbusters.html">Student project</a></li>
+              <li class="files-item"><a class="files-link notes" href="02/notes for club leaders.html">Notes</a></li>
+            </ul>
+          </li>
+
+          <li class="projects-item">
+            Fireworks
+
+            <ul class="files-list">
+              <li class="files-item"><a class="files-link worksheet" href="03/Fireworks.html">Student project</a></li>
+              <li class="files-item"><a class="files-link notes" href="03/notes for club leaders.html">Notes</a></li>
+              <li class="files-item"><a class="files-link materials" href="03/scratch_1-03_Fireworks_resources.zip">Materials (zip)</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <main class="main lesson-steps">
+      <section id="introduction" class="level1 intro">
+        <h1>Introduction</h1>
+
+        <p>We are going to make a game of catch with <strong>Felix the cat</strong> and <strong>Herbert</strong> the mouse. You control Herbert with the mouse and try to avoid getting caught by Felix. The longer you avoid him the more points you score, but don’t get caught because your score will go down!</p>
+        <p><img src="./assets/dev/felixherbert_screenshot.png" alt="screenshot" /></p>
+      </section>
+
+      <section id="step-1-felix-follows-the-mouse-pointer" class="level1 activity">
+        <h1>Step 1: Felix follows the mouse pointer</h1>
+
+        <section id="activity-checklist" class="level2 check">
+          <h1>Activity Checklist</h1>
+
+          <ul>
+            <li><strong>Start a new project.</strong></li>
+            <li>Click on the <strong>stage</strong> next to the sprite and switch to the <code class="blocklightgrey">Backdrops</code> tab, and then click the <code class="blocklightgrey">Choose Backdrop from library</code> button and choose the backdrop indoors/hall. Delete the original blank backdrop.</li>
+            <li>Click on the sprite, and then click on the <code>i</code> button to the top left of the Sprite. Change the name of the sprite to <strong>Felix</strong>.</li>
+            <li>Make sure Felix only points left-right by clicking this button:</li>
+            <li>
+              <strong>Create this script</strong>:
+              <img src="./assets/dev/scratchblock_example.png" alt="    when FLAG clicked
+                  forever
+                      point towards [mouse-pointer v]
+                      move (10) steps
+                      next costume
+                      play drum (3 v) for (0.3) beats
+                  end" />
+            </li>
+          </ul>
+        </section>
+
+        <section id="test-your-project" class="level2 flag">
+          <h1>Test your project</h1>
+
+          <p><strong>Click the green flag.</strong></p>
+          <p>Does Felix follow the mouse pointer? Does it look like he’s walking when he moves? Does he move at the right speed?</p>
+        </section>
+
+        <section id="save-your-project" class="level2 save">
+          <h1>Save your project</h1>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+{
+	"code": "en-GB",
+	"name": "English",
+	"legal": {},
+	"translations": {},
+	"links" : {
+		"Club Resources": [
+			{
+				"name": "Scratch Cards",
+				"url":  "http://scratch.mit.edu/help/cards/"
+			},
+			{
+				"name": "Terms and Conditions",
+				"url":  "https://www.codeclub.org.uk/terms-and-conditions"
+			}
+		]
+	}
+}

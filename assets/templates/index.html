@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="$theme$" $if(lang)$ lang="$lang$"$endif$>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>$if(title)$$title$ — $endif$$organization$</title>
+
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <link rel="stylesheet" href="$root$/css/master.min.css">
+    <link rel="stylesheet" href="$root$/css/prism.css">
+  </head>
+
+  <body class="index-template $theme$">
+    <header class="header" role="banner">
+      $if(logo)$<a class="home-link" href="$root$/index.html"><img alt="" class="logo" height="100" src="$root$$logo$"></a>$endif$
+      $if(title)$<h1 class="title">$title$</h1>$endif$
+      $if(level)$<span class="level-indicator">$level$</span>$endif$
+    </header>
+
+    $if(breadcrumbs)$<nav class="breadcrumbs">$breadcrumbs$</nav>$endif$
+
+    <main class="main" role="main">
+$body$
+    </main>
+
+$if(legal)$
+    <aside class="legal-notice copyright">
+      <p>$legal$</p>
+      <p>&copy; $year$ Code Club. This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA 4.0 International License</a>.</p>
+    </aside>
+$endif$
+
+    <link rel="stylesheet" href="$root$/js/prism.js">
+
+$if(analytics_account)$
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '$analytics_account$']);
+      _gaq.push(['_setDomainName', '$analytics_domain$']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+$endif$
+  </body>
+</html>

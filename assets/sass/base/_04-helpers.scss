@@ -1,0 +1,44 @@
+
+.reset, %reset {
+    margin:  0;
+    padding: 0;
+}
+
+//  Alignment and that
+
+.text-left    { text-align: left;    }
+.text-center  { text-align: center;  }
+.text-right   { text-align: right;   }
+.text-justify { text-align: justify; }
+
+.text-success { color: $color-success; }
+.text-warning { color: $color-warning; }
+.text-danger  { color: $color-danger;  }
+
+//  Utility things
+
+.hidden {
+	display:    none !important;
+	visibility: hidden;
+}
+
+.visually-hidden {
+	border:   0;
+	clip:     rect(0 0 0 0);
+	height:   1px;
+	margin:   -1px;
+	overflow: hidden;
+	padding:  0;
+	position: absolute;
+	width:    1px;
+}
+
+.invisible {
+	visibility: hidden;
+}
+
+.vertical-align, %vertical-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
