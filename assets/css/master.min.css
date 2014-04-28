@@ -690,6 +690,7 @@ ul ol, ul ul {
 }
 .world .files-link.materials:hover {
   background: rgba(52, 119, 209, 0.5);
+  color: #fff;
 }
 
 .home-link {
