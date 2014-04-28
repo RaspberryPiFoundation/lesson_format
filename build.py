@@ -27,7 +27,7 @@ PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
 WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
 Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain')
-Style    = collections.namedtuple('Style', 'name html_template tex_template stylesheets')
+Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations links')
 
 def progress_print(*args):
@@ -51,28 +51,32 @@ index_style = Style(
     name          = 'lesson',
     html_template = "index.html",
     tex_template  = None,
-    stylesheets   = ["/css/master.min.css"],
+    scripts       = ["/js/prism.js"],
+    stylesheets   = ["/css/prism.css", "/css/master.min.css"],
 )
 
 extra_style = Style(
     name          = 'lesson',
     html_template = "extra.html",
     tex_template  = None,
-    stylesheets   = ["/css/master.min.css"],
+    scripts       = ["/js/prism.js"],
+    stylesheets   = ["/css/prism.css", "/css/master.min.css"],
 )
 
 lesson_style = Style(
     name          = 'lesson',
     html_template = "lesson.html",
     tex_template  = None,
-    stylesheets   = ["/css/master.min.css"],
+    scripts       = ["/js/prism.js"],
+    stylesheets   = ["/css/prism.css", "/css/master.min.css"],
 )
 
 note_style = Style(
     name          = 'lesson',
     html_template = "note.html",
     tex_template  = None,
-    stylesheets   = ["/css/master.min.css"],
+    scripts       = ["/js/prism.js"],
+    stylesheets   = ["/css/prism.css", "/css/master.min.css"],
 )
 
 # todo : real classes
@@ -81,6 +85,7 @@ Project              = collections.namedtuple('Project', 'filename pdf number le
 Extra                = collections.namedtuple('Extra', 'name materials note')
 Resource             = collections.namedtuple('Resource', 'format filename')
 css_assets           = os.path.join(base, "assets/css")
+js_assets            = os.path.join(base, "assets/js")
 scratchblocks_filter = os.path.join(base, "lib/pandoc_scratchblocks/filter.py")
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
@@ -115,6 +120,9 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         ])
 
     cmd.extend(commands)
+
+    for script in style.scripts:
+        cmd.extend(("-c", root + script,))
 
     for stylesheet in style.stylesheets:
         cmd.extend(("-c", root + stylesheet,))
@@ -713,10 +721,13 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
     copydir(html_assets, output_dir)
 
     css_dir = os.path.join(output_dir, "css")
+    js_dir  = os.path.join(output_dir, "js")
 
     makedirs(css_dir)
+    makedirs(js_dir)
 
-    make_css(css_assets, theme, css_dir)
+    make_assets(css_assets, theme, css_dir)
+    make_assets(js_assets,  theme, js_dir)
 
     if theme != 'css':
         languages       = {}
@@ -989,10 +1000,10 @@ def parse_project_meta(p):
 
     return p
 
-def make_css(stylesheet_dir, theme, output_dir):
-    for asset in os.listdir(stylesheet_dir):
+def make_assets(input_dir, theme, output_dir):
+    for asset in os.listdir(input_dir):
         if not asset.startswith('.'):
-            src = os.path.join(stylesheet_dir, asset)
+            src = os.path.join(input_dir, asset)
             dst = os.path.join(output_dir, asset)
 
             if os.path.exists(dst):
@@ -1003,7 +1014,7 @@ def make_css(stylesheet_dir, theme, output_dir):
                     os.remove(dst)
 
             if os.path.isdir(src):
-                make_css(src, theme, dst)
+                make_assets(src, theme, dst)
             else:
                 shutil.copy(src, output_dir)
 

@@ -36,9 +36,12 @@
 		}
 	}
 
+	ol {
+		margin-left: 1.55em;
+	}
+
 	ul {
 		margin-left: 0;
-	}
 
 		li {
 			list-style:  none;
@@ -59,7 +62,8 @@
 			}
 
 			img {
-				border: none;
+				border:    none;
+				max-width: 100%;
 
 				&:before {
 					content: ' ';
@@ -77,12 +81,24 @@
 				}
 			}
 		}
+	}
 
 	img {
 		border:        0.15em solid $color-warning;
 		border-radius: 0.25em;
 		display:       block;
 		margin:        0 auto 1em auto;
+		max-width:     100%;
+	}
+
+	pre {
+		margin: 0 0 2em !important;
+
+		code {
+			background:  none;
+			padding:     0 !important;
+			text-indent: 0;
+		}
 	}
 
 }

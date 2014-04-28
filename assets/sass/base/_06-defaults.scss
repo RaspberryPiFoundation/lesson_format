@@ -166,8 +166,9 @@ figure {
 	@include rem(margin-bottom, $base-line-height);
 
 	img {
-		display: block;
-		width:   100%;
+		display:   block;
+		max-width: 100%;
+		width:     100%;
 	}
 
 	figcaption {}

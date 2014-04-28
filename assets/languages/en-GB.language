@@ -5,7 +5,14 @@
 	"translations": {},
 	"links" : {
 		"Club Resources": [
-			{ "name": "Terms and Conditions", "url":"https://www.codeclub.org.uk/terms-and-conditions"}
+			{
+				"name": "Scratch Cards",
+				"url":  "http://scratch.mit.edu/help/cards/"
+			},
+			{
+				"name": "Terms and Conditions",
+				"url":  "https://www.codeclub.org.uk/terms-and-conditions"
+			}
 		]
-	}	
+	}
 }
