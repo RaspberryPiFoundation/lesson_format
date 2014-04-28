@@ -15,8 +15,5 @@
   "devDependencies": {
     "bourbon": "~4.0.0",
     "typecsset": "git@github.com:csswizardry/typecsset.git#~0.3.0"
-  },
-  "resolutions": {
-    "bourbon": "~4.0.0"
   }
 }
