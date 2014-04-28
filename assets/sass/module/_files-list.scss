@@ -33,6 +33,10 @@
 			&:hover {
 				background: none;
 			}
+
+			.world &:hover {
+				background: none;
+			}
 		}
 
 		.world & {

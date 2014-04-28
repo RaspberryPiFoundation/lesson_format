@@ -651,6 +651,9 @@ ul ol, ul ul {
 .files-item.materials:hover {
   background: none;
 }
+.world .files-item.materials:hover {
+  background: none;
+}
 .world .files-item {
   border-top-color: rgba(52, 119, 209, 0.25);
   color: #3477d1;
