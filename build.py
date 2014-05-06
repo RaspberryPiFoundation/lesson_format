@@ -82,7 +82,7 @@ note_style = Style(
 # todo : real classes
 Term                 = collections.namedtuple('Term', 'id manifest title description language number projects extras')
 Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
-Extra                = collections.namedtuple('Extra', 'name materials note')
+Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
 css_assets           = os.path.join(base, "assets/css")
 js_assets            = os.path.join(base, "assets/js")
@@ -313,6 +313,11 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
 def build_project_extra(rebuild, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
+    pdf        = extra.pdf
+
+    if pdf != None:
+        pdf = copy_file(pdf, output_dir)
+        progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
         note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
@@ -323,12 +328,21 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
         materials   = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename, rebuild)
 
-    return Extra(name = extra.name, note = note, materials = materials)
+    return Extra(
+        name      = extra.name,
+        note      = note,
+        materials = materials,
+        pdf       = pdf,
+    )
 
 def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
-    note = []
-
+    note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
+    pdf        = extra.pdf
+
+    if pdf != None:
+        pdf = copy_file(pdf, output_dir)
+        progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
         note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
@@ -339,7 +353,12 @@ def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, ter
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
         materials   = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename, rebuild)
 
-    return Extra(name = extra.name, note = note, materials = materials)
+    return Extra(
+        name      = extra.name,
+        note      = note,
+        materials = materials,
+        pdf       = pdf,
+    )
 
 def sort_files(files):
     sort_key = {
@@ -873,9 +892,13 @@ def parse_extras(extras_raw, base_dir):
 
     for s in extras_raw:
         note = None
+        pdf  = None
 
         if 'note' in s:
             note = expand_glob(base_dir, s['note'], one_file = True)
+
+        if 'pdf' in s:
+            pdf = expand_glob(base_dir, s['pdf'], one_file = True)
 
         materials = expand_glob(base_dir, s.get('materials', ()))
 
@@ -883,6 +906,7 @@ def parse_extras(extras_raw, base_dir):
             name      = s['name'],
             note      = note,
             materials = materials,
+            pdf       = pdf,
         ))
 
     return extras
@@ -1031,7 +1055,6 @@ def get_path_to(root_dir, output_file):
 
     return path
 
-
 def find_files(dir, extension):
     manifests = []
 
@@ -1039,6 +1062,7 @@ def find_files(dir, extension):
         for n in names:
             if n.endswith(extension):
                 m.append(os.path.join(dirname, n))
+
     for d in dir:
         os.path.walk(d, visit, manifests)
 
@@ -1135,7 +1159,7 @@ if __name__ == '__main__':
         print "usage: (--rebuild) <region> <input lessons directories> <output directory>"
         sys.exit(-1)
 
-    progress = True
+    progress = False
     rebuild  = False
 
     if args[0] == "--rebuild":
