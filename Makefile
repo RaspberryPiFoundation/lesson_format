@@ -6,6 +6,9 @@ clone:
 	git clone git@github.com:CodeClub/webdev-curriculum.git  lessons/webdev
 	git clone git@github.com:CodeClub/python-curriculum.git  lessons/python
 
+	git clone git@github.com:CodeClub/CodeClubUK-Projects.git    output/codeclubuk
+	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git output/codeclubworld
+
 update:
 	cd lessons/scratch && git pull && git checkout master
 	cd lessons/webdev  && git pull && git checkout master
