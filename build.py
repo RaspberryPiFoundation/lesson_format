@@ -313,7 +313,10 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
 def build_project_extra(rebuild, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
-    pdf        = extra.pdf
+    pdf        = None
+
+    if theme.id == 'uk':
+        pdf = extra.pdf
 
     if pdf != None:
         pdf = copy_file(pdf, output_dir)
@@ -520,7 +523,9 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             })
 
             for extra in sorted(project.extras, key=lambda x:x.name):
-                if hasattr(extra, 'pdf'):
+                pdf_url = None
+
+                if hasattr(extra, 'pdf') and extra.pdf != None:
                     pdf_url  = os.path.relpath(extra.pdf, output_dir)
 
                 for file in sort_files(extra.note):
@@ -539,7 +544,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
                     if file.format != 'html':
                         files_link.text = "%s (%s)"%(extra.name,file.format)
 
-                    if pdf_url:
+                    if pdf_url != None:
                         separator = ET.SubElement(files_item, 'span')
                         separator.text = ' ' + unichr(8212) + ' ';
 
@@ -723,7 +728,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
         progress_print("Found Manifest:", m)
 
         try:
-            term = parse_manifest(m)
+            term = parse_manifest(m, theme)
 
             if term.language not in termlangs:
                 termlangs[term.language] = []
@@ -835,7 +840,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
 
     progress_print("Complete")
 
-def parse_manifest(filename):
+def parse_manifest(filename, theme):
     with open(filename) as fh:
         json_manifest = json.load(fh)
 
@@ -843,7 +848,7 @@ def parse_manifest(filename):
     projects = []
 
     for p in json_manifest['projects']:
-        project = parse_project(p, base_dir)
+        project = parse_project(p, base_dir, theme)
         projects.append(project)
 
     extras = parse_extras(json_manifest.get('extras',()), base_dir)
@@ -861,7 +866,7 @@ def parse_manifest(filename):
 
     return m
 
-def parse_project(p, base_dir):
+def parse_project(p, base_dir, theme):
     filename  = expand_glob(base_dir, p['filename'],     one_file = True)
     materials = expand_glob(base_dir, p.get('materials', []))
     embeds    = expand_glob(base_dir, p.get('embeds',    []))
@@ -870,9 +875,13 @@ def parse_project(p, base_dir):
     note      = None
     note_pdf  = None
 
-    if 'pdf'      in p: pdf      = expand_glob(base_dir, p['pdf'],      one_file = True)
-    if 'note'     in p: note     = expand_glob(base_dir, p['note'],     one_file = True)
-    if 'note_pdf' in p: note_pdf = expand_glob(base_dir, p['note_pdf'], one_file = True)
+    if theme.id == "uk":
+        progress_print("Preparing to copy PDFs")
+
+        if 'pdf'      in p: pdf      = expand_glob(base_dir, p['pdf'],      one_file = True)
+        if 'note_pdf' in p: note_pdf = expand_glob(base_dir, p['note_pdf'], one_file = True)
+
+    if 'note' in p: note = expand_glob(base_dir, p['note'], one_file = True)
 
     return Project(
         filename  = filename,
@@ -982,6 +991,12 @@ def parse_project_meta(p):
         title    = header.get('title', p.title)
         level    = header.get('level', p.level)
         raw_note = header.get('note', None)
+        pdf      = None
+        note_pdf = None
+
+        if theme.id == "uk":
+            pdf      = p.pdf
+            note_pdf = p.note_pdf
 
         if raw_note:
             base_dir = os.path.dirname(p.filename)
@@ -1011,13 +1026,13 @@ def parse_project_meta(p):
 
         return Project(
             filename  = p.filename,
-            pdf       = p.pdf,
+            pdf       = pdf,
             number    = number,
             title     = title,
             level     = level,
             materials = materials,
             note      = note,
-            note_pdf  = p.note_pdf,
+            note_pdf  = note_pdf,
             embeds    = embeds,
             extras    = p.extras,
         )
@@ -1159,7 +1174,7 @@ if __name__ == '__main__':
         print "usage: (--rebuild) <region> <input lessons directories> <output directory>"
         sys.exit(-1)
 
-    progress = False
+    progress = True
     rebuild  = False
 
     if args[0] == "--rebuild":
