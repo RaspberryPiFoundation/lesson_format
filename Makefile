@@ -2,6 +2,7 @@
 clone:
 	clear
 	mkdir lessons
+
 	git clone git@github.com:CodeClub/scratch-curriculum.git lessons/scratch
 	git clone git@github.com:CodeClub/webdev-curriculum.git  lessons/webdev
 	git clone git@github.com:CodeClub/python-curriculum.git  lessons/python
@@ -14,8 +15,12 @@ update:
 	cd lessons/webdev  && git pull && git checkout master
 	cd lessons/python  && git pull && git checkout master
 
+	cd output/codeclubuk    && git pull && git checkout master
+	cd output/codeclubworld && git pull && git checkout master
+
 clear:
 	rm -rf lessons
+	rm -rf output
 
 pages_uk:
 	python build.py ${options} uk lessons/scratch lessons/python lessons/webdev output/codeclubuk
