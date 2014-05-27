@@ -15,8 +15,8 @@ update:
 	cd lessons/webdev  && git pull && git checkout master
 	cd lessons/python  && git pull && git checkout master
 
-	cd output/codeclubuk    && git pull && git checkout master
-	cd output/codeclubworld && git pull && git checkout master
+	cd output/codeclubuk    && git pull && git checkout gh-pages
+	cd output/codeclubworld && git pull && git checkout gh-pages
 
 clear:
 	rm -rf lessons
