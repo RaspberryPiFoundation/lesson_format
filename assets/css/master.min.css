@@ -603,6 +603,19 @@ ul ol, ul ul {
   position: relative;
 }
 
+.beta {
+  background: rgba(249, 251, 167, 0.05);
+  border: 1px dashed #F9FBA7;
+  border-radius: 15px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+.beta p {
+  font-size: 0.8em;
+  margin: 0;
+  max-width: none;
+}
+
 .breadcrumbs-list {
   font-size: 0.9em;
   margin: 0;

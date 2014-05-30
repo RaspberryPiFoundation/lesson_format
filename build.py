@@ -738,6 +738,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
             import traceback
 
             traceback.print_exc()
+
             progress_print("Failed", e)
 
     progress_print("Copying assets...")
