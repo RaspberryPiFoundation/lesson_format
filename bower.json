@@ -13,7 +13,6 @@
     "normalize-css": "~2.1.3"
   },
   "devDependencies": {
-    "bourbon": "~4.0.0",
     "typecsset": "git@github.com:csswizardry/typecsset.git#~0.3.0"
   }
 }
