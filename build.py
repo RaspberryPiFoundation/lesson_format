@@ -43,7 +43,7 @@ base               = os.path.dirname(os.path.abspath(__file__))
 template_base      = os.path.join(base, "assets/templates")
 theme_base         = os.path.join(base, "assets/themes")
 language_base      = os.path.join(base, "assets/languages")
-PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes"
+PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes+footnotes"
 year               = datetime.now().year
 banned_chars       = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
 
