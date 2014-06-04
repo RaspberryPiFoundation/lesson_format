@@ -48,7 +48,18 @@ a {
 	color:           $color-primary;
 	cursor:          pointer;
 	text-decoration: none;
-	@include transition(all 0.1s ease-in-out);
+	
+	-webkit-transition: all 0.1s ease-in-out;
+	   -moz-transition: all 0.1s ease-in-out;
+		 -o-transition: all 0.1s ease-in-out;
+	transition: 		all 0.1s ease-in-out;
+	/* 
+		the following bourbon mixin could do it
+		but we're not using bourbon 
+		since this is the only call to it
+		in the whole repo
+	*/	
+	// @include transition(all 0.1s ease-in-out);
 
 	&:active,
 	&:focus,
@@ -148,6 +159,26 @@ code {
 	&.blockorange { background: $color-code-orange; }
 	&.blockyellow { background: $color-code-yellow; }
 	&.blockpurple { background: $color-code-purple; }
+}
+
+pre 
+{
+	background:    #d7d7d7;
+	border:        1px solid darken(#d7d7d7,10%);
+	border-radius: 0.5em;
+	
+	display: block;
+	padding: 1em;
+	margin: 0 0 1em;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+
+	code 
+	{
+		background-color: transparent;
+		padding: 0;
+		border: none;
+	}
 }
 
 dl {
