@@ -196,13 +196,22 @@ The site builder is a python script, which uses pandoc for rendering, as well as
 
 If you have downloaded a zip file, you will need to set the script pandoc_scratchblocks/filter.py to +x
 
-It won't work on windows.
+It won't work on Windows.
 
 ## Dependencies
 
 - Python 2, with the pyyaml library (`pip install pyyaml`)
 - Pandoc (a recent version, 1.12 or newer)
 - Phantomjs
+
+### Compiling CSS
+
+You'll need the following to compile the SASS files into CSS.
+- [Node.JS](http://nodejs.org/)
+- [NPM](https://www.npmjs.org/) 
+- Grunt (`npm install -g grunt-cli`)
+- Bower (`npm install -g bower`, then `bower install`)
+- sass-globbing (`sudo gem install sass-globbing`)
 
 ## Running
 

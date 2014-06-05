@@ -1,0 +1,22 @@
+
+.footnotes {
+	background: rgba($color-primary, 0.05);
+	border-radius: 0.5em;
+	padding: 1em 1.5em;
+
+	hr {
+		display: none;
+	}
+
+	ol:before {
+		content: "Footnotes";
+		display: block;
+		font-family: $font-family-secondary;
+		font-size: 1.3em;
+		font-weight: $base-font-weight;
+		line-height: 0;
+		margin-bottom: 2.5em;
+		position: relative;
+		top: 1.5em;
+	}
+}

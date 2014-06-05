@@ -42,3 +42,9 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.border-less
+{
+	border: none !important;
+	border-radius: 0 !important;
+}
