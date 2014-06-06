@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+$if(webmaster_tools_verification)$
     <meta name="google-site-verification" content="$webmaster_tools_verification$" />
+$endif$
 
     <title>$if(title)$$title$ — $endif$$organization$</title>
 
@@ -20,6 +23,7 @@ $if(analytics_account)$
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', '$analytics_account$', '$analytics_domain$');
+      ga('require', 'displayfeatures');
       ga('send', 'pageview');
     </script>
 $endif$
