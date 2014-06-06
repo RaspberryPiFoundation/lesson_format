@@ -26,7 +26,7 @@ except ImportError:
 PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
 WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
-Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain')
+Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain webmaster_tools_verification')
 Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations links')
 
@@ -111,6 +111,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "root=%s"%root,
         "-M", "lang=%s"%language.code,
         "-M", "theme=%s"%theme.id,
+        "-M", "webmaster_tools_verification=%s"%theme.webmaster_tools_verification,
     ]
 
     if theme.analytics_account:
@@ -956,15 +957,16 @@ def parse_theme(filename):
         obj = json.load(fh)
 
     return Theme(
-        id                = obj['id'],
-        name              = obj['name'],
-        language          = obj['language'],
-        stylesheets       = obj['stylesheets'],
-        legal             = obj['legal'],
-        logo              = obj['logo'],
-        analytics_account = obj.get('analytics_account'),
-        analytics_domain  = obj.get('analytics_domain'),
-        css_variables     = obj['css_variables']
+        id                           = obj['id'],
+        name                         = obj['name'],
+        language                     = obj['language'],
+        stylesheets                  = obj['stylesheets'],
+        legal                        = obj['legal'],
+        logo                         = obj['logo'],
+        analytics_account            = obj.get('analytics_account'),
+        analytics_domain             = obj.get('analytics_domain'),
+        webmaster_tools_verification = obj.get('webmaster_tools_verification'),
+        css_variables                = obj['css_variables']
     )
 
 def parse_project_meta(p):
