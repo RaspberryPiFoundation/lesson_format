@@ -2,6 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
+ * 09.06.2014 16:03
  */
 
 @charset "UTF-8";
@@ -297,6 +298,11 @@ td {
   transform: translateY(-50%);
 }
 
+.border-less {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
 article:before, div:before, dl:before, fieldset:before, footer:before, form:before, header:before, main:before, ol:before, section:before, nav:before, ul:before, .header:before, .breadcrumbs-list:before, .files-item:before, .index-list:before, .projects-list:before, article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after, .header:after, .breadcrumbs-list:after, .files-item:after, .index-list:after, .projects-list:after {
   content: '';
   display: table;
@@ -357,6 +363,7 @@ a {
   text-decoration: none;
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
 a:active, a:focus, a:hover {
@@ -437,6 +444,22 @@ code.blockyellow {
 }
 code.blockpurple {
   background: rgba(155, 89, 182, 0.25);
+}
+
+pre {
+  background: #d7d7d7;
+  border: 1px solid #bebebe;
+  border-radius: 0.5em;
+  display: block;
+  padding: 1em;
+  margin: 0 0 1em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
 }
 
 em {
@@ -971,6 +994,26 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 .flag li:before {
   background: rgba(52, 153, 70, 0.15);
   border-color: #349946;
+}
+
+.footnotes {
+  background: rgba(52, 153, 70, 0.05);
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+}
+.footnotes hr {
+  display: none;
+}
+.footnotes ol:before {
+  content: "Footnotes";
+  display: block;
+  font-family: VAGbold, sans-serif;
+  font-size: 1.3em;
+  font-weight: 300;
+  line-height: 0;
+  margin-bottom: 2.5em;
+  position: relative;
+  top: 1.5em;
 }
 
 .save h2 {

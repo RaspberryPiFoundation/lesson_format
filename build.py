@@ -877,7 +877,7 @@ def parse_project(p, base_dir, theme):
     note      = None
     note_pdf  = None
 
-    if theme.id == "uk":
+    if isinstance(theme, str) == False and theme.id == "uk":
         progress_print("Preparing to copy PDFs")
 
         if 'pdf'      in p: pdf      = expand_glob(base_dir, p['pdf'],      one_file = True)
