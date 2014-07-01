@@ -239,7 +239,7 @@ It copies /assets over, then copies /templates/css over, replacing ${variables} 
 It scans all of the input directories for manifest files, and builds up an index for each
 language, containing all of the terms.
 
-It then creates /<lang-code>/<term>-<num>/<project num>/<project files> for each project and ancillary data,
+It then creates `/<lang-code>/<term>-<num>/<project num>/<project files>` for each project and ancillary data,
 creating indexes by language, term, too.
 
 ## Testing
