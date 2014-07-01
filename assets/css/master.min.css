@@ -433,6 +433,39 @@ code {
   font-size: 0.8em;
   padding: 0 0.5em;
 }
+code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
+  color: #fff;
+}
+code.blockmotion {
+  background: #505FD7;
+}
+code.blocklooks {
+  background: #9B33D9;
+}
+code.blocksound {
+  background: #D000C2;
+}
+code.blockpen {
+  background: #00A16F;
+}
+code.blockdata {
+  background: #FF7500;
+}
+code.blockevents {
+  background: #D38117;
+}
+code.blockcontrol {
+  background: #E9AA00;
+}
+code.blocksensing {
+  background: #00A3E6;
+}
+code.blockoperators {
+  background: #00C114;
+}
+code.blockmoreblocks {
+  background: #71009A;
+}
 code.blockblue {
   background: rgba(52, 119, 209, 0.5);
 }
