@@ -208,7 +208,7 @@ It won't work on Windows.
 
 You'll need the following to compile the SASS files into CSS.
 - [Node.JS](http://nodejs.org/)
-- [NPM](https://www.npmjs.org/) 
+- [NPM](https://www.npmjs.org/)
 - Grunt (`npm install -g grunt-cli`)
 - Bower (`npm install -g bower`, then `bower install`)
 - sass-globbing (`sudo gem install sass-globbing`)
@@ -226,9 +226,9 @@ The first argument is the theme for the website, currently either `world` or uk`
 ./build.py uk <path to python repository> <path to scratch repository> ... <uk output repository>
 ```
 
-There is also a makefile which can be used to automate the process. First run `make clone` to build a local copy of all of the source and target repositories, then run `make uk world` or just `make uk`/`make world`. You only need to run `make clone` once, and not before every `make uk world`.
+There is also a makefile which can be used to automate the process. First run `make clone` to build a local copy of all of the source and target repositories, then run `make pages_uk pages_world` or just `make pages_uk`/`make pages_world`. You only need to run `make clone` once, and not before every `make pages_uk pages_world`.
 
-If you have changed the resources, you should force the build script to rebuild the zip files. This is done by passing a flag `--rebuild` to `build.py`, i.e `./build.py --rebuild uk ...` or `make options=--rebuild uk world`
+If you have changed the resources, you should force the build script to rebuild the zip files. This is done by passing a flag `--rebuild` to `build.py`, i.e `./build.py --rebuild uk ...` or `make options=--rebuild pages_uk pages_world`
 
 ## Underneath the hood
 
@@ -239,7 +239,7 @@ It copies /assets over, then copies /templates/css over, replacing ${variables} 
 It scans all of the input directories for manifest files, and builds up an index for each
 language, containing all of the terms.
 
-It then creates /<lang-code>/<term>-<num>/<project num>/<project files> for each project and ancillary data,
+It then creates `/<lang-code>/<term>-<num>/<project num>/<project files>` for each project and ancillary data,
 creating indexes by language, term, too.
 
 ## Testing
