@@ -1,6 +1,6 @@
 
 clone:
-	clear
+	make clear
 
 	git clone git@github.com:CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
 
