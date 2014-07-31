@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 31.07.2014 14:59
+ * 31.07.2014 15:36
  */
 
 @charset "UTF-8";
@@ -987,6 +987,9 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .challenge ul {
   margin: 0;
+}
+.challenge > ul {
+  margin-left: 1.5em;
 }
 
 .check h2 {
