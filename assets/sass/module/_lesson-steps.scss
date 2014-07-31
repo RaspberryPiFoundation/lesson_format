@@ -37,16 +37,21 @@
 	}
 
 	ol {
-		margin-left: 1.55em;
+		> li {
+			list-style: disc;
+
+			&:before {
+				display: none;
+			}
+		}
 	}
 
 	ul {
 		margin-left: 0;
 
-		li {
-			list-style:  none;
-			margin-left: 1.5em;
-			position:    relative;
+		> li {
+			list-style: none;
+			position:   relative;
 
 			&:before {
 				background:    rgba($color-highlight, 0.1);
@@ -80,6 +85,22 @@
 					}
 				}
 			}
+
+			ol {
+				margin-left: 1.5em;
+			}
+
+			ul {
+				margin-left: 1.5em;
+
+				li {
+					list-style: disc;
+
+					&:before {
+						display: none;
+					}
+				}
+			}
 		}
 	}
 
@@ -92,13 +113,18 @@
 	}
 
 	pre {
-		margin: 0 0 2em !important;
+		line-height: 1.25;
+		margin:      0 0 2em !important;
 
 		code {
 			background:  none;
 			padding:     0 !important;
 			text-indent: 0;
 		}
+	}
+
+	ul > pre {
+		margin-top: 1.25em;
 	}
 
 }
