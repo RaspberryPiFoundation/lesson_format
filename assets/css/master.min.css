@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 09.06.2014 16:03
+ * 08.08.2014 09:48
  */
 
 @charset "UTF-8";
@@ -433,39 +433,6 @@ code {
   font-size: 0.8em;
   padding: 0 0.5em;
 }
-code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
-  color: #fff;
-}
-code.blockmotion {
-  background: #505FD7;
-}
-code.blocklooks {
-  background: #9B33D9;
-}
-code.blocksound {
-  background: #D000C2;
-}
-code.blockpen {
-  background: #00A16F;
-}
-code.blockdata {
-  background: #FF7500;
-}
-code.blockevents {
-  background: #D38117;
-}
-code.blockcontrol {
-  background: #E9AA00;
-}
-code.blocksensing {
-  background: #00A3E6;
-}
-code.blockoperators {
-  background: #00C114;
-}
-code.blockmoreblocks {
-  background: #71009A;
-}
 code.blockblue {
   background: rgba(52, 119, 209, 0.5);
 }
@@ -477,6 +444,39 @@ code.blockyellow {
 }
 code.blockpurple {
   background: rgba(155, 89, 182, 0.25);
+}
+code.blockmotion {
+  background: #505fd7;
+}
+code.blocklooks {
+  background: #9b33d9;
+}
+code.blocksound {
+  background: #d000c2;
+}
+code.blockpen {
+  background: #00a16f;
+}
+code.blockdata {
+  background: #ff7500;
+}
+code.blockevents {
+  background: #d38117;
+}
+code.blockcontrol {
+  background: #e9aa00;
+}
+code.blocksensing {
+  background: #00a3e6;
+}
+code.blockoperators {
+  background: #00c114;
+}
+code.blockmoreblocks {
+  background: #71009a;
+}
+code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
+  color: #fff;
 }
 
 pre {
