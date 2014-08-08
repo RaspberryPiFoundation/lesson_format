@@ -602,6 +602,9 @@ ol li p {
 ol ol, ol ul {
   margin-bottom: 0;
 }
+ol ol li, ol ul li {
+  font-size: 1em;
+}
 
 p.lead, .p.lead {
   color: #111111;
@@ -644,6 +647,9 @@ ul li p {
 ul ol, ul ul {
   margin-bottom: 0;
 }
+ul ol li, ul ul li {
+  font-size: 1em;
+}
 
 .breadcrumbs {
   background: rgba(52, 153, 70, 0.05);
@@ -660,8 +666,8 @@ ul ol, ul ul {
 }
 
 .beta {
-  background: rgba(249, 251, 167, 0.05);
-  border: 1px dashed #F9FBA7;
+  background: rgba(249, 251, 167, 0.25);
+  border: 2px dashed #E79124;
   border-radius: 15px;
   margin-bottom: 1em;
   padding: 0.5em;
@@ -860,18 +866,20 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 .lesson-steps section#introduction {
   border-bottom: 3px dotted #f5a200;
 }
-.lesson-steps ol {
-  margin-left: 1.55em;
+.lesson-steps ol > li {
+  list-style: disc;
+}
+.lesson-steps ol > li:before {
+  display: none;
 }
 .lesson-steps ul {
   margin-left: 0;
 }
-.lesson-steps ul li {
+.lesson-steps ul > li {
   list-style: none;
-  margin-left: 1.5em;
   position: relative;
 }
-.lesson-steps ul li:before {
+.lesson-steps ul > li:before {
   background: rgba(52, 119, 209, 0.1);
   border: 0.15em solid #3477d1;
   border-radius: 0.25em;
@@ -883,20 +891,32 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   height: 1em;
   width: 1em;
 }
-.lesson-steps ul li img {
+.lesson-steps ul > li img {
   border: none;
   max-width: 100%;
 }
-.lesson-steps ul li img:before {
+.lesson-steps ul > li img:before {
   content: ' ';
   display: block;
 }
-.lesson-steps ul li img.inline {
+.lesson-steps ul > li img.inline {
   display: inline !important;
   margin: 0;
   vertical-align: top;
 }
-.lesson-steps ul li img.inline:before {
+.lesson-steps ul > li img.inline:before {
+  display: none;
+}
+.lesson-steps ul > li ol {
+  margin-left: 1.5em;
+}
+.lesson-steps ul > li ul {
+  margin-left: 1.5em;
+}
+.lesson-steps ul > li ul li {
+  list-style: disc;
+}
+.lesson-steps ul > li ul li:before {
   display: none;
 }
 .lesson-steps img {
@@ -907,12 +927,16 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   max-width: 100%;
 }
 .lesson-steps pre {
+  line-height: 1.25;
   margin: 0 0 2em !important;
 }
 .lesson-steps pre code {
   background: none;
   padding: 0 !important;
   text-indent: 0;
+}
+.lesson-steps ul > pre {
+  margin-top: 1.25em;
 }
 
 .level-indicator {
@@ -996,6 +1020,9 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .challenge ul {
   margin: 0;
+}
+.challenge > ul {
+  margin-left: 1.5em;
 }
 
 .check h2 {

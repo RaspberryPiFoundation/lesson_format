@@ -1,7 +1,8 @@
 
 clone:
-	clear
-	mkdir lessons
+	make clear
+
+	git clone git@github.com:CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
 
 	git clone git@github.com:CodeClub/scratch-curriculum.git lessons/scratch
 	git clone git@github.com:CodeClub/webdev-curriculum.git  lessons/webdev
@@ -11,6 +12,8 @@ clone:
 	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git output/codeclubworld
 
 update:
+	cd lib/pandoc_scratchblocks && git pull && git checkout master
+
 	cd lessons/scratch && git pull && git checkout master
 	cd lessons/webdev  && git pull && git checkout master
 	cd lessons/python  && git pull && git checkout master
@@ -19,6 +22,7 @@ update:
 	cd output/codeclubworld && git pull && git checkout gh-pages
 
 clear:
+	rm -rf lib
 	rm -rf lessons
 	rm -rf output
 
