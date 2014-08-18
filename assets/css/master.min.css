@@ -841,10 +841,18 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul {
   margin-left: 0;
+  cursor: pointer;
 }
 .lesson-steps ul > li {
   list-style: none;
   position: relative;
+}
+.lesson-steps ul > li.activity-done {
+  text-decoration: line-through;
+  font-style: italic;
+}
+.lesson-steps ul > li.activity-done:before {
+  background: #3477d1;
 }
 .lesson-steps ul > li:before {
   background: rgba(52, 119, 209, 0.1);
