@@ -1,7 +1,9 @@
 # Code Club Projects
 
-__Please note:__ This repository was auto-generated using the Code Club `lesson_format` tool. It is used to serve one of the [Code Club projects sites](http://projects.codeclub.org.uk).
+## Contributors: Take note!
 
-We :heart::heart::heart: your contributions, so __please do not create issues or pull requests in this auto-generated repository__. Instead, locate the source repository for the relevant curriculum (e.g. `python-curriculum`; `scratch-curriculum`) and add your pull requests / issues there.
+This repository was \*auto-generated\* using the [Code Club Lesson Formatter](https://github.com/CodeClub/lesson_format). This repository exists to serve one of the [Code Club projects sites](http://projects.codeclub.org.uk) (via Github Pages).
 
-Thank you! :wink:
+We :heart::heart::heart: your contributions, so __please do not create issues or pull requests against this auto-generated repository__. Instead, locate the source repository for the relevant curriculum (e.g. [python-curriculum](https://github.com/CodeClub/python-curriculum); [scratch-curriculum](https://github.com/CodeClub/scratch-curriculum)) and add your pull requests / issues there.
+
+## Thank you! :wink:
