@@ -48,6 +48,7 @@
 
 	ul {
 		margin-left: 0;
+		cursor: pointer;
 
 		> li {
 			list-style: none;
@@ -83,6 +84,15 @@
 					&:before {
 						display: none;
 					}
+				}
+			}
+
+			&.activity-done {
+				text-decoration: line-through;
+				font-style: italic;
+
+				&:before {
+					background: #3477d1;
 				}
 			}
 

@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 31.07.2014 15:36
+ * 27.08.2014 08:32
  */
 
 @charset "UTF-8";
@@ -847,13 +847,6 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   list-style: none;
   position: relative;
 }
-.lesson-steps ul > li.activity-done {
-  text-decoration: line-through;
-  font-style: italic;
-}
-.lesson-steps ul > li.activity-done:before {
-  background: #3477d1;
-}
 .lesson-steps ul > li:before {
   background: rgba(52, 119, 209, 0.1);
   border: 0.15em solid #3477d1;
@@ -881,6 +874,13 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul > li img.inline:before {
   display: none;
+}
+.lesson-steps ul > li.activity-done {
+  text-decoration: line-through;
+  font-style: italic;
+}
+.lesson-steps ul > li.activity-done:before {
+  background: #3477d1;
 }
 .lesson-steps ul > li ol {
   margin-left: 1.5em;
