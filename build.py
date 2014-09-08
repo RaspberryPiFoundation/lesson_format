@@ -221,7 +221,7 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir):
+def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, generate_pdf):
     output        = []
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
     pdf_generated = False
@@ -232,26 +232,27 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
-        # Set input to newly generated HTML to act as source for PDF generation
-        input_file  = output_file
-        output_file = os.path.join(output_dir, "%s.pdf"%name)
+        if generate_pdf:
+            # Set input to newly generated HTML to act as source for PDF generation
+            input_file  = output_file
+            output_file = os.path.join(output_dir, "%s.pdf"%name)
 
-        #
-        # Here are three methods of generating PDFs. None of them support
-        # webfonts. Uncomment only one at a time to test them
-        #
+            #
+            # Here are three methods of generating PDFs. None of them support
+            # webfonts. Uncomment only one at a time to test them
+            #
 
-        # Requires wkhtmltopdf - http://wkhtmltopdf.org
-        # pdf_generated = webkit_to_pdf(input_file, output_file)
+            # Requires wkhtmltopdf - http://wkhtmltopdf.org
+            # pdf_generated = webkit_to_pdf(input_file, output_file)
 
-        # Requires Pandoc and LaTeX/MacTeX
-        # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
+            # Requires Pandoc and LaTeX/MacTeX
+            # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
 
-        # Requires PhantomJS - `brew install phantomjs`
-        # pdf_generated = phantomjs_pdf(input_file, output_file)
+            # Requires PhantomJS - `brew install phantomjs`
+            pdf_generated = phantomjs_pdf(input_file, output_file)
 
-        if (pdf_generated):
-            output.append(Resource(filename = output_file, format = "pdf"))
+            if (pdf_generated):
+                output.append(Resource(filename = output_file, format = "pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
@@ -273,7 +274,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
     note_pdf           = project.note_pdf
     name, ext          = os.path.basename(input_file).rsplit(".", 1)
     project_breadcrumb = breadcrumb + [(project.title, "")]
-    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir)
+    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf is None)
     notes              = []
 
     if pdf != None:
@@ -285,7 +286,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, note_pdf is None))
 
     extras = []
 
@@ -324,7 +325,7 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, pdf is None))
 
     materials = None
 
@@ -349,7 +350,7 @@ def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, ter
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, pdf is None))
 
     materials = None
 
