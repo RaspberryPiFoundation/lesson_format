@@ -43,6 +43,7 @@ base               = os.path.dirname(os.path.abspath(__file__))
 template_base      = os.path.join(base, "assets/templates")
 theme_base         = os.path.join(base, "assets/themes")
 language_base      = os.path.join(base, "assets/languages")
+phantomjs          = os.path.join(base, "node_modules", ".bin", "phantomjs")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes+footnotes"
 year               = datetime.now().year
 banned_chars       = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
@@ -172,7 +173,7 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
     pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
 
 def phantomjs_pdf(input_file, output_file):
-    cmd = ['phantomjs', rasterize, input_file, output_file, '"A4"']
+    cmd = [phantomjs, rasterize, input_file, output_file, '"A4"']
 
     return 0 == subprocess.call(cmd)
 
