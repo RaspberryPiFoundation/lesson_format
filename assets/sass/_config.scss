@@ -28,6 +28,11 @@ $color-code-orange: rgba($color-warning,   0.5);
 $color-code-yellow: rgba($color-warning,   0.25);
 $color-code-purple: rgba(#9b59b6,          0.25);
 
+// Some print-specific colors
+$color-print-save:      #235A99;
+$color-primary-light:   lighten($color-primary, 5);
+$color-highlight-light: #B9E5FA;
+
 //	Font Families
 $font-family-primary:   'Helvetica Neue', Helvetica, Arial, sans-serif;
 $font-family-secondary: VAGbold, sans-serif;

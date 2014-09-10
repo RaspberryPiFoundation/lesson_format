@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 31.07.2014 15:36
+ * 13.09.2014 23:15
  */
 
 @charset "UTF-8";
@@ -213,12 +213,14 @@ td {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular.eot");
   src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
   font-weight: 300;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular-Oblique.eot");
@@ -226,12 +228,14 @@ td {
   font-weight: 300;
   font-style: oblique;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold.eot");
   src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
   font-weight: 700;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold-Oblique.eot");
@@ -239,6 +243,7 @@ td {
   font-weight: 700;
   font-style: oblique;
 }
+
 .reset, figure {
   margin: 0;
   padding: 0;
@@ -354,7 +359,7 @@ body {
   min-height: 100%;
   min-width: 300px;
   position: relative;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -809,11 +814,16 @@ ul ol li, ul ul li {
   border-color: #3477d1;
 }
 
-html[lang="en-GB"] .lesson-steps b, html[lang="en-GB"] .lesson-steps em, html[lang="en-GB"] .lesson-steps i, html[lang="en-GB"] .lesson-steps li, html[lang="en-GB"] .lesson-steps p, html[lang="en-GB"] .lesson-steps strong {
+#legend {
+  display: none;
+}
+
+html[lang="en-GB"] .lesson-steps em, html[lang="en-GB"] .lesson-steps i, html[lang="en-GB"] .lesson-steps li, html[lang="en-GB"] .lesson-steps p {
   font-family: "Comic Neue", "Comic Sans", sans-serif;
   font-weight: 500;
 }
 html[lang="en-GB"] .lesson-steps b, html[lang="en-GB"] .lesson-steps strong {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
   font-weight: 700;
 }
 html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 strong, html[lang="en-GB"] .lesson-steps h2 b, html[lang="en-GB"] .lesson-steps h2 strong {
@@ -1078,63 +1088,204 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   }
 
   body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin: 0;
-    max-width: 100%;
-    width: 100%;
+    font-size: 90%;
+    margin: 0px 60px;
+    padding-top: 27px;
   }
 
   a {
     color: #111111 !important;
   }
 
-  h1, .h1 {
-    font-family: VAGbold, sans-serif;
-  }
-
-  h2, .h2 {
-    font-family: VAGbold, sans-serif;
-  }
-
-  h3, .h3 {
-    font-family: VAGbold, sans-serif;
-  }
-
-  h4, .h4 {
-    font-family: VAGbold, sans-serif;
-  }
-
-  h5, .h5 {
-    font-family: VAGbold, sans-serif;
-  }
-
-  h6, .h6 {
-    font-family: VAGbold, sans-serif;
+  code, kbd, pre, samp {
+    font-family: monospace;
   }
 
   .breadcrumbs {
     display: none;
   }
 
-  .legal-notice {
-    display: none;
-    padding: 1em 0 0;
+  .header {
+    background-color: #b9e5fa;
+    margin-bottom: 35px;
   }
-  .legal-notice.copyright {
-    background: none;
-    border: none;
-    border-top: 1px solid #777;
-    border-radius: 0;
-    display: block;
+  .header h1 {
+    background-color: transparent;
+    font-size: 38px;
+    margin: 30px 0 30px 146px;
+    text-align: left;
+  }
+  .header .level-number {
+    font-family: VAGbold, sans-serif;
+    font-size: 80px;
+    line-height: 70px;
   }
 
+  .home-link {
+    float: right;
+    margin: 10px 10px 0 0;
+  }
+
+  .legal-notice {
+    display: none;
+  }
+
+  #legend {
+    display: block;
+    font-family: VAGbold, sans-serif;
+    background-color: #d7d7d7;
+    border-radius: 10px;
+    margin: 0 -20px;
+  }
+  #legend table {
+    margin: 10px;
+  }
+  #legend td {
+    padding: 5px;
+  }
+  #legend img {
+    width: 30px;
+    margin: 0;
+  }
+  #legend .check_text {
+    color: #f5a200;
+  }
+  #legend .flag_text {
+    color: #349946;
+  }
+  #legend .save_text {
+    color: #3477d1;
+  }
+  #legend .upper {
+    text-transform: uppercase;
+  }
+
+  .lesson-steps img {
+    border: none;
+  }
+  .lesson-steps ul > li:before {
+    background: inherit;
+    top: 0.1em;
+    height: 1.2em;
+    width: 1.2em;
+  }
   .lesson-steps section {
-    page-break-inside: avoid;
+    /* page-break-inside: avoid; */
+  }
+  .lesson-steps section#introduction {
+    margin-left: 20px;
+    margin-right: 20px;
+    page-break-after: always;
+    border-bottom: none;
+  }
+  .lesson-steps section#introduction img {
+    max-width: 440px;
   }
 
   .level-indicator {
+    background-color: #3aac4f;
     border-radius: 15px;
-    right: 0;
-    top: 0;
+    display: inline-block;
+    font-size: 22px;
+    height: 130px;
+    left: 18px;
+    padding: 15px;
+    text-align: center;
+    top: -10px;
+    width: 106px;
+  }
+
+  .logo {
+    height: 90px;
+  }
+
+  .activity h1 {
+    background-color: #3aac4f;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+  }
+  .activity h1 .step-num {
+    color: #b9e5fa;
+  }
+
+  .challenge {
+    background-color: #b9e5fa;
+    border: none;
+    margin: 0 40px;
+    padding-bottom: 0;
+  }
+  .challenge h2 {
+    color: black;
+  }
+
+  .check h2 {
+    /* Make the orange tick bigger! */
+    background-size: 1.5em auto;
+    padding-left: 2em;
+  }
+  .check ul {
+    margin-left: 40px;
+    margin-right: 80px;
+  }
+  .check > ul > li {
+    list-style-type: decimal;
+  }
+  .check > ul > li:before {
+    left: inherit;
+    right: -4em;
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  .flag {
+    border: none;
+    background: inherit;
+  }
+  .flag > ul > li:before {
+    /* Remove all other checkboxes */
+    border: none;
+  }
+
+  .save {
+    position: relative;
+  }
+  .save h2 {
+    background-color: #235a99;
+    font-size: 16px;
+    margin: 0 0 0 10px;
+    padding: 5px 0 5px 40px;
+    text-align: inherit;
+    text-transform: inherit;
+  }
+  .save h2:before {
+    content: ' ';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    background: url("../img/save.png") no-repeat;
+    background-size: 40px auto;
+    border: 2px #fff solid;
+    border-radius: 50%;
+  }
+
+  .try {
+    background-color: #b9e5fa;
+    border: none;
+    margin: 0 40px;
+    padding-bottom: 0;
+  }
+  .try h2 {
+    color: black;
+  }
+  .try ul > li {
+    padding-left: 20px;
+  }
+  .try ul > li:before {
+    background-color: white;
+    border-color: #3aac4f;
+    left: -0.4em;
   }
 }

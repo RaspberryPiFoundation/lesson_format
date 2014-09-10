@@ -18,5 +18,7 @@
 	//	Modules
 	@import './module/**/*';
 
-	//	Print Styles
-	@import './print';
+	//	PDF Styles
+	@media print {
+		@import './pdf/**/*';
+	}

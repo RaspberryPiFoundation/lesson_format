@@ -1,0 +1,21 @@
+
+.try {
+	background-color: $color-highlight-light;
+	border:           none;
+	margin:           0 40px;
+	padding-bottom:   0;
+
+	h2 {
+		color: black;
+	}
+
+  ul > li {
+		padding-left: 20px;
+
+		&:before {
+			background-color: white;
+			border-color:     $color-primary-light;
+			left:             -0.4em;
+		}
+  }
+}
