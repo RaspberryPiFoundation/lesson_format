@@ -22,7 +22,7 @@ update:
 	cd output/codeclubworld && git pull && git checkout gh-pages
 
 clear:
-	rm -rf lib
+	rm -rf lib/pandoc_scratchblocks
 	rm -rf lessons
 	rm -rf output
 
