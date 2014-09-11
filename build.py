@@ -40,9 +40,9 @@ def translate(self, text):
 
 Language.translate = translate
 base               = os.path.dirname(os.path.abspath(__file__))
-template_base      = os.path.join(base, "assets/templates")
-theme_base         = os.path.join(base, "assets/themes")
-language_base      = os.path.join(base, "assets/languages")
+template_base      = os.path.join(base, "assets", "templates")
+theme_base         = os.path.join(base, "assets", "themes")
+language_base      = os.path.join(base, "assets", "languages")
 phantomjs          = os.path.join(base, "node_modules", ".bin", "phantomjs")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes+footnotes"
 year               = datetime.now().year
@@ -85,10 +85,10 @@ Term                 = collections.namedtuple('Term', 'id manifest title descrip
 Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
-css_assets           = os.path.join(base, "assets/css")
-js_assets            = os.path.join(base, "assets/js")
-scratchblocks_filter = os.path.join(base, "lib/pandoc_scratchblocks/filter.py")
-pagebreak_filter     = os.path.join(base, "lib/pandoc_pagebreak/filter.py")
+css_assets           = os.path.join(base, "assets", "css")
+js_assets            = os.path.join(base, "assets", "js")
+scratchblocks_filter = os.path.join(base, "lib", "pandoc_scratchblocks", "filter.py")
+pagebreak_filter     = os.path.join(base, "lib", "pandoc_pagebreak", "filter.py")
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
 

@@ -47,7 +47,7 @@ if (system.args.length < 3 || system.args.length > 5) {
             console.log('Unable to load the address!');
             phantom.exit();
         } else {
-            page.injectJs('lib/js/lesson.js');
+            page.injectJs('assets/js/pdf.js');
             window.setTimeout(function () {
                 page.render(output);
                 phantom.exit();
