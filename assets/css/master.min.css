@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 13.09.2014 23:15
+ * 13.09.2014 23:16
  */
 
 @charset "UTF-8";
@@ -1082,6 +1082,10 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 
 @media print {
+  .new-page {
+    page-break-before: always;
+  }
+
   html {
     background: #fff;
     border: none;

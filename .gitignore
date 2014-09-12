@@ -3,7 +3,7 @@ output
 *.py?
 *.swp
 /lessons
-/lib/pandoc_scratchblocks
+/lib
 /output
 venv/
 node_modules

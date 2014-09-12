@@ -89,6 +89,12 @@ A note to test:
 
 - Use `## Test Your Project {.flag}` (always a h2)
 
+### Page breaks
+
+Sometimes it’s necessary to force a page break in the generated PDF. Adding `.new-page` to a heading will force the heading onto a new page.
+
+- e.g. `## Things to try {.try .new-page}` (this can be used with any type of heading.)
+
 ## Scratchblocks
 
 We use the scratchblocks2 library, and PhantomJS to render scratch blocks as png files.
