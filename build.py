@@ -10,6 +10,7 @@ import json
 import subprocess
 import tempfile
 import string
+import argparse
 from datetime import datetime
 
 import logging
@@ -243,7 +244,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
-        if generate_pdf:
+        if generate_pdf and pdf_generator is not None:
             # Set input to newly generated HTML to act as source for PDF generation
             input_file  = output_file
             output_file = os.path.join(output_dir, "%s.pdf"%name)
@@ -252,15 +253,15 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
             # Here are three methods of generating PDFs. None of them support
             # webfonts. Uncomment only one at a time to test them
             #
-
-            # Requires wkhtmltopdf - http://wkhtmltopdf.org
-            # pdf_generated = qtwebkit_to_pdf(input_file, output_file)
+            if pdf_generator == 'wkhtmltopdf':
+                # Requires wkhtmltopdf - http://wkhtmltopdf.org
+                pdf_generated = qtwebkit_to_pdf(input_file, output_file)
+            elif pdf_generator == 'phantomjs':
+                # Requires PhantomJS - `npm install`
+                pdf_generated = phantomjs_pdf(input_file, output_file)
 
             # Requires Pandoc and LaTeX/MacTeX
             # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
-
-            # Requires PhantomJS - `brew install phantomjs`
-            pdf_generated = phantomjs_pdf(input_file, output_file)
 
             if (pdf_generated):
                 output.append(Resource(filename = output_file, format = "pdf"))
@@ -1183,26 +1184,23 @@ def check_requirements():
     pass
 
 if __name__ == '__main__':
-    args = sys.argv[1::]
-
-    if len(args) < 3:
-        print "usage: (--rebuild) <region> <input lessons directories> <output directory>"
-        sys.exit(-1)
-
-    progress = True
-    rebuild  = False
-
-    if args[0] == "--rebuild":
-        rebuild = True
-        args.pop(0)
-
     themes     = load_themes(theme_base)
-    theme      = themes[args[0]] if args[0] != 'css' else args[0]
-    languages  = load_languages(language_base)
-    args       = [os.path.abspath(a) for a in args[1:]]
-    lessons    = args[:-1]
-    output_dir = args[-1]
 
-    build(rebuild, lessons, theme, languages, output_dir)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
+    parser.add_argument('--rebuild', action='store_true', default=False)
+    parser.add_argument('region', choices=themes.keys()+['css'])
+    parser.add_argument('lesson_dirs', nargs="+")
+    parser.add_argument('output_dir')
+    p = parser.parse_args()
+
+    progress      = True
+    lessons       = [os.path.abspath(a) for a in p.lesson_dirs]
+    theme         = themes[p.region] if p.region != 'css' else 'css'
+    languages     = load_languages(language_base)
+    output_dir    = os.path.abspath(p.output_dir)
+    pdf_generator = p.pdf_generator
+
+    build(p.rebuild, lessons, theme, languages, output_dir)
 
     sys.exit(0)
