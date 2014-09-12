@@ -14,5 +14,7 @@ a {
 }
 
 code, kbd, pre, samp {
+	/* this is only required by phantomjs. */
+	/* wkhtmltopdf works better without it. */
 	font-family: monospace;
 }

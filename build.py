@@ -177,10 +177,20 @@ def phantomjs_pdf(input_file, output_file):
 
     return 0 == subprocess.call(cmd)
 
-def webkit_to_pdf(input_file, output_file):
+def qtwebkit_to_pdf(input_file, output_file):
+    print_js_fn = os.path.join(js_assets, "pdf.js")
+    with open (print_js_fn, "r") as print_js_file:
+        print_js = print_js_file.read()
+
     cmd = [
         "wkhtmltopdf",
         "--print-media-type",
+        "--run-script", print_js,
+        "--footer-html", os.path.join(template_base, "_lesson_footer.html"),
+        "-T", "1.2cm",
+        "-B", "2.5cm",
+        "-L", "0",
+        "-R", "0",
         input_file,
         output_file,
     ]
@@ -244,7 +254,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
             #
 
             # Requires wkhtmltopdf - http://wkhtmltopdf.org
-            # pdf_generated = webkit_to_pdf(input_file, output_file)
+            # pdf_generated = qtwebkit_to_pdf(input_file, output_file)
 
             # Requires Pandoc and LaTeX/MacTeX
             # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)

@@ -1102,6 +1102,8 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   }
 
   code, kbd, pre, samp {
+    /* this is only required by phantomjs. */
+    /* wkhtmltopdf works better without it. */
     font-family: monospace;
   }
 
