@@ -172,8 +172,22 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
     pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
 
-def phantomjs_pdf(input_file, output_file):
-    cmd = [phantomjs, rasterize, input_file, output_file, '"A4"']
+def phantomjs_pdf(input_file, output_file, root_dir):
+    # fetch the phantom footer
+    footer_fn = os.path.join(template_base, "_phantomjs_footer.html")
+    with open(footer_fn, "r") as footer_file:
+        footer = footer_file.read()
+
+    root = get_path_to(root_dir, output_file)
+    cmd = [
+        phantomjs, rasterize,
+        # include phantomjs-specific stylesheet
+        '--style', os.path.join(root, 'css', 'phantomjs.min.css'),
+        # include pdf-specific javascript
+        '--script', 'assets/js/pdf.js',
+        '--footer', footer,
+        input_file, output_file, '"A4"'
+    ]
 
     return 0 == subprocess.call(cmd)
 
@@ -198,7 +212,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir):
         # this doesn't work properly, for various reasons.
         # "--user-style-sheet", os.path.join(root_dir, "css", "wkhtmltopdf.min.css"),
         "--run-script", print_js,
-        "--footer-html", os.path.join(template_base, "_lesson_footer.html"),
+        "--footer-html", os.path.join(template_base, "_wkhtmltopdf_footer.html"),
         "-T", "1.2cm",
         "-B", "2.5cm",
         "-L", "0",
@@ -271,7 +285,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
                 pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir)
             elif pdf_generator == 'phantomjs':
                 # Requires PhantomJS - `npm install`
-                pdf_generated = phantomjs_pdf(input_file, output_file)
+                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir)
 
             # Requires Pandoc and LaTeX/MacTeX
             # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
