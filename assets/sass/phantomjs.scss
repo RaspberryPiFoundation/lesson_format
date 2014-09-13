@@ -1,0 +1,18 @@
+
+@charset "UTF-8";
+
+//  Config variables
+@import './config';
+
+//	pdf styles
+@import './pdf/**/*';
+
+
+//	Phantom-specific
+code, kbd, pre, samp {
+	font-family: monospace;
+}
+body {
+  max-width: 800px;
+  width: inherit;
+}

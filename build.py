@@ -8,7 +8,6 @@ import collections
 import glob
 import json
 import subprocess
-import tempfile
 import string
 import argparse
 from datetime import datetime
@@ -178,14 +177,26 @@ def phantomjs_pdf(input_file, output_file):
 
     return 0 == subprocess.call(cmd)
 
-def qtwebkit_to_pdf(input_file, output_file):
+def qtwebkit_to_pdf(input_file, output_file, root_dir):
+    # faff to inject some custom javascript
     print_js_fn = os.path.join(js_assets, "pdf.js")
-    with open (print_js_fn, "r") as print_js_file:
+    with open(print_js_fn, "r") as print_js_file:
         print_js = print_js_file.read()
+
+    # massive faff to inject a custom stylesheet
+    root = get_path_to(root_dir, output_file)
+    with open(input_file, "r") as i:
+        input_file = '%s.tmp.html' % input_file[:-5]
+        with open(input_file, 'w') as o:
+            for line in i:
+                if '</head>' in line:
+                    o.write('<link rel="stylesheet" href="%s/css/wkhtmltopdf.min.css">\n' % root)
+                o.write(line)
 
     cmd = [
         "wkhtmltopdf",
-        "--print-media-type",
+        # this doesn't work properly, for various reasons.
+        # "--user-style-sheet", os.path.join(root_dir, "css", "wkhtmltopdf.min.css"),
         "--run-script", print_js,
         "--footer-html", os.path.join(template_base, "_lesson_footer.html"),
         "-T", "1.2cm",
@@ -203,6 +214,8 @@ def qtwebkit_to_pdf(input_file, output_file):
     except OSError:
         logger.error('wkhtmltopdf is required, check %s' % WKHTMLTOPDF_INSTALL_URL)
         exit()
+    finally:
+        os.remove(input_file)
 
     return 0 == result
 
@@ -255,7 +268,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
             #
             if pdf_generator == 'wkhtmltopdf':
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
-                pdf_generated = qtwebkit_to_pdf(input_file, output_file)
+                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir)
             elif pdf_generator == 'phantomjs':
                 # Requires PhantomJS - `npm install`
                 pdf_generated = phantomjs_pdf(input_file, output_file)

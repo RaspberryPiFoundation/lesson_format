@@ -47,6 +47,9 @@ if (system.args.length < 3 || system.args.length > 5) {
             console.log('Unable to load the address!');
             phantom.exit();
         } else {
+            // inject phantomjs-specifc stylesheet
+            page.setContent(page.content.replace('</head>', '<link rel="stylesheet" href="../../../css/phantomjs.min.css"></head>'), page.url);
+            // inject pdf-specific script
             page.injectJs('assets/js/pdf.js');
             window.setTimeout(function () {
                 page.render(output);

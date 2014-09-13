@@ -1,0 +1,54 @@
+
+@media print {
+
+	html {
+		background: #fff;
+		border:     none;
+	}
+
+		body {
+			font-family: $font-family-primary;
+			margin:      0;
+			max-width:   100%;
+			width:       100%;
+		}
+
+	a {
+		color: $color-base !important;
+	}
+
+	h1, .h1 { font-family: $h1-font-family; }
+	h2, .h2 { font-family: $h2-font-family; }
+	h3, .h3 { font-family: $h3-font-family; }
+	h4, .h4 { font-family: $h4-font-family; }
+	h5, .h5 { font-family: $h5-font-family; }
+	h6, .h6 { font-family: $h6-font-family; }
+
+	.breadcrumbs {
+		display: none;
+	}
+
+	.legal-notice {
+		display: none;
+		padding: 1em 0 0;
+
+		&.copyright {
+			background:    none;
+			border:        none;
+			border-top:    1px solid #777;
+			border-radius: 0;
+			display:       block;
+		}
+	}
+
+	.lesson-steps section {
+		page-break-inside: avoid;
+	}
+
+	.level-indicator {
+		border-radius: 15px;
+		right: 0;
+		top:   0;
+	}
+
+}

@@ -8,13 +8,3 @@ body {
 	margin: 0px 60px;
 	padding-top: 27px;
 }
-
-a {
-	color: $color-base !important;
-}
-
-code, kbd, pre, samp {
-	/* this is only required by phantomjs. */
-	/* wkhtmltopdf works better without it. */
-	font-family: monospace;
-}
