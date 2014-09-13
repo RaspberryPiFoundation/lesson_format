@@ -12,9 +12,9 @@ in the header.
 NB the alternative is to fix the manifest information and remove the
 word "level" from all, then modify the template accordingly.
 */
-var lvl = document.getElementsByClassName("level-indicator")[0];
-if (lvl.innerHTML.toLowerCase().indexOf('level ') === 0) {
-    lvl.innerHTML = 'Level <span class="level-number">' + lvl.innerHTML.substr(6) + '</span>';
+var lvl = document.getElementsByClassName("level-indicator");
+if (lvl.length > 0 && lvl[0].innerHTML.toLowerCase().indexOf('level ') === 0) {
+    lvl[0].innerHTML = 'Level <span class="level-number">' + lvl[0].innerHTML.substr(6) + '</span>';
 }
 
 /*
@@ -22,14 +22,19 @@ Add some colour to the "Step #:" bit of each activity heading
 */
 var activities = document.getElementsByClassName("activity");
 for (var x = 0; x < activities.length; x++) {
-    var tag = activities[x].getElementsByTagName('h1')[0];
-    var els = tag.innerHTML.split(':');
-    if (els.length > 1) {
-        tag.innerHTML = '<span class="step-num">' + els.shift() + ':</span>' + els.join(':');
+    var tag = activities[x].getElementsByTagName('h1');
+    if (tag.length > 0) {
+        var els = tag[0].innerHTML.split(':');
+        if (els.length > 1) {
+            tag[0].innerHTML = '<span class="step-num">' + els.shift() + ':</span>' + els.join(':');
+        }
     }
 }
 
 /* Move the legend to the right place (the end of the first page) */
 var legend = document.getElementById("legend");
-var intro = document.getElementsByClassName("intro")[0];
-intro.appendChild(legend);
+var intro = document.getElementsByClassName("intro");
+if (intro.length > 0) {
+    intro[0].appendChild(legend);
+    legend.style.display = 'block';
+}
