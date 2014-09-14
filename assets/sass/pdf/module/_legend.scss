@@ -1,7 +1,6 @@
 #legend {
-	display:          block;
 	font-family:      $font-family-secondary;
-	background-color: #d7d7d7;
+	background-color: $color-base-light;
 	border-radius:    10px;
 	//	very lazy. intro adds margins; this undoes them.
 	margin:           0 -20px;
@@ -15,11 +14,11 @@
 		margin: 0;
 	}
 
-	.check_text { color: #f5a200; }
+	.check_text { color: $color-warning; }
 
-	.flag_text { color: #349946; }
+	.flag_text { color: $color-primary-light; }
 
-	.save_text { color: #3477d1; }
+	.save_text { color: $color-highlight; }
 
 	.upper { text-transform: uppercase; }
 }

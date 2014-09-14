@@ -9,6 +9,11 @@
   page-break-before: always;
 }
 
+.pdf-hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
 html {
   background: #fff;
   border: none;
@@ -18,6 +23,8 @@ body {
   font-size: 90%;
   margin: 0px 60px;
   padding-top: 27px;
+  max-width: 800px;
+  width: inherit;
 }
 
 .breadcrumbs {
@@ -40,6 +47,10 @@ body {
   line-height: 70px;
 }
 
+.beta {
+  display: none;
+}
+
 .home-link {
   float: right;
   margin: 10px 10px 0 0;
@@ -48,9 +59,11 @@ body {
 .legal-notice {
   display: none;
 }
+.legal-notice.copyright {
+  display: none;
+}
 
 #legend {
-  display: block;
   font-family: VAGbold, sans-serif;
   background-color: #d7d7d7;
   border-radius: 10px;
@@ -70,7 +83,7 @@ body {
   color: #f5a200;
 }
 #legend .flag_text {
-  color: #349946;
+  color: #3aac4f;
 }
 #legend .save_text {
   color: #3477d1;
@@ -210,9 +223,4 @@ body {
 
 code, kbd, pre, samp {
   font-family: monospace;
-}
-
-body {
-  max-width: 800px;
-  width: inherit;
 }

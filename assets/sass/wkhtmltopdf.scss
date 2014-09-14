@@ -1,11 +1,13 @@
 
 @charset "UTF-8";
 
-//  Config variables
+//	Config variables
 @import './config';
 
-//	pdf styles
-@import './pdf/**/*';
+@media print {
+	//	pdf styles
+	@import './pdf/**/*';
 
 
-// wkhtmltopdf-specific styles go here
+	// wkhtmltopdf-specific styles go here
+}

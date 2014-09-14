@@ -1,7 +1,7 @@
 
 @charset "UTF-8";
 
-//  Config variables
+//	Config variables
 @import './config';
 
 //	pdf styles
@@ -11,8 +11,4 @@
 //	Phantom-specific
 code, kbd, pre, samp {
 	font-family: monospace;
-}
-body {
-  max-width: 800px;
-  width: inherit;
 }

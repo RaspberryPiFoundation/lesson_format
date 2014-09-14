@@ -211,6 +211,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir):
         "wkhtmltopdf",
         # this doesn't work properly, for various reasons.
         # "--user-style-sheet", os.path.join(root_dir, "css", "wkhtmltopdf.min.css"),
+        "--print-media-type",
         "--run-script", print_js,
         "--footer-html", os.path.join(template_base, "_wkhtmltopdf_footer.html"),
         "-T", "1.2cm",

@@ -9,7 +9,7 @@
 		color: black;
 	}
 
-  ul > li {
+	ul > li {
 		padding-left: 20px;
 
 		&:before {
@@ -17,5 +17,5 @@
 			border-color:     $color-primary-light;
 			left:             -0.4em;
 		}
-  }
+	}
 }
