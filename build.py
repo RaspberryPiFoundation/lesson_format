@@ -225,7 +225,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir):
     working_dir = os.path.dirname(output_file)
 
     try:
-        result = subprocess.check_call(cmd, cwd=working_dir)
+        result = subprocess.call(cmd, cwd=working_dir)
     except OSError:
         logger.error('wkhtmltopdf is required, check %s' % WKHTMLTOPDF_INSTALL_URL)
         exit()
