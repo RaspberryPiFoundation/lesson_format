@@ -186,6 +186,7 @@ def phantomjs_pdf(input_file, output_file, root_dir):
         # include pdf-specific javascript
         '--script', 'assets/js/pdf.js',
         '--footer', footer,
+        '--waitFor', 'document.getElementById("legend").style.display == "block"',
         input_file, output_file, '"A4"'
     ]
 
