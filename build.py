@@ -275,24 +275,27 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         if generate_pdf and pdf_generator is not None:
             # Set input to newly generated HTML to act as source for PDF generation
             input_file  = output_file
-            output_file = os.path.join(output_dir, "%s.pdf"%name)
 
             #
-            # Here are three methods of generating PDFs. None of them support
-            # webfonts. Uncomment only one at a time to test them
+            # Here are three methods of generating PDFs.
             #
-            if pdf_generator == 'wkhtmltopdf':
+            if pdf_generator in ['wkhtmltopdf', 'all']:
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
+                output_file = os.path.join(output_dir, "%s.wkhtmltopdf.pdf"%name)
                 pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir)
-            elif pdf_generator == 'phantomjs':
+                if pdf_generated:
+                    output.append(Resource(filename = output_file, format = "pdf"))
+
+            if pdf_generator in ['phantomjs', 'all']:
                 # Requires PhantomJS - `npm install`
+                output_file = os.path.join(output_dir, "%s.phantomjs.pdf"%name)
                 pdf_generated = phantomjs_pdf(input_file, output_file, root_dir)
+                if pdf_generated:
+                    output.append(Resource(filename = output_file, format = "pdf"))
 
             # Requires Pandoc and LaTeX/MacTeX
             # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
 
-            if (pdf_generated):
-                output.append(Resource(filename = output_file, format = "pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
@@ -314,7 +317,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
     note_pdf           = project.note_pdf
     name, ext          = os.path.basename(input_file).rsplit(".", 1)
     project_breadcrumb = breadcrumb + [(project.title, "")]
-    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf is None)
+    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, True)
     notes              = []
 
     if pdf != None:
@@ -326,7 +329,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, note_pdf is None))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, False))
 
     extras = []
 
@@ -365,7 +368,7 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, pdf is None))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
 
     materials = None
 
@@ -390,7 +393,7 @@ def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, ter
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, pdf is None))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
 
     materials = None
 
@@ -505,7 +508,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             files_link.text = file.format
 
             if file.format == 'pdf':
-                files_link.text = (project.title or url) + ' (pdf)'
+                files_link.set('class', 'files-link pdf')
+                if file.filename[-14:-3] == '.phantomjs.':
+                    files_link.text = 'Download phantomjs PDF'
+                else:
+                    files_link.text = 'Download wkhtmltopdf PDF'
 
         note_pdf_url = False
 
@@ -1215,7 +1222,7 @@ if __name__ == '__main__':
     themes     = load_themes(theme_base)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
+    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs', 'all'], default=None, dest="pdf_generator")
     parser.add_argument('--rebuild', action='store_true', default=False)
     parser.add_argument('region', choices=themes.keys()+['css'])
     parser.add_argument('lesson_dirs', nargs="+")
