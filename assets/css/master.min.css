@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 27.08.2014 08:32
+ * 16.09.2014 17:41
  */
 
 @charset "UTF-8";
@@ -213,12 +213,14 @@ td {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular.eot");
   src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
   font-weight: 300;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular-Oblique.eot");
@@ -226,12 +228,14 @@ td {
   font-weight: 300;
   font-style: oblique;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold.eot");
   src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
   font-weight: 700;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold-Oblique.eot");
@@ -239,6 +243,7 @@ td {
   font-weight: 700;
   font-style: oblique;
 }
+
 .reset, figure {
   margin: 0;
   padding: 0;
@@ -354,7 +359,7 @@ body {
   min-height: 100%;
   min-width: 300px;
   position: relative;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -1024,7 +1029,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   margin-bottom: 0.75em;
 }
 .flag ul {
-  margin: 0;
+  margin: 0 0 0 1.5em;
 }
 .flag li:before {
   background: rgba(52, 153, 70, 0.15);
@@ -1076,7 +1081,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   margin-bottom: 0.75em;
 }
 .try ul {
-  margin: 0;
+  margin: 0 0 0 1.5em;
 }
 
 @media print {
