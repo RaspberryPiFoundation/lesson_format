@@ -2,7 +2,7 @@
  * Code-Club-Projects
  * @author Jonic Linley <jonic@codeclub.org.uk>
  * @version 1.0.0
- * 13.09.2014 23:18
+ * 16.09.2014 17:33
  */
 
 @charset "UTF-8";
@@ -1026,7 +1026,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   margin-bottom: 0.75em;
 }
 .flag ul {
-  margin: 0;
+  margin: 0 0 0 1.5em;
 }
 .flag li:before {
   background: rgba(52, 153, 70, 0.15);
@@ -1078,7 +1078,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   margin-bottom: 0.75em;
 }
 .try ul {
-  margin: 0;
+  margin: 0 0 0 1.5em;
 }
 
 @media print {
