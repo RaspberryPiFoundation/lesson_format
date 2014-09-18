@@ -21,18 +21,8 @@ module.exports = function (grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    tag: {
-      banner: '/*!\n' +
-        ' * <%= pkg.name %>\n' +
-        ' * @author <%= pkg.author.name %> <<%= pkg.author.email %>>\n' +
-        ' * @version <%= pkg.version %>\n' +
-        ' * <%= grunt.template.today("dd.mm.yyyy HH:MM") %>\n'+
-        ' */\n'
-    },
-
     sass: {
       options: {
-        banner: '<%= tag.banner %>',
         require: 'sass-globbing'
       },
       dev: {

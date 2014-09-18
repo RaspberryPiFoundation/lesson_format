@@ -1,10 +1,3 @@
-/*!
- * Code-Club-Projects
- * @author Jonic Linley <jonic@codeclub.org.uk>
- * @version 1.0.0
- * 16.09.2014 17:33
- */
-
 @charset "UTF-8";
 /**
  * Typecsset
@@ -450,6 +443,39 @@ code.blockyellow {
 code.blockpurple {
   background: rgba(155, 89, 182, 0.25);
 }
+code.blockmotion {
+  background: #505fd7;
+}
+code.blocklooks {
+  background: #9b33d9;
+}
+code.blocksound {
+  background: #d000c2;
+}
+code.blockpen {
+  background: #00a16f;
+}
+code.blockdata {
+  background: #ff7500;
+}
+code.blockevents {
+  background: #d38117;
+}
+code.blockcontrol {
+  background: #e9aa00;
+}
+code.blocksensing {
+  background: #00a3e6;
+}
+code.blockoperators {
+  background: #00c114;
+}
+code.blockmoreblocks {
+  background: #71009a;
+}
+code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
+  color: #fff;
+}
 
 pre {
   background: #d7d7d7;
@@ -851,6 +877,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul {
   margin-left: 0;
+  cursor: pointer;
 }
 .lesson-steps ul > li {
   list-style: none;
@@ -883,6 +910,13 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul > li img.inline:before {
   display: none;
+}
+.lesson-steps ul > li.activity-done {
+  text-decoration: line-through;
+  font-style: italic;
+}
+.lesson-steps ul > li.activity-done:before {
+  background: #3477d1;
 }
 .lesson-steps ul > li ol {
   margin-left: 1.5em;

@@ -68,7 +68,7 @@ lesson_style = Style(
     name          = 'lesson',
     html_template = "lesson.html",
     tex_template  = None,
-    scripts       = ["/js/prism.js"],
+    scripts       = ["/js/prism.js", "/js/lesson.js"],
     stylesheets   = ["/css/prism.css", "/css/master.min.css"],
 )
 
