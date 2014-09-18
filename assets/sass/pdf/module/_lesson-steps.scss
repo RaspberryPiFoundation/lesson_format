@@ -1,0 +1,33 @@
+.lesson-steps {
+
+	//	Remove orange border from images
+	img {
+		border: none;
+	}
+
+	ul > li:before {
+		//	Remove background from all checkboxes
+		background:   inherit;
+		top:          0.1em;
+		height:       1.2em;
+		width:        1.2em;
+	}
+
+	section {
+		//	webkit doesn't recognise page-break-inside
+		/* page-break-inside: avoid; */
+
+		&#introduction {
+			margin-left:      20px;
+			margin-right:     20px;
+			page-break-after: always;
+			//	Remove orange dotted line from end of intro
+			border-bottom:    none;
+
+			img {
+				//	Set max size on screenshot image
+				max-width:      440px;
+			}
+		}
+	}
+}

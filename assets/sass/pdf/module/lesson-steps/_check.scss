@@ -1,0 +1,26 @@
+.check {
+	h2 {
+		/* Make the orange tick bigger! */
+		background-size: 1.5em auto;
+		padding-left:    2em;
+	}
+
+	ul {
+		margin-left:  40px;
+		margin-right: 80px;
+	}
+
+	> ul > li {
+		//	Add numbers to checklist bullets
+		list-style-type: decimal;
+
+		&:before {
+			//	Move checklist checkboxes to the right, and
+			//	make them a bit bigger
+			left:   inherit;
+			right:  -4em;
+			height: 1.2em;
+			width:  1.2em;
+		}
+	}
+}

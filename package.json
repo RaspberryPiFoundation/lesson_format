@@ -19,5 +19,9 @@
     "grunt-phplint": "0.0.5",
     "jshint-stylish": "~0.1.4",
     "load-grunt-tasks": "~0.2.0"
+  },
+  "dependencies": {
+    "phantomjs": "<1.9.3",
+    "optimist-phantomjs": "0.0.3"
   }
 }

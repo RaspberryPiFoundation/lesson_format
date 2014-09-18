@@ -1,0 +1,18 @@
+.header {
+	background-color: $color-highlight-light;
+	margin-bottom:    35px;
+
+	h1 {
+		background-color: transparent;
+		font-size:        38px;
+		margin:           30px 0 30px 146px;
+		text-align:       left;
+	}
+
+	//	Big level number at the start
+	.level-number {
+		font-family: VAGbold, sans-serif;
+		font-size:   80px;
+		line-height: 70px;
+	}
+}

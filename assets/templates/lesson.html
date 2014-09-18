@@ -35,7 +35,26 @@ $if(legal)$
     </aside>
 $endif$
 
-    <script type="text/javascript" src="$root$/js/lesson.js"></script>
+    <div id="legend">
+      <table>
+        <tr>
+          <td><img src="$root$/img/check.png" alt="Instruction" /></td>
+          <td><span class="check_text">Activity Checklist</span></td>
+          <td>Follow these <span class="check_text upper">instructions</span> one by one</td>
+        </tr>
+        <tr>
+          <td><img src="$root$/img/flag.png" alt="Test" /></td>
+          <td><span class="flag_text">Test your Project</span></td>
+          <td>Click on the green flag to <span class="flag_text upper">test</span> your code</td>
+        </tr>
+        <tr>
+          <td><img src="$root$/img/save.png" alt="Save" /></td>
+          <td><span class="save_text">Save your Project</span></td>
+          <td>Make sure to <span class="save_text upper">save</span> your work now</td>
+        </tr>
+      </table>
+    </div>
+
 $if(analytics_account)$
     <!-- Google Analytics -->
     <script type="text/javascript">

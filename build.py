@@ -8,8 +8,8 @@ import collections
 import glob
 import json
 import subprocess
-import tempfile
 import string
+import argparse
 from datetime import datetime
 
 import logging
@@ -40,9 +40,10 @@ def translate(self, text):
 
 Language.translate = translate
 base               = os.path.dirname(os.path.abspath(__file__))
-template_base      = os.path.join(base, "assets/templates")
-theme_base         = os.path.join(base, "assets/themes")
-language_base      = os.path.join(base, "assets/languages")
+template_base      = os.path.join(base, "assets", "templates")
+theme_base         = os.path.join(base, "assets", "themes")
+language_base      = os.path.join(base, "assets", "languages")
+phantomjs          = os.path.join(base, "node_modules", ".bin", "phantomjs")
 PANDOC_MARKDOWN    = "markdown_github-implicit_figures+header_attributes+yaml_metadata_block+inline_code_attributes+footnotes"
 year               = datetime.now().year
 banned_chars       = re.compile(r'[\\/?|;:!#@$%^&*<>, ]+')
@@ -84,9 +85,9 @@ Term                 = collections.namedtuple('Term', 'id manifest title descrip
 Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
-css_assets           = os.path.join(base, "assets/css")
-js_assets            = os.path.join(base, "assets/js")
-scratchblocks_filter = os.path.join(base, "lib/pandoc_scratchblocks/filter.py")
+css_assets           = os.path.join(base, "assets", "css")
+js_assets            = os.path.join(base, "assets", "js")
+scratchblocks_filter = os.path.join(base, "lib", "pandoc_scratchblocks", "filter.py")
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
 
@@ -171,15 +172,53 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
     pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
 
-def phantomjs_pdf(input_file, output_file):
-    cmd = ['phantomjs', rasterize, input_file, output_file, '"A4"']
+def phantomjs_pdf(input_file, output_file, root_dir):
+    # fetch the phantom footer
+    footer_fn = os.path.join(template_base, "_phantomjs_footer.html")
+    with open(footer_fn, "r") as footer_file:
+        footer = footer_file.read()
+
+    root = get_path_to(root_dir, output_file)
+    cmd = [
+        phantomjs, rasterize,
+        # include phantomjs-specific stylesheet
+        '--style', os.path.join(root, 'css', 'phantomjs.min.css'),
+        # include pdf-specific javascript
+        '--script', 'assets/js/pdf.js',
+        '--footer', footer,
+        '--waitFor', 'document.getElementById("legend").style.display == "block"',
+        input_file, output_file, '"A4"'
+    ]
 
     return 0 == subprocess.call(cmd)
 
-def webkit_to_pdf(input_file, output_file):
+def qtwebkit_to_pdf(input_file, output_file, root_dir):
+    # faff to inject some custom javascript
+    print_js_fn = os.path.join(js_assets, "pdf.js")
+    with open(print_js_fn, "r") as print_js_file:
+        print_js = print_js_file.read()
+
+    # massive faff to inject a custom stylesheet
+    root = get_path_to(root_dir, output_file)
+    with open(input_file, "r") as i:
+        input_file = '%s.tmp.html' % input_file[:-5]
+        with open(input_file, 'w') as o:
+            for line in i:
+                if '</head>' in line:
+                    o.write('<link rel="stylesheet" href="%s/css/wkhtmltopdf.min.css">\n' % root)
+                o.write(line)
+
     cmd = [
         "wkhtmltopdf",
+        # this doesn't work properly, for various reasons.
+        # "--user-style-sheet", os.path.join(root_dir, "css", "wkhtmltopdf.min.css"),
         "--print-media-type",
+        "--run-script", print_js,
+        "--footer-html", os.path.join(template_base, "_wkhtmltopdf_footer.html"),
+        "-T", "1.2cm",
+        "-B", "2.5cm",
+        "-L", "0",
+        "-R", "0",
         input_file,
         output_file,
     ]
@@ -187,10 +226,12 @@ def webkit_to_pdf(input_file, output_file):
     working_dir = os.path.dirname(output_file)
 
     try:
-        result = subprocess.check_call(cmd, cwd=working_dir)
+        result = subprocess.call(cmd, cwd=working_dir)
     except OSError:
         logger.error('wkhtmltopdf is required, check %s' % WKHTMLTOPDF_INSTALL_URL)
         exit()
+    finally:
+        os.remove(input_file)
 
     return 0 == result
 
@@ -221,7 +262,7 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir):
+def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, generate_pdf):
     output        = []
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
     pdf_generated = False
@@ -232,26 +273,30 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
-        # Set input to newly generated HTML to act as source for PDF generation
-        input_file  = output_file
-        output_file = os.path.join(output_dir, "%s.pdf"%name)
+        if generate_pdf and pdf_generator is not None:
+            # Set input to newly generated HTML to act as source for PDF generation
+            input_file  = output_file
 
-        #
-        # Here are three methods of generating PDFs. None of them support
-        # webfonts. Uncomment only one at a time to test them
-        #
+            #
+            # Here are three methods of generating PDFs.
+            #
+            if pdf_generator in ['wkhtmltopdf', 'all']:
+                # Requires wkhtmltopdf - http://wkhtmltopdf.org
+                output_file = os.path.join(output_dir, "%s.wkhtmltopdf.pdf"%name)
+                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir)
+                if pdf_generated:
+                    output.append(Resource(filename = output_file, format = "pdf"))
 
-        # Requires wkhtmltopdf - http://wkhtmltopdf.org
-        # pdf_generated = webkit_to_pdf(input_file, output_file)
+            if pdf_generator in ['phantomjs', 'all']:
+                # Requires PhantomJS - `npm install`
+                output_file = os.path.join(output_dir, "%s.phantomjs.pdf"%name)
+                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir)
+                if pdf_generated:
+                    output.append(Resource(filename = output_file, format = "pdf"))
 
-        # Requires Pandoc and LaTeX/MacTeX
-        # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
+            # Requires Pandoc and LaTeX/MacTeX
+            # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
 
-        # Requires PhantomJS - `brew install phantomjs`
-        # pdf_generated = phantomjs_pdf(output_file, pdf_output_file):
-
-        if (pdf_generated):
-            output.append(Resource(filename = output_file, format = "pdf"))
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
@@ -273,7 +318,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
     note_pdf           = project.note_pdf
     name, ext          = os.path.basename(input_file).rsplit(".", 1)
     project_breadcrumb = breadcrumb + [(project.title, "")]
-    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir)
+    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, True)
     notes              = []
 
     if pdf != None:
@@ -285,7 +330,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, False))
 
     extras = []
 
@@ -324,7 +369,7 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
 
     materials = None
 
@@ -349,7 +394,7 @@ def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, ter
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
 
     materials = None
 
@@ -464,7 +509,11 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             files_link.text = file.format
 
             if file.format == 'pdf':
-                files_link.text = (project.title or url) + ' (pdf)'
+                files_link.set('class', 'files-link pdf')
+                if file.filename[-14:-3] == '.phantomjs.':
+                    files_link.text = 'Download phantomjs PDF'
+                else:
+                    files_link.text = 'Download wkhtmltopdf PDF'
 
         note_pdf_url = False
 
@@ -1172,26 +1221,23 @@ def check_requirements():
     pass
 
 if __name__ == '__main__':
-    args = sys.argv[1::]
-
-    if len(args) < 3:
-        print "usage: (--rebuild) <region> <input lessons directories> <output directory>"
-        sys.exit(-1)
-
-    progress = True
-    rebuild  = False
-
-    if args[0] == "--rebuild":
-        rebuild = True
-        args.pop(0)
-
     themes     = load_themes(theme_base)
-    theme      = themes[args[0]] if args[0] != 'css' else args[0]
-    languages  = load_languages(language_base)
-    args       = [os.path.abspath(a) for a in args[1:]]
-    lessons    = args[:-1]
-    output_dir = args[-1]
 
-    build(rebuild, lessons, theme, languages, output_dir)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs', 'all'], default=None, dest="pdf_generator")
+    parser.add_argument('--rebuild', action='store_true', default=False)
+    parser.add_argument('region', choices=themes.keys()+['css'])
+    parser.add_argument('lesson_dirs', nargs="+")
+    parser.add_argument('output_dir')
+    p = parser.parse_args()
+
+    progress      = True
+    lessons       = [os.path.abspath(a) for a in p.lesson_dirs]
+    theme         = themes[p.region] if p.region != 'css' else 'css'
+    languages     = load_languages(language_base)
+    output_dir    = os.path.abspath(p.output_dir)
+    pdf_generator = p.pdf_generator
+
+    build(p.rebuild, lessons, theme, languages, output_dir)
 
     sys.exit(0)

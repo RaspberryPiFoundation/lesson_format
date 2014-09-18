@@ -206,12 +206,14 @@ td {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular.eot");
   src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
   font-weight: 300;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular-Oblique.eot");
@@ -219,12 +221,14 @@ td {
   font-weight: 300;
   font-style: oblique;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold.eot");
   src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
   font-weight: 700;
 }
+
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold-Oblique.eot");
@@ -232,6 +236,7 @@ td {
   font-weight: 700;
   font-style: oblique;
 }
+
 .reset, figure {
   margin: 0;
   padding: 0;
@@ -347,7 +352,7 @@ body {
   min-height: 100%;
   min-width: 300px;
   position: relative;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 a {
@@ -437,6 +442,39 @@ code.blockyellow {
 }
 code.blockpurple {
   background: rgba(155, 89, 182, 0.25);
+}
+code.blockmotion {
+  background: #505fd7;
+}
+code.blocklooks {
+  background: #9b33d9;
+}
+code.blocksound {
+  background: #d000c2;
+}
+code.blockpen {
+  background: #00a16f;
+}
+code.blockdata {
+  background: #ff7500;
+}
+code.blockevents {
+  background: #d38117;
+}
+code.blockcontrol {
+  background: #e9aa00;
+}
+code.blocksensing {
+  background: #00a3e6;
+}
+code.blockoperators {
+  background: #00c114;
+}
+code.blockmoreblocks {
+  background: #71009a;
+}
+code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
+  color: #fff;
 }
 
 pre {
@@ -802,11 +840,16 @@ ul ol li, ul ul li {
   border-color: #3477d1;
 }
 
-html[lang="en-GB"] .lesson-steps b, html[lang="en-GB"] .lesson-steps em, html[lang="en-GB"] .lesson-steps i, html[lang="en-GB"] .lesson-steps li, html[lang="en-GB"] .lesson-steps p, html[lang="en-GB"] .lesson-steps strong {
+#legend {
+  display: none;
+}
+
+html[lang="en-GB"] .lesson-steps em, html[lang="en-GB"] .lesson-steps i, html[lang="en-GB"] .lesson-steps li, html[lang="en-GB"] .lesson-steps p {
   font-family: "Comic Neue", "Comic Sans", sans-serif;
   font-weight: 500;
 }
 html[lang="en-GB"] .lesson-steps b, html[lang="en-GB"] .lesson-steps strong {
+  font-family: "Comic Neue", "Comic Sans", sans-serif;
   font-weight: 700;
 }
 html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 strong, html[lang="en-GB"] .lesson-steps h2 b, html[lang="en-GB"] .lesson-steps h2 strong {
@@ -834,6 +877,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul {
   margin-left: 0;
+  cursor: pointer;
 }
 .lesson-steps ul > li {
   list-style: none;
@@ -866,6 +910,13 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps ul > li img.inline:before {
   display: none;
+}
+.lesson-steps ul > li.activity-done {
+  text-decoration: line-through;
+  font-style: italic;
+}
+.lesson-steps ul > li.activity-done:before {
+  background: #3477d1;
 }
 .lesson-steps ul > li ol {
   margin-left: 1.5em;

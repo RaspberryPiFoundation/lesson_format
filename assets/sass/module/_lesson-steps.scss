@@ -2,12 +2,13 @@
 .lesson-steps {
 
 	html[lang="en-GB"] & {
-		b, em, i, li, p, strong {
+		em, i, li, p {
 			font-family: $font-family-print;
 			font-weight: 500;
 		}
 
 		b, strong {
+			font-family: $font-family-print;
 			font-weight: 700;
 		}
 

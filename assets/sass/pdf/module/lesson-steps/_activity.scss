@@ -1,0 +1,14 @@
+.activity {
+	h1 {
+		//	Add the green background to the activity headings
+		background-color: $color-primary-light;
+		border-radius:    5px;
+		padding:          10px 20px;
+		color:            #fff;
+
+		//	..and the light blue step number
+		.step-num {
+			color: $color-highlight-light;
+		}
+	}
+}

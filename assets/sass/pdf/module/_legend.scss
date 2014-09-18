@@ -1,0 +1,24 @@
+#legend {
+	font-family:      $font-family-secondary;
+	background-color: $color-base-light;
+	border-radius:    10px;
+	//	very lazy. intro adds margins; this undoes them.
+	margin:           0 -20px;
+
+	table { margin: 10px; }
+
+	td { padding: 5px; }
+
+	img {
+		width:  30px;
+		margin: 0;
+	}
+
+	.check_text { color: $color-warning; }
+
+	.flag_text { color: $color-primary-light; }
+
+	.save_text { color: $color-highlight; }
+
+	.upper { text-transform: uppercase; }
+}
