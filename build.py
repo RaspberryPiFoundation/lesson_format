@@ -172,11 +172,11 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
     pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
 
-def phantomjs_pdf(input_file, output_file, root_dir):
+def phantomjs_pdf(input_file, output_file, root_dir, legal):
     # fetch the phantom footer
     footer_fn = os.path.join(template_base, "_phantomjs_footer.html")
     with open(footer_fn, "r") as footer_file:
-        footer = footer_file.read()
+        footer = footer_file.read().replace('{{ legal }}', legal)
 
     root = get_path_to(root_dir, output_file)
     cmd = [
@@ -192,7 +192,7 @@ def phantomjs_pdf(input_file, output_file, root_dir):
 
     return 0 == subprocess.call(cmd)
 
-def qtwebkit_to_pdf(input_file, output_file, root_dir):
+def qtwebkit_to_pdf(input_file, output_file, root_dir, legal):
     # faff to inject some custom javascript
     print_js_fn = os.path.join(js_assets, "pdf.js")
     with open(print_js_fn, "r") as print_js_file:
@@ -215,6 +215,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir):
         "--print-media-type",
         "--run-script", print_js,
         "--footer-html", os.path.join(template_base, "_wkhtmltopdf_footer.html"),
+        "--replace", "legal", legal,
         "-T", "1.2cm",
         "-B", "2.5cm",
         "-L", "0",
@@ -264,6 +265,7 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
 def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, generate_pdf):
     output        = []
+    legal         = language.legal.get(theme.id, theme.legal)
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
     pdf_generated = False
 
@@ -283,14 +285,14 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
             if pdf_generator in ['wkhtmltopdf', 'all']:
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
                 output_file = os.path.join(output_dir, "%s.wkhtmltopdf.pdf"%name)
-                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir)
+                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
                 if pdf_generated:
                     output.append(Resource(filename = output_file, format = "pdf"))
 
             if pdf_generator in ['phantomjs', 'all']:
                 # Requires PhantomJS - `npm install`
                 output_file = os.path.join(output_dir, "%s.phantomjs.pdf"%name)
-                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir)
+                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir, legal)
                 if pdf_generated:
                     output.append(Resource(filename = output_file, format = "pdf"))
 
