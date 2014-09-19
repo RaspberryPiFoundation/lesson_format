@@ -2,5 +2,11 @@
 	"code": "pl-PL",
 	"name": "Polski",
 	"legal": {},
-	"translations": {}
+	"translations": {
+	    "Terms": "Semestry",
+	    "Projects": "Projekty",
+	    "Student Project": "Projekt dla uczniów",
+	    "Notes for Club Leader": "Informacje dla prowadzącego",
+	    "Download Project Materials": "Pobierz materiały"
+	}
 }
