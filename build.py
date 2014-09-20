@@ -101,7 +101,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-o", output_file,
         "-t", "html5",
         "--section-divs",
-        "-s",  # smart quotes
+        "--smart",  # smart quotes
         "--highlight-style", "pygments",
         "--template=%s"%os.path.join(template_base, style.html_template),
         "--filter", scratchblocks_filter,
@@ -114,6 +114,8 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "theme=%s"%theme.id,
         "-M", "webmaster_tools_verification=%s"%theme.webmaster_tools_verification,
     ]
+
+    cmd.extend(get_legend_translations(language))
 
     if theme.analytics_account:
         cmd.extend([
@@ -1124,6 +1126,18 @@ def get_path_to(root_dir, output_file):
         path    = "/".join([".."] * subdirs)
 
     return path
+
+def get_legend_translations(language):
+    legend = {
+        'activity':      'Activity Checklist',
+        'activity_desc': 'Follow these <span class="check_text upper">instructions</span> one by one',
+        'test':          'Test your Project',
+        'test_desc':     'Click on the green flag to <span class="flag_text upper">test</span> your code',
+        'save':          'Save your Project',
+        'save_desc':     'Make sure to <span class="save_text upper">save</span> your work now',
+    }
+    # list incomprehension
+    return [a for b in [('-M', 'leg_%s=%s' % (x, language.translate(y))) for x, y in legend.items()] for a in b]
 
 def find_files(dir, extension):
     manifests = []
