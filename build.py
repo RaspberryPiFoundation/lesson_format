@@ -116,8 +116,6 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "webmaster_tools_verification=%s"%theme.webmaster_tools_verification,
     ]
 
-    cmd.extend(get_legend_translations(language))
-
     if theme.analytics_account:
         cmd.extend([
             "-M", "analytics_account=%s"%theme.analytics_account,
@@ -151,7 +149,7 @@ def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir
         "-f", PANDOC_MARKDOWN,
     )
 
-    variables = {}
+    variables = get_legend_translations(language)
 
     if breadcrumb:
         variables['breadcrumbs'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
@@ -1138,8 +1136,7 @@ def get_legend_translations(language):
         'save':          'Save your Project',
         'save_desc':     'Make sure to <span class="save_text upper">save</span> your work now',
     }
-    # list incomprehension
-    return [a for b in [('-M', 'leg_%s=%s' % (x, language.translate(y))) for x, y in legend.items()] for a in b]
+    return {'leg_%s' % k: language.translate(v) for k, v in legend.items()}
 
 def find_files(dir, extension):
     manifests = []
