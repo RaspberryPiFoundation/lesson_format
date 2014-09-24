@@ -26,7 +26,7 @@ except ImportError:
 PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
 WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
-Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo css_variables analytics_account analytics_domain webmaster_tools_verification')
+Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo favicon css_variables analytics_account analytics_domain webmaster_tools_verification')
 Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
 Language = collections.namedtuple('Language', 'code name legal translations links')
 
@@ -109,6 +109,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "year=%s"%year,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
+        "-M", "favicon=%s"%theme.favicon,
         "-M", "root=%s"%root,
         "-M", "lang=%s"%language.code,
         "-M", "theme=%s"%theme.id,
@@ -1015,6 +1016,7 @@ def parse_theme(filename):
         stylesheets                  = obj['stylesheets'],
         legal                        = obj['legal'],
         logo                         = obj['logo'],
+        favicon                      = obj['favicon'],
         analytics_account            = obj.get('analytics_account'),
         analytics_domain             = obj.get('analytics_domain'),
         webmaster_tools_verification = obj.get('webmaster_tools_verification'),

@@ -5,6 +5,7 @@
     "legal": "These projects are for use inside the UK only. All Code Clubs <strong>must</strong> be registered. You can check registered clubs on the map at <a href=\"http://www.codeclub.org.uk/\">www.codeclub.org.uk</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"http://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
     "stylesheets": [],
     "logo": "/img/ccuk_logo.png",
+    "favicon": "/img/ccuk_favicon.ico",
     "css_variables": {
         "header_bg_light": "#B1DAAE",
         "header_bg_dark": "#349946",
