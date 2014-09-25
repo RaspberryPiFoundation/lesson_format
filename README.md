@@ -2,7 +2,7 @@
 
 The lesson formatter transforms our markdown lessons into a static website.
 
-You can see the output at <projects.codeclub.org.uk> (a static site [driven by this repository](https://github.com/CodeClub/CodeClubUK-Projects)) and also at <http://codeclubworld.org/> ([driven by this repository](https://github.com/CodeClub/CodeClubWorld-Projects)).
+You can see the output at <http://projects.codeclub.org.uk/> (a static site [driven by this repository](https://github.com/CodeClub/CodeClubUK-Projects)) and also at <http://codeclubworld.org/> ([driven by this repository](https://github.com/CodeClub/CodeClubWorld-Projects)).
 
 ## Installation and Running
 
