@@ -17,7 +17,7 @@
 		//	webkit doesn't recognise page-break-inside
 		/* page-break-inside: avoid; */
 
-		&#introduction {
+		&.intro {
 			margin-left:      20px;
 			margin-right:     20px;
 			page-break-after: always;
@@ -27,6 +27,7 @@
 			img {
 				//	Set max size on screenshot image
 				max-width:      440px;
+				max-height:     350px;
 			}
 		}
 	}

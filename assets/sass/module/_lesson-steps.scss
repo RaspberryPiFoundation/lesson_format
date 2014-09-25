@@ -32,7 +32,7 @@
 	section {
 		margin-bottom: 1.5em;
 
-		&#introduction {
+		&.intro {
 			border-bottom: 3px dotted $color-warning;
 		}
 	}
