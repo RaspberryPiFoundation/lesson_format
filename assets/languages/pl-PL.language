@@ -3,10 +3,22 @@
 	"name": "Polski",
 	"legal": {},
 	"translations": {
-	    "Terms": "Semestry",
-	    "Projects": "Projekty",
-	    "Student Project": "Projekt dla uczniów",
-	    "Notes for Club Leader": "Informacje dla prowadzącego",
-	    "Download Project Materials": "Pobierz materiały"
+		"Terms": "Semestry",
+		"Projects": "Projekty",
+		"Student Project": "Projekt dla uczniów",
+		"Notes for Club Leader": "Informacje dla prowadzącego",
+		"Download Project Materials": "Pobierz materiały",
+		"Download PDF": null,
+		"Extras": null,
+		"Languages": null,
+		"Notes": null,
+		"resources": null,
+		"Scratch Cards for this lesson": null,
+		"Activity Checklist": null,
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": null,
+		"Test your Project": null,
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": null,
+		"Save your Project": null,
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": null
 	}
 }
