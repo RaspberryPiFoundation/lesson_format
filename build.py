@@ -36,7 +36,9 @@ def progress_print(*args):
             print a
 
 def translate(self, text):
-    return self.translations.get(text, text)
+    trans = self.translations.get(text, text)
+    print trans
+    return (text, trans)[trans is not None]
 
 Language.translate = translate
 base               = os.path.dirname(os.path.abspath(__file__))
