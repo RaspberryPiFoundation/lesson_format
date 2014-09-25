@@ -24,7 +24,7 @@ For Example
       move 10 steps
     ```
 
-## Headers in Markdown files.
+## Headers in Markdown files
 
 Each markdown file should contain a YAML block, with the title set. For lessons, the header should contain a title, and level.
 
@@ -35,21 +35,19 @@ An example lesson header looks like this:
 title: Felix and Herbert
 level: Level 1
 language: en-GB
-stylesheet: scratch
 embeds: "*.png"
-materials: "Felix-and-Herbert.sb"
+materials: "Felix-and-Herbert.sb2"
 note: "notes for club leaders.md"
 ...
 
 Rest of markdown file ...
 ```
 
-- The language is optional, but useful.
-- The stylesheet is needed for scratch worksheets.
-- Embeds is a file, or a list of files for images used inside the document
-- Materials is a file, or list of files of things that accompany the lesson (e.g scratch files)
-- Note is the filename of the optional notes for volunteers.
-- Level is the difficulty of the project.
+- The `language` is optional, but useful.
+- `embeds` is a file or list of files for images used inside the document
+- `materials` is a file or list of files of things that accompany the lesson (e.g. scratch files)
+- `note` is the filename of the optional notes for volunteers.
+- `level` is the difficulty of the project.
 
 Any file name is taken to be relative to the markdown file's directory, file names can also be globbed, i.e "*.png".
 
@@ -73,7 +71,7 @@ Each step can have things to optionally try.
 
 - Use `## Things to try {.try}` (always h2)
 
-Each step can also have challenges too.
+Each step can have challenges too.
 
 - Use `## Challenge {.challenge}` (always a h2)
 
@@ -87,7 +85,7 @@ A note to test:
 
 ### Page breaks
 
-Sometimes it’s necessary to force a page break in the generated PDF. Adding `.new-page` to a heading will force the heading onto a new page.
+Sometimes it’s necessary to force a page break in generated PDF files. Adding `.new-page` to any heading will force the heading onto a new page.
 
 - e.g. `## Things to try {.try .new-page}` (this can be used with any type of heading.)
 
@@ -95,17 +93,17 @@ Sometimes it’s necessary to force a page break in the generated PDF. Adding `.
 
 We use the scratchblocks2 library, and PhantomJS to render scratch blocks as png files.
 
-Scratch blocks inside lessons must follow the syntax set out here: http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax
+Scratch blocks inside lessons must follow [the syntax set out here](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
-You can test your syntax here, http://blob8108.github.io/scratchblocks2/, (remembering to set the language!).
+You can [test your syntax here](http://blob8108.github.io/scratchblocks2/) (remembering to set the language!).
 
-We use `scratch`, or `blocks` as the name of the language, for example, in markdown:
+We use `scratch` to denote a scratch block in markdown:
 
     Some paragraph
 
     ```scratch
     when FLAG clicked
-      move 10 steps
+        move 10 steps
     ```
 
     Another paragraph
