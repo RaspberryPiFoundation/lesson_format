@@ -37,7 +37,6 @@ def progress_print(*args):
 
 def translate(self, text):
     trans = self.translations.get(text, text)
-    print trans
     return (text, trans)[trans is not None]
 
 Language.translate = translate
