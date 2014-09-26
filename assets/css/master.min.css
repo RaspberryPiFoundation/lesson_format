@@ -206,14 +206,12 @@ td {
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular.eot");
   src: url("../fonts/ComicNeue-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Regular.woff") format("woff"), url("../fonts/ComicNeue-Regular.ttf") format("truetype");
   font-weight: 300;
 }
-
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Regular-Oblique.eot");
@@ -221,14 +219,12 @@ td {
   font-weight: 300;
   font-style: oblique;
 }
-
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold.eot");
   src: url("../fonts/ComicNeue-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/ComicNeue-Bold.woff") format("woff"), url("../fonts/ComicNeue-Bold.ttf") format("truetype");
   font-weight: 700;
 }
-
 @font-face {
   font-family: 'Comic Neue';
   src: url("../fonts/ComicNeue-Bold-Oblique.eot");
@@ -236,7 +232,6 @@ td {
   font-weight: 700;
   font-style: oblique;
 }
-
 .reset, figure {
   margin: 0;
   padding: 0;
@@ -352,7 +347,7 @@ body {
   min-height: 100%;
   min-width: 300px;
   position: relative;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -866,7 +861,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 .lesson-steps section {
   margin-bottom: 1.5em;
 }
-.lesson-steps section#introduction {
+.lesson-steps section.intro {
   border-bottom: 3px dotted #f5a200;
 }
 .lesson-steps ol > li {
