@@ -813,7 +813,6 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
         languages       = {}
         project_count   = {}
         root_index_file = os.path.join(output_dir, "index.html")
-        root_breadcrumb = [('Languages', root_index_file)]
 
         for language_code, terms in termlangs.iteritems():
             if language_code not in all_languages:
@@ -828,6 +827,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
 
             progress_print("Language", language.name)
 
+            root_breadcrumb = [(language.translate('Languages'), root_index_file)]
             out_terms       = []
             count           = 0;
             lang_dir        = os.path.join(output_dir, language.code)
