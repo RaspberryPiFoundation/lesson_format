@@ -1141,15 +1141,11 @@ def get_legend_translations(language):
 
 def find_files(dir, extension):
     manifests = []
-
-    def visit(m, dirname, names):
-        for n in names:
-            if n.endswith(extension):
-                m.append(os.path.join(dirname, n))
-
     for d in dir:
-        os.path.walk(d, visit, manifests)
-
+        for root, dirs, files in os.walk(d, followlinks=True):
+            for name in files:
+                if name.endswith(extension):
+                    manifests.append(os.path.join(root, name))
     return manifests
 
 def expand_glob(base_dir, paths, one_file=False):
