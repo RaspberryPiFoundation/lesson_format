@@ -36,7 +36,7 @@ bundle install
 
 The script reads from locally checked out files, and writes to an output directory. We run it with the `scratch-curriculum`, `webdev-curriculum`, and `python-curriculum` as inputs, and write to a directory.
 
-The first argument is the theme for the website, currently either `world` or uk`.
+The first argument is the theme for the website, currently either `world` or `uk`.
 
 ### Examples
 
