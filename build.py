@@ -33,7 +33,7 @@ Language = collections.namedtuple('Language', 'code name legal translations link
 def progress_print(*args):
     if progress:
         for a in args:
-            print a
+            print a.encode('utf-8')
 
 def translate(self, text):
     trans = self.translations.get(text, text)
