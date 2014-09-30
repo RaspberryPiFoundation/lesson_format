@@ -31,4 +31,17 @@
 			}
 		}
 	}
+
+  //	attempt to avoid blank last pages
+	> section:last-child {
+		margin-bottom: 0;
+
+		> section:last-child {
+			margin-bottom: 0;
+
+			> :last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
 }
