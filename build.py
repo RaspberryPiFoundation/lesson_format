@@ -798,7 +798,6 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
     progress_print("Copying assets...")
 
     copydir(html_assets, output_dir)
-    copy_file(os.path.join(base, "assets", "md", "README.md"), output_dir)
 
     css_dir = os.path.join(output_dir, "css")
     js_dir  = os.path.join(output_dir, "js")
