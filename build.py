@@ -706,7 +706,7 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
 
                 index_link.text = link['name']
 
-    make_html({'title':u"%s Terms &amp; Resources"%(language.name)}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
+    make_html({'title': language.translate("Terms &amp; Resources")}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
 
     return output_file
 

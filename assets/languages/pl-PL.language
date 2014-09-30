@@ -19,6 +19,7 @@
 		"Test your Project": "Przetestuj swój projekt",
 		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Kliknij na zieloną flagę, aby <span class=\"flag_text upper\">przetestować</span> swój kod",
 		"Save your Project": "Zapisz swój projekt",
-		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Teraz <span class=\"save_text upper\">zapisz</span> swój projekt"
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Teraz <span class=\"save_text upper\">zapisz</span> swój projekt",
+		"Terms &amp; Resources": "Semestry i materiały"
 	}
 }
