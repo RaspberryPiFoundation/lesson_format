@@ -14,8 +14,9 @@ html {
 
 body {
   font-size: 90%;
-  margin: 0px 60px;
+  margin: 0 60px;
   padding-top: 27px;
+  padding-bottom: 0;
   max-width: 800px;
   width: inherit;
 }
@@ -106,6 +107,15 @@ body {
 .lesson-steps section.intro img {
   max-width: 440px;
   max-height: 350px;
+}
+.lesson-steps > section:last-child {
+  margin-bottom: 0;
+}
+.lesson-steps > section:last-child > section:last-child {
+  margin-bottom: 0;
+}
+.lesson-steps > section:last-child > section:last-child > :last-child {
+  margin-bottom: 0;
 }
 
 .level-indicator {
