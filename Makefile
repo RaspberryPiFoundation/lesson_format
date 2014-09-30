@@ -12,14 +12,14 @@ clone:
 	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git output/codeclubworld
 
 update:
-	cd lib/pandoc_scratchblocks && git pull && git checkout master
+	cd lib/pandoc_scratchblocks && git checkout master && git pull
 
-	cd lessons/scratch && git pull && git checkout master
-	cd lessons/webdev  && git pull && git checkout master
-	cd lessons/python  && git pull && git checkout master
+	cd lessons/scratch && git checkout master && git pull
+	cd lessons/webdev  && git checkout master && git pull
+	cd lessons/python  && git checkout master && git pull
 
-	cd output/codeclubuk    && git pull && git checkout gh-pages
-	cd output/codeclubworld && git pull && git checkout gh-pages
+	cd output/codeclubuk    && git checkout gh-pages && git pull
+	cd output/codeclubworld && git checkout gh-pages && git pull
 
 clear:
 	rm -rf lib
