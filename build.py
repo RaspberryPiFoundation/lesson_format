@@ -92,12 +92,16 @@ scratchblocks_filter = os.path.join(base, "lib", "pandoc_scratchblocks", "filter
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
 
+# if pandoc is installed locally, use that
+pandoc               = os.path.join(base, "pandoc")
+pandoc               = ("pandoc", pandoc)[os.path.exists(pandoc)]
+
 # Markup processing
 def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
     legal = language.legal.get(theme.id, theme.legal)
     cmd   = [
-        "pandoc",
+        pandoc,
         input_file,
         "-o", output_file,
         "-t", "html5",
@@ -240,7 +244,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir, legal):
 
 def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
     cmd = [
-        "pandoc",
+        pandoc,
         input_file,
         "-o", output_file,
         "-t", "latex",

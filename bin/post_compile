@@ -1,0 +1,2 @@
+# this installs the pandoc binary on heroku
+curl -L http://cl.ly/3f2i2l2L2u2I/pandoc-1.13.1.tar.gz | tar xvz
