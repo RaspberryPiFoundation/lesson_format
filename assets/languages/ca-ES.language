@@ -2,5 +2,29 @@
 	"code": "ca-ES",
 	"name": "Català",
 	"legal": {},
-	"translations": {}
+	"translations": {
+      "Terms": "Trimestres",
+      "Projects": "Projectes",
+      "Student Project": "Document del Projecte",
+      "Notes for Club Leader": "Notes per als Caps de Club",
+      "Download Project Materials": "Descarrega els Materials del Projecte",
+      "Download PDF": "Descarrega el PDF",
+      "Extras": "Extres",
+      "Languages": "Idiomes",
+      "Notes": "Notes",
+      "resources": "recursos",
+      "Scratch Cards for this lesson": "Scratch Cards per aquesta lliçó",
+		"Activity Checklist": "Llista de Tasques",
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": 
+          "Segueix aquestes <span class=\"check_text upper\">instruccions</span> una a una",
+		"Test your Project": 
+          "Prova el Projecte",
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": 
+          "Clica la bandera verda per <span class=\"flag_text upper\">provar</span> el teu programa",
+		"Save your Project": 
+          "Desa el teu Projecte",
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": 
+          "Assegura't de <span class=\"save_text upper\">desar</span> el que has fet",
+		"Terms &amp; Resources": "Trimestres i Materials"
+   }
 }
