@@ -269,11 +269,11 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, generate_pdf, pdf_generator):
+def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, pdf_generator):
     output        = []
     legal         = language.legal.get(theme.id, theme.legal)
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
-    pdf_generated = False
+    generated_pdf = None
 
     if ext == "md":
         # Generate HTML
@@ -281,36 +281,35 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
-        if generate_pdf and pdf_generator is not None:
+        if pdf_generator is not None:
             # Set input to newly generated HTML to act as source for PDF generation
             input_file  = output_file
 
             #
             # Here are three methods of generating PDFs.
             #
-            if pdf_generator in ['wkhtmltopdf', 'all']:
+            if pdf_generator == 'wkhtmltopdf':
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
-                output_file = os.path.join(output_dir, "%s.wkhtmltopdf.pdf"%name)
-                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
-                if pdf_generated:
-                    output.append(Resource(filename = output_file, format = "pdf"))
-
-            if pdf_generator in ['phantomjs', 'all']:
+                output_file = os.path.join(output_dir, "%s.pdf"%name)
+                success = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
+                if success:
+                    generated_pdf = output_file
+            elif pdf_generator == 'phantomjs':
                 # Requires PhantomJS - `npm install`
-                output_file = os.path.join(output_dir, "%s.phantomjs.pdf"%name)
-                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir, legal)
-                if pdf_generated:
-                    output.append(Resource(filename = output_file, format = "pdf"))
+                output_file = os.path.join(output_dir, "%s.pdf"%name)
+                success = phantomjs_pdf(input_file, output_file, root_dir, legal)
+                if success:
+                    generated_pdf = output_file
 
             # Requires Pandoc and LaTeX/MacTeX
-            # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
+            # success = markdown_to_pdf(input_file, style, language, theme, output_file)
 
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
         output.append(Resource(filename = output_file, format = ext))
 
-    return output
+    return output, generated_pdf
 
 # Process files within project and resource containers
 
@@ -326,19 +325,22 @@ def build_project(rebuild, pdf_generator, term, project, language, theme, root_d
     note_pdf           = project.note_pdf
     name, ext          = os.path.basename(input_file).rsplit(".", 1)
     project_breadcrumb = breadcrumb + [(project.title, "")]
-    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, True, pdf_generator)
     notes              = []
+
+    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
 
     if pdf != None:
         pdf = copy_file(pdf, output_dir)
         progress_print("Copied PDF: " + pdf)
+    elif generated_pdf is not None:
+        pdf = generated_pdf
 
     if note_pdf != None:
         note_pdf = copy_file(note_pdf, output_dir)
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, False, pdf_generator))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, None)[0])
 
     extras = []
 
@@ -377,7 +379,7 @@ def build_project_extra(rebuild, pdf_generator, term, project, extra, language, 
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False, pdf_generator))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -402,7 +404,7 @@ def build_extra(rebuild, pdf_generator, term, extra, language, theme, root_dir, 
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False, pdf_generator))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -515,13 +517,6 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             })
 
             files_link.text = file.format
-
-            if file.format == 'pdf':
-                files_link.set('class', 'files-link pdf')
-                if file.filename[-14:-3] == '.phantomjs.':
-                    files_link.text = 'Download phantomjs PDF'
-                else:
-                    files_link.text = 'Download wkhtmltopdf PDF'
 
         note_pdf_url = False
 
@@ -855,7 +850,7 @@ def build(rebuild, pdf_generator, lesson_dirs, region, output_dir):
 
                 for p in term.projects:
                     count += 1
-                    project = parse_project_meta(p, theme)
+                    project = parse_project_meta(p, theme, pdf_generator is not None)
 
                     progress_print("Building Project: " + project.title)
 
@@ -1032,7 +1027,7 @@ def parse_theme(filename):
         css_variables                = obj['css_variables']
     )
 
-def parse_project_meta(p, theme):
+def parse_project_meta(p, theme, ignore_pdf):
     if not p.filename.endswith('md'):
         return p
 
@@ -1061,7 +1056,8 @@ def parse_project_meta(p, theme):
         note_pdf = None
 
         if theme.id == "uk":
-            pdf      = p.pdf
+            if not ignore_pdf:
+                pdf  = p.pdf
             note_pdf = p.note_pdf
 
         if raw_note:
@@ -1245,7 +1241,7 @@ progress = True
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs', 'all'], default=None, dest="pdf_generator")
+    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
     parser.add_argument('--rebuild', action='store_true', default=None)
     parser.add_argument('region', choices=themes.keys()+['css'])
     parser.add_argument('lesson_dirs', nargs="+")
