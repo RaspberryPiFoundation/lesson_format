@@ -51,11 +51,11 @@ subprocess.call('make clone'.split())
 # delete everything in the output dir
 rm_files(output_dir, dont_remove)
 
-# run the build
-build.build(False, pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir)
-
 # init gitpython!
 repo = Repo(output_dir)
+
+# run the build
+build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, repo)
 
 # add username and token to remote url
 # (so we can write)
@@ -63,13 +63,8 @@ origin_url = repo.remotes.origin.url
 origin_url = 'https://%s:%s@github.com/%s/%s' % (gh_user, gh_token, gh_user, origin_url[28:])
 repo.git.remote('set-url', '--push', 'origin', origin_url)
 
-# # stage everything...
-# repo.git.add('--all')
-# # ... except zip files!...
-# repo.git.reset('-q', 'HEAD', '*.zip')
-
-# TODO: Also remove deleted files!
-repo.git.add('.')
+# stage everything...
+repo.git.add('--all')
 # ... commit it...
 # TODO: Explain *why* we're doing this build
 # (e.g. someone pushed to scratch-curriculum)

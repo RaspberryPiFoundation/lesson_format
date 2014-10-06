@@ -96,6 +96,10 @@ html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img"
 pandoc               = os.path.join(base, "pandoc")
 pandoc               = ("pandoc", pandoc)[os.path.exists(pandoc)]
 
+# if zip is installed locally, use that
+zip_bin              = os.path.join(base, "zip")
+zip_bin              = ("zip", zip_bin)[os.path.exists(zip_bin)]
+
 # Markup processing
 def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
@@ -313,7 +317,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
 
 # Process files within project and resource containers
 
-def build_project(rebuild, pdf_generator, term, project, language, theme, root_dir, output_dir, breadcrumb):
+def build_project(pdf_generator, term, project, language, theme, root_dir, output_dir, breadcrumb):
     # todo clean up this code because we keep repeating things.
     embeds = []
 
@@ -345,13 +349,13 @@ def build_project(rebuild, pdf_generator, term, project, language, theme, root_d
     extras = []
 
     for e in project.extras:
-        extras.append(build_project_extra(rebuild, pdf_generator, term, project, e, language, theme, root_dir, output_dir, breadcrumb))
+        extras.append(build_project_extra(pdf_generator, term, project, e, language, theme, root_dir, output_dir, breadcrumb))
 
     materials = None
 
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
 
     return Project(
         filename  = output_files,
@@ -366,7 +370,7 @@ def build_project(rebuild, pdf_generator, term, project, language, theme, root_d
         extras    = extras
     )
 
-def build_project_extra(rebuild, pdf_generator, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_project_extra(pdf_generator, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = None
@@ -385,7 +389,7 @@ def build_project_extra(rebuild, pdf_generator, term, project, extra, language, 
 
     if extra.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename)
 
     return Extra(
         name      = extra.name,
@@ -394,7 +398,7 @@ def build_project_extra(rebuild, pdf_generator, term, project, extra, language, 
         pdf       = pdf,
     )
 
-def build_extra(rebuild, pdf_generator, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = extra.pdf
@@ -410,7 +414,7 @@ def build_extra(rebuild, pdf_generator, term, extra, language, theme, root_dir, 
 
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename)
 
     return Extra(
         name      = extra.name,
@@ -770,7 +774,9 @@ def build_breadcrumb(breadcrumb, output_file):
 
     return breadcrumbs_list
 
-def build(rebuild, pdf_generator, lesson_dirs, region, output_dir):
+def build(pdf_generator, lesson_dirs, region, output_dir, gr=None):
+    global output_repo
+    output_repo   = gr
     lessons       = [os.path.abspath(a) for a in lesson_dirs]
     theme         = themes[region] if region != 'css' else 'css'
     all_languages = load_languages(language_base)
@@ -858,7 +864,7 @@ def build(rebuild, pdf_generator, lesson_dirs, region, output_dir):
 
                     makedirs(project_dir)
 
-                    built_project = build_project(rebuild, pdf_generator, term, project, language, theme, output_dir, project_dir, term_breadcrumb)
+                    built_project = build_project(pdf_generator, term, project, language, theme, output_dir, project_dir, term_breadcrumb)
 
                     projects.append(built_project)
 
@@ -866,7 +872,7 @@ def build(rebuild, pdf_generator, lesson_dirs, region, output_dir):
 
                 for r in term.extras:
                     progress_print("Building Extra:", r.name)
-                    extras.append(build_extra(rebuild, pdf_generator, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
+                    extras.append(build_extra(pdf_generator, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
 
                 term = Term(
                     id          = term.id,
@@ -1181,27 +1187,28 @@ def makedirs(path, clear = False):
 def safe_filename(filename):
     return banned_chars.sub("_", filename)
 
-def zip_files(relative_dir, source_files, output_dir, output_file, rebuild):
+def zip_files(relative_dir, source_files, output_dir, output_file):
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
 
-        cmd = [
-            'zip'
-        ]
+        cmd = [zip_bin]
 
-        if rebuild and os.path.exists(output_file):
-            os.remove(output_file)
+        # dirty hack
+        if output_repo is not None:
+            output_repo.git.checkout('--', output_file.encode('utf8'))
 
-        if rebuild is not False and not os.path.exists(output_file):
-            cmd.append(output_file)
+        if os.path.exists(output_file):
+            cmd.append('-u')
 
-            for file in source_files:
-                cmd.append(os.path.relpath(file, relative_dir))
+        cmd.append(output_file)
 
-            ret = subprocess.call(cmd, cwd = relative_dir)
+        for file in source_files:
+            cmd.append(os.path.relpath(file, relative_dir))
 
-            if ret != 0 and ret != 12: # 12 means zip did nothing
-                raise StandardError('zip failure %d'%ret)
+        ret = subprocess.call(cmd, cwd = relative_dir)
+
+        if ret != 0 and ret != 12: # 12 means zip did nothing
+            raise StandardError('zip failure %d'%ret)
 
         return Resource(format="zip", filename=output_file)
 
@@ -1242,12 +1249,11 @@ progress = True
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
-    parser.add_argument('--rebuild', action='store_true', default=None)
     parser.add_argument('region', choices=themes.keys()+['css'])
     parser.add_argument('lesson_dirs', nargs="+")
     parser.add_argument('output_dir')
     p = parser.parse_args()
 
-    build(p.rebuild, p.pdf_generator, p.lesson_dirs, p.region, p.output_dir)
+    build(p.pdf_generator, p.lesson_dirs, p.region, p.output_dir)
 
     sys.exit(0)
