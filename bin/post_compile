@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+echo 'installing pandoc'
+curl -L http://cl.ly/3f2i2l2L2u2I/pandoc-1.13.1.tar.gz | tar xvz
+
+echo 'installing zip'
+curl -L http://cl.ly/2K1Y3B0z2Y3b/zip.tar.gz | tar xvz
+
+# check env variables are set up; warn if they're not
+if [ -z $GITHUB_USER ]; then
+  echo "* * * * *"
+  echo "GITHUB_USER env variable not set. Please run:"
+  echo "$ heroku config:set GITHUB_USER=[github username]"
+  echo "* * * * *"
+fi
+if [ -z $GITHUB_TOKEN ]; then
+  echo "* * * * *"
+  echo "GITHUB_TOKEN env variable not set. Please run:"
+  echo "$ heroku config:set GITHUB_TOKEN=[github token]"
+  echo "* * * * *"
+fi
+
+# setup git config
+git config --global core.precomposeunicode true
+git config --global user.name "${GITHUB_NAME:-Code Club Robot}"
+git config --global user.email "${GITHUB_EMAIL:-robot@codeclub.org.uk}"

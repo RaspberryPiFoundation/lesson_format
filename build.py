@@ -92,12 +92,20 @@ scratchblocks_filter = os.path.join(base, "lib", "pandoc_scratchblocks", "filter
 rasterize            = os.path.join(base, "rasterize.js")
 html_assets          = [os.path.join(base, "assets", x) for x in ("fonts", "img")]
 
+# if pandoc is installed locally, use that
+pandoc               = os.path.join(base, "pandoc")
+pandoc               = ("pandoc", pandoc)[os.path.exists(pandoc)]
+
+# if zip is installed locally, use that
+zip_bin              = os.path.join(base, "zip")
+zip_bin              = ("zip", zip_bin)[os.path.exists(zip_bin)]
+
 # Markup processing
 def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
     legal = language.legal.get(theme.id, theme.legal)
     cmd   = [
-        "pandoc",
+        pandoc,
         input_file,
         "-o", output_file,
         "-t", "html5",
@@ -240,7 +248,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir, legal):
 
 def pandoc_pdf(input_file, style, language, theme, variables, commands, output_file):
     cmd = [
-        "pandoc",
+        pandoc,
         input_file,
         "-o", output_file,
         "-t", "latex",
@@ -265,11 +273,11 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, generate_pdf):
+def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, pdf_generator):
     output        = []
     legal         = language.legal.get(theme.id, theme.legal)
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
-    pdf_generated = False
+    generated_pdf = None
 
     if ext == "md":
         # Generate HTML
@@ -277,40 +285,39 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
-        if generate_pdf and pdf_generator is not None:
+        if pdf_generator is not None:
             # Set input to newly generated HTML to act as source for PDF generation
             input_file  = output_file
 
             #
             # Here are three methods of generating PDFs.
             #
-            if pdf_generator in ['wkhtmltopdf', 'all']:
+            if pdf_generator == 'wkhtmltopdf':
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
-                output_file = os.path.join(output_dir, "%s.wkhtmltopdf.pdf"%name)
-                pdf_generated = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
-                if pdf_generated:
-                    output.append(Resource(filename = output_file, format = "pdf"))
-
-            if pdf_generator in ['phantomjs', 'all']:
+                output_file = os.path.join(output_dir, "%s.pdf"%name)
+                success = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
+                if success:
+                    generated_pdf = output_file
+            elif pdf_generator == 'phantomjs':
                 # Requires PhantomJS - `npm install`
-                output_file = os.path.join(output_dir, "%s.phantomjs.pdf"%name)
-                pdf_generated = phantomjs_pdf(input_file, output_file, root_dir, legal)
-                if pdf_generated:
-                    output.append(Resource(filename = output_file, format = "pdf"))
+                output_file = os.path.join(output_dir, "%s.pdf"%name)
+                success = phantomjs_pdf(input_file, output_file, root_dir, legal)
+                if success:
+                    generated_pdf = output_file
 
             # Requires Pandoc and LaTeX/MacTeX
-            # pdf_generated = markdown_to_pdf(input_file, style, language, theme, output_file)
+            # success = markdown_to_pdf(input_file, style, language, theme, output_file)
 
     else:
         output_file = os.path.join(output_dir, os.path.basename(input_file))
         shutil.copy(input_file, output_file)
         output.append(Resource(filename = output_file, format = ext))
 
-    return output
+    return output, generated_pdf
 
 # Process files within project and resource containers
 
-def build_project(rebuild, term, project, language, theme, root_dir, output_dir, breadcrumb):
+def build_project(pdf_generator, term, project, language, theme, root_dir, output_dir, breadcrumb):
     # todo clean up this code because we keep repeating things.
     embeds = []
 
@@ -322,30 +329,33 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
     note_pdf           = project.note_pdf
     name, ext          = os.path.basename(input_file).rsplit(".", 1)
     project_breadcrumb = breadcrumb + [(project.title, "")]
-    output_files       = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, True)
     notes              = []
+
+    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
 
     if pdf != None:
         pdf = copy_file(pdf, output_dir)
         progress_print("Copied PDF: " + pdf)
+    elif generated_pdf is not None:
+        pdf = generated_pdf
 
     if note_pdf != None:
         note_pdf = copy_file(note_pdf, output_dir)
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, False))
+        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, None)[0])
 
     extras = []
 
     for e in project.extras:
-        extras.append(build_project_extra(rebuild, term, project, e, language, theme, root_dir, output_dir, breadcrumb))
+        extras.append(build_project_extra(pdf_generator, term, project, e, language, theme, root_dir, output_dir, breadcrumb))
 
     materials = None
 
     if project.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, project.title, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(input_file), project.materials, output_dir, zipfilename)
 
     return Project(
         filename  = output_files,
@@ -360,7 +370,7 @@ def build_project(rebuild, term, project, language, theme, root_dir, output_dir,
         extras    = extras
     )
 
-def build_project_extra(rebuild, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_project_extra(pdf_generator, term, project, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = None
@@ -373,13 +383,13 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
     if extra.materials:
         zipfilename = "%s_%d-%02.d_%s_%s.zip" % (term.id, term.number, project.number, extra.name, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(project.filename), extra.materials,output_dir, zipfilename)
 
     return Extra(
         name      = extra.name,
@@ -388,7 +398,7 @@ def build_project_extra(rebuild, term, project, extra, language, theme, root_dir
         pdf       = pdf,
     )
 
-def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = extra.pdf
@@ -398,13 +408,13 @@ def build_extra(rebuild, term, extra, language, theme, root_dir, output_dir, ter
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, False))
+        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
     if extra.materials:
         zipfilename = "%s_%d_%s_%s.zip" % (term.id, term.number, extra.name, language.translate("resources"))
-        materials   = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename, rebuild)
+        materials   = zip_files(os.path.dirname(term.manifest), extra.materials,output_dir, zipfilename)
 
     return Extra(
         name      = extra.name,
@@ -511,13 +521,6 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             })
 
             files_link.text = file.format
-
-            if file.format == 'pdf':
-                files_link.set('class', 'files-link pdf')
-                if file.filename[-14:-3] == '.phantomjs.':
-                    files_link.text = 'Download phantomjs PDF'
-                else:
-                    files_link.text = 'Download wkhtmltopdf PDF'
 
         note_pdf_url = False
 
@@ -771,7 +774,14 @@ def build_breadcrumb(breadcrumb, output_file):
 
     return breadcrumbs_list
 
-def build(rebuild, lessons, theme, all_languages, output_dir):
+def build(pdf_generator, lesson_dirs, region, output_dir, gr=None):
+    global output_repo
+    output_repo   = gr
+    lessons       = [os.path.abspath(a) for a in lesson_dirs]
+    theme         = themes[region] if region != 'css' else 'css'
+    all_languages = load_languages(language_base)
+    output_dir    = os.path.abspath(output_dir)
+
     progress_print("Searching for manifests...")
 
     termlangs        = {}
@@ -846,7 +856,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
 
                 for p in term.projects:
                     count += 1
-                    project = parse_project_meta(p)
+                    project = parse_project_meta(p, theme, pdf_generator is not None)
 
                     progress_print("Building Project: " + project.title)
 
@@ -854,7 +864,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
 
                     makedirs(project_dir)
 
-                    built_project = build_project(rebuild, term, project, language, theme, output_dir, project_dir, term_breadcrumb)
+                    built_project = build_project(pdf_generator, term, project, language, theme, output_dir, project_dir, term_breadcrumb)
 
                     projects.append(built_project)
 
@@ -862,7 +872,7 @@ def build(rebuild, lessons, theme, all_languages, output_dir):
 
                 for r in term.extras:
                     progress_print("Building Extra:", r.name)
-                    extras.append(build_extra(rebuild, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
+                    extras.append(build_extra(pdf_generator, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
 
                 term = Term(
                     id          = term.id,
@@ -1023,7 +1033,7 @@ def parse_theme(filename):
         css_variables                = obj['css_variables']
     )
 
-def parse_project_meta(p):
+def parse_project_meta(p, theme, ignore_pdf):
     if not p.filename.endswith('md'):
         return p
 
@@ -1052,7 +1062,8 @@ def parse_project_meta(p):
         note_pdf = None
 
         if theme.id == "uk":
-            pdf      = p.pdf
+            if not ignore_pdf:
+                pdf  = p.pdf
             note_pdf = p.note_pdf
 
         if raw_note:
@@ -1176,27 +1187,28 @@ def makedirs(path, clear = False):
 def safe_filename(filename):
     return banned_chars.sub("_", filename)
 
-def zip_files(relative_dir, source_files, output_dir, output_file, rebuild):
+def zip_files(relative_dir, source_files, output_dir, output_file):
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
 
-        cmd = [
-            'zip'
-        ]
+        cmd = [zip_bin]
 
-        if rebuild and os.path.exists(output_file):
-            os.remove(output_file)
+        # dirty hack
+        if output_repo is not None:
+            output_repo.git.checkout('--', output_file.encode('utf8'))
 
-        if not os.path.exists(output_file):
-            cmd.append(output_file)
+        if os.path.exists(output_file):
+            cmd.append('-u')
 
-            for file in source_files:
-                cmd.append(os.path.relpath(file, relative_dir))
+        cmd.append(output_file)
 
-            ret = subprocess.call(cmd, cwd = relative_dir)
+        for file in source_files:
+            cmd.append(os.path.relpath(file, relative_dir))
 
-            if ret != 0 and ret != 12: # 12 means zip did nothing
-                raise StandardError('zip failure %d'%ret)
+        ret = subprocess.call(cmd, cwd = relative_dir)
+
+        if ret != 0 and ret != 12: # 12 means zip did nothing
+            raise StandardError('zip failure %d'%ret)
 
         return Resource(format="zip", filename=output_file)
 
@@ -1231,24 +1243,17 @@ def copy_file(input_file, output_dir):
 def check_requirements():
     pass
 
-if __name__ == '__main__':
-    themes     = load_themes(theme_base)
+themes   = load_themes(theme_base)
+progress = True
 
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs', 'all'], default=None, dest="pdf_generator")
-    parser.add_argument('--rebuild', action='store_true', default=False)
+    parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
     parser.add_argument('region', choices=themes.keys()+['css'])
     parser.add_argument('lesson_dirs', nargs="+")
     parser.add_argument('output_dir')
     p = parser.parse_args()
 
-    progress      = True
-    lessons       = [os.path.abspath(a) for a in p.lesson_dirs]
-    theme         = themes[p.region] if p.region != 'css' else 'css'
-    languages     = load_languages(language_base)
-    output_dir    = os.path.abspath(p.output_dir)
-    pdf_generator = p.pdf_generator
-
-    build(p.rebuild, lessons, theme, languages, output_dir)
+    build(p.pdf_generator, p.lesson_dirs, p.region, p.output_dir)
 
     sys.exit(0)

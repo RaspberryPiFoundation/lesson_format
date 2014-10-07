@@ -2,14 +2,14 @@
 clone:
 	make clear
 
-	git clone git@github.com:CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
+	git clone https://github.com/CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
 
-	git clone git@github.com:CodeClub/scratch-curriculum.git lessons/scratch
-	git clone git@github.com:CodeClub/webdev-curriculum.git  lessons/webdev
-	git clone git@github.com:CodeClub/python-curriculum.git  lessons/python
+	git clone https://github.com/CodeClub/scratch-curriculum.git lessons/scratch
+	git clone https://github.com/CodeClub/webdev-curriculum.git  lessons/webdev
+	git clone https://github.com/CodeClub/python-curriculum.git  lessons/python
 
-	git clone git@github.com:CodeClub/CodeClubUK-Projects.git    output/codeclubuk
-	git clone git@github.com:CodeClub/CodeClubWorld-Projects.git output/codeclubworld
+	git clone https://github.com/CodeClub/CodeClubUK-Projects.git    output/codeclubuk
+	git clone https://github.com/CodeClub/CodeClubWorld-Projects.git output/codeclubworld
 
 update:
 	cd lib/pandoc_scratchblocks && git checkout master && git pull
