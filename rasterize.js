@@ -38,7 +38,7 @@ var argv = optimist
   .argv
 ;
 
-address = argv._[0];
+address = encodeURI(argv._[0]);
 output = argv._[1];
 page.viewportSize = { width: 600, height: 600 };
 
@@ -68,7 +68,7 @@ if (argv._.length > 3) {
 page.open(address, function (status) {
     if (status !== 'success') {
         console.log('Unable to load the address!');
-        phantom.exit();
+        phantom.exit(1);
     } else {
         if (argv.style) {
             page.setContent(page.content.replace('</head>', '<link rel="stylesheet" href="' + argv.style + '"></head>'), page.url);
