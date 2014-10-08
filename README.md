@@ -38,6 +38,12 @@ The script reads from locally checked out files, and writes to an output directo
 
 The first argument is the theme for the website, currently either `world` or `uk`.
 
+### Compiling Sass
+
+```
+$(npm bin)/grunt sass:dev
+```
+
 ### Examples
 
 ```
