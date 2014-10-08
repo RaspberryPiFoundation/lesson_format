@@ -9,7 +9,7 @@ from github.GithubException import GithubException
 import build
 
 # Set these before deploying:
-#   heroku config:set BUILDPACK_URL=git://github.com/ddollar/heroku-buildpack-multi.git
+#   heroku config:set BUILDPACK_URL=git://github.com/andylolz/heroku-buildpack-python-extras.git
 #   heroku config:set GITHUB_USER=[github username]
 #   heroku config:set GITHUB_TOKEN=[github token]
 #
