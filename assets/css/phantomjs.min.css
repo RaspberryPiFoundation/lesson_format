@@ -25,14 +25,24 @@ body {
   display: none;
 }
 
+.world .title {
+    background: none;
+}
+
 .header {
   background-color: #b9e5fa;
   margin-bottom: 35px;
+  height: 110px;
+  line-height: 110px;
 }
 .header h1 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 270px;
+  font-family: VAGbold, sans-serif;
   background-color: transparent;
   font-size: 38px;
-  margin: 30px 0 30px 146px;
+  margin-left: 146px;
   text-align: left;
 }
 .header .level-number {
@@ -59,28 +69,35 @@ body {
 
 #legend {
   font-family: VAGbold, sans-serif;
-  background-color: #d7d7d7;
+  background-color: #e6e7e9;
   border-radius: 10px;
   margin: 0 -20px;
-}
-#legend table {
-  margin: 10px;
-}
-#legend td {
-  padding: 5px;
+  padding: 13px 38px;
 }
 #legend img {
   width: 30px;
-  margin: 0;
+  margin: 0 25px 10px 0;
+  float: left;
+}
+#legend .caption {
+  white-space: nowrap;
+  width: 150px;
+  float: left;
+  margin-right: 40px;
+  padding-top: 2px;
+}
+#legend .description {
+  font-size: 85%;
+  padding-top: 4px;
 }
 #legend .check_text {
-  color: #f5a200;
+  color: #FCB814;
 }
 #legend .flag_text {
-  color: #3aac4f;
+  color: #42B649;
 }
 #legend .save_text {
-  color: #3477d1;
+  color: #2279BF;
 }
 #legend .upper {
   text-transform: uppercase;
@@ -226,5 +243,5 @@ body {
 }
 
 code, kbd, pre, samp {
-  font-family: monospace;
+  font-family: Consolas, monaco, monospace;
 }
