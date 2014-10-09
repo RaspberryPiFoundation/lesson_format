@@ -2,8 +2,6 @@
 clone:
 	make clear
 
-	git clone https://github.com/CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
-
 	git clone https://github.com/CodeClub/scratch-curriculum.git lessons/scratch
 	git clone https://github.com/CodeClub/webdev-curriculum.git  lessons/webdev
 	git clone https://github.com/CodeClub/python-curriculum.git  lessons/python
@@ -12,8 +10,6 @@ clone:
 	git clone https://github.com/CodeClub/CodeClubWorld-Projects.git output/codeclubworld
 
 update:
-	cd lib/pandoc_scratchblocks && git checkout master && git pull
-
 	cd lessons/scratch && git checkout master && git pull
 	cd lessons/webdev  && git checkout master && git pull
 	cd lessons/python  && git checkout master && git pull
