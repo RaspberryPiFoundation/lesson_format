@@ -35,6 +35,22 @@ window.onload = function () {
         }
     }
 
+    var level1 = document.getElementsByClassName('level1');
+    for (var i = 0; i < level1.length; i++) {
+        var headers = level1[i].getElementsByTagName('h1');
+        if (headers.length > 0) {
+            headers[0].className += " unbreakable";
+        }
+    }
+    var tryElements = document.getElementsByClassName('try');
+    for (var i = 0; i < tryElements.length; i++) {
+        tryElements[i].className += " unbreakable";
+    }
+    var challengeElements = document.getElementsByClassName('challenge');
+    for (var i = 0; i < challengeElements.length; i++) {
+        challengeElements[i].className += " unbreakable";
+    }
+
     /* Move the legend to the right place (the end of the first page) */
     var legend = document.getElementById("legend");
     var intro = document.getElementsByClassName("intro");

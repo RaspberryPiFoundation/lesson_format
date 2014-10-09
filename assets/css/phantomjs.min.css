@@ -153,6 +153,7 @@ body {
 }
 
 .activity h1 {
+  width: 100%;
   background-color: #3aac4f;
   border-radius: 5px;
   padding: 10px 20px;
@@ -193,8 +194,9 @@ body {
 
 .flag {
   border: none;
-  background: inherit;
+  background: transparent;
 }
+
 .flag > ul > li:before {
   /* Remove all other checkboxes */
   border: none;
@@ -244,4 +246,14 @@ body {
 
 code, kbd, pre, samp {
   font-family: Consolas, monaco, monospace;
+}
+
+.unbreakable {
+  display:inline-block;
+}
+.unbreakable:after {
+  content: '';
+  display:block;
+  height:0px;
+  visibility: hidden;
 }
