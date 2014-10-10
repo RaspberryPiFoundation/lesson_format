@@ -15,8 +15,8 @@ These instructions are for installing on linux / OSX. You may be able to get it 
 ### Dependencies
 
 - [Python 2](https://www.python.org/download), [pip](http://pip.readthedocs.org/en/latest/installing.html)
-- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) (a recent version, 1.12 or newer)
-- [node.js / npm](http://nodejs.org/download/) (npm comes with node.js)
+- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) >= 1.12
+- [node.js](http://nodejs.org/download/)
 - [wkhtmltopdf](http://wkhtmltopdf.org/downloads.html) (for generating PDFs)
 
 ### Installing
