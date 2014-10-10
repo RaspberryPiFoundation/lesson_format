@@ -5,6 +5,13 @@ This file is used by phantomjs to do some bits of html injection
 and reshuffling, to prepare lessons for pdf generation.
 */
 
+var makeUnbreakable = function(className) {
+    var elements = document.getElementsByClassName(className);
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].className += " unbreakable";
+    }
+};
+
 window.onload = function () {
     /*
     Add a span around the lesson number, so it can be made giant
@@ -42,14 +49,10 @@ window.onload = function () {
             headers[0].className += " unbreakable";
         }
     }
-    var tryElements = document.getElementsByClassName('try');
-    for (var i = 0; i < tryElements.length; i++) {
-        tryElements[i].className += " unbreakable";
-    }
-    var challengeElements = document.getElementsByClassName('challenge');
-    for (var i = 0; i < challengeElements.length; i++) {
-        challengeElements[i].className += " unbreakable";
-    }
+
+    makeUnbreakable('flag');
+    makeUnbreakable('try');
+    makeUnbreakable('challenge');
 
     /* Move the legend to the right place (the end of the first page) */
     var legend = document.getElementById("legend");
