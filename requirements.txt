@@ -1,7 +1,15 @@
+Flask==0.10.1
 GitPython==0.3.2.RC1
+Jinja2==2.7.3
+MarkupSafe==0.23
 PyGithub==1.25.1
 PyYAML==3.11
+Werkzeug==0.9.6
 async==0.6.1
 gitdb==0.5.4
+gunicorn==19.1.1
+itsdangerous==0.24
+redis==2.10.3
+rq==0.4.6
 smmap==0.8.2
 wsgiref==0.1.2
