@@ -23,7 +23,7 @@ These instructions are for installing on linux / OSX. You may be able to get it 
 
 ```
 # clone the repo
-git clone https://github.com/CodeClub/lesson_format.git && cd lesson_format
+git clone --recursive https://github.com/CodeClub/lesson_format.git && cd lesson_format
 # install python requirements
 pip install -r requirements.txt
 # install phantom.js etc

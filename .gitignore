@@ -2,7 +2,6 @@
 *.py?
 *.swp
 /lessons
-/lib
 /output
 venv/
 node_modules
