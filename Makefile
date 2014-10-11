@@ -18,7 +18,6 @@ update:
 	cd output/codeclubworld && git checkout gh-pages && git pull
 
 clear:
-	rm -rf lib
 	rm -rf lessons
 	rm -rf output
 
