@@ -1,0 +1,10 @@
+%unbreakable {
+    display: inline-block;
+
+    &:after {
+        content:    '';
+        display:    block;
+        height:     0px;
+        visibility: hidden;
+    }
+}

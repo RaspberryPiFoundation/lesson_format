@@ -37,23 +37,21 @@ $if(legal)$
 $endif$
 
     <div id="legend">
-      <table>
-        <tr>
-          <td><img src="$root$/img/check.png" alt="$leg_activity$" /></td>
-          <td><span class="check_text">$leg_activity$</span></td>
-          <td>$leg_activity_desc$</td>
-        </tr>
-        <tr>
-          <td><img src="$root$/img/flag.png" alt="$leg_test$" /></td>
-          <td><span class="flag_text">$leg_test$</span></td>
-          <td>$leg_test_desc$</td>
-        </tr>
-        <tr>
-          <td><img src="$root$/img/save.png" alt="$leg_save$" /></td>
-          <td><span class="save_text">$leg_save$</span></td>
-          <td>$leg_save_desc$</td>
-        </tr>
-      </table>
+        <div>
+            <img src="$root$/img/check.png" alt="$leg_activity$" />
+            <div class="caption"><span class="check_text">$leg_activity$</span></div>
+            <div class="description">$leg_activity_desc$</div>
+        </div>
+        <div>
+          <img src="$root$/img/flag.png" alt="$leg_test$" />
+          <div class="caption"><span class="flag_text">$leg_test$</span></div>
+          <div class="description">$leg_test_desc$</div>
+        </div>
+        <div>
+          <img src="$root$/img/save.png" alt="$leg_save$" />
+          <div class="caption"><span class="save_text">$leg_save$</span></div>
+          <div class="description">$leg_save_desc$</div>
+        </div>
     </div>
 
     <script type="text/javascript" src="$root$/js/lesson.js"></script>
