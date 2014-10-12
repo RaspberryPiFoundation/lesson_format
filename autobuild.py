@@ -102,5 +102,5 @@ def autobuild(region, reason=None):
 
 if __name__ == "__main__":
     region = sys.argv[1]
-    reason = sys.argv[2] if len(sys.argv > 1) else None
+    reason = sys.argv[2] if len(sys.argv) > 2 else None
     autobuild(region, reason)
