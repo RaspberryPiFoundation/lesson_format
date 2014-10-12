@@ -11,6 +11,6 @@
   "dependencies": {
     "html5shiv": "~3.7.0",
     "normalize-css": "~3.0.2",
-    "typecsset": "git@github.com:csswizardry/typecsset.git#~0.3.0"
+    "typecsset": "https://github.com/csswizardry/typecsset.git#~0.3.0"
   }
 }

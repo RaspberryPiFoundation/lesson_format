@@ -24,12 +24,12 @@ These instructions are for installing on linux / OSX. You may be able to get it 
 ```
 # clone the repo
 git clone --recursive https://github.com/CodeClub/lesson_format.git && cd lesson_format
+
 # install python requirements
 pip install -r requirements.txt
+
 # install phantom.js etc
 npm install
-# install css compilation stuff
-bundle install
 ```
 
 ### Running
@@ -41,6 +41,13 @@ The first argument is the theme for the website, currently either `world` or `uk
 ### Compiling Sass
 
 ```
+# install css compilation stuff
+bundle install
+
+# install bower dependencies
+$(npm bin)/bower install
+
+# compile the Sass
 $(npm bin)/grunt sass:dev
 ```
 
