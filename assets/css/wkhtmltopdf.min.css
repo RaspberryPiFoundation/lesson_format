@@ -8,6 +8,16 @@
     visibility: hidden;
   }
 
+  .activity h1, .challenge, .flag, .save, .try {
+    display: inline-block;
+  }
+  .activity h1:after, .challenge:after, .flag:after, .save:after, .try:after {
+    content: '';
+    display: block;
+    height: 0px;
+    visibility: hidden;
+  }
+
   html {
     background: #fff;
     border: none;
@@ -27,14 +37,20 @@
   }
 
   .header {
-    background-color: #b9e5fa;
+    background-color: #B9E5FA;
     margin-bottom: 35px;
+    height: 110px;
+    line-height: 110px;
   }
   .header h1 {
+    display: inline-block;
     background-color: transparent;
+    font-family: VAGbold, sans-serif;
     font-size: 38px;
-    margin: 30px 0 30px 146px;
+    width: 270px;
+    margin-left: 146px;
     text-align: left;
+    vertical-align: middle;
   }
   .header .level-number {
     font-family: VAGbold, sans-serif;
@@ -60,19 +76,26 @@
 
   #legend {
     font-family: VAGbold, sans-serif;
-    background-color: #d7d7d7;
+    background-color: #e6e7e9;
     border-radius: 10px;
+    padding: 13px 38px;
     margin: 0 -20px;
   }
-  #legend table {
-    margin: 10px;
+  #legend .caption {
+    white-space: nowrap;
+    width: 150px;
+    float: left;
+    margin-right: 40px;
+    padding-top: 2px;
   }
-  #legend td {
-    padding: 5px;
+  #legend .description {
+    font-size: 85%;
+    padding-top: 4px;
   }
   #legend img {
     width: 30px;
-    margin: 0;
+    margin: 0 25px 10px 0;
+    float: left;
   }
   #legend .check_text {
     color: #f5a200;
@@ -136,39 +159,53 @@
     height: 90px;
   }
 
+  .world .title {
+    background: none;
+  }
+
   .activity h1 {
     background-color: #3aac4f;
     border-radius: 5px;
     padding: 10px 20px;
     color: #fff;
+    font-family: VAGbold, sans-serif;
+    width: 100%;
   }
   .activity h1 .step-num {
-    color: #b9e5fa;
+    color: #B9E5FA;
   }
 
   .challenge {
-    background-color: #b9e5fa;
+    background-color: #B9E5FA;
     border: none;
     margin: 0 40px;
-    padding-bottom: 0;
   }
   .challenge h2 {
     color: black;
+    font-family: VAGbold, sans-serif;
+  }
+  .challenge ul > li {
+    padding-left: 20px;
+  }
+  .challenge ul > li:before {
+    background-color: white;
+    left: -0.4em;
   }
 
   .check h2 {
     /* Make the orange tick bigger! */
     background-size: 1.5em auto;
     padding-left: 2em;
+    font-family: VAGbold, sans-serif;
   }
   .check ul {
     margin-left: 40px;
     margin-right: 80px;
   }
-  .check > ul > li {
+  .check ul > li {
     list-style-type: decimal;
   }
-  .check > ul > li:before {
+  .check ul > li:before {
     left: inherit;
     right: -4em;
     height: 1.2em;
@@ -176,8 +213,8 @@
   }
 
   .flag {
-    border: none;
-    background: inherit;
+    border-style: solid;
+    width: 100%;
   }
   .flag > ul > li:before {
     /* Remove all other checkboxes */
@@ -186,9 +223,11 @@
 
   .save {
     position: relative;
+    width: 100%;
   }
   .save h2 {
-    background-color: #235a99;
+    background-color: #235A99;
+    font-family: VAGbold, sans-serif;
     font-size: 16px;
     margin: 0 0 0 10px;
     padding: 5px 0 5px 40px;
@@ -209,20 +248,24 @@
   }
 
   .try {
-    background-color: #b9e5fa;
+    background-color: #B9E5FA;
     border: none;
     margin: 0 40px;
-    padding-bottom: 0;
   }
   .try h2 {
     color: black;
+    font-family: VAGbold, sans-serif;
   }
   .try ul > li {
     padding-left: 20px;
   }
   .try ul > li:before {
     background-color: white;
-    border-color: #3aac4f;
     left: -0.4em;
   }
+  .try p {
+    margin-top: 0.75em;
+  }
 }
+
+/*# sourceMappingURL=wkhtmltopdf.min.css.map */

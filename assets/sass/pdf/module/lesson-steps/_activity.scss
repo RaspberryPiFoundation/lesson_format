@@ -1,14 +1,18 @@
 .activity {
-	h1 {
-		//	Add the green background to the activity headings
-		background-color: $color-primary-light;
-		border-radius:    5px;
-		padding:          10px 20px;
-		color:            #fff;
+    h1 {
+        @extend %unbreakable;
 
-		//	..and the light blue step number
-		.step-num {
-			color: $color-highlight-light;
-		}
-	}
+        //	Add the green background to the activity headings
+        background-color: $color-primary-light;
+        border-radius:    5px;
+        padding:          10px 20px;
+        color:            #fff;
+        font-family:      $font-family-secondary;
+        width:            100%;
+
+        //	..and the light blue step number
+        .step-num {
+            color: $color-highlight-light;
+        }
+    }
 }

@@ -1,21 +1,25 @@
-
 .try {
-	background-color: $color-highlight-light;
-	border:           none;
-	margin:           0 40px;
-	padding-bottom:   0;
+    @extend %unbreakable;
 
-	h2 {
-		color: black;
-	}
+    background-color: $color-highlight-light;
+    border:           none;
+    margin:           0 40px;
 
-	ul > li {
-		padding-left: 20px;
+    h2 {
+        color:       black;
+        font-family: $font-family-secondary;
+    }
 
-		&:before {
-			background-color: white;
-			border-color:     $color-primary-light;
-			left:             -0.4em;
-		}
-	}
+    ul > li {
+        padding-left: 20px;
+
+        &:before {
+            background-color: white;
+            left:             -0.4em;
+        }
+    }
+
+    p {
+        margin-top: 0.75em;
+    }
 }
