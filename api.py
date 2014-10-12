@@ -8,12 +8,13 @@ app = Flask(__name__)
 
 q = Queue(connection=conn)
 
-@app.route('/rebuild/<region>', methods=['GET', 'POST'])
-def run(region):
-    reason = request.args.get('repo', None)
-    # TODO: split the task up so we don't need to use this timeout hack
-    q.enqueue_call(func=autobuild, args=(region, reason), timeout=1000)
-    return 'Scheduled!'
+@app.route('/rebuild', methods=['POST'])
+def run():
+    repo = request.get_json()["repository"]["name"]
+    for region in ['uk', 'world']:
+        # TODO: split the task up so we don't need to use this timeout hack
+        q.enqueue_call(func=autobuild, args=(region, repo), timeout=1000)
+    return 'Rebuild triggered.'
 
 if __name__ == "__main__":
     app.run()
