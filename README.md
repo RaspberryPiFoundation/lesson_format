@@ -15,21 +15,21 @@ These instructions are for installing on linux / OSX. You may be able to get it 
 ### Dependencies
 
 - [Python 2](https://www.python.org/download), [pip](http://pip.readthedocs.org/en/latest/installing.html)
-- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) (a recent version, 1.12 or newer)
-- [node.js / npm](http://nodejs.org/download/) (npm comes with node.js)
+- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) >= 1.12
+- [node.js](http://nodejs.org/download/)
 - [wkhtmltopdf](http://wkhtmltopdf.org/downloads.html) (for generating PDFs)
 
 ### Installing
 
 ```
 # clone the repo
-git clone https://github.com/CodeClub/lesson_format.git && cd lesson_format
+git clone --recursive https://github.com/CodeClub/lesson_format.git && cd lesson_format
+
 # install python requirements
 pip install -r requirements.txt
+
 # install phantom.js etc
 npm install
-# install css compilation stuff
-bundle install
 ```
 
 ### Running
@@ -37,6 +37,19 @@ bundle install
 The script reads from locally checked out files, and writes to an output directory. We run it with the `scratch-curriculum`, `webdev-curriculum`, and `python-curriculum` as inputs, and write to a directory.
 
 The first argument is the theme for the website, currently either `world` or `uk`.
+
+### Compiling Sass
+
+```
+# install css compilation stuff
+bundle install
+
+# install bower dependencies
+$(npm bin)/bower install
+
+# compile the Sass
+$(npm bin)/grunt sass:dev
+```
 
 ### Examples
 
