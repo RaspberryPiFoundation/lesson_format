@@ -53,7 +53,7 @@ def autobuild(region, reason=None):
     }[region]
     gh_repo = 'CodeClub%s-Projects' % pp_region
 
-    r = Github(gh_user, gh_token).get_repo('andylolz/%s' % gh_repo)
+    r = Github(gh_user, gh_token).get_repo('CodeClub/%s' % gh_repo)
 
     pdf_generator = 'phantomjs'
 
@@ -78,9 +78,10 @@ def autobuild(region, reason=None):
     # stage everything...
     repo.git.add('--all')
     # ... commit it...
-    # TODO: Explain *why* we're doing this build
-    # (e.g. someone pushed to scratch-curriculum)
-    repo.git.commit('-m', 'Rebuild')
+    reason_text = reason_text(reason)
+    # NB. it seems weird, but this reason can disagree
+    # with the PR (since we force push)
+    repo.git.commit('-m', 'Rebuild', '-m', reason_text)
     # ...and push!
     # TODO: Don't force push here!
     repo.git.push('-f', 'origin', 'gh-pages')
@@ -89,8 +90,7 @@ def autobuild(region, reason=None):
     try:
         msg = "Hello!\n\n"
         msg += "I've been hard at work, rebuilding the Code Club %s projects website from the latest markdown.\n\n" % pp_region
-        msg += reason_text(reason)
-        msg += " and I found some updates, so I thought I'd best send a pull request. You can view my updated version here:\nhttp://%s.github.io/%s/\n\n" % (gh_user, gh_repo)
+        msg += "%s and I found some updates, so I thought I'd best send a pull request. You can view my updated version here:\nhttp://%s.github.io/%s/\n\n" % (reason_text, gh_user, gh_repo)
         msg += "Have a nice day!"
         r.create_pull(title='Rebuild', body=msg, head='%s:gh-pages' % gh_user, base='gh-pages')
     except GithubException:
