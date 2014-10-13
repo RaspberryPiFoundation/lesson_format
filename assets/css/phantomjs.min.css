@@ -36,7 +36,7 @@ body {
 }
 
 .header {
-  background-color: #B9E5FA;
+  background-color: #b9e5fa;
   margin-bottom: 35px;
   height: 110px;
   line-height: 110px;
@@ -171,11 +171,11 @@ body {
   width: 100%;
 }
 .activity h1 .step-num {
-  color: #B9E5FA;
+  color: #b9e5fa;
 }
 
 .challenge {
-  background-color: #B9E5FA;
+  background-color: #b9e5fa;
   border: none;
   margin: 0 40px;
 }
@@ -225,7 +225,7 @@ body {
   width: 100%;
 }
 .save h2 {
-  background-color: #235A99;
+  background-color: #235a99;
   font-family: VAGbold, sans-serif;
   font-size: 16px;
   margin: 0 0 0 10px;
@@ -247,7 +247,7 @@ body {
 }
 
 .try {
-  background-color: #B9E5FA;
+  background-color: #b9e5fa;
   border: none;
   margin: 0 40px;
 }
@@ -269,5 +269,3 @@ body {
 code, kbd, pre, samp {
   font-family: Consolas, monaco, monospace;
 }
-
-/*# sourceMappingURL=phantomjs.min.css.map */

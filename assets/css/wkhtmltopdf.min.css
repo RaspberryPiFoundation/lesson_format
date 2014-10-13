@@ -37,7 +37,7 @@
   }
 
   .header {
-    background-color: #B9E5FA;
+    background-color: #b9e5fa;
     margin-bottom: 35px;
     height: 110px;
     line-height: 110px;
@@ -172,11 +172,11 @@
     width: 100%;
   }
   .activity h1 .step-num {
-    color: #B9E5FA;
+    color: #b9e5fa;
   }
 
   .challenge {
-    background-color: #B9E5FA;
+    background-color: #b9e5fa;
     border: none;
     margin: 0 40px;
   }
@@ -226,7 +226,7 @@
     width: 100%;
   }
   .save h2 {
-    background-color: #235A99;
+    background-color: #235a99;
     font-family: VAGbold, sans-serif;
     font-size: 16px;
     margin: 0 0 0 10px;
@@ -248,7 +248,7 @@
   }
 
   .try {
-    background-color: #B9E5FA;
+    background-color: #b9e5fa;
     border: none;
     margin: 0 40px;
   }
@@ -267,5 +267,3 @@
     margin-top: 0.75em;
   }
 }
-
-/*# sourceMappingURL=wkhtmltopdf.min.css.map */
