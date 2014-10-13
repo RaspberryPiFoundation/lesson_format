@@ -55,8 +55,7 @@ def autobuild(region, reason=None):
 
     r = Github(gh_user, gh_token).get_repo('andylolz/%s' % gh_repo)
 
-    # TODO: Sort out world css so we can generate world pdfs!
-    pdf_generator = 'phantomjs' if region == 'uk' else None
+    pdf_generator = 'phantomjs'
 
     # clone all the repos (the lazy way)
     subprocess.call('make clone'.split())
