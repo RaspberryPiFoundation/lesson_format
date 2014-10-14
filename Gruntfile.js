@@ -23,7 +23,8 @@ module.exports = function (grunt) {
 
     sass: {
       options: {
-        require: 'sass-globbing'
+        require: 'sass-globbing',
+        sourcemap: 'none'
       },
       dev: {
         files: {

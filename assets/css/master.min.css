@@ -341,7 +341,7 @@ html.world {
 }
 
 body {
-  color: #111111;
+  color: #111;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-feature-settings: "kern";
   -moz-font-feature-settings: "kern";
@@ -406,7 +406,7 @@ address {
 }
 
 b {
-  color: #111111;
+  color: #111;
   font-weight: 500;
 }
 
@@ -445,34 +445,34 @@ code.blockpurple {
   background: rgba(155, 89, 182, 0.25);
 }
 code.blockmotion {
-  background: #505fd7;
+  background: #505FD7;
 }
 code.blocklooks {
-  background: #9b33d9;
+  background: #9B33D9;
 }
 code.blocksound {
-  background: #d000c2;
+  background: #D000C2;
 }
 code.blockpen {
-  background: #00a16f;
+  background: #00A16F;
 }
 code.blockdata {
-  background: #ff7500;
+  background: #FF7500;
 }
 code.blockevents {
-  background: #d38117;
+  background: #D38117;
 }
 code.blockcontrol {
-  background: #e9aa00;
+  background: #E9AA00;
 }
 code.blocksensing {
-  background: #00a3e6;
+  background: #00A3E6;
 }
 code.blockoperators {
-  background: #00c114;
+  background: #00C114;
 }
 code.blockmoreblocks {
-  background: #71009a;
+  background: #71009A;
 }
 code.blockmotion, code.blocklooks, code.blocksound, code.blockpen, code.blockdata, code.blockevents, code.blockcontrol, code.blocksensing, code.blockoperators, code.blockmoreblocks {
   color: #fff;
@@ -606,7 +606,7 @@ ol ol li, ol ul li {
 }
 
 p.lead, .p.lead {
-  color: #111111;
+  color: #111;
   font-size: 22px;
 }
 p.full, .p.full {
@@ -619,7 +619,7 @@ select {
 }
 
 strong {
-  color: #111111;
+  color: #111;
   font-weight: 500;
 }
 
@@ -1130,7 +1130,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   }
 
   a {
-    color: #111111 !important;
+    color: #111 !important;
   }
 
   h1, .h1 {

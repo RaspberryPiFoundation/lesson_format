@@ -14,5 +14,9 @@
         .step-num {
             color: $color-highlight-light;
         }
+
+        .world & {
+            background-color: $color-highlight;
+        }
     }
 }
