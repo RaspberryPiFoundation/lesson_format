@@ -4,11 +4,8 @@
 //	Config variables
 @import './config';
 
-//	pdf styles
+//  pdf styles
 @import './pdf/**/*';
 
 
-//	Phantom-specific
-code, kbd, pre, samp {
-    font-family: monospace;
-}
+//  Phantom-specific styles go here

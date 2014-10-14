@@ -232,6 +232,12 @@ td {
   font-weight: 700;
   font-style: oblique;
 }
+@font-face {
+  font-family: 'Consolas';
+  src: url("../fonts/Consolas.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 .reset, figure {
   margin: 0;
   padding: 0;

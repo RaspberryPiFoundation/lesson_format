@@ -265,7 +265,3 @@ body {
 .try p {
   margin-top: 0.75em;
 }
-
-code, kbd, pre, samp {
-  font-family: monospace;
-}
