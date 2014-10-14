@@ -14,7 +14,7 @@ import build
 #   heroku config:set GITHUB_TOKEN=[github token]
 #
 # One-off usage:
-#   heroku run python autobuild.py [uk|world]
+#   heroku run python autobuild.py [--rebuild] [uk|world]
 
 def rm_files(directory, ignore_list):
     rm_files = [os.path.join(directory, x) for x in os.listdir(directory) if x not in ignore_list]
@@ -35,11 +35,11 @@ def get_reason_text(reason):
 
     repos = ['%s-curriculum' % x for x in ['scratch', 'python', 'webdev']]
     if reason in repos:
-        return "Someone pushed a commit to the %s repository" % reason
+        return "Changes were made to the %s repository" % reason
 
     return "I became self-aware"
 
-def autobuild(region, reason=None):
+def autobuild(region, reason, rebuild):
     # TODO: fail gracefully if these aren't set
     gh_user = os.environ['GITHUB_USER']
     gh_token = os.environ['GITHUB_TOKEN']
@@ -60,14 +60,15 @@ def autobuild(region, reason=None):
     # clone all the repos (the lazy way)
     subprocess.call('make clone'.split())
 
-    # delete everything in the output dir
-    rm_files(output_dir, dont_remove)
+    if rebuild:
+        # delete everything in the output dir
+        rm_files(output_dir, dont_remove)
 
     # init gitpython!
     repo = Repo(output_dir)
 
     # run the build
-    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, repo)
+    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, repo, rebuild)
 
     # add username and token to remote url
     # (so we can write)
@@ -77,14 +78,18 @@ def autobuild(region, reason=None):
 
     # stage everything...
     repo.git.add('--all')
-    # ... commit it...
-    reason_text = get_reason_text(reason)
     # NB. it seems weird, but this reason can disagree
     # with the PR (since we force push)
-    repo.git.commit('-m', 'Rebuild', '-m', reason_text)
-    # ...and push!
-    # TODO: Don't force push here!
-    repo.git.push('-f', 'origin', 'gh-pages')
+    reason_text = get_reason_text(reason)
+
+    try:
+        # ... commit it...
+        repo.git.commit('-m', 'Rebuild', '-m', reason_text)
+        # ...and push!
+        # TODO: Don't force push here!
+        repo.git.push('-f', 'origin', 'gh-pages')
+    except GitCommandError:
+        sys.exit()
 
     # submit pull request
     try:
@@ -99,7 +104,12 @@ def autobuild(region, reason=None):
         # nothing too much to worry about.
         pass
 
+# this is run by the nightly cron, or a one-off call
 if __name__ == "__main__":
+    rebuild = False
+    if sys.argv[1] == '--rebuild':
+        sys.argv.pop(0)
+        rebuild = True
     region = sys.argv[1]
     reason = sys.argv[2] if len(sys.argv) > 2 else None
-    autobuild(region, reason)
+    autobuild(region, reason, rebuild)

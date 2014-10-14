@@ -21,7 +21,7 @@ try:
     import yaml
 except ImportError:
     print >> sys.stderr, "You need to install pyyaml using pip or easy_install, sorry"
-    sys.exit(-10)
+    sys.exit(1)
 
 PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
 WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
@@ -155,7 +155,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         subprocess.check_call(cmd, cwd=working_dir)
     except OSError:
         logger.error('Pandoc is required, check %s' % PANDOC_INSTALL_URL)
-        exit()
+        sys.exit(1)
 
 def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir, output_file):
     commands = (
@@ -244,7 +244,7 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir, legal):
         result = subprocess.call(cmd, cwd=working_dir)
     except OSError:
         logger.error('wkhtmltopdf is required, check %s' % WKHTMLTOPDF_INSTALL_URL)
-        exit()
+        sys.exit(1)
     finally:
         os.remove(input_file)
 
@@ -292,19 +292,25 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
         if pdf_generator is not None:
             # Set input to newly generated HTML to act as source for PDF generation
             input_file  = output_file
+            output_file = os.path.join(output_dir, "%s.pdf"%name)
+
+            # dirtiest hack of all.
+            # If file appears unchanged, don't generate a pdf
+            if not rebuild and output_repo is not None and output_repo.git.diff('--name-only', '--', input_file.encode('utf8')) == '':
+                if output_repo.git.ls_files(output_file.encode('utf8')) != '':
+                    output_repo.git.checkout('--', output_file.encode('utf8'))
+                    return output, output_file
 
             #
             # Here are three methods of generating PDFs.
             #
             if pdf_generator == 'wkhtmltopdf':
                 # Requires wkhtmltopdf - http://wkhtmltopdf.org
-                output_file = os.path.join(output_dir, "%s.pdf"%name)
                 success = qtwebkit_to_pdf(input_file, output_file, root_dir, legal)
                 if success:
                     generated_pdf = output_file
             elif pdf_generator == 'phantomjs':
                 # Requires PhantomJS - `npm install`
-                output_file = os.path.join(output_dir, "%s.pdf"%name)
                 success = phantomjs_pdf(input_file, output_file, root_dir, legal)
                 if success:
                     generated_pdf = output_file
@@ -778,9 +784,10 @@ def build_breadcrumb(breadcrumb, output_file):
 
     return breadcrumbs_list
 
-def build(pdf_generator, lesson_dirs, region, output_dir, gr=None):
-    global output_repo
+def build(pdf_generator, lesson_dirs, region, output_dir, gr=None, rb=False):
+    global output_repo, rebuild
     output_repo   = gr
+    rebuild       = rb
     lessons       = [os.path.abspath(a) for a in lesson_dirs]
     theme         = themes[region] if region != 'css' else 'css'
     all_languages = load_languages(language_base)
@@ -1198,7 +1205,7 @@ def zip_files(relative_dir, source_files, output_dir, output_file):
         cmd = [zip_bin]
 
         # dirty hack
-        if output_repo is not None:
+        if output_repo is not None and output_repo.git.ls_files(output_file.encode('utf8')) != '':
             output_repo.git.checkout('--', output_file.encode('utf8'))
 
         if os.path.exists(output_file):
@@ -1260,4 +1267,4 @@ if __name__ == '__main__':
 
     build(p.pdf_generator, p.lesson_dirs, p.region, p.output_dir)
 
-    sys.exit(0)
+    sys.exit()
