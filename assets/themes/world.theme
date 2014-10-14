@@ -2,7 +2,7 @@
     "id":"world",
     "language":"en-GB",
     "name":"Code Club World Projects",
-    "legal": "These projects are for use outside the UK only. More information is available on our website at <a href=\"http://www.codeclub.org.uk/\">www.codeclub.org.uk</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
+    "legal": "These projects are for use outside the UK only. More information is available on our website at <a href=\"http://www.codeclubworld.org/\">www.codeclubworld.org</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
     "stylesheets": [],
     "logo": "/img/ccw_logo.png",
     "favicon": "/img/ccw_favicon.ico",
