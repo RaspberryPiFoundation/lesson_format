@@ -36,7 +36,7 @@ body {
 }
 
 .header {
-  background-color: #b9e5fa;
+  background-color: #B9E5FA;
   margin-bottom: 35px;
   height: 110px;
   line-height: 110px;
@@ -171,11 +171,14 @@ body {
   width: 100%;
 }
 .activity h1 .step-num {
-  color: #b9e5fa;
+  color: #B9E5FA;
+}
+.world .activity h1 {
+  background-color: #3477d1;
 }
 
 .challenge {
-  background-color: #b9e5fa;
+  background-color: #B9E5FA;
   border: none;
   margin: 0 40px;
 }
@@ -225,7 +228,7 @@ body {
   width: 100%;
 }
 .save h2 {
-  background-color: #235a99;
+  background-color: #235A99;
   font-family: VAGbold, sans-serif;
   font-size: 16px;
   margin: 0 0 0 10px;
@@ -247,7 +250,7 @@ body {
 }
 
 .try {
-  background-color: #b9e5fa;
+  background-color: #B9E5FA;
   border: none;
   margin: 0 40px;
 }
