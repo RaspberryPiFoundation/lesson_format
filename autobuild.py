@@ -26,7 +26,7 @@ def rm_files(directory, ignore_list):
             # print 'deleting file: %s' % rm_file
             os.remove(rm_file)
 
-def reason_text(reason):
+def get_reason_text(reason):
     if reason is None:
         return "Someone told me to run a build"
 
@@ -78,7 +78,7 @@ def autobuild(region, reason=None):
     # stage everything...
     repo.git.add('--all')
     # ... commit it...
-    reason_text = reason_text(reason)
+    reason_text = get_reason_text(reason)
     # NB. it seems weird, but this reason can disagree
     # with the PR (since we force push)
     repo.git.commit('-m', 'Rebuild', '-m', reason_text)
