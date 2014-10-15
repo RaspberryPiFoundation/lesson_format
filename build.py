@@ -1209,7 +1209,8 @@ def zip_files(relative_dir, source_files, output_dir, output_file):
             output_repo.git.checkout('--', output_file.encode('utf8'))
 
         if os.path.exists(output_file):
-            cmd.append('-u')
+            # cmd.append('-u')
+            return Resource(format="zip", filename=output_file)
 
         cmd.append(output_file)
 
