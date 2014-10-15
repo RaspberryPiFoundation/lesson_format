@@ -2,6 +2,7 @@ import os
 import sys
 import shutil
 import subprocess
+import argparse
 from git import Repo
 from git.exc import GitCommandError
 from github import Github
@@ -39,10 +40,13 @@ def get_reason_text(reason):
 
     return "I became self-aware"
 
-def autobuild(region, reason, rebuild):
+def autobuild(region, reason, **kwargs):
     # TODO: fail gracefully if these aren't set
     gh_user = os.environ['GITHUB_USER']
     gh_token = os.environ['GITHUB_TOKEN']
+
+    rebuild = kwargs.get('rebuild', False)
+    clean = kwargs.get('clean', False)
 
     dont_remove = ['.git', '.gitignore', '.travis.yml', 'CNAME', 'README.md', 'requirements.txt']
     output_dir = 'output/codeclub%s' % region
@@ -60,7 +64,7 @@ def autobuild(region, reason, rebuild):
     # clone all the repos (the lazy way)
     subprocess.call('make clone'.split())
 
-    if rebuild:
+    if clean:
         # delete everything in the output dir
         rm_files(output_dir, dont_remove)
 
@@ -106,10 +110,11 @@ def autobuild(region, reason, rebuild):
 
 # this is run by the nightly cron, or a one-off call
 if __name__ == "__main__":
-    rebuild = False
-    if sys.argv[1] == '--rebuild':
-        sys.argv.pop(0)
-        rebuild = True
-    region = sys.argv[1]
-    reason = sys.argv[2] if len(sys.argv) > 2 else None
-    autobuild(region, reason, rebuild)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--rebuild', action='store_true')
+    parser.add_argument('--clean', action='store_true')
+    parser.add_argument('region', choices=['uk', 'world'])
+    parser.add_argument('reason', nargs='?')
+    p = parser.parse_args()
+
+    autobuild(p.region, p.reason, rebuild=p.rebuild, clean=p.clean)
