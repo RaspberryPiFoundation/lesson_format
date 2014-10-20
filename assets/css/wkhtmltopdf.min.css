@@ -112,6 +112,7 @@
 
   .lesson-steps img {
     border: none;
+    margin: 0 auto;
   }
   .lesson-steps ul > li:before {
     background: inherit;
@@ -195,6 +196,9 @@
     left: -0.4em;
   }
 
+  .lesson-steps .check {
+    margin-bottom: 0;
+  }
   .check h2 {
     /* Make the orange tick bigger! */
     background-size: 1.5em auto;

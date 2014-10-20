@@ -1,8 +1,10 @@
 .lesson-steps {
 
-	//	Remove orange border from images
 	img {
+        //	Remove orange border from images
 		border: none;
+        //	Remove some of the excess whitespace
+   		margin:	0 auto;
 	}
 
 	ul > li:before {
@@ -32,7 +34,7 @@
 		}
 	}
 
-  //	attempt to avoid blank last pages
+    //  attempt to avoid blank last pages
 	> section:last-child {
 		margin-bottom: 0;
 
