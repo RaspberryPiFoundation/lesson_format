@@ -28,7 +28,7 @@ WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
 Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo favicon css_variables analytics_account analytics_domain webmaster_tools_verification')
 Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
-Language = collections.namedtuple('Language', 'code name legal translations links')
+Language = collections.namedtuple('Language', 'code name legal translations links resources')
 
 def progress_print(*args):
     if progress:
@@ -726,6 +726,30 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
 
                 index_link.text = link['name']
 
+    if language.resources:
+        for title, resources in language.resources.iteritems():
+            index_title = ET.SubElement(index_section, 'h1', {
+                'class': 'index-title'
+            })
+
+            index_title.text = title
+
+            index_list = ET.SubElement(index_section, 'ul', {
+                'class': 'index-list'
+            })
+
+            for resource in resources:
+                index_item = ET.SubElement(index_list, 'li', {
+                    'class': 'index-item'
+                })
+
+                index_link = ET.SubElement(index_item, 'a', {
+                    'class': 'index-link',
+                    'href': resource['url']
+                })
+
+                index_link.text = resource['name']
+
     make_html({'title': language.translate("Terms &amp; Resources")}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
 
     return output_file
@@ -1023,7 +1047,8 @@ def parse_language(filename):
         name         = obj['name'],
         legal        = obj['legal'],
         translations = obj['translations'],
-        links        = obj.get('links', {})
+        links        = obj.get('links', {}),
+        resources    = obj.get('resources', {})
     )
 
 def load_themes(dir):
