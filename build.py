@@ -82,7 +82,7 @@ note_style = Style(
 )
 
 # todo : real classes
-Term                 = collections.namedtuple('Term', 'id manifest title description language number projects extras')
+Term                 = collections.namedtuple('Term', 'id manifest title warning description language number projects extras')
 Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
@@ -455,7 +455,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
     index_title.text = language.translate('Projects')
 
     if term.warning:
-        index_warninf = ET.SubElement(index_section, 'p', {
+        index_warning = ET.SubElement(index_section, 'p', {
             'class': 'index-warning'
         })
 
@@ -898,6 +898,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, gr=None, rb=False):
                     number      = term.number,
                     language    = term.language,
                     title       = term.title,
+                    warning     = term.warning,
                     description = term.description,
                     projects    = projects,
                     extras      = extras
@@ -940,6 +941,7 @@ def parse_manifest(filename, theme):
         id          = json_manifest['id'],
         title       = json_manifest['title'],
         manifest    = filename,
+        warning     = json_manifest.get('warning', None),
         description = json_manifest['description'],
         language    = json_manifest['language'],
         number      = int(json_manifest['number']),
