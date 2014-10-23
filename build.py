@@ -454,6 +454,13 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
 
     index_title.text = language.translate('Projects')
 
+    if term.warning:
+        index_warninf = ET.SubElement(index_section, 'p', {
+            'class': 'index-warning'
+        })
+
+        index_warning.text = term.warning
+
     if term.description:
         index_description = ET.SubElement(index_section, 'p', {
             'class': 'index-description'
