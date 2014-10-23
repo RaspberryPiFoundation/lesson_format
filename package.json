@@ -10,6 +10,7 @@
   "copyright": "Copyright 2014 Code Club",
   "devDependencies": {
     "grunt-contrib-watch": "~0.6.1",
+    "grunt-shell": "^1.1.1",
     "jshint-stylish": "~1.0.0"
   },
   "dependencies": {
