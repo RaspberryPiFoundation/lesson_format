@@ -68,8 +68,8 @@ module.exports = function (grunt) {
         files: '<%= css.any %>',
         tasks: [
           'sass:dev',
-          'shell:css:uk',
-          'shell:css:world'
+          'shell:css_uk',
+          'shell:css_world'
         ]
       }
     }
