@@ -727,30 +727,47 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
                 index_link.text = link['name']
 
     if language.resources:
-        for title, resources in language.resources.iteritems():
-            index_title = ET.SubElement(index_section, 'h1', {
-                'class': 'index-title'
-            })
+        resources = language.resources
 
-            index_title.text = title
+        if resources:
+            title      = resources.get('title',      None)
+            disclaimer = resources.get('disclaimer', None)
+            links      = resources.get('links',      None)
 
-            index_list = ET.SubElement(index_section, 'ul', {
-                'class': 'index-list'
-            })
-
-            for resource in resources:
-                index_item = ET.SubElement(index_list, 'li', {
-                    'class': 'index-item'
+            if title:
+                index_title = ET.SubElement(index_section, 'h1', {
+                    'class': 'index-title'
                 })
 
-                index_link = ET.SubElement(index_item, 'a', {
-                    'class': 'index-link',
-                    'href': resource['url']
+                index_title.text = title
+
+            if disclaimer:
+                index_warning = ET.SubElement(index_section, 'p', {
+                    'class': 'index-warning'
                 })
 
-                index_link.text = resource['name']
+                index_warning.text = disclaimer
 
-    make_html({'title': language.translate("Terms &amp; Resources")}, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
+            if links:
+                index_list = ET.SubElement(index_section, 'ul', {
+                    'class': 'index-list'
+                })
+
+                for link in links:
+                    index_item = ET.SubElement(index_list, 'li', {
+                        'class': 'index-item'
+                    })
+
+                    index_link = ET.SubElement(index_item, 'a', {
+                        'class': 'index-link',
+                        'href': link['url']
+                    })
+
+                    index_link.text = link['name']
+
+    make_html({
+        'title': language.translate("Terms &amp; Resources")
+    }, lang_breadcrumb, index_section, index_style, language, theme, root_dir, output_file)
 
     return output_file
 
@@ -1048,7 +1065,7 @@ def parse_language(filename):
         legal        = obj['legal'],
         translations = obj['translations'],
         links        = obj.get('links', {}),
-        resources    = obj.get('resources', {})
+        resources    = obj.get('resources', None)
     )
 
 def load_themes(dir):

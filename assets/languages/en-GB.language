@@ -22,7 +22,7 @@
 		"Make sure to <span class=\"save_text upper\">save</span> your work now": null,
 		"Terms &amp; Resources": null
 	},
-	"links" : {
+	"links": {
 		"Club Resources": [
 			{
 				"name": "Scratch Cards",
@@ -34,8 +34,10 @@
 			}
 		]
 	},
-	"resources" : {
-		"Third-Part Resources": [
+	"resources": {
+		"disclaimer": "",
+		"title": "Third-Party Resources",
+		"links": [
 			{
 				"name": "Technology Will Save Us",
 				"url":  "http://www.techwillsaveus.com/"
