@@ -33,15 +33,5 @@
 				"url":  "https://www.codeclub.org.uk/terms-and-conditions"
 			}
 		]
-	},
-	"resources": {
-		"disclaimer": "The following resources are not part of the Code Club curriculum, but provide opportunities for children to undertake extra projects.",
-		"title": "Third-Party Resources",
-		"links": [
-			{
-				"name": "Technology Will Save Us DIY Gamer Kit",
-				"url":  "http://www.codeclub.org.uk/twsu/projects"
-			}
-		]
 	}
 }
