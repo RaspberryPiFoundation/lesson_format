@@ -49,7 +49,6 @@
 
 	ul {
 		margin-left: 0;
-		cursor: pointer;
 
 		> li {
 			list-style: none;
@@ -60,6 +59,7 @@
 				border:        0.15em solid $color-highlight;
 				border-radius: 0.25em;
 				content:       ' ';
+				cursor:        pointer;
 				display:       block;
 				left:          -1.3em;
 				position:      absolute;
@@ -78,8 +78,8 @@
 				}
 
 				&.inline {
-					display: inline !important;
-					margin:  0;
+					display:        inline !important;
+					margin:         0;
 					vertical-align: top;
 
 					&:before {
@@ -89,8 +89,8 @@
 			}
 
 			&.activity-done {
+				font-style:      italic;
 				text-decoration: line-through;
-				font-style: italic;
 
 				&:before {
 					background: #3477d1;
