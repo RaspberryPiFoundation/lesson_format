@@ -45,6 +45,16 @@
 		page-break-inside: avoid;
 	}
 
+	.scratch-preview {
+		iframe {
+			display: none;
+		}
+
+		img {
+			display: block;
+		}
+	}
+
 	.level-indicator {
 		border-radius: 15px;
 		right: 0;
