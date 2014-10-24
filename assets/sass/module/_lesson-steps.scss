@@ -38,6 +38,8 @@
 	}
 
 	ol {
+		margin-left: 1.5em;
+
 		> li {
 			list-style: disc;
 
@@ -48,7 +50,7 @@
 	}
 
 	ul {
-		margin-left: 0;
+		margin-left: 1.5em;
 
 		> li {
 			list-style: none;
@@ -97,19 +99,11 @@
 				}
 			}
 
-			ol {
-				margin-left: 1.5em;
-			}
+			ul li {
+				list-style: disc;
 
-			ul {
-				margin-left: 1.5em;
-
-				li {
-					list-style: disc;
-
-					&:before {
-						display: none;
-					}
+				&:before {
+					display: none;
 				}
 			}
 		}
