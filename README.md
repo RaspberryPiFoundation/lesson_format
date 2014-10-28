@@ -126,7 +126,7 @@ The lesson formatter can use different languages in the project listing.
 }
 ```
 
-You can find a full list of translations [in the en-GB.language file](https://github.com/CodeClub/lesson_format/blob/master/assets/languages/en-GB.language).
+You can find a full list of translations [in the en-GB.language.sample file](https://github.com/CodeClub/lesson_format/blob/master/assets/languages/en-GB.language.sample).
 
 ## Themes
 
