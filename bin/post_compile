@@ -6,7 +6,7 @@ echo '-----> installing css dependencies via bower'
 bower install --production
 
 echo '-----> minifying css'
-grunt build > /dev/null
+grunt sass:dist
 
 echo '-----> installing pandoc'
 curl -Ls http://cl.ly/3f2i2l2L2u2I/pandoc-1.13.1.tar.gz | tar xz
