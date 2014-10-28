@@ -61,8 +61,11 @@ def autobuild(region, reason, **kwargs):
 
     pdf_generator = 'phantomjs'
 
-    # clone all the repos (the lazy way)
+    # clone the curricula repos (the lazy way)
     subprocess.call('make clone'.split())
+
+    # clone the output repo
+    subprocess.call(('git clone https://github.com/CodeClub/%s.git %s' % (gh_repo, output_dir)).split())
 
     if clean:
         # delete everything in the output dir
