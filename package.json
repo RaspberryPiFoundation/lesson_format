@@ -7,6 +7,10 @@
     "name": "Jonic Linley",
     "url": "http://codeclub.org.uk/"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/CodeClub/lesson_format.git"
+  },
   "copyright": "Copyright 2014 Code Club",
   "devDependencies": {
     "grunt-contrib-watch": "~0.6.1",
