@@ -195,7 +195,7 @@ def phantomjs_pdf(input_file, output_file, root_dir, legal):
     root = get_path_to(root_dir, output_file)
     cmd = [
         phantomjs, rasterize,
-        # include phantomjs-specific stylesheet
+        # include pdf-specific stylesheet
         '--style', os.path.join(root, 'css', 'pdf.min.css'),
         # include pdf-specific javascript
         '--script', 'assets/js/pdf.js',
