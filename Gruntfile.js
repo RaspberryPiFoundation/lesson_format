@@ -9,14 +9,9 @@ module.exports = function (grunt) {
       output: 'assets/css/master.min.css'
     },
 
-    phantom_css: {
-      input: 'assets/sass/phantomjs.scss',
-      output: 'assets/css/phantomjs.min.css'
-    },
-
-    wkhtmltopdf_css: {
-      input: 'assets/sass/wkhtmltopdf.scss',
-      output: 'assets/css/wkhtmltopdf.min.css'
+    pdf_css: {
+      input: 'assets/sass/pdf.scss',
+      output: 'assets/css/pdf.min.css'
     },
 
     pkg: grunt.file.readJSON('package.json'),
@@ -29,8 +24,7 @@ module.exports = function (grunt) {
       dev: {
         files: {
           '<%= css.output %>': '<%= css.input %>',
-          '<%= phantom_css.output %>': '<%= phantom_css.input %>',
-          '<%= wkhtmltopdf_css.output %>': '<%= wkhtmltopdf_css.input %>'
+          '<%= pdf_css.output %>': '<%= pdf_css.input %>'
         },
         options: {
           style: 'expanded'
@@ -39,8 +33,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           '<%= css.output %>': '<%= css.input %>',
-          '<%= phantom_css.output %>': '<%= phantom_css.input %>',
-          '<%= wkhtmltopdf_css.output %>': '<%= wkhtmltopdf_css.input %>'
+          '<%= pdf_css.output %>': '<%= pdf_css.input %>'
         },
         options: {
           style: 'compressed'
