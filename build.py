@@ -195,8 +195,8 @@ def phantomjs_pdf(input_file, output_file, root_dir, legal):
     root = get_path_to(root_dir, output_file)
     cmd = [
         phantomjs, rasterize,
-        # include phantomjs-specific stylesheet
-        '--style', os.path.join(root, 'css', 'phantomjs.min.css'),
+        # include pdf-specific stylesheet
+        '--style', os.path.join(root, 'css', 'pdf.min.css'),
         # include pdf-specific javascript
         '--script', 'assets/js/pdf.js',
         '--footer', footer,
@@ -219,13 +219,13 @@ def qtwebkit_to_pdf(input_file, output_file, root_dir, legal):
         with open(input_file, 'w') as o:
             for line in i:
                 if '</head>' in line:
-                    o.write('<link rel="stylesheet" href="%s/css/wkhtmltopdf.min.css">\n' % root)
+                    o.write('<link rel="stylesheet" href="%s/css/pdf.min.css">\n' % root)
                 o.write(line)
 
     cmd = [
         "wkhtmltopdf",
         # this doesn't work properly, for various reasons.
-        # "--user-style-sheet", os.path.join(root_dir, "css", "wkhtmltopdf.min.css"),
+        # "--user-style-sheet", os.path.join(root_dir, "css", "pdf.min.css"),
         "--print-media-type",
         "--run-script", print_js,
         "--footer-html", os.path.join(template_base, "_wkhtmltopdf_footer.html"),
