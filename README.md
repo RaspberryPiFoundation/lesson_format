@@ -58,6 +58,13 @@ $(npm bin)/grunt sass:dev
 ./build.py uk lessons/scratch lessons/webdev lessons/python output/codeclubuk
 ```
 
+To build the PDFs, specify the `--pdf phantomjs` option as follows:
+
+```
+./build.py --pdf phantomjs world lessons/scratch lessons/webdev lessons/python output/codeclubworld
+./build.py --pdf phantomjs uk lessons/scratch lessons/webdev lessons/python output/codeclubuk
+```
+
 There is also a makefile which can be used to automate the process. First run `make clone` to build a local copy of all of the source and target repositories, then run `make pages_uk pages_world` or just `make pages_uk`/`make pages_world`. You only need to run `make clone` once, and not before every `make pages_uk pages_world`.
 
 ## Lesson Formatting
