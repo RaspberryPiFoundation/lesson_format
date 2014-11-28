@@ -15,7 +15,7 @@ window.onload = function () {
     */
     var lvl = document.getElementsByClassName("level-indicator");
     if (lvl.length > 0) {
-        var lvlParts = lvl[0].innerHTML.match(/(.*?)(\d+)/);
+        var lvlParts = lvl[0].innerHTML.match(/(.*?)(\d+|\+)/);
         if (lvlParts !== null) {
             lvl[0].innerHTML = lvlParts[1] + '<span class="level-number">' + lvlParts[2] + '</span>';
         }
