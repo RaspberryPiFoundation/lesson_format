@@ -862,7 +862,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, gr=None, rb=False):
 
             traceback.print_exc()
 
-            progress_print("Failed", e)
+            progress_print("Failed", e.message)
 
     progress_print("Copying assets...")
 
