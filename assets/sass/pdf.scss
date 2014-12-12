@@ -4,7 +4,5 @@
 //	Config variables
 @import './config';
 
-@media print {
-	//	pdf styles
-	@import './pdf/**/*';
-}
+//	pdf styles
+@import './pdf/**/*';
