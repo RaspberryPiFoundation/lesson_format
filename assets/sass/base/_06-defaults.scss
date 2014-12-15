@@ -153,18 +153,29 @@ code {
 	&.blockyellow { background: $color-code-yellow; }
 	&.blockpurple { background: $color-code-purple; }
 
-	&.blockmotion { background: $color-scratchblock-motion; }
-	&.blocklooks { background: $color-scratchblock-looks; }
-	&.blocksound { background: $color-scratchblock-sound; }
-	&.blockpen { background: $color-scratchblock-pen; }
-	&.blockdata { background: $color-scratchblock-data; }
-	&.blockevents { background: $color-scratchblock-events; }
-	&.blockcontrol { background: $color-scratchblock-control; }
-	&.blocksensing { background: $color-scratchblock-sensing; }
-	&.blockoperators { background: $color-scratchblock-operators; }
+	&.blockmotion     { background: $color-scratchblock-motion;     }
+	&.blocklooks      { background: $color-scratchblock-looks;      }
+	&.blocksound      { background: $color-scratchblock-sound;      }
+	&.blockpen        { background: $color-scratchblock-pen;        }
+	&.blockdata       { background: $color-scratchblock-data;       }
+	&.blockevents     { background: $color-scratchblock-events;     }
+	&.blockcontrol    { background: $color-scratchblock-control;    }
+	&.blocksensing    { background: $color-scratchblock-sensing;    }
+	&.blockoperators  { background: $color-scratchblock-operators;  }
 	&.blockmoreblocks { background: $color-scratchblock-moreblocks; }
 
-	&.blockmotion, &.blocklooks, &.blocksound, &.blockpen, &.blockdata, &.blockevents, &.blockcontrol, &.blocksensing, &.blockoperators, &.blockmoreblocks { color: #fff; }
+	&.blockmotion,
+	&.blocklooks,
+	&.blocksound,
+	&.blockpen,
+	&.blockdata,
+	&.blockevents,
+	&.blockcontrol,
+	&.blocksensing,
+	&.blockoperators,
+	&.blockmoreblocks {
+		color: #fff;
+	}
 }
 
 pre
@@ -255,6 +266,10 @@ ol {
 
 		p {
 			margin: 0;
+
+			&:last-child {
+				margin-bottom: 1em;
+			}
 		}
 	}
 
@@ -268,6 +283,7 @@ ol {
 }
 
 p, .p, %p {
+	margin-bottom: 1em;
 	&.lead {
 		color:     $color-base-dark;
 		font-size: $font-size-large;
@@ -310,6 +326,10 @@ ul {
 
 		p {
 			margin: 0;
+
+			&:last-child {
+				margin-bottom: 1em;
+			}
 		}
 	}
 
