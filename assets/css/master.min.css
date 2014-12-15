@@ -596,7 +596,7 @@ ol li {
   list-style: decimal;
 }
 ol li p {
-  margin: 0;
+  margin-bottom: 1em;
 }
 ol ol, ol ul {
   margin-bottom: 0;
@@ -605,6 +605,9 @@ ol ol li, ol ul li {
   font-size: 1em;
 }
 
+p, .p {
+  margin-bottom: 1em;
+}
 p.lead, .p.lead {
   color: #111;
   font-size: 22px;
@@ -641,7 +644,7 @@ ul li {
   list-style: disc;
 }
 ul li p {
-  margin: 0;
+  margin-bottom: 1em;
 }
 ul ol, ul ul {
   margin-bottom: 0;
@@ -869,7 +872,7 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
 }
 .lesson-steps h2 {
   font-size: 1.3em;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.5em;
 }
 .lesson-steps section {
   margin-bottom: 1.5em;
