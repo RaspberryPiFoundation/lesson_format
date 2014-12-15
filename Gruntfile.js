@@ -60,7 +60,9 @@ module.exports = function (grunt) {
       css: {
         files: '<%= css.any %>',
         tasks: [
-          'sass:dev'
+          'sass:dev',
+          'shell:css_uk',
+          'shell:css_world'
         ]
       }
     }
@@ -70,6 +72,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'sass:dev',
+    'shell:css_uk',
+    'shell:css_world',
     'watch'
   ]);
 
