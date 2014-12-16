@@ -33,7 +33,7 @@ Language = collections.namedtuple('Language', 'code name legal translations link
 def progress_print(*args):
     if progress:
         for a in args:
-            print a.encode('utf-8')
+            print a
 
 def translate(self, text):
     trans = self.translations.get(text, text)
@@ -969,7 +969,7 @@ def parse_manifest(filename, theme):
     with open(filename) as fh:
         json_manifest = json.load(fh)
 
-    base_dir = os.path.join(os.path.dirname(filename))
+    base_dir = os.path.join(os.path.dirname(filename)).decode('utf8')
     projects = []
 
     for p in json_manifest['projects']:
