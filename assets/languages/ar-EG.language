@@ -1,6 +1,7 @@
 {
   "code": "ar-EG",
   "name": "العربية",
+  "rtl": true,
   "legal": {},
   "translations": {}
 }

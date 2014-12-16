@@ -28,7 +28,7 @@ WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
 Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo favicon css_variables analytics_account analytics_domain webmaster_tools_verification')
 Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
-Language = collections.namedtuple('Language', 'code name legal translations links resources')
+Language = collections.namedtuple('Language', 'code name rtl legal translations links resources')
 
 def progress_print(*args):
     if progress:
@@ -125,6 +125,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "-M", "favicon=%s"%theme.favicon,
         "-M", "root=%s"%root,
         "-M", "lang=%s"%language.code,
+        "-M", "rtl=%s"%language.rtl,
         "-M", "theme=%s"%theme.id,
         "-M", "webmaster_tools_verification=%s"%theme.webmaster_tools_verification,
     ]
@@ -1063,6 +1064,7 @@ def parse_language(filename):
     return Language(
         code         = obj['code'],
         name         = obj['name'],
+        rtl          = obj.get('rtl', False),
         legal        = obj['legal'],
         translations = obj['translations'],
         links        = obj.get('links', {}),

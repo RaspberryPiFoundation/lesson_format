@@ -302,6 +302,10 @@ td {
   border-radius: 0 !important;
 }
 
+.rtl {
+  direction: rtl;
+}
+
 article:before, div:before, dl:before, fieldset:before, footer:before, form:before, header:before, main:before, ol:before, section:before, nav:before, ul:before, .header:before, .breadcrumbs-list:before, .files-item:before, .index-list:before, .projects-list:before, article:after, div:after, dl:after, fieldset:after, footer:after, form:after, header:after, main:after, ol:after, section:after, nav:after, ul:after, .header:after, .breadcrumbs-list:after, .files-item:after, .index-list:after, .projects-list:after {
   content: '';
   display: table;
