@@ -341,12 +341,13 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
     project_breadcrumb = breadcrumb + [(project.title, "")]
     notes              = []
 
-    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
-
     if pdf != None:
         pdf = copy_file(pdf, output_dir)
         progress_print("Copied PDF: " + pdf)
-    elif generated_pdf is not None:
+        pdf_generator = None
+
+    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
+    if generated_pdf is not None:
         pdf = generated_pdf
 
     if note_pdf != None:
