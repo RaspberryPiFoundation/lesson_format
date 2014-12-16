@@ -95,7 +95,7 @@ We use the scratchblocks2 library, and PhantomJS to render scratch blocks as png
 
 Scratch blocks inside lessons must follow [the syntax set out here](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
-You can [test your syntax here](http://blob8108.github.io/scratchblocks2/) (remembering to set the language!).
+You can [test your syntax here](http://scratchblocks.codeclub.org.uk/) (remembering to set the language!).
 
 We use `scratch` to denote a scratch block in markdown:
 
