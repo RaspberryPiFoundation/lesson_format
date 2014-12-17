@@ -34,6 +34,8 @@ def progress_print(*args):
     global verbose
     if verbose:
         for a in args:
+            if type(a) is unicode:
+                a = a.encode('utf-8')
             print a
 
 def translate(self, text):
