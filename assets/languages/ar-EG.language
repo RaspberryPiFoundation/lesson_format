@@ -3,5 +3,24 @@
   "name": "العربية",
   "rtl": true,
   "legal": {},
-  "translations": { }
+  "translations": {
+		"Download PDF": null,
+		"Download Project Materials": null,
+		"Extras": null,
+		"Languages": null,
+		"Notes for Club Leader": null,
+		"Notes": null,
+		"Projects": null,
+		"resources": null,
+		"Scratch Cards for this lesson": null,
+		"Student Project": null,
+		"Terms": null,
+		"Activity Checklist": null,
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": null,
+		"Test your Project": null,
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": null,
+		"Save your Project": null,
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": null,
+		"Terms &amp; Resources": null
+  }
 }
