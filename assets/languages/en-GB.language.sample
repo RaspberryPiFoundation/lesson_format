@@ -1,47 +1,27 @@
 {
-	"code": "en-GB",
-	"name": "Englishkljhasdlhkjfadslhjkadfs",
-	"legal": {},
+	"code": "Language code e.g. en-GB",
+	"name": "Language name e.g. English",
 	"translations": {
-		"Download PDF": null,
-		"Download Project Materials": null,
-		"Extras": null,
-		"Languages": null,
-		"Notes for Club Leader": null,
-		"Notes": null,
-		"Projects": null,
-		"resources": null,
-		"Scratch Cards for this lesson": null,
-		"Student Project": null,
-		"Terms": null,
-		"Activity Checklist": null,
-		"Follow these <span class=\"check_text upper\">instructions</span> one by one": null,
-		"Test your Project": null,
-		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": null,
-		"Save your Project": null,
-		"Make sure to <span class=\"save_text upper\">save</span> your work now": null,
-		"Terms &amp; Resources": null
+		"Download PDF": "Your translation here!",
+		"Download Project Materials": "Your translation here!",
+		"Extras": "Your translation here!",
+		"Languages": "Your translation here!",
+		"Notes for Club Leader": "Your translation here!",
+		"Notes": "Your translation here!",
+		"Projects": "Your translation here!",
+		"resources": "Your translation here!",
+		"Scratch Cards for this lesson": "Your translation here!",
+		"Student Project": "Your translation here!",
+		"Terms": "Your translation here!",
+		"Activity Checklist": "Your translation here!",
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": "Your translation here!",
+		"Test your Project": "Your translation here!",
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Your translation here!",
+		"Save your Project": "Your translation here!",
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Your translation here!",
+		"Terms &amp; Resources": "Your translation here!"
 	},
-	"links": {
-		"Club Resources": [
-			{
-				"name": "Scratch Cards",
-				"url":  "http://scratch.mit.edu/help/cards/"
-			},
-			{
-				"name": "Terms and Conditions",
-				"url":  "https://www.codeclub.org.uk/terms-and-conditions"
-			}
-		]
-	},
-	"resources": {
-		"disclaimer": "The following resources are not part of the Code Club curriculum, but provide opportunities for children to undertake extra projects.",
-		"title": "Third-Party Resources",
-		"links": [
-			{
-				"name": "Technology Will Save Us DIY Gamer Kit",
-				"url":  "http://www.codeclub.org.uk/twsu/projects"
-			}
-		]
-	}
+	"legal": {},
+	"links": {},
+	"resources": {}
 }
