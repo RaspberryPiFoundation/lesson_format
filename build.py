@@ -31,7 +31,8 @@ Style    = collections.namedtuple('Style', 'name html_template tex_template scri
 Language = collections.namedtuple('Language', 'code name rtl legal translations links resources')
 
 def progress_print(*args):
-    if progress:
+    global verbose
+    if verbose:
         for a in args:
             print a
 
@@ -834,8 +835,9 @@ def build_breadcrumb(breadcrumb, output_file):
 
     return breadcrumbs_list
 
-def build(pdf_generator, lesson_dirs, region, output_dir, gr=None, rb=False):
-    global output_repo, rebuild
+def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=False):
+    global verbose, output_repo, rebuild
+    verbose       = v
     output_repo   = gr
     rebuild       = rb
     lessons       = [os.path.abspath(a) for a in lesson_dirs]
@@ -1310,16 +1312,16 @@ def check_requirements():
     pass
 
 themes   = load_themes(theme_base)
-progress = True
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--pdf', choices=['wkhtmltopdf', 'phantomjs'], default=None, dest="pdf_generator")
+    parser.add_argument('--verbose', action='store_true')
     parser.add_argument('region', choices=themes.keys()+['css'])
     parser.add_argument('lesson_dirs', nargs="+")
     parser.add_argument('output_dir')
     p = parser.parse_args()
 
-    build(p.pdf_generator, p.lesson_dirs, p.region, p.output_dir)
+    build(p.pdf_generator, p.lesson_dirs, p.region, p.output_dir, p.verbose)
 
     sys.exit()

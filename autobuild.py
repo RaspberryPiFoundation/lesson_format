@@ -45,6 +45,7 @@ def autobuild(region, reason, **kwargs):
     gh_user = os.environ['GITHUB_USER']
     gh_token = os.environ['GITHUB_TOKEN']
 
+    verbose = kwargs.get('verbose', False)
     rebuild = kwargs.get('rebuild', False)
     clean = kwargs.get('clean', False)
 
@@ -75,7 +76,7 @@ def autobuild(region, reason, **kwargs):
     repo = Repo(output_dir)
 
     # run the build
-    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, repo, rebuild)
+    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, verbose, repo, rebuild)
 
     # add username and token to remote url
     # (so we can write)
@@ -114,10 +115,11 @@ def autobuild(region, reason, **kwargs):
 # this is run by the nightly cron, or a one-off call
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--rebuild', action='store_true')
     parser.add_argument('--clean', action='store_true')
     parser.add_argument('region', choices=['uk', 'world'])
     parser.add_argument('reason', nargs='?')
     p = parser.parse_args()
 
-    autobuild(p.region, p.reason, rebuild=p.rebuild, clean=p.clean)
+    autobuild(p.region, p.reason, verbose=p.verbose, rebuild=p.rebuild, clean=p.clean)
