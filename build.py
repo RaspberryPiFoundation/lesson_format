@@ -86,7 +86,7 @@ note_style = Style(
 
 # todo : real classes
 Term                 = collections.namedtuple('Term', 'id manifest title warning description language number projects extras')
-Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
+Project              = collections.namedtuple('Project', 'filename pdf number level title beta materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
 css_assets           = os.path.join(base, "assets", "css")
@@ -108,9 +108,10 @@ if not os.path.exists(scratchblocks_filter):
     sys.exit(1)
 
 # Markup processing
-def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
+def pandoc_html(input_file, style, project, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
     legal = language.legal.get(theme.id, theme.legal)
+    beta = project.beta if project is not None else False
     cmd   = [
         pandoc,
         input_file,
@@ -123,6 +124,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
         "-M", "year=%s"%year,
+        "-M", "beta=%s"%beta,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
         "-M", "favicon=%s"%theme.favicon,
@@ -161,7 +163,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         logger.error('Pandoc is required, check %s' % PANDOC_INSTALL_URL)
         sys.exit(1)
 
-def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir, output_file):
+def markdown_to_html(markdown_file, breadcrumb, style, project, language, theme, root_dir, output_file):
     commands = (
         "-f", PANDOC_MARKDOWN,
     )
@@ -171,7 +173,7 @@ def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir
     if breadcrumb:
         variables['breadcrumbs'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
 
-    pandoc_html(markdown_file, style, language, theme, variables, commands, root_dir, output_file)
+    pandoc_html(markdown_file, style, project, language, theme, variables, commands, root_dir, output_file)
 
 def make_html(variables, breadcrumb, html, style, language, theme, root_dir, output_file):
     variables = dict(variables)
@@ -188,7 +190,7 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
     input_file = '/dev/null'
 
-    pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
+    pandoc_html(input_file, style, None, language, theme, variables, commands, root_dir, output_file)
 
 def phantomjs_pdf(input_file, output_file, root_dir, legal):
     # fetch the phantom footer
@@ -281,7 +283,7 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, pdf_generator):
+def process_file(input_file, breadcrumb, style, project, language, theme, root_dir, output_dir, pdf_generator):
     output        = []
     legal         = language.legal.get(theme.id, theme.legal)
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
@@ -290,7 +292,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
     if ext == "md":
         # Generate HTML
         output_file = os.path.join(output_dir, "%s.html"%name)
-        markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
+        markdown_to_html(input_file, breadcrumb, style, project, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
         if pdf_generator is not None:
@@ -350,7 +352,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         progress_print("Copied PDF: " + pdf)
         pdf_generator = None
 
-    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
+    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, project, language, theme, root_dir, output_dir, pdf_generator)
     if generated_pdf is not None:
         pdf = generated_pdf
 
@@ -359,7 +361,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, None)[0])
+        notes.extend(process_file(project.note, None, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     extras = []
 
@@ -377,6 +379,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         pdf       = pdf,
         number    = project.number,
         title     = project.title,
+        beta      = project.beta,
         level     = project.level,
         materials = materials,
         note      = notes,
@@ -398,7 +401,7 @@ def build_project_extra(pdf_generator, term, project, extra, language, theme, ro
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
+        note.extend(process_file(extra.note, breadcrumb, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -413,7 +416,7 @@ def build_project_extra(pdf_generator, term, project, extra, language, theme, ro
         pdf       = pdf,
     )
 
-def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_extra(pdf_generator, term, extra, project, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = extra.pdf
@@ -423,7 +426,7 @@ def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_di
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
+        note.extend(process_file(extra.note, breadcrumb, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -485,6 +488,13 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         others = files[1:]
         url    = os.path.relpath(first.filename, output_dir)
 
+        if project.title:
+            project_title = project.title
+            if project.beta:
+                project_title = '(Beta) ' + project_title
+        else:
+            project_title = url
+
         projects_item = ET.SubElement(projects_list, 'li', {
             'class': 'projects-item'
         })
@@ -493,7 +503,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             'class': 'projects-title'
         })
 
-        projects_title.text = str(project_counter) + '. ' + (project.title or url)
+        projects_title.text = str(project_counter) + '. ' + project_title
 
         if project.level:
             projects_level = ET.SubElement(projects_title, 'span', {
@@ -937,7 +947,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
 
                 for r in term.extras:
                     progress_print("Building Extra:", r.name)
-                    extras.append(build_extra(pdf_generator, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
+                    extras.append(build_extra(pdf_generator, term, r, project, language, theme, output_dir, term_dir, term_breadcrumb))
 
                 term = Term(
                     id          = term.id,
@@ -979,7 +989,7 @@ def parse_manifest(filename, theme):
     projects = []
 
     for p in json_manifest['projects']:
-        project = parse_project(p, base_dir, theme)
+        project = parse_project_manifest(p, base_dir, theme)
         projects.append(project)
 
     extras = parse_extras(json_manifest.get('extras',()), base_dir)
@@ -998,7 +1008,7 @@ def parse_manifest(filename, theme):
 
     return m
 
-def parse_project(p, base_dir, theme):
+def parse_project_manifest(p, base_dir, theme):
     filename  = expand_glob(base_dir, p['filename'],     one_file = True)
     materials = expand_glob(base_dir, p.get('materials', []))
     embeds    = expand_glob(base_dir, p.get('embeds',    []))
@@ -1020,6 +1030,7 @@ def parse_project(p, base_dir, theme):
         pdf       = pdf,
         number    = p['number'],
         title     = p.get('title', None),
+        beta      = p.get('beta', False),
         level     = p.get('level', None),
         materials = materials,
         note      = note,
@@ -1125,6 +1136,7 @@ def parse_project_meta(p, theme, ignore_pdf):
     if header:
         number   = header.get('number', p.number)
         title    = header.get('title', p.title)
+        beta     = header.get('beta', p.beta)
         level    = header.get('level', p.level)
         raw_note = header.get('note', None)
         pdf      = None
@@ -1166,6 +1178,7 @@ def parse_project_meta(p, theme, ignore_pdf):
             pdf       = pdf,
             number    = number,
             title     = title,
+            beta      = beta,
             level     = level,
             materials = materials,
             note      = note,

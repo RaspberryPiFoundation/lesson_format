@@ -8,7 +8,7 @@ $if(webmaster_tools_verification)$
     <meta name="google-site-verification" content="$webmaster_tools_verification$" />
 $endif$
 
-    <title>$if(title)$$title$ — $endif$$organization$</title>
+    <title>$if(title)$$if(beta)$(Beta) $endif$$title$ — $endif$$organization$</title>
     $if(favicon)$<link rel="shortcut icon" href="$root$$favicon$">$endif$
 
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -19,13 +19,20 @@ $endif$
   <body class="index-template $theme$">
     <header class="header" role="banner">
       $if(logo)$<a class="home-link" href="$root$/index.html"><img alt="" class="logo" height="100" src="$root$$logo$"></a>$endif$
-      $if(title)$<h1 class="title">$title$</h1>$endif$
+      $if(title)$<h1 class="title">$if(beta)$(Beta) $endif$$title$</h1>$endif$
       $if(level)$<span class="level-indicator">$level$</span>$endif$
     </header>
 
     $if(breadcrumbs)$<nav class="breadcrumbs">$breadcrumbs$</nav>$endif$
 
     <main class="main lesson-steps" role="main">
+      $if(beta)$
+        <section id="heads-up" class="level1 beta">
+          <h1>Heads Up!</h1>
+          <p>This project is in Beta. That means we're still testing it, and there's a small chance there could be some bugs or typos. If you're a club leader trying out this project, please complete <a href="https://docs.google.com/forms/d/15QLeJ_aDklioXl5cUyUK1KqZ7lUhCiewl3qiwXOg41M/viewform?usp=send_form" target="_blank">this short questionnaire</a> (or email <a href="mailto:projects@codeclub.org.uk">projects@codeclub.org.uk</a>) to let us know how it went!</p>
+        </section>
+      $endif$
+
 $body$
     </main>
 
