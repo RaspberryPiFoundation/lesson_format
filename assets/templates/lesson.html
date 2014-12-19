@@ -8,7 +8,7 @@ $if(webmaster_tools_verification)$
     <meta name="google-site-verification" content="$webmaster_tools_verification$" />
 $endif$
 
-    <title>$if(title)$$title$ — $endif$$organization$</title>
+    <title>$if(title)$$if(beta)$(Beta) $endif$$title$ — $endif$$organization$</title>
     $if(favicon)$<link rel="shortcut icon" href="$root$$favicon$">$endif$
 
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->

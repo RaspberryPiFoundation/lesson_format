@@ -108,9 +108,10 @@ if not os.path.exists(scratchblocks_filter):
     sys.exit(1)
 
 # Markup processing
-def pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file):
+def pandoc_html(input_file, style, project, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
     legal = language.legal.get(theme.id, theme.legal)
+    beta = project.beta if project is not None else False
     cmd   = [
         pandoc,
         input_file,
@@ -123,6 +124,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         "--filter", scratchblocks_filter,
         "-M", "legal=%s"%legal,
         "-M", "year=%s"%year,
+        "-M", "beta=%s"%beta,
         "-M", "organization=%s"%theme.name,
         "-M", "logo=%s"%theme.logo,
         "-M", "favicon=%s"%theme.favicon,
@@ -161,7 +163,7 @@ def pandoc_html(input_file, style, language, theme, variables, commands, root_di
         logger.error('Pandoc is required, check %s' % PANDOC_INSTALL_URL)
         sys.exit(1)
 
-def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir, output_file):
+def markdown_to_html(markdown_file, breadcrumb, style, project, language, theme, root_dir, output_file):
     commands = (
         "-f", PANDOC_MARKDOWN,
     )
@@ -171,7 +173,7 @@ def markdown_to_html(markdown_file, breadcrumb, style, language, theme, root_dir
     if breadcrumb:
         variables['breadcrumbs'] = ET.tostring(build_breadcrumb(breadcrumb, output_file), encoding='utf-8', method='html')
 
-    pandoc_html(markdown_file, style, language, theme, variables, commands, root_dir, output_file)
+    pandoc_html(markdown_file, style, project, language, theme, variables, commands, root_dir, output_file)
 
 def make_html(variables, breadcrumb, html, style, language, theme, root_dir, output_file):
     variables = dict(variables)
@@ -188,7 +190,7 @@ def make_html(variables, breadcrumb, html, style, language, theme, root_dir, out
 
     input_file = '/dev/null'
 
-    pandoc_html(input_file, style, language, theme, variables, commands, root_dir, output_file)
+    pandoc_html(input_file, style, None, language, theme, variables, commands, root_dir, output_file)
 
 def phantomjs_pdf(input_file, output_file, root_dir, legal):
     # fetch the phantom footer
@@ -281,7 +283,7 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
 
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
-def process_file(input_file, breadcrumb, style, language, theme, root_dir, output_dir, pdf_generator):
+def process_file(input_file, breadcrumb, style, project, language, theme, root_dir, output_dir, pdf_generator):
     output        = []
     legal         = language.legal.get(theme.id, theme.legal)
     name, ext     = os.path.basename(input_file).rsplit(".", 1)
@@ -290,7 +292,7 @@ def process_file(input_file, breadcrumb, style, language, theme, root_dir, outpu
     if ext == "md":
         # Generate HTML
         output_file = os.path.join(output_dir, "%s.html"%name)
-        markdown_to_html(input_file, breadcrumb, style, language, theme, root_dir, output_file)
+        markdown_to_html(input_file, breadcrumb, style, project, language, theme, root_dir, output_file)
         output.append(Resource(filename = output_file, format = "html"))
 
         if pdf_generator is not None:
@@ -350,7 +352,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         progress_print("Copied PDF: " + pdf)
         pdf_generator = None
 
-    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, language, theme, root_dir, output_dir, pdf_generator)
+    output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, project, language, theme, root_dir, output_dir, pdf_generator)
     if generated_pdf is not None:
         pdf = generated_pdf
 
@@ -359,7 +361,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         progress_print("Copied Notes PDF: " + note_pdf)
 
     if project.note:
-        notes.extend(process_file(project.note, None, note_style, language, theme, root_dir, output_dir, None)[0])
+        notes.extend(process_file(project.note, None, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     extras = []
 
@@ -399,7 +401,7 @@ def build_project_extra(pdf_generator, term, project, extra, language, theme, ro
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
+        note.extend(process_file(extra.note, breadcrumb, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -414,7 +416,7 @@ def build_project_extra(pdf_generator, term, project, extra, language, theme, ro
         pdf       = pdf,
     )
 
-def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_dir, term_breadcrumb):
+def build_extra(pdf_generator, term, extra, project, language, theme, root_dir, output_dir, term_breadcrumb):
     note       = []
     breadcrumb = term_breadcrumb + [(extra.name, '')]
     pdf        = extra.pdf
@@ -424,7 +426,7 @@ def build_extra(pdf_generator, term, extra, language, theme, root_dir, output_di
         progress_print("Copied Extra PDF: " + pdf)
 
     if extra.note:
-        note.extend(process_file(extra.note, breadcrumb, note_style, language, theme, root_dir, output_dir, None)[0])
+        note.extend(process_file(extra.note, breadcrumb, note_style, project, language, theme, root_dir, output_dir, None)[0])
 
     materials = None
 
@@ -945,7 +947,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
 
                 for r in term.extras:
                     progress_print("Building Extra:", r.name)
-                    extras.append(build_extra(pdf_generator, term, r, language, theme, output_dir, term_dir, term_breadcrumb))
+                    extras.append(build_extra(pdf_generator, term, r, project, language, theme, output_dir, term_dir, term_breadcrumb))
 
                 term = Term(
                     id          = term.id,
