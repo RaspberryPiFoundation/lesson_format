@@ -86,7 +86,7 @@ note_style = Style(
 
 # todo : real classes
 Term                 = collections.namedtuple('Term', 'id manifest title warning description language number projects extras')
-Project              = collections.namedtuple('Project', 'filename pdf number level title materials note note_pdf embeds extras')
+Project              = collections.namedtuple('Project', 'filename pdf number level title beta materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
 css_assets           = os.path.join(base, "assets", "css")
@@ -377,6 +377,7 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
         pdf       = pdf,
         number    = project.number,
         title     = project.title,
+        beta      = project.beta,
         level     = project.level,
         materials = materials,
         note      = notes,
@@ -485,6 +486,13 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         others = files[1:]
         url    = os.path.relpath(first.filename, output_dir)
 
+        if project.title:
+            project_title = project.title
+            if project.beta:
+                project_title = '(Beta) ' + project_title
+        else:
+            project_title = url
+
         projects_item = ET.SubElement(projects_list, 'li', {
             'class': 'projects-item'
         })
@@ -493,7 +501,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
             'class': 'projects-title'
         })
 
-        projects_title.text = str(project_counter) + '. ' + (project.title or url)
+        projects_title.text = str(project_counter) + '. ' + project_title
 
         if project.level:
             projects_level = ET.SubElement(projects_title, 'span', {
@@ -979,7 +987,7 @@ def parse_manifest(filename, theme):
     projects = []
 
     for p in json_manifest['projects']:
-        project = parse_project(p, base_dir, theme)
+        project = parse_project_manifest(p, base_dir, theme)
         projects.append(project)
 
     extras = parse_extras(json_manifest.get('extras',()), base_dir)
@@ -998,7 +1006,7 @@ def parse_manifest(filename, theme):
 
     return m
 
-def parse_project(p, base_dir, theme):
+def parse_project_manifest(p, base_dir, theme):
     filename  = expand_glob(base_dir, p['filename'],     one_file = True)
     materials = expand_glob(base_dir, p.get('materials', []))
     embeds    = expand_glob(base_dir, p.get('embeds',    []))
@@ -1020,6 +1028,7 @@ def parse_project(p, base_dir, theme):
         pdf       = pdf,
         number    = p['number'],
         title     = p.get('title', None),
+        beta      = p.get('beta', False),
         level     = p.get('level', None),
         materials = materials,
         note      = note,
@@ -1125,6 +1134,7 @@ def parse_project_meta(p, theme, ignore_pdf):
     if header:
         number   = header.get('number', p.number)
         title    = header.get('title', p.title)
+        beta     = header.get('beta', p.beta)
         level    = header.get('level', p.level)
         raw_note = header.get('note', None)
         pdf      = None
@@ -1166,6 +1176,7 @@ def parse_project_meta(p, theme, ignore_pdf):
             pdf       = pdf,
             number    = number,
             title     = title,
+            beta      = beta,
             level     = level,
             materials = materials,
             note      = note,
