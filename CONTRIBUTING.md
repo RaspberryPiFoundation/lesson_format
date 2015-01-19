@@ -34,7 +34,7 @@ Note: Replace YOUR_NAME with your GitHub username, 'Documents' with the name of 
 ## 2. Make your contribution
 
 You can now:
-+ Make amendments and improvements to projects;
++ [Make amendments and improvements to projects](AMENDING.md);
 + [Write new projects](PROJECTS.md);
 + [Translate our projects into other languages](TRANSLATING.md).
 
