@@ -12,7 +12,7 @@ You don’t have to use this method to contribute. If you prefer, you can also e
 
 The easiest way to contribute is with a Github account. If you don't have an account, you can [sign up](https://github.com/join). You can also install the Github application, which is available for [windows](https://windows.github.com/) or [mac](https://mac.github.com/).
 
-## 1. Create a copy of the projects.
+## 1. Create a copy of the projects
 
 + Go to the repository you wish to contribute to. We currently have [Scratch](https://github.com/CodeClub/scratch-curriculum), [HTML & CSS](https://github.com/CodeClub/webdev-curriculum) and [Python](https://github.com/CodeClub/python-curriculum) project repositories.
 
