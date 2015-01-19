@@ -35,8 +35,8 @@ Note: Replace YOUR_NAME with your GitHub username, 'Documents' with the name of 
 
 You can now:
 + Make amendments and improvements to projects;
-+ [Write new projects](https://github.com/CodeClub/lesson_format/blob/master/PROJECTS.md);
-+ [Translate our projects into other languages](https://github.com/CodeClub/scratch-curriculum/blob/master/CONTRIBUTING.md).
++ [Write new projects](PROJECTS.md);
++ [Translate our projects into other languages](TRANSLATING.md).
 
 ## 3. View your contribution
 
@@ -75,3 +75,5 @@ git push
 Click the 'Pull Request' button, which will alert us to your contribution.
 
 When we merge the pull request, your contribution will become part of the main curriculum repository, available for everyone to use and benefit from!
+
+If you've translated a project (or projects), give another native speaker a link to your pull request, which will be something like http://github.com/codeclub/scratch-curriculum/pull/3. If they’re happy, they should leave a comment on the pull request with a :+1: or similar message.
