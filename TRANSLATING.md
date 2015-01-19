@@ -17,6 +17,8 @@ __To contribute a project to our curriculum, you'll need your own copy of the pr
 
 ...
 
+There's also a guide on [writing a project](PROJECTS.md).
+
 ## 3. Update the manifest
 
 ...
