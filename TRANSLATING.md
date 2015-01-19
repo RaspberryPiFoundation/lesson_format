@@ -27,4 +27,4 @@ __To contribute a project to our curriculum, you'll need your own copy of the pr
 
 ## 5. You're done!
 
-Go back to the main notes on [contributing](CONTRIBUTING.md) to see how to upload your new project.
+Go back to the main notes on [contributing](CONTRIBUTING.md) to see how to upload your new project(s).
