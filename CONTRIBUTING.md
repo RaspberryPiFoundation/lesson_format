@@ -44,7 +44,9 @@ To view your contribution, you'll need to use the [lesson_format](https://github
 
 ## 4. Save your contribution
 
-The contributions you've written are saved to your local computer, but you'll need to upload them to your Github account. Here's how you save your contribution:
+For small changes made on the Github website, you can simply click 'Propose File Change' and then 'Create Pull Request'.
+
+For new projects and translations, the contributions you've written are saved to your local computer, but you'll need to upload them to your Github account. Here's how you upload your contribution:
 
 + Go to the root folder of your repository, for example:
 
