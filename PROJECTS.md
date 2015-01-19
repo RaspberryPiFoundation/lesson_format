@@ -7,6 +7,8 @@ This guide explains how to write a new project for our curriculum. If you encoun
 
 If you're writing a project and need additional support, you can email projects@codeclub.org.uk.
 
+__To contribute a project to our curriculum, you'll need your own copy of the projects. There are instructions on how to do this in the main [contributing](CONTRIBUTING.md) notes.__
+
 ## 1. Using the project template.
 
 + In the projects repository, find the folder called 'Project Template'.
