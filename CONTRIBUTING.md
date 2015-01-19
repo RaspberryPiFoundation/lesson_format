@@ -18,7 +18,7 @@ The easiest way to contribute is with a Github account. If you don't have an acc
 
 + Click the 'Fork' button to create your own copy of the projects repository.
 
-+ Clone the repository to your computer. This will create a copy of your new repository on your local computer.
++ (For new projects or translations only). Clone the repository to your computer. This will create a copy of your new repository on your local computer.
 
 ```
 cd ~/Documents
