@@ -8,13 +8,13 @@ This guide explains how to contribute to our curriculum. You can:
 + Write new projects;
 + Translate our projects into other languages.
 
-You don’t have to use this method to contribute. If you prefer, you can also email us with your contribution at projects@codeclub.org.uk.
+You don’t have to use this method to contribute. If you prefer, you can also email us with your contribution at projects@codeclub.org.uk. Alternatively, you can raise an issue with our [Scratch](https://github.com/CodeClub/scratch-curriculum/issues), [HTML & CSS](https://github.com/CodeClub/webdev-curriculum/issues) or [Python](https://github.com/CodeClub/python-curriculum/issues) projects directly through Github.
 
-The easiest way to contribute is with a Github account. If you don't have an account, you can [sign up](https://github.com/join).
+The easiest way to contribute is with a Github account. If you don't have an account, you can [sign up](https://github.com/join). You can also install the Github application, which is available for [windows](https://windows.github.com/) or [mac](https://mac.github.com/).
 
 ## 1. Create a copy of the projects.
 
-+ Go to the repository you wish to contribute to. We currently have [Scratch](https://github.com/CodeClub/scratch-curriculum), [HTML & CSS](https://github.com/CodeClub/webdev-curriculum) and [Python](https://github.com/CodeClub/python-curriculum) projects.
++ Go to the repository you wish to contribute to. We currently have [Scratch](https://github.com/CodeClub/scratch-curriculum), [HTML & CSS](https://github.com/CodeClub/webdev-curriculum) and [Python](https://github.com/CodeClub/python-curriculum) project repositories.
 
 + Click the 'Fork' button to create your own copy of the projects repository.
 
