@@ -2,9 +2,9 @@
 clone:
 	make clear
 
-	git clone https://github.com/CodeClub/scratch-curriculum.git lessons/scratch
-	git clone https://github.com/CodeClub/webdev-curriculum.git  lessons/webdev
-	git clone https://github.com/CodeClub/python-curriculum.git  lessons/python
+	git clone --depth 1 https://github.com/CodeClub/scratch-curriculum.git lessons/scratch
+	git clone --depth 1 https://github.com/CodeClub/webdev-curriculum.git  lessons/webdev
+	git clone --depth 1 https://github.com/CodeClub/python-curriculum.git  lessons/python
 
 update:
 	cd lessons/scratch && git checkout master && git pull
