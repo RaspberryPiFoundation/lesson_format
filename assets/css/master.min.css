@@ -1014,6 +1014,23 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   }
 }
 
+.registration-note {
+  background: rgba(52, 153, 70, 0.05);
+  border: 1px dashed #349946;
+  border-radius: 15px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+.registration-note p {
+  font-size: 0.8em;
+  margin: 0;
+  max-width: none;
+}
+.world .registration-note {
+  background: rgba(52, 119, 209, 0.05);
+  border-color: #3477d1;
+}
+
 .title {
   background: rgba(52, 153, 70, 0.15);
   border-radius: 1.5em;

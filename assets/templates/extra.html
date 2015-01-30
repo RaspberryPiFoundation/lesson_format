@@ -25,6 +25,12 @@ $endif$
 
     $if(breadcrumbs)$<nav class="breadcrumbs">$breadcrumbs$</nav>$endif$
 
+    $if(registration_note)$
+      <section class="registration-note">
+        <p>$registration_note$</p>
+      </section>
+    $endif$
+
     <main class="main" role="main">
 $body$
     </main>

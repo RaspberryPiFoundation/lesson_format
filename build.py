@@ -26,9 +26,9 @@ except ImportError:
 PANDOC_INSTALL_URL      = 'http://johnmacfarlane.net/pandoc/installing.html'
 WKHTMLTOPDF_INSTALL_URL = 'http://wkhtmltopdf.org'
 
-Theme    = collections.namedtuple('Theme','id name language stylesheets legal logo favicon css_variables analytics_account analytics_domain webmaster_tools_verification')
+Theme    = collections.namedtuple('Theme','id name language stylesheets registration_note legal logo favicon css_variables analytics_account analytics_domain webmaster_tools_verification')
 Style    = collections.namedtuple('Style', 'name html_template tex_template scripts stylesheets')
-Language = collections.namedtuple('Language', 'code name rtl legal translations links resources')
+Language = collections.namedtuple('Language', 'code name rtl registration_note legal translations links resources')
 
 def progress_print(*args):
     global verbose
@@ -110,6 +110,7 @@ if not os.path.exists(scratchblocks_filter):
 # Markup processing
 def pandoc_html(input_file, style, project, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
+    registration_note = language.registration_note.get(theme.id, theme.registration_note)
     legal = language.legal.get(theme.id, theme.legal)
     beta = project.beta if project is not None else False
     cmd   = [
@@ -122,6 +123,7 @@ def pandoc_html(input_file, style, project, language, theme, variables, commands
         "--highlight-style", "pygments",
         "--template=%s"%os.path.join(template_base, style.html_template),
         "--filter", scratchblocks_filter,
+        "-M", "registration_note=%s"%registration_note,
         "-M", "legal=%s"%legal,
         "-M", "year=%s"%year,
         "-M", "beta=%s"%beta,
@@ -284,10 +286,11 @@ def markdown_to_pdf(markdown_file, style, language, theme, output_file):
     return pandoc_pdf(markdown_file, style, language, theme, {}, commands, output_file)
 
 def process_file(input_file, breadcrumb, style, project, language, theme, root_dir, output_dir, pdf_generator):
-    output        = []
-    legal         = language.legal.get(theme.id, theme.legal)
-    name, ext     = os.path.basename(input_file).rsplit(".", 1)
-    generated_pdf = None
+    output            = []
+    registration_note = language.registration_note.get(theme.id, theme.registration_note)
+    legal             = language.legal.get(theme.id, theme.legal)
+    name, ext         = os.path.basename(input_file).rsplit(".", 1)
+    generated_pdf     = None
 
     if ext == "md":
         # Generate HTML
@@ -901,10 +904,11 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
         for language_code, terms in termlangs.iteritems():
             if language_code not in all_languages:
                 all_languages[language_code] = Language(
-                    code         = language_code,
-                    name         = language_code,
-                    legal        = {},
-                    translations = {}
+                    code              = language_code,
+                    name              = language_code,
+                    registration_note = {},
+                    legal             = {},
+                    translations      = {}
                 )
 
             language = all_languages[language_code]
@@ -1077,13 +1081,14 @@ def parse_language(filename):
         obj = json.load(fh)
 
     return Language(
-        code         = obj['code'],
-        name         = obj['name'],
-        rtl          = obj.get('rtl', False),
-        legal        = obj['legal'],
-        translations = obj['translations'],
-        links        = obj.get('links', {}),
-        resources    = obj.get('resources', None)
+        code              = obj['code'],
+        name              = obj['name'],
+        rtl               = obj.get('rtl', False),
+        registration_note = obj['registration_note'],
+        legal             = obj['legal'],
+        translations      = obj['translations'],
+        links             = obj.get('links', {}),
+        resources         = obj.get('resources', None)
     )
 
 def load_themes(dir):
@@ -1104,6 +1109,7 @@ def parse_theme(filename):
         name                         = obj['name'],
         language                     = obj['language'],
         stylesheets                  = obj['stylesheets'],
+        registration_note            = obj['registration_note'],
         legal                        = obj['legal'],
         logo                         = obj['logo'],
         favicon                      = obj['favicon'],

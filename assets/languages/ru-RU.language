@@ -1,6 +1,7 @@
 {
 	"code": "ru-RU",
 	"name": "русский язык",
+  "registration_note": {},
 	"legal": {},
 	"translations": {}
 }

@@ -1,6 +1,7 @@
 {
 	"code": "ca-ES",
 	"name": "Català",
+  "registration_note": {},
 	"legal": {},
 	"translations": {
       "Terms": "Trimestres",
@@ -15,15 +16,15 @@
       "resources": "recursos",
       "Scratch Cards for this lesson": "Scratch Cards per aquesta lliçó",
 		"Activity Checklist": "Llista de Tasques",
-		"Follow these <span class=\"check_text upper\">instructions</span> one by one": 
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one":
           "Segueix aquestes <span class=\"check_text upper\">instruccions</span> una a una",
-		"Test your Project": 
+		"Test your Project":
           "Prova el Projecte",
-		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": 
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code":
           "Clica la bandera verda per <span class=\"flag_text upper\">provar</span> el teu programa",
-		"Save your Project": 
+		"Save your Project":
           "Desa el teu Projecte",
-		"Make sure to <span class=\"save_text upper\">save</span> your work now": 
+		"Make sure to <span class=\"save_text upper\">save</span> your work now":
           "Assegura't de <span class=\"save_text upper\">desar</span> el que has fet",
 		"Terms &amp; Resources": "Trimestres i Materials"
    }

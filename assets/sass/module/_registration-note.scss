@@ -1,0 +1,19 @@
+
+.registration-note {
+	background:    rgba($color-primary, 0.05);
+	border:        1px dashed $color-primary;
+	border-radius: 15px;
+	margin-bottom: 1em;
+	padding:       0.5em;
+
+	p {
+		font-size: 0.8em;
+		margin:    0;
+		max-width: none;
+	}
+
+	.world & {
+		background:   rgba($color-highlight, 0.05);
+		border-color: $color-highlight;
+	}
+}

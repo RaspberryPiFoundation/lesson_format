@@ -2,6 +2,7 @@
   "code": "ar-EG",
   "name": "العربية",
   "rtl": true,
+  "registration_note": {},
   "legal": {},
   "translations": {
 		"Download PDF": "PDF تحميل ملف",
