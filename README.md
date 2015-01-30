@@ -69,7 +69,7 @@ There is also a makefile which can be used to automate the process. First run `m
 
 ## Lesson Formatting
 
-See: [FORMATTING.md](https://github.com/CodeClub/lesson_format/blob/master/FORMATTING.md).
+See [this guide](https://github.com/CodeClub/curriculum_documentation/blob/master/projects.md) to writing projects.
 
 ## Term Manifests
 
