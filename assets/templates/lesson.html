@@ -8,7 +8,7 @@ $if(webmaster_tools_verification)$
     <meta name="google-site-verification" content="$webmaster_tools_verification$" />
 $endif$
 
-    <title>$if(title)$$if(beta)$(Beta) $endif$$title$ — $endif$$organization$</title>
+    <title>$if(title)$$title$ — $endif$$organization$</title>
     $if(favicon)$<link rel="shortcut icon" href="$root$$favicon$">$endif$
 
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -19,7 +19,7 @@ $endif$
   <body class="index-template $theme$">
     <header class="header" role="banner">
       $if(logo)$<a class="home-link" href="$root$/index.html"><img alt="" class="logo" height="100" src="$root$$logo$"></a>$endif$
-      $if(title)$<h1 class="title">$if(beta)$(Beta) $endif$$title$</h1>$endif$
+      $if(title)$<h1 class="title">$title$</h1>$endif$
       $if(level)$<span class="level-indicator">$level$</span>$endif$
     </header>
 
@@ -35,7 +35,7 @@ $endif$
       $if(beta)$
 <section id="heads-up" class="level1 beta">
 <h1>Heads Up!</h1>
-<p>This project is in Beta. That means we’re still testing it, and there’s a small chance there could be some bugs or typos. If you’re a club leader trying out this project, please complete <a href="https://docs.google.com/forms/d/15QLeJ_aDklioXl5cUyUK1KqZ7lUhCiewl3qiwXOg41M/viewform?usp=send_form" target="_blank">this short questionnaire</a> (or email <script type="text/javascript">
+<p>This project is new. That means we’re still testing it, and there’s a small chance there could be some bugs or typos. If you’re a club leader trying out this project, please complete <a href="https://docs.google.com/forms/d/15QLeJ_aDklioXl5cUyUK1KqZ7lUhCiewl3qiwXOg41M/viewform?usp=send_form" target="_blank">this short questionnaire</a> (or email <script type="text/javascript">
 <!--
 h='&#x63;&#x6f;&#100;&#x65;&#x63;&#108;&#x75;&#98;&#46;&#x6f;&#114;&#x67;&#46;&#x75;&#x6b;';a='&#64;';n='&#112;&#114;&#x6f;&#106;&#x65;&#x63;&#116;&#x73;';e=n+a+h;
 document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
