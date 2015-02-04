@@ -494,7 +494,7 @@ def make_term_index(term, language, theme, root_dir, output_dir, output_file, pr
         if project.title:
             project_title = project.title
             if project.beta:
-                project_title = '(Beta) ' + project_title
+                project_title = '(New) ' + project_title
         else:
             project_title = url
 
