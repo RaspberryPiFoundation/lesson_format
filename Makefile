@@ -26,3 +26,9 @@ css_uk:
 
 css_world:
 	python build.py ${options} css lessons/scratch lessons/python lessons/webdev output/codeclubworld
+
+serve_uk:
+	php -S localhost:8000 -t ./output/codeclubuk
+
+serve_world:
+	php -S localhost:8000 -t ./output/codeclubworld
