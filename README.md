@@ -6,7 +6,7 @@ You can see the output at <http://projects.codeclub.org.uk/> (a static site [dri
 
 ## Installation and Running
 
-The site builder is a python script, which uses [pandoc](http://johnmacfarlane.net/pandoc/) for rendering, as well as [phantom.js](http://phantomjs.org/) for beautifying scratch code. For generating PDFs, it can use either phantom.js or [wkhtmltopdf](http://wkhtmltopdf.org/).
+The site builder is a python script, which uses [pandoc](http://johnmacfarlane.net/pandoc/) for rendering, as well as [phantom.js](http://phantomjs.org/) for beautifying scratch code. For generating PDFs, it uses phantom.js.
 
 If you have downloaded a zip file, you will need to set the script pandoc_scratchblocks/filter.py to +x
 
