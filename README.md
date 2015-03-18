@@ -12,6 +12,8 @@ If you have downloaded a zip file, you will need to set the script pandoc_scratc
 
 These instructions are for installing on linux / OSX. You may be able to get it running on Windows, but unfortunately we’re not able to help with that.
 
+We recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/) when working with any Python project, and have illustrated this as an optional step in the installation instructions below.
+
 ### Dependencies
 
 - [Python 2](https://www.python.org/download), [pip](http://pip.readthedocs.org/en/latest/installing.html)
@@ -23,6 +25,10 @@ These instructions are for installing on linux / OSX. You may be able to get it 
 ```
 # clone the repo
 git clone --recursive https://github.com/CodeClub/lesson_format.git && cd lesson_format
+
+# [optional] create a virtual environment using virtualenv
+virtualenv venv
+source venv/bin/activate
 
 # install python requirements
 pip install -r requirements.txt
