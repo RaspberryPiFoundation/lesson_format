@@ -10,7 +10,7 @@ The site builder is a python script, which uses [pandoc](http://johnmacfarlane.n
 
 If you have downloaded a zip file, you will need to set the script pandoc_scratchblocks/filter.py to +x
 
-These instructions are for installing on linux / OSX. You may be able to get it running on Windows, but unfortunately we’re not able to help with that.
+These instructions are for installing on linux / OSX. You may be able to get it running on Windows, but unfortunately we’re not able to help with that. Sorry.
 
 We recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/) when working with any Python project, and have illustrated this as an optional step in the installation instructions below.
 
