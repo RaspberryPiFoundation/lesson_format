@@ -6,7 +6,8 @@
 	"translations": {
 		"cat-official": "Official Curriculum",
 		"cat-official.description" : "These terms are official and awesome!",
-		"cat-legacy" : "Legacy Curriculum"
+		"cat-legacy" : "Legacy Curriculum",
+		"cat-codeking" : "Code Kingdoms"
 	},
 	"links": {
 		"Club Resources": [

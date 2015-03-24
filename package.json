@@ -23,7 +23,7 @@
     "grunt-cli": "~0.1.13",
     "grunt-contrib-sass": "~0.8.1",
     "load-grunt-tasks": "~0.6.0",
-    "phantomjs": "<1.9.3",
+    "phantomjs": "1.9.2-6",
     "optimist-phantomjs": "0.0.3"
   }
 }
