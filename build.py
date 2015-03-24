@@ -85,7 +85,7 @@ note_style = Style(
 )
 
 # todo : real classes
-Term                 = collections.namedtuple('Term', 'id manifest title warning description language number projects extras')
+Term                 = collections.namedtuple('Term', 'id manifest title warning description language number projects extras category')
 Project              = collections.namedtuple('Project', 'filename pdf number level title beta materials note note_pdf embeds extras')
 Extra                = collections.namedtuple('Extra', 'name materials note pdf')
 Resource             = collections.namedtuple('Resource', 'format filename')
@@ -696,17 +696,33 @@ def make_lang_index(language, terms, theme, root_dir, output_dir, output_file, l
         'class': 'index'
     })
 
-    index_title = ET.SubElement(index_section, 'h1', {
-        'class': 'index-title'
-    })
-
-    index_title.text = language.translate("Terms")
-
     index_list = ET.SubElement(index_section, 'ul', {
         'class': 'index-list'
     })
 
+    previous_category = None
+
     for term_index, term in sorted(terms, key=lambda x:x[1].number):
+
+        category = term.category or (previous_category or "Terms")
+
+        if category != previous_category:
+
+            index_title = ET.SubElement(index_list, 'h1', {
+              'class': 'index-title'
+            })
+
+            index_title.text = language.translate(category)
+
+            index_description_to_translate = category + ".description"
+            index_description_text = language.translate(index_description_to_translate)
+            if index_description_text != index_description_to_translate:
+                index_description = ET.SubElement(index_list, 'span')
+                index_description.text = index_description_text
+
+            previous_category = category
+
+
         url = os.path.relpath(term_index, output_dir)
 
         index_item = ET.SubElement(index_list, 'li', {
@@ -896,6 +912,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
     make_assets(css_assets, theme, css_dir)
     make_assets(js_assets,  theme, js_dir)
 
+    #TODO: determine what the 'css' theme is used for?
     if theme != 'css':
         languages       = {}
         project_count   = {}
@@ -962,7 +979,8 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
                     warning     = term.warning,
                     description = term.description,
                     projects    = projects,
-                    extras      = extras
+                    extras      = extras,
+                    category    = term.category
                 )
 
                 out_terms.append(make_term_index(term, language, theme, output_dir, term_dir, term_index_file, term_breadcrumb))
@@ -1007,7 +1025,8 @@ def parse_manifest(filename, theme):
         language    = json_manifest['language'],
         number      = int(json_manifest['number']),
         projects    = projects,
-        extras      = extras
+        extras      = extras,
+        category    = json_manifest.get('category', None)
     )
 
     return m
@@ -1021,6 +1040,7 @@ def parse_project_manifest(p, base_dir, theme):
     note      = None
     note_pdf  = None
 
+    # TODO: work out why this is only done for the UK theme
     if isinstance(theme, str) == False and theme.id == "uk":
         progress_print("Preparing to copy PDFs")
 

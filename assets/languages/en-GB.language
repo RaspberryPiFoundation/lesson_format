@@ -3,7 +3,11 @@
 	"name": "English",
 	"registration_note": {},
 	"legal": {},
-	"translations": {},
+	"translations": {
+		"cat-official": "Official Curriculum",
+		"cat-official.description" : "These terms are official and awesome!",
+		"cat-legacy" : "Legacy Curriculum"
+	},
 	"links": {
 		"Club Resources": [
 			{
