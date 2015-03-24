@@ -4,10 +4,10 @@
 	"registration_note": {},
 	"legal": {},
 	"translations": {
-		"cat-official": "Official Curriculum",
-		"cat-official.description" : "These terms are official and awesome!",
-		"cat-legacy" : "Legacy Curriculum",
-		"cat-codeking" : "Code Kingdoms"
+		"cat-official": "Terms",
+		"cat-official.description" : "",
+		"cat-legacy" : "Additional Projects",
+		"cat-legacy.description" : ""
 	},
 	"links": {
 		"Club Resources": [
