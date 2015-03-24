@@ -253,6 +253,11 @@ body {
   border-radius: 50%;
 }
 
+.trinket {
+  display: none !important;
+  visibility: hidden;
+}
+
 .try {
   background-color: #B9E5FA;
   border: none;

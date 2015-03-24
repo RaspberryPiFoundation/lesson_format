@@ -1132,6 +1132,10 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
   display: none;
 }
 
+.trinket {
+  padding-bottom: 10px;
+}
+
 .try {
   background: rgba(52, 119, 209, 0.1);
   border: 1px dotted #3477d1;
