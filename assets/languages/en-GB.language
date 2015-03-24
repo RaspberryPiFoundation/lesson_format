@@ -7,7 +7,9 @@
 		"cat-official": "Terms",
 		"cat-official.description" : "",
 		"cat-legacy" : "Additional Projects",
-		"cat-legacy.description" : ""
+		"cat-legacy.description" : "",
+		"cat-additional" : "Additional Projects",
+		"cat-additional.description" : ""
 	},
 	"links": {
 		"Club Resources": [
