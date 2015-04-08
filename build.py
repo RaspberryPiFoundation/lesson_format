@@ -912,7 +912,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
     make_assets(css_assets, theme, css_dir)
     make_assets(js_assets,  theme, js_dir)
 
-    #TODO: determine what the 'css' theme is used for?
+    # don't do any of the following if we're simply updating the CSS
     if theme != 'css':
         languages       = {}
         project_count   = {}
@@ -1040,13 +1040,10 @@ def parse_project_manifest(p, base_dir, theme):
     note      = None
     note_pdf  = None
 
-    # TODO: work out why this is only done for the UK theme
-    if isinstance(theme, str) == False and theme.id == "uk":
-        progress_print("Preparing to copy PDFs")
+    progress_print("Preparing to copy PDFs")
 
-        if 'pdf'      in p: pdf      = expand_glob(base_dir, p['pdf'],      one_file = True)
-        if 'note_pdf' in p: note_pdf = expand_glob(base_dir, p['note_pdf'], one_file = True)
-
+    if 'pdf'      in p: pdf      = expand_glob(base_dir, p['pdf'],      one_file = True)
+    if 'note_pdf' in p: note_pdf = expand_glob(base_dir, p['note_pdf'], one_file = True)
     if 'note' in p: note = expand_glob(base_dir, p['note'], one_file = True)
 
     return Project(
@@ -1168,10 +1165,9 @@ def parse_project_meta(p, theme, ignore_pdf):
         pdf      = None
         note_pdf = None
 
-        if theme.id == "uk":
-            if not ignore_pdf:
-                pdf  = p.pdf
-            note_pdf = p.note_pdf
+        if not ignore_pdf:
+            pdf  = p.pdf
+        note_pdf = p.note_pdf
 
         if raw_note:
             base_dir = os.path.dirname(p.filename)
