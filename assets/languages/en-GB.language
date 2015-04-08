@@ -9,7 +9,9 @@
 		"cat-legacy" : "Additional Projects",
 		"cat-legacy.description" : "",
 		"cat-additional" : "Additional Projects",
-		"cat-additional.description" : ""
+		"cat-additional.description" : "",
+		"cat-partner" : "Projects from our partners",
+		"cat-partner.description" : ""
 	},
 	"links": {
 		"Club Resources": [
