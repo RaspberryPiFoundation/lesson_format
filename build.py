@@ -352,11 +352,12 @@ def build_project(pdf_generator, term, project, language, theme, root_dir, outpu
 
     if pdf != None:
         pdf = copy_file(pdf, output_dir)
-        progress_print("Copied PDF: " + pdf)
+        progress_print("There is a PDF already present. Copied PDF: " + pdf)
         pdf_generator = None
 
     output_files, generated_pdf = process_file(input_file, project_breadcrumb, lesson_style, project, language, theme, root_dir, output_dir, pdf_generator)
     if generated_pdf is not None:
+        progress_print("A PDF was generated. Generated PDF: " + generated_pdf)
         pdf = generated_pdf
 
     if note_pdf != None:
@@ -952,10 +953,10 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
 
                 for p in term.projects:
                     count += 1
-                    project = parse_project_meta(p, theme, pdf_generator is not None)
+                    project = parse_project_meta(p, theme)
 
                     progress_print("Building Project: " + project.title)
-
+                    progress_print(project)
                     project_dir = os.path.join(term_dir, "%.02d"%(project.number))
 
                     makedirs(project_dir)
@@ -1136,7 +1137,7 @@ def parse_theme(filename):
         css_variables                = obj['css_variables']
     )
 
-def parse_project_meta(p, theme, ignore_pdf):
+def parse_project_meta(p, theme):
     if not p.filename.endswith('md'):
         return p
 
@@ -1165,8 +1166,7 @@ def parse_project_meta(p, theme, ignore_pdf):
         pdf      = None
         note_pdf = None
 
-        if not ignore_pdf:
-            pdf  = p.pdf
+        pdf  = p.pdf
         note_pdf = p.note_pdf
 
         if raw_note:
