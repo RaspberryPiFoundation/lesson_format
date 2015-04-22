@@ -120,7 +120,6 @@ def pandoc_html(input_file, style, project, language, theme, variables, commands
         "-t", "html5",
         "--section-divs",
         "--smart",  # smart quotes
-        "--highlight-style", "pygments",
         "--template=%s"%os.path.join(template_base, style.html_template),
         "--filter", scratchblocks_filter,
         "-M", "registration_note=%s"%registration_note,
