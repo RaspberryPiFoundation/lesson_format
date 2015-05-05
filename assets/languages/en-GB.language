@@ -11,7 +11,15 @@
 		"cat-additional" : "Additional Projects",
 		"cat-additional.description" : "",
 		"cat-partner" : "Projects from our partners",
-		"cat-partner.description" : ""
+		"cat-partner.description" : "",
+		"cat-archive" : "Archived Projects",
+		"cat-archive.description" : "",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description" : "",
+		"cat-html": "HTML & CSS",
+		"cat-html.description" : "",
+		"cat-python": "Python",
+		"cat-python.description" : ""
 	},
 	"links": {
 		"Club Resources": [
