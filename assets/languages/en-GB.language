@@ -13,7 +13,7 @@
 		"cat-partner" : "Projects from our partners",
 		"cat-partner.description" : "",
 		"cat-archive" : "Archived Projects",
-		"cat-archive.description" : "",
+		"cat-archive.description" : "Archived projects were previously part of our curriculum. Although these projects are still available, they are not supported, and it is recommended that you use the projects in the main sections above.",
 		"cat-scratch": "Scratch",
 		"cat-scratch.description" : "",
 		"cat-html": "HTML & CSS",
