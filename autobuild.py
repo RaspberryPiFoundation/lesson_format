@@ -115,10 +115,10 @@ def autobuild(region, reason, **kwargs):
 
 def snitch(reason, region):
     #ping dead man's snitch to let it know we're done
-    if reason = "cron":
-        if region = "uk":
+    if reason == "cron":
+        if region == "uk":
             requests.get("https://nosnch.in/fa3c5a1026?m=finished+uk+build")
-        if region = "world":
+        if region == "world":
             requests.get("https://nosnch.in/fa3c5a1026?m=finished+world+build")
 
 # this is run by the nightly cron, or a one-off call
