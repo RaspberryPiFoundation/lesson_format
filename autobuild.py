@@ -3,6 +3,7 @@ import sys
 import shutil
 import subprocess
 import argparse
+import requests
 from git import Repo
 from git.exc import GitCommandError
 from github import Github
@@ -112,6 +113,14 @@ def autobuild(region, reason, **kwargs):
         # nothing too much to worry about.
         pass
 
+def snitch(reason, region):
+    #ping dead man's snitch to let it know we're done
+    if reason = "cron":
+        if region = "uk":
+            requests.get("https://nosnch.in/fa3c5a1026?m=finished+uk+build")
+        if region = "world":
+            requests.get("https://nosnch.in/fa3c5a1026?m=finished+world+build")
+
 # this is run by the nightly cron, or a one-off call
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -123,3 +132,5 @@ if __name__ == "__main__":
     p = parser.parse_args()
 
     autobuild(p.region, p.reason, verbose=p.verbose, rebuild=p.rebuild, clean=p.clean)
+    snitch(p.reason, p.region)
+
