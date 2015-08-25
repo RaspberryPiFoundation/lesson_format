@@ -23,6 +23,23 @@
 		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Kliknij na zieloną flagę, aby <span class=\"flag_text upper\">przetestować</span> swój kod",
 		"Save your Project": "Zapisz swój projekt",
 		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Teraz <span class=\"save_text upper\">zapisz</span> swój projekt",
-		"Terms &amp; Resources": "Semestry i materiały"
+		"Terms &amp; Resources": "Semestry i materiały",
+
+		"cat-official": "Semestry",
+		"cat-official.description" : "",
+		"cat-legacy" : "Dodatkowe Projekty",
+		"cat-legacy.description" : "",
+		"cat-additional" : "Dodatkowe Projekty",
+		"cat-additional.description" : "",
+		"cat-partner" : "Projekty naszych partnerów",
+		"cat-partner.description" : "",
+		"cat-archive" : "Archiwalne Projekty",
+		"cat-archive.description" : "Archiwalne projekty były częścią naszego programu nauczania i choć nadal są dostępne,  nie są rozwijane. Rekomendowane jest wykorzystanie projektów z sekcji powyżej.",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description" : "",
+		"cat-html": "HTML & CSS",
+		"cat-html.description" : "",
+		"cat-python": "Python",
+		"cat-python.description" : ""
 	}
 }
