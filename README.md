@@ -1,3 +1,5 @@
+*** This repository is soon to be retired. Please read github issue 168 (https://github.com/CodeClub/lesson_format/issues/168) for more information. ***
+
 # Code Club Lesson Formatter
 
 The lesson formatter transforms our markdown lessons into a static website.
