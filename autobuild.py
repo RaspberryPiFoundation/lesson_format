@@ -102,7 +102,11 @@ def autobuild(region, reason, **kwargs):
         print "** pushing the changes"
         repo.git.push('-f', 'origin', 'gh-pages')
     except GitCommandError as e:
-        print "*** ERROR GitCommandError: " + e.strerror
+        print "*** ERROR GitCommandError: "
+        print "    " + e.command
+        print "    " + e.status
+        print "    " + e.stdout
+        print "    " + e.stderr
         sys.exit()
 
     # submit pull request
