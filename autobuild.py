@@ -67,7 +67,7 @@ def autobuild(region, reason, **kwargs):
     subprocess.call('make clone'.split())
 
     # clone the output repo
-    subprocess.call(('git clone https://github.com/CodeClub/%s.git %s' % (gh_repo, output_dir)).split())
+    subprocess.call(('git clone https://%s:%s@github.com/CodeClub/%s.git %s' % (gh_user, gh_token, gh_repo, output_dir)).split())
 
     if clean:
         # delete everything in the output dir
