@@ -16,7 +16,7 @@ import build
 #   heroku config:set GITHUB_TOKEN=[github token]
 #
 # One-off usage:
-#   heroku run python autobuild.py [--rebuild] [uk|world]
+#   heroku run python autobuild.py [--rebuild]
 
 def rm_files(directory, ignore_list):
     rm_files = [os.path.join(directory, x) for x in os.listdir(directory) if x not in ignore_list]
