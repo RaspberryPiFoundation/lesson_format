@@ -74,7 +74,7 @@ def autobuild(reason, **kwargs):
 
     # run the build
     print "** running the build"
-    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, verbose, repo, rebuild)
+    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], "world", output_dir, verbose, repo, rebuild)
 
     repo.git.remote('set-url', '--push', 'origin', push_url)
 
@@ -102,7 +102,7 @@ def autobuild(reason, **kwargs):
     try:
         print "** creating the PR"
         msg = "Hello!\n\n"
-        msg += "I've been hard at work, rebuilding the Code Club %s projects website from the latest markdown.\n\n" % pp_region
+        msg += "I've been hard at work, rebuilding the Code Club World's projects website from the latest markdown.\n\n"
         msg += "%s and I found some updates, so I thought I'd best send a pull request. You can view my updated version here:\nhttp://%s.github.io/%s/\n\n" % (reason_text, gh_user, gh_repo)
         msg += "Have a nice day!"
         r.create_pull(title='Rebuild', body=msg, head='%s:gh-pages' % gh_user, base='gh-pages')
