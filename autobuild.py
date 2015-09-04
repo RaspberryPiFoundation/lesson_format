@@ -76,7 +76,7 @@ def autobuild(reason, **kwargs):
     print "** running the build"
     build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], "world", output_dir, verbose, repo, rebuild)
 
-    repo.git.remote('set-url', '--push', 'origin', push_url)
+    repo.git.remote('set-url', '--push', 'origin', gh_push_url)
 
     # stage everything...
     print "** stage everything"
