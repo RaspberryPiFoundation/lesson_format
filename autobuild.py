@@ -83,7 +83,9 @@ def autobuild(region, reason, **kwargs):
     # add username and token to remote url
     # (so we can write)
     origin_url = repo.remotes.origin.url
+    print origin_url
     origin_url = 'https://%s:%s@github.com/%s/%s' % (gh_user, gh_token, gh_user, origin_url[28:])
+    print origin_url
     repo.git.remote('set-url', '--push', 'origin', origin_url)
 
     # stage everything...
