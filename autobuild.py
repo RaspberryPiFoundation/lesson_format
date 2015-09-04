@@ -77,6 +77,7 @@ def autobuild(region, reason, **kwargs):
     repo = Repo(output_dir)
 
     # run the build
+    print "** running the build"
     build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, verbose, repo, rebuild)
 
     # add username and token to remote url
@@ -86,6 +87,7 @@ def autobuild(region, reason, **kwargs):
     repo.git.remote('set-url', '--push', 'origin', origin_url)
 
     # stage everything...
+    print "** stage everything"
     repo.git.add('--all')
     # NB. it seems weird, but this reason can disagree
     # with the PR (since we force push)
@@ -93,9 +95,11 @@ def autobuild(region, reason, **kwargs):
 
     try:
         # ... commit it...
+        print "** commiting the rebuild"
         repo.git.commit('-m', 'Rebuild', '-m', reason_text)
         # ...and push!
         # TODO: Don't force push here!
+        print "** pushing the changes"
         repo.git.push('-f', 'origin', 'gh-pages')
     except GitCommandError:
         sys.exit()
@@ -106,6 +110,7 @@ def autobuild(region, reason, **kwargs):
         msg += "I've been hard at work, rebuilding the Code Club %s projects website from the latest markdown.\n\n" % pp_region
         msg += "%s and I found some updates, so I thought I'd best send a pull request. You can view my updated version here:\nhttp://%s.github.io/%s/\n\n" % (reason_text, gh_user, gh_repo)
         msg += "Have a nice day!"
+        print "** creating the PR"
         r.create_pull(title='Rebuild', body=msg, head='%s:gh-pages' % gh_user, base='gh-pages')
     except GithubException:
         # TODO: handle this.
