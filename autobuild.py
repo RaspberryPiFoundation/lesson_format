@@ -101,18 +101,20 @@ def autobuild(region, reason, **kwargs):
         # TODO: Don't force push here!
         print "** pushing the changes"
         repo.git.push('-f', 'origin', 'gh-pages')
-    except GitCommandError:
+    except GitCommandError as e:
+        print "*** ERROR GitCommandError: " + e.strerror
         sys.exit()
 
     # submit pull request
     try:
+        print "** creating the PR"
         msg = "Hello!\n\n"
         msg += "I've been hard at work, rebuilding the Code Club %s projects website from the latest markdown.\n\n" % pp_region
         msg += "%s and I found some updates, so I thought I'd best send a pull request. You can view my updated version here:\nhttp://%s.github.io/%s/\n\n" % (reason_text, gh_user, gh_repo)
         msg += "Have a nice day!"
-        print "** creating the PR"
         r.create_pull(title='Rebuild', body=msg, head='%s:gh-pages' % gh_user, base='gh-pages')
-    except GithubException:
+    except GithubException as e:
+        print "*** ERROR GithubException: " + e.strerror
         # TODO: handle this.
         # Usually it just means the PR already exists, which is
         # nothing too much to worry about.
