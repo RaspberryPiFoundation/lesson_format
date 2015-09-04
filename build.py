@@ -1159,7 +1159,8 @@ def parse_project_meta(p, theme):
     if header:
         number   = header.get('number', p.number)
         title    = header.get('title', p.title)
-        beta     = header.get('beta', p.beta)
+        #beta     = header.get('beta', p.beta)
+        beta     = False
         level    = header.get('level', p.level)
         raw_note = header.get('note', None)
         pdf      = None
