@@ -41,27 +41,23 @@ def get_reason_text(reason):
 
     return "I became self-aware"
 
-def autobuild(region, reason, **kwargs):
+def autobuild(reason, **kwargs):
     # TODO: fail gracefully if these aren't set
     gh_user = os.environ['GITHUB_USER']
     gh_token = os.environ['GITHUB_TOKEN']
+    gh_push_url = os.environ['PUSH_URL']
 
     verbose = kwargs.get('verbose', False)
     rebuild = kwargs.get('rebuild', False)
     clean = kwargs.get('clean', False)
+    pdf_generator = 'phantomjs'
 
     dont_remove = ['.git', '.gitignore', '.travis.yml', 'CNAME', 'README.md', 'requirements.txt']
-    output_dir = 'output/codeclub%s' % region
-    # case sensitivity issues
-    pp_region = {
-        'uk': 'UK',
-        'world': 'World'
-    }[region]
-    gh_repo = 'CodeClub%s-Projects' % pp_region
+    output_dir = 'output/codeclubworld'
+
+    gh_repo = 'CodeClubWorld-Projects'
 
     r = Github(gh_user, gh_token).get_repo('CodeClub/%s' % gh_repo)
-
-    pdf_generator = 'phantomjs'
 
     # clone the curricula repos (the lazy way)
     subprocess.call('make clone'.split())
@@ -80,13 +76,7 @@ def autobuild(region, reason, **kwargs):
     print "** running the build"
     build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], region, output_dir, verbose, repo, rebuild)
 
-    # add username and token to remote url
-    # (so we can write)
-    origin_url = repo.remotes.origin.url
-    print origin_url
-    #origin_url = 'https://%s:%s@github.com/%s/%s' % (gh_user, gh_token, gh_user, origin_url[28:])
-    #print origin_url
-    #repo.git.remote('set-url', '--push', 'origin', origin_url)
+    repo.git.remote('set-url', '--push', 'origin', push_url)
 
     # stage everything...
     print "** stage everything"
@@ -123,13 +113,9 @@ def autobuild(region, reason, **kwargs):
         # nothing too much to worry about.
         pass
 
-def snitch(reason, region):
+def snitch(reason):
     #ping dead man's snitch to let it know we're done
-    if reason == "cron":
-        if region == "uk":
-            requests.get("https://nosnch.in/fa3c5a1026?m=finished+uk+build")
-        if region == "world":
-            requests.get("https://nosnch.in/fa3c5a1026?m=finished+world+build")
+    requests.get("https://nosnch.in/fa3c5a1026?m=finished+world+build")
 
 # this is run by the nightly cron, or a one-off call
 if __name__ == "__main__":
@@ -137,10 +123,9 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--rebuild', action='store_true')
     parser.add_argument('--clean', action='store_true')
-    parser.add_argument('region', choices=['uk', 'world'])
     parser.add_argument('reason', nargs='?')
     p = parser.parse_args()
 
-    autobuild(p.region, p.reason, verbose=p.verbose, rebuild=p.rebuild, clean=p.clean)
-    snitch(p.reason, p.region)
+    autobuild(p.reason, verbose=p.verbose, rebuild=p.rebuild, clean=p.clean)
+    snitch(p.reason)
 
