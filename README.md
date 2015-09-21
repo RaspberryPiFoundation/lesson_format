@@ -41,7 +41,7 @@ npm install
 
 The script reads from locally checked out files, and writes to an output directory. We run it with the `scratch-curriculum`, `webdev-curriculum`, and `python-curriculum` as inputs, and write to a directory.
 
-The first argument is the theme for the website, currently either `world` or `uk`.
+The first argument is the theme for the website, currently either `world` or `uk`. Always specify `world`.
 
 ### Compiling Sass
 
@@ -60,17 +60,20 @@ $(npm bin)/grunt sass:dev
 
 ```
 ./build.py world lessons/scratch lessons/webdev lessons/python output/codeclubworld
-./build.py uk lessons/scratch lessons/webdev lessons/python output/codeclubuk
 ```
 
 To build the PDFs, specify the `--pdf phantomjs` option as follows:
 
 ```
 ./build.py --pdf phantomjs world lessons/scratch lessons/webdev lessons/python output/codeclubworld
-./build.py --pdf phantomjs uk lessons/scratch lessons/webdev lessons/python output/codeclubuk
 ```
 
-There is also a makefile which can be used to automate the process. First run `make clone` to build a local copy of all of the source and target repositories, then run `make pages_uk pages_world` or just `make pages_uk`/`make pages_world`. You only need to run `make clone` once, and not before every `make pages_uk pages_world`.
+There is also a makefile which can be used to automate the process.
+
+- First run `make clone` to build a local copy of all of the source and target repositories
+- Next, run `make pages_world`.
+
+You only need to run `make clone` once, and not before every `make pages_world`.
 
 ## Lesson Formatting
 
@@ -142,7 +145,7 @@ You can find a full list of translations [in the en-GB.language.sample file](htt
 
 ## Themes
 
-There are two themes, Code Club World, and Code Club UK. They specify the default css, html templates, and css color variables.
+There are two themes, Code Club World, and Code Club UK. They specify the default css, html templates, and css color variables. You should always specify that you want the Code Club World theme as the UK theme is no longer used.
 
 ## Underneath the hood
 
