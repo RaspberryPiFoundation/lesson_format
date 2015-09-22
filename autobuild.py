@@ -46,6 +46,8 @@ def autobuild(reason, **kwargs):
     gh_user = os.environ['GITHUB_USER']
     gh_token = os.environ['GITHUB_TOKEN']
     gh_push_url = os.environ['PUSH_URL']
+    print "Let's autobuild this sucker!"
+    print "GITHUB_USER: %s" % gh_user
 
     verbose = kwargs.get('verbose', False)
     rebuild = kwargs.get('rebuild', False)
@@ -53,7 +55,7 @@ def autobuild(reason, **kwargs):
     pdf_generator = 'phantomjs'
 
     dont_remove = ['.git', '.gitignore', '.travis.yml', 'CNAME', 'README.md', 'requirements.txt']
-    output_dir = 'output/codeclubworld'
+    output_dir = 'output/codeclubworld_autobuild'
 
     gh_repo = 'CodeClubWorld-Projects'
 
@@ -94,7 +96,7 @@ def autobuild(reason, **kwargs):
         print "** pushing the changes"
         repo.git.push('-f', 'origin', 'gh-pages')
     except GitCommandError as e:
-        print "*** ERROR GitCommandError: "
+        print "** ERROR GitCommandError: "
         print e
         sys.exit()
 
@@ -107,7 +109,8 @@ def autobuild(reason, **kwargs):
         msg += "Have a nice day!"
         r.create_pull(title='Rebuild', body=msg, head='%s:gh-pages' % gh_user, base='gh-pages')
     except GithubException as e:
-        print "*** ERROR GithubException: " + e.strerror
+        print "** ERROR GithubException: "
+        print e
         # TODO: handle this.
         # Usually it just means the PR already exists, which is
         # nothing too much to worry about.
