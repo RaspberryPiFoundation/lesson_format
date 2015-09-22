@@ -7,3 +7,4 @@ venv/
 node_modules
 .sass-cache
 /assets/vendor
+.env
