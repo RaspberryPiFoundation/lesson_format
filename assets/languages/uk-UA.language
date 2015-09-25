@@ -3,5 +3,18 @@
 	"name": "українська мова",
   "registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+		"Download PDF": "Завантажити PDF",
+		"Download Project Materials": "Завантажити матеріали проекту",
+		"Extras": "Додаткові матеріали",
+		"Languages": "Мови",
+		"Notes for Club Leader": "Нотатки для волонтерів",
+		"Projects": "Проекти",
+		"Scratch Cards for this lesson": "",
+		"Student Project": "Проекти студентів",
+		"Activity Checklist": "Список завдань",
+		"Test your Project": "Тестувати проект",
+		"Save your Project": "Зберегти проект",
+		"Terms &amp; Resources": "Умови та ресурси"
+	}
 }
