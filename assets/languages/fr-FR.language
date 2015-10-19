@@ -3,5 +3,19 @@
 	"name": "Français",
   "registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+		"Terms": "Trimestre",
+		"Projects": "Projets",
+		"Student Project": "Projet d'étudiant",
+		"Notes for Club Leader": "Notes pour le Leader du club",
+		"Download Project Materials": "Télécharger les ressources du projet",
+		"Download PDF": "Télécharger le PDF",
+		"Extras": "Bonus",
+		"Languages": "Langages",
+		"resources": "Ressources",
+		"Activity Checklist": "Liste de vérification d’activité",
+		"Test your Project": "Tester votre projet",
+		"Save your Project": "Sauvegarder votre projet",
+		"Terms &amp; Resources": "Trimestre & Ressources"
+	}
 }
