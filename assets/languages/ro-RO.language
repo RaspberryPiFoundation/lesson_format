@@ -3,5 +3,20 @@
 	"name": "Română",
   "registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+		"Download PDF": "Descarcă PDF",
+		"Download Project Materials": "Descarcă materialele proiectului",
+		"Extras": "Extra",
+		"Languages": "Limbaje",
+		"Notes for Club Leader": "Note pentru liderul clubului",
+		"Notes": "Note",
+		"Projects": "Proiecte",
+		"resources": "Resurse",
+		"Student Project": "Proiectul Elevului",
+		"Terms": "Termeni",
+		"Activity Checklist": "Lista de activități",
+		"Test your Project": "Testează proiectul",
+		"Save your Project": "Salvează proiectul",
+		"Terms &amp; Resources": "Termeni & Resurse"
+	}
 }
