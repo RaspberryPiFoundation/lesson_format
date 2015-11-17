@@ -1,6 +1,6 @@
 {
 	"code": "uk-UA",
-	"name": "українська мова",
+	"name": "Українська",
   "registration_note": {},
 	"legal": {},
 	"translations": {
@@ -8,7 +8,7 @@
 		"Download Project Materials": "Завантажити матеріали проекту",
 		"Extras": "Додаткові матеріали",
 		"Languages": "Мови",
-		"Terms": "ресурси",
+		"Terms": "Ресурси",
 		"Notes for Club Leader": "Нотатки для волонтерів",
 		"Projects": "Проекти",
 		"Scratch Cards for this lesson": "",
@@ -16,6 +16,8 @@
 		"Activity Checklist": "Список завдань",
 		"Test your Project": "Тестувати проект",
 		"Save your Project": "Зберегти проект",
-		"Terms &amp; Resources": "Умови та ресурси"
+		"Terms &amp; Resources": "Умови та ресурси",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description" : ""
 	}
 }
