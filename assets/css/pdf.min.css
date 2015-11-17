@@ -209,7 +209,7 @@ body {
   margin-right: 80px;
 }
 .check ul > li {
-  list-style-type: decimal;
+  list-style-type: disc;
 }
 .check ul > li:before {
   left: inherit;
