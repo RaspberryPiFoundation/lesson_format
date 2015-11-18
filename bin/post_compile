@@ -9,7 +9,9 @@ echo '-----> minifying css'
 grunt sass:dist
 
 echo '-----> installing pandoc'
-curl -Ls http://cl.ly/3f2i2l2L2u2I/pandoc-1.13.1.tar.gz | tar xz
+curl -LOs https://github.com/jgm/pandoc/releases/download/1.15.2/pandoc-1.15.2-1-amd64.deb
+ar p pandoc-1.15.2-1-amd64.deb data.tar.gz | tar xvz --strip-components 2 -C .
+mv ./bin/pandoc .
 
 echo '-----> installing zip'
 curl -Ls http://cl.ly/2K1Y3B0z2Y3b/zip.tar.gz | tar xz
