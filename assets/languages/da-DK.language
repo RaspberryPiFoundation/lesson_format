@@ -3,5 +3,18 @@
 	"name": "Dansk",
   "registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+		"Terms &amp; Resources": "Lektioner og Ressourcer",
+		"Terms": "Lektioner",
+		"resources": "Ressourcer",
+		"Languages": "Sprog",
+		"Projects": "Projekter",
+		"Student Project": "Elevprojekt",
+		"Notes for Club Leader": "Noter til ledere af kodeklub",
+		"Download Project Materials": "Download Projektmateriale",
+		"Extras": "Ekstra",
+		"Activity Checklist": "Arbejdsliste",
+		"Test your Project": "Test dit Projekt",
+		"Save your Project": "Gem dit Projekt"
+	}
 }
