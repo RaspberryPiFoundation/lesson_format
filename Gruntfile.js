@@ -42,12 +42,6 @@ module.exports = function (grunt) {
     },
 
     shell: {
-      css_uk: {
-        options: {
-          stdout: true
-        },
-        command: 'make css_uk'
-      },
       css_world: {
         options: {
           stdout: true
@@ -61,7 +55,6 @@ module.exports = function (grunt) {
         files: '<%= css.any %>',
         tasks: [
           'sass:dev',
-          'shell:css_uk',
           'shell:css_world'
         ]
       }
@@ -72,14 +65,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'sass:dev',
-    'shell:css_uk',
     'shell:css_world',
     'watch'
   ]);
 
   grunt.registerTask('build', [
     'sass:dist',
-    'shell:css_uk',
     'shell:css_world'
   ]);
 };

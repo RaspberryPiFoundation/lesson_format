@@ -16,8 +16,7 @@
     }
 
     ul > li {
-        //	Add numbers to checklist bullets
-        list-style-type: decimal;
+        list-style-type: disc;
 
         &:before {
             //	Move checklist checkboxes to the right, and
