@@ -15,6 +15,9 @@
 		"Extras": "Ekstra",
 		"Activity Checklist": "Arbejdsliste",
 		"Test your Project": "Test dit Projekt",
-		"Save your Project": "Gem dit Projekt"
+		"Save your Project": "Gem dit Projekt",
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": "Følg disse <span class=\"check_text upper\">instruktioner</span> trin for trin",
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Klik på det grønne flag for at <span class=\"check_text upper\">afprøve</span> din kode",
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Sørg for at <span class=\"check_text upper\">gemme</span> dit projekt"
 	}
 }
