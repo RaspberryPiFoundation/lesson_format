@@ -7,14 +7,19 @@ clone:
 	git clone --depth 1 https://github.com/CodeClub/webdev-curriculum.git  lessons/webdev
 	git clone --depth 1 https://github.com/CodeClub/python-curriculum.git  lessons/python
 
+	git clone --depth 1 https://github.com/CodeClub/pandoc_scratchblocks.git lib/pandoc_scratchblocks
+
 update:
 	cd lessons/scratch && git checkout master && git pull
 	cd lessons/webdev  && git checkout master && git pull
 	cd lessons/python  && git checkout master && git pull
 
+	cd lib/pandoc_scratchblocks && git checkout master && git pull
+
 clear:
 	rm -rf lessons
 	rm -rf output
+	rm -rf lib
 
 pages_world:
 	python build.py ${options} world lessons/scratch lessons/python lessons/webdev output/codeclubworld

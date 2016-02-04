@@ -3,6 +3,7 @@
 *.swp
 /lessons
 /output
+/lib
 venv/
 node_modules
 .sass-cache
