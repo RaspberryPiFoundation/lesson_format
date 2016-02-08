@@ -1,3 +1,0 @@
-[submodule "lib/pandoc_scratchblocks"]
-	path = lib/pandoc_scratchblocks
-	url = https://github.com/CodeClub/pandoc_scratchblocks.git
