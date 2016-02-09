@@ -24,7 +24,7 @@ We recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/) when work
 
 ```
 # clone the repo
-git clone https://github.com/CodeClub/lesson_format.git && cd lesson_format
+git clone --recursive https://github.com/CodeClub/lesson_format.git && cd lesson_format
 
 # [optional] create a virtual environment using virtualenv
 virtualenv venv

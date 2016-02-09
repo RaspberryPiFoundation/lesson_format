@@ -103,6 +103,10 @@ pandoc               = ("pandoc", pandoc)[os.path.exists(pandoc)]
 zip_bin              = os.path.join(base, "zip")
 zip_bin              = ("zip", zip_bin)[os.path.exists(zip_bin)]
 
+if not os.path.exists(scratchblocks_filter):
+    print >> sys.stderr, "There was a problem with the pandoc scratchblocks filter.\nPerhaps you need to run: `git submodule update --init`"
+    sys.exit(1)
+
 # Markup processing
 def pandoc_html(input_file, style, project, language, theme, variables, commands, root_dir, output_file):
     root  = get_path_to(root_dir, output_file)
