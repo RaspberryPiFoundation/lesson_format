@@ -2,7 +2,8 @@
 {
 	"code": "he-IL",
 	"name": "עִברִית",
-  "registration_note": {},
+  	"rtl": true,
+  	"registration_note": {},
 	"legal": {},
 	"translations": {	}
 }
