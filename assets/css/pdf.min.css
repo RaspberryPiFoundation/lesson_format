@@ -253,9 +253,11 @@ body {
   border-radius: 50%;
 }
 
-.trinket {
+.trinket iframe {
   display: none !important;
-  visibility: hidden;
+}
+.trinket img {
+  display: block;
 }
 
 .try {

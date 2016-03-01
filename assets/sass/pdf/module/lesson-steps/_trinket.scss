@@ -1,4 +1,9 @@
 .trinket {
-  display:    none !important;
-  visibility: hidden;
-}
+    iframe {
+      display: none !important;
+    }
+
+    img {
+      display: block;
+    }
+  }
