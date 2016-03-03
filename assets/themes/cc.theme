@@ -1,0 +1,19 @@
+{
+    "id":"cc",
+    "language":"en-GB",
+    "name":"Code Club World Projects",
+    "registration_note": "All Code Clubs <u>must be registered</u>. Registered clubs appear on the map at <a href=\"http://www.codeclubworld.org/\">codeclubworld.org</a> - if your club is not on the map then visit <a href=\"http://jumpto.cc/ccwreg\">jumpto.cc/ccwreg</a> to register your club.",
+    "legal": "These projects are for use outside the UK only. More information is available on our website at <a href=\"http://www.codeclubworld.org/\">www.codeclubworld.org</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
+    "stylesheets": [],
+    "logo": "/img/cc_logo.png",
+    "favicon": "/img/cc_favicon.ico",
+    "css_variables": {
+        "header_bg_light": "#B1DAAE",
+        "header_bg_dark": "#349946",
+        "header_text": "#FFFFFF"
+    },
+    "analytics_account": "UA-30750176-5",
+    "analytics_domain": "projects.codeclubworld.org",
+    "webmaster_tools_verification": "LAa8xdL-G6vOe9RSZnECSduS5m1BMiM8U2erQku5yIE"
+}
+
