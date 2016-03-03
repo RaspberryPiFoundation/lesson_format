@@ -76,7 +76,7 @@ def autobuild(reason, **kwargs):
 
     # run the build
     print "** running the build"
-    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], "world", output_dir, verbose, repo, rebuild)
+    build.build(pdf_generator, ['lessons/scratch', 'lessons/webdev', 'lessons/python'], "cc", output_dir, verbose, repo, rebuild)
 
     repo.git.remote('set-url', '--push', 'origin', gh_push_url)
 
