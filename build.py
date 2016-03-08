@@ -11,6 +11,7 @@ import subprocess
 import string
 import argparse
 from datetime import datetime
+from io import open
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -1004,7 +1005,7 @@ def build(pdf_generator, lesson_dirs, region, output_dir, v=False, gr=None, rb=F
     progress_print("Complete")
 
 def parse_manifest(filename, theme):
-    with open(filename) as fh:
+    with open(filename, encoding="utf-8-sig") as fh:
         json_manifest = json.load(fh)
 
     base_dir = os.path.join(os.path.dirname(filename)).decode('utf8')
@@ -1094,7 +1095,7 @@ def load_languages(dir):
     return languages
 
 def parse_language(filename):
-    with open(filename) as fh:
+    with open(filename, encoding="utf-8-sig") as fh:
         obj = json.load(fh)
 
     return Language(
@@ -1140,7 +1141,7 @@ def parse_project_meta(p, theme):
     if not p.filename.endswith('md'):
         return p
 
-    with open(p.filename) as fh:
+    with open(p.filename, encoding='utf-8-sig') as fh:
         in_header    = False
         header_lines = []
 
