@@ -19,8 +19,17 @@ clear:
 pages_world:
 	python build.py ${options} world lessons/scratch lessons/python lessons/webdev output/codeclubworld
 
+pages_cc:
+	python build.py ${options} cc lessons/scratch lessons/python lessons/webdev output/codeclub
+
 css_world:
 	python build.py ${options} css lessons/scratch lessons/python lessons/webdev output/codeclubworld
 
+css_cc:
+	python build.py ${options} css lessons/scratch lessons/python lessons/webdev output/codeclub
+
 serve_world:
 	php -S localhost:8000 -t ./output/codeclubworld
+
+serve_cc:
+	php -S localhost:8000 -t ./output/codeclub
