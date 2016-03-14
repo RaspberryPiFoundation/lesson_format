@@ -41,7 +41,7 @@ npm install
 
 The script reads from locally checked out files, and writes to an output directory. We run it with the `scratch-curriculum`, `webdev-curriculum`, and `python-curriculum` as inputs, and write to a directory.
 
-The first argument is the theme for the website, currently either `world` or `uk`. Always specify `world`.
+The first argument is the theme for the website, which must be `cc` (as other themes have recently been deprecated)
 
 ### Compiling Sass
 
@@ -59,21 +59,21 @@ $(npm bin)/grunt sass:dev
 ### Examples
 
 ```
-./build.py world lessons/scratch lessons/webdev lessons/python output/codeclubworld
+./build.py cc lessons/scratch lessons/webdev lessons/python output/codeclub
 ```
 
 To build the PDFs, specify the `--pdf phantomjs` option as follows:
 
 ```
-./build.py --pdf phantomjs world lessons/scratch lessons/webdev lessons/python output/codeclubworld
+./build.py --pdf phantomjs cc lessons/scratch lessons/webdev lessons/python output/codeclub
 ```
 
 There is also a makefile which can be used to automate the process.
 
 - First run `make clone` to build a local copy of all of the source and target repositories
-- Next, run `make pages_world`.
+- Next, run `make pages_cc`.
 
-You only need to run `make clone` once, and not before every `make pages_world`.
+You only need to run `make clone` once, and not before every `make pages_cc`.
 
 ## Lesson Formatting
 
@@ -130,8 +130,7 @@ The lesson formatter can use different languages in the project listing.
     "code": "en-GB",
     "name": "English",
     "legal": {
-        "uk": "Disclaimer for Code Club UK, UK ONLY",
-        "world": "Disclaimer for Code Club World, OUTSIDE UK"
+        "cc": "Disclaimer for Code Club World, OUTSIDE UK"
     },
     "translations": {
         "Download PDF": "…",
@@ -142,10 +141,6 @@ The lesson formatter can use different languages in the project listing.
 ```
 
 You can find a full list of translations [in the en-GB.language.sample file](https://github.com/CodeClub/lesson_format/blob/master/assets/languages/en-GB.language.sample).
-
-## Themes
-
-There are two themes, Code Club World, and Code Club UK. They specify the default css, html templates, and css color variables. You should always specify that you want the Code Club World theme as the UK theme is no longer used.
 
 ## Underneath the hood
 
