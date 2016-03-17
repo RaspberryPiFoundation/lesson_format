@@ -1,0 +1,28 @@
+{
+	"code": "cs-CZ",
+	"name": "Čeština",
+	"translations": {
+		"Download PDF": "Stáhnout PDF",
+		"Download Project Materials": "Stáhnout materiály projektu",
+		"Extras": "Extra",
+		"Languages": "Jazyky",
+		"Notes for Club Leader": "Poznámky pro vedoucí klubu",
+		"Notes": "Poznámky",
+		"Projects": "Projekty",
+		"resources": "zdroje",
+		"Scratch Cards for this lesson": "Scratch kartičky pro tuto lekci",
+		"Student Project": "Instrukce pro studenty",
+		"Terms": "Podmínky",
+		"Activity Checklist": "Seznam aktivit",
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": "Následujte postupně tyto <span class=\"check_text upper\">instrukce</span>",
+		"Test your Project": "Otestovat projekt",
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Klikněte na zelenou vlajku pro <span class=\"flag_text upper\">otestování</span> kódu",
+		"Save your Project": "Uložit projekt",
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Nezapomeňte <span class=\"save_text upper\">uložit</span> projekt!",
+		"Terms &amp; Resources": "Podmínky a zdroje"
+	},
+	"registration_note": {},
+	"legal": {},
+	"links": {},
+	"resources": {}
+}
