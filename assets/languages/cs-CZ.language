@@ -21,8 +21,9 @@
 		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Nezapomeňte <span class=\"save_text upper\">uložit</span> projekt!",
 		"Terms &amp; Resources": "Podmínky a zdroje"
 	},
-	"registration_note": {},
-	"legal": {},
+	
+    "registration_note": "Všechny Kódovací kluby - Code Clubs <u>musí být registrovány</u>. Tím, že zaregistrujete váš klub, můžeme měřit náš dosah, a můžeme tak pokračovat s poskytováním zdrojů pro výuku programování pro děti zdarma. Váš klub můžete registrovat na <a href=\"https://www.codeclubworld.org/\">codeclubworld.org</a>.",
+    "legal": "Tyto projekty jsou určeny k použití pouze mimo Spojené království. Více informací je dostupných na naší webové stránce <a href=\"https://codeclubworld.org/\">www.codeclubworld.org</a>.<br />Tyto kurzy jsou vyvýjeny veřejně na GitHubu <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Připojte se k nám!",
 	"links": {},
 	"resources": {}
 }
