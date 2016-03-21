@@ -19,6 +19,8 @@ We recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/) when work
 - [Python 2](https://www.python.org/download), [pip](http://pip.readthedocs.org/en/latest/installing.html)
 - [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) >= 1.12
 - [node.js](http://nodejs.org/download/)
+- zip - sudo apt-get install zip
+- ruby (install via [rvm](https://rvm.io/rvm/install)) rvm install 2.2.4 & rvm use 2.2.4  
 
 ### Installing
 
@@ -46,6 +48,9 @@ The first argument is the theme for the website, which must be `cc` (as other th
 ### Compiling Sass
 
 ```
+#install bundler
+sudo gem install bundler
+
 # install css compilation stuff
 bundle install
 
