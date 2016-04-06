@@ -3,7 +3,7 @@
     "language":"en-GB",
     "name":"Code Club World Projects",
     "registration_note": "All Code Clubs <u>must be registered</u>. By registering your club we can measure our impact, and we can continue to provide free resources that help children learn to code. You can register your club at <a href=\"https://www.codeclubworld.org/\">codeclubworld.org</a>.",
-    "legal": "These projects are for use outside the UK only. More information is available on our website at <a href=\"https://codeclubworld.org/\">www.codeclubworld.org</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
+    "legal": "© Raspberry Pi Foundation. UK Registered Charity 1129409. These projects are for use outside the UK only. More information at <a href=\"https://codeclubworld.org/\">www.codeclubworld.org</a>.<br />This coursework is developed on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>.",
     "stylesheets": [],
     "logo": "/img/cc_logo.png",
     "favicon": "/img/cc_favicon.ico",
