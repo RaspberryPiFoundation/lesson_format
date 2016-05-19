@@ -17,10 +17,15 @@ We recommend using [virtualenv](https://virtualenv.pypa.io/en/latest/) when work
 ### Dependencies
 
 - [Python 2](https://www.python.org/download), [pip](http://pip.readthedocs.org/en/latest/installing.html)
-- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) >= 1.12
+- [Pandoc](http://johnmacfarlane.net/pandoc/installing.html) 1.13.2
 - [node.js](http://nodejs.org/download/)
 - zip - sudo apt-get install zip
-- ruby (install via [rvm](https://rvm.io/rvm/install)) rvm install 2.2.4 & rvm use 2.2.4  
+- ruby (install via [rvm](https://rvm.io/rvm/install)) rvm install 2.2.4 & rvm use 2.2.4
+
+We have a dependency, at present, on Pandoc 1.13.2. If you use more recent versions you may see errors similar to those mentioned in <https://github.com/CodeClub/lesson_format/issues/189>. Until we remove this dependency, please install 1.13.2, which can be found here:
+
+<https://github.com/jgm/pandoc/releases/tag/1.13.2>
+
 
 ### Installing
 
