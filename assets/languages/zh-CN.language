@@ -1,8 +1,21 @@
 {
 	"code": "zh-CN",
-	"name": "Chinese",
-  "registration_note": {},
+	"name": "中文（简体）",
+ 	"registration_note": {},
 	"legal": {},
 	"translations": {
+		"Terms &amp; Resources": "条款和资源",
+		"Terms": "条款",
+		"Resources": "资源",
+		"Languages": "语言",
+		"Projects": "项目",
+		"Student Project": "学生项目",
+		"Notes for Club Leader": "社团负责人说明",
+		"Download PDF": "下载 PDF文件",
+		"Download Project Materials": "下载项目资料",
+		"Extras": "其他",
+		"Activity Checklist": "活动清单",
+		"Save your Project": "保存你的项目",
+		"Test your Project": "测试你的项目"
 	}
 }
