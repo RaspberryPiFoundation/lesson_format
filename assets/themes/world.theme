@@ -2,7 +2,7 @@
     "id":"world",
     "language":"en-GB",
     "name":"Code Club World Projects",
-    "registration_note": "All Code Clubs <u>must be registered</u>. Registered clubs appear on the map at <a href=\"http://www.codeclubworld.org/\">codeclubworld.org</a> - if your club is not on the map then visit <a href=\"http://jumpto.cc/ccwreg\">jumpto.cc/ccwreg</a> to register your club.",
+    "registration_note": "All Code Clubs <strong>must be registered</strong>. Registered clubs appear on the map at <a href=\"http://www.codeclubworld.org/\">codeclubworld.org</a> - if your club is not on the map then visit <a href=\"http://jumpto.cc/ccwreg\">jumpto.cc/ccwreg</a> to register your club.",
     "legal": "These projects are for use outside the UK only. More information is available on our website at <a href=\"http://www.codeclubworld.org/\">www.codeclubworld.org</a>.<br />This coursework is developed in the open on GitHub, at <a href=\"https://github.com/CodeClub/\">www.github.com/CodeClub</a>. Come and join us!",
     "stylesheets": [],
     "logo": "/img/ccw_logo.png",
