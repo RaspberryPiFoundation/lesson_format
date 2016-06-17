@@ -1,7 +1,18 @@
 {
 	"code": "es-AR",
-	"name": "Español (Argentina)",
+	"name": "Español (Latinoamericano)",
   "registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+			"Terms &amp; Resources": "Términos y Recursos",
+			"Languages": "Idiomas",
+			"Projects": "Proyectos",
+			"Student Project": "Proyecto del alumno",
+			"Notes for Club Leader": "Notas para el líder del Club",
+			"Download PDF": "Descargar PDF",
+			"Download Project Materials": "Descargar materiales del proyecto",
+			"Activity Checklist": "Lista de tareas de la actividad",
+			"Save your Project": "Guarda tu proyecto",
+			"Test your Project": "Prueba tu proyecto"
+	}
 }
