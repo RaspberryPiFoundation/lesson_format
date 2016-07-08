@@ -1,9 +1,23 @@
 
 {
 	"code": "he-IL",
-	"name": "עִברִית",
+	"name": "עברית",
   	"rtl": true,
   	"registration_note": {},
 	"legal": {},
-	"translations": {	}
+	"translations": {
+		"Terms": "תנאי שימוש",
+		"Projects": "פרויקטים",
+		"Student Project": "הפרויקט לתלמיד",
+		"Notes for Club Leader": "הערות למוביל המועדון",
+		"Download Project Materials": "הורדת חומרי הפרויקט",
+		"Download PDF": "הורדת קובץ PDF",
+		"Extras": "תוספות",
+		"Languages": "שפות",
+		"resources": "חומרי לימוד",
+		"Activity Checklist": "רשימת פעולות לביצוע",
+		"Test your Project": "לבדוק את הפרויקט",
+		"Save your Project": "לשמור את הפרויקט",
+		"Terms &amp; Resources": "תנאי שימוש וחומרי לימוד",
+	}
 }
