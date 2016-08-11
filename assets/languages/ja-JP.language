@@ -1,0 +1,10 @@
+{
+	"code": "ja-JP",
+	"name": "Japanese",
+  "registration_note": {},
+	"legal": {},
+	"translations": {
+		"cat-scratch": "Scratch",
+        "cat-scratch.description" : ""
+	}
+}
