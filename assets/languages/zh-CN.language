@@ -4,6 +4,10 @@
  	"registration_note": {},
 	"legal": {},
 	"translations": {
+		"cat-scratch": "Scratch",
+		"cat-scratch.description" : "",
+		"cat-html": "HTML & CSS",
+		"cat-html.description" : "",
 		"Terms &amp; Resources": "条款和资源",
 		"Terms": "条款",
 		"Resources": "资源",
