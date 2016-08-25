@@ -1,10 +1,15 @@
 {
-	"code": "ja-JP",
-	"name": "Japanese",
+    "code": "ja-JP",
+    "name": "日本語(Japanese)",
   "registration_note": {},
-	"legal": {},
-	"translations": {
-		"cat-scratch": "Scratch",
-        "cat-scratch.description" : ""
-	}
+    "legal": {},
+    "translations": {
+        "cat-scratch": "スクラッチ(Scratch)",
+                "cat-scratch.description" : "",
+        "Student Project": "プロジェクト",
+        "Notes for Club Leader": "ノート（指導者向け）",
+        "Download PDF": "PDFの保存",
+        "Download Project Materials": "プロジェクト資料の保存",
+        "Projects": "プロジェクト"
+    }
 }
