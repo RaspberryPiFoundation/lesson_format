@@ -1293,7 +1293,7 @@ def safe_filename(filename):
     return banned_chars.sub("_", filename)
 
 def zip_files(relative_dir, source_files, output_dir, output_file):
-    progress_print("Zipping files."")
+    progress_print("Zipping files.")
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
         progress_print("Zip file: ", output_file)
