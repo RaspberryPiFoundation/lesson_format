@@ -1299,11 +1299,13 @@ def zip_files(relative_dir, source_files, output_dir, output_file):
         progress_print("Zip file: ", output_file)
         cmd = [zip_bin]
 
-        # dirty hack
-        if output_repo is not None and output_repo.git.ls_files(output_file.encode('utf8')) != '':
+        # if we're not rebuilding everything, and if the file exists in git
+        # then check it out from git so that the zipfile is not regenerated
+        if not rebuild and output_repo is not None and output_repo.git.ls_files(output_file.encode('utf8')) != '':
+            progress_print("Pulling existing zipfile from git.")
             output_repo.git.checkout('--', output_file.encode('utf8'))
 
-
+        # if the zip file exists, don't regenerate it
         if os.path.exists(output_file):
             # cmd.append('-u')
             progress_print("Zipfile already exists. Skipping.")
