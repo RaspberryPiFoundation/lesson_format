@@ -22,10 +22,10 @@ def rm_files(directory, ignore_list):
     rm_files = [os.path.join(directory, x) for x in os.listdir(directory) if x not in ignore_list]
     for rm_file in rm_files:
         if os.path.isdir(rm_file):
-            # print 'deleting directory: %s' % rm_file
+            print '**  deleting directory: %s' % rm_file
             shutil.rmtree(rm_file)
         else:
-            # print 'deleting file: %s' % rm_file
+            print '**  deleting file: %s' % rm_file
             os.remove(rm_file)
 
 def get_reason_text(reason):
@@ -68,6 +68,7 @@ def autobuild(reason, **kwargs):
     subprocess.call(('git clone https://%s:%s@github.com/CodeClub/%s.git %s' % (gh_user, gh_token, gh_repo, output_dir)).split())
 
     if clean:
+        print "** clean build"
         # delete everything in the output dir
         rm_files(output_dir, dont_remove)
 

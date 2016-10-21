@@ -46,7 +46,7 @@ module.exports = function (grunt) {
         options: {
           stdout: true
         },
-        command: 'make css_world'
+        command: 'make css_cc'
       }
     },
 

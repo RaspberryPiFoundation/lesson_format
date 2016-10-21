@@ -1293,17 +1293,22 @@ def safe_filename(filename):
     return banned_chars.sub("_", filename)
 
 def zip_files(relative_dir, source_files, output_dir, output_file):
+    progress_print("Zipping files.")
     if source_files:
         output_file = os.path.join(output_dir, safe_filename(output_file))
-
+        progress_print("Zip file: ", output_file)
         cmd = [zip_bin]
 
-        # dirty hack
-        if output_repo is not None and output_repo.git.ls_files(output_file.encode('utf8')) != '':
+        # if we're not rebuilding everything, and if the file exists in git
+        # then check it out from git so that the zipfile is not regenerated
+        if not rebuild and output_repo is not None and output_repo.git.ls_files(output_file.encode('utf8')) != '':
+            progress_print("Pulling existing zipfile from git.")
             output_repo.git.checkout('--', output_file.encode('utf8'))
 
+        # if the zip file exists, don't regenerate it
         if os.path.exists(output_file):
             # cmd.append('-u')
+            progress_print("Zipfile already exists. Skipping.")
             return Resource(format="zip", filename=output_file)
 
         cmd.append(output_file)
@@ -1315,7 +1320,7 @@ def zip_files(relative_dir, source_files, output_dir, output_file):
 
         if ret != 0 and ret != 12: # 12 means zip did nothing
             raise StandardError('zip failure %d'%ret)
-
+        progress_print("Zipfile created.")
         return Resource(format="zip", filename=output_file)
 
     return None

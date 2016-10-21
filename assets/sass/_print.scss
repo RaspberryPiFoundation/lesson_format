@@ -41,6 +41,12 @@
 		}
 	}
 
+	html[lang="zn-CH"] .lesson-steps {
+		em, i, li, p, b, strong {
+			font-family: $font-family-primary;
+		}
+    }
+
 	.lesson-steps section {
 		page-break-inside: avoid;
 	}

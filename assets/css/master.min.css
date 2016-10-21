@@ -1277,6 +1277,10 @@ html[lang="en-GB"] .lesson-steps h1 b, html[lang="en-GB"] .lesson-steps h1 stron
     display: block;
   }
 
+  html[lang="zn-CH"] .lesson-steps em, html[lang="zn-CH"] .lesson-steps i, html[lang="zn-CH"] .lesson-steps li, html[lang="zn-CH"] .lesson-steps p, html[lang="zn-CH"] .lesson-steps b, html[lang="zn-CH"] .lesson-steps strong {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
   .lesson-steps section {
     page-break-inside: avoid;
   }
