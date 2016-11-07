@@ -11,15 +11,21 @@
 		"Notes for Club Leader": "Notas para o líder do clube",
 		"Notes": "Notas",
 		"Projects": "Projetos",
-		"resources": "recursos",
+		"resources": "material",
 		"Student Project": "Projeto do estudante",
-		"Terms": "Condições",
+		"Terms": "Trimestre",
 		"Activity Checklist": "Lista de atividade",
 		"Follow these <span class=\"check_text upper\">instructions</span> one by one": "Siga estas <span class=\"check_text upper\">instruções</span> uma a uma",
 		"Test your Project": "Teste seu projeto",
 		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Clique na bandeira verde para <span class=\"flag_text upper\">testar</span>",
 		"Save your Project": "Salve seu projeto",
 		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Certifique-se de <span class=\"save_text upper\">salvar</span> seu trabalho",
-		"Terms &amp; Resources": "Condições &amp; Recursos"
+		"Terms &amp; Resources": "Trimestre &amp; materiais",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description": "",
+		"cat-python": "Python",
+		"cat-python.description": "",
+		"cat-html": "HTML",
+		"cat-html.description" : ""
 	}
 }
