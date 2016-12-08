@@ -1,0 +1,22 @@
+{
+	"code": "hi-IN",
+	"name": "हिंदी",
+  	"registration_note": {},
+	"legal": {},
+	"translations": {
+		"Download PDF": "PDF डाउनलोड करें",
+		"Download Project Materials": "प्रोजैक्ट सामग्री डाउनलोड करें",
+		"Extras": "अतिरिक्त",
+		"Languages": "Your translation here!",
+		"Notes for Club Leader": "क्लब अग्रणी के लिए टिप्पणियाँ",
+		"Notes": "टिप्पणियाँ",
+		"Projects": "परियोजनाएं",
+		"resources": "संसाधन",
+		"Student Project": "छात्र परियोजना",
+		"Terms": "नियम",
+		"Activity Checklist": "गतिविधि जांच-सूची",
+		"Test your Project": "अपने प्रोजैक्ट को जांचे",
+		"Save your Project": "अपने प्रोजैक्ट को सहेजें",
+		"Terms &amp; Resources": "नियम अौर संसाधन"
+	}
+}
