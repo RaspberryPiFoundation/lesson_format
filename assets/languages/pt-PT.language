@@ -1,0 +1,31 @@
+{
+	"code": "pt-PT",
+	"name": "Português",
+	"registration_note": {},
+	"legal": {},
+	"translations": {
+		"Download PDF": "Descarregar PDF",
+		"Download Project Materials": "Descarregar materiais do projeto",
+		"Extras": "Extras",
+		"Languages": "Línguas",
+		"Notes for Club Leader": "Notas para o responsável do clube",
+		"Notes": "Notas",
+		"Projects": "Projetos",
+		"resources": "material",
+		"Student Project": "Projeto do estudante",
+		"Terms": "Termos",
+		"Activity Checklist": "Lista de tarefas",
+		"Follow these <span class=\"check_text upper\">instructions</span> one by one": "Siga estas <span class=\"check_text upper\">instruções</span> uma a uma",
+		"Test your Project": "Testa o teu projeto",
+		"Click on the green flag to <span class=\"flag_text upper\">test</span> your code": "Clique na bandeira verde para <span class=\"flag_text upper\">testar</span>",
+		"Save your Project": "Guarda o teu projeto",
+		"Make sure to <span class=\"save_text upper\">save</span> your work now": "Certifique-se de <span class=\"save_text upper\">salvar</span> seu trabalho",
+		"Terms &amp; Resources": "Termos e Recursos",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description": "",
+		"cat-python": "Python",
+		"cat-python.description": "",
+		"cat-html": "HTML",
+		"cat-html.description" : ""
+	}
+}
