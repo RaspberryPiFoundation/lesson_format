@@ -3,5 +3,19 @@
 	"name": "Slovenský",
   	"registration_note": {},
 	"legal": {},
-	"translations": {}
+	"translations": {
+		"Terms": "Podmienky",
+		"Projects": "Projekty",
+		"Student Project": "Projekt pre študenta",
+		"Notes for Club Leader": "Poznámky pre vedúceho klubu",
+		"Download Project Materials": "Stiahnuť materiály projektu",
+		"Download PDF": "Stiahnuť PDF",
+		"Extras": "Prídavok",
+		"Languages": "Jazyky",
+		"resources": "zdroje",
+		"Activity Checklist": "Zoznam úloh",
+		"Test your Project": "Otestuj svoj projekt",
+		"Save your Project": "Ulož svoj projekt",
+		"Terms &amp; Resources": "Podmienky a zdroje" : ""
+	}
 }
