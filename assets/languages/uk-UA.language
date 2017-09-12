@@ -18,6 +18,8 @@
 		"Save your Project": "Зберегти проект",
 		"Terms &amp; Resources": "Умови та ресурси",
 		"cat-scratch": "Scratch",
-		"cat-scratch.description" : ""
+		"cat-scratch.description" : "",
+		"cat-html": "HTML & CSS",
+		"cat-html.description" : ""
 	}
 }
