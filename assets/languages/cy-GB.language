@@ -1,0 +1,36 @@
+{
+	"code": "cy-GB",
+	"name": "Cymraeg",
+	"registration_note": {},
+	"legal": {},
+	"translations": {
+		"cat-official": "Terms",
+		"cat-official.description" : "",
+		"cat-legacy" : "Additional Projects",
+		"cat-legacy.description" : "",
+		"cat-additional" : "Additional Projects",
+		"cat-additional.description" : "",
+		"cat-partner" : "Projects from our partners",
+		"cat-partner.description" : "",
+		"cat-archive" : "Archived Projects",
+		"cat-archive.description" : "Archived projects were previously part of our curriculum. Although these projects are still available, they are not supported, and it is recommended that you use the projects in the main sections above.",
+		"cat-scratch": "Scratch",
+		"cat-scratch.description" : "",
+		"cat-html": "HTML & CSS",
+		"cat-html.description" : "",
+		"cat-python": "Python",
+		"cat-python.description" : ""
+	},
+	"links": {
+		"Club Resources": [
+			{
+				"name": "Scratch Cards",
+				"url":  "http://scratch.mit.edu/help/cards/"
+			},
+			{
+				"name": "Terms and Conditions",
+				"url":  "https://www.codeclub.org.uk/terms-and-conditions"
+			}
+		]
+	}
+}
